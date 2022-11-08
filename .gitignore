@@ -1,36 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@stellaw1 
-facebook
-/
-react-native
-Public
-Code
-Issues
-2k
-Pull requests
-313
-Actions
-Projects
-4
-Wiki
-Security
-Insights
-react-native/.gitignore
-
-Dmitry Rykun Integrate Hermes with the Xcode build process
-…
-Latest commit 6b8e13f 6 days ago
- History
- 40 contributors
-@hramos@fkgozali@cortinico@janicduplessis@vjeux@empyrical@cipolleschi@bestander@fson@sota000@sansyrox@sahrens
-135 lines (114 sloc)  2.57 KB
-
 # Xcode
 !**/*.xcodeproj
 !**/*.pbxproj
@@ -91,13 +58,6 @@ buck-out
 
 # Watchman
 .watchmanconfig
-
-# Android
-.idea
-.gradle
-local.properties
-*.iml
-/android/
 
 # Node
 node_modules
@@ -166,18 +126,3 @@ package-lock.json
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-
