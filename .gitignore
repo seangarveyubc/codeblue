@@ -59,6 +59,14 @@ buck-out
 # Watchman
 .watchmanconfig
 
+# Android
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+
 # Node
 node_modules
 *.log
