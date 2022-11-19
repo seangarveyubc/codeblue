@@ -4,16 +4,27 @@ import Svg, { Path } from 'react-native-svg';
 
 import Colours from '../../../utilities/Colours';
 
-
 interface Props {
-    label: string,
+    label: string;
 }
 
 export const ForwardArrow = ({ label }: Props) => {
     return (
         <View style={styles.row}>
-            <Svg style={styles.svg} width="10" height="18" viewBox="0 0 10 18" fill="none">
-                <Path d="M1 1L9 9L1 17" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <Svg
+                style={styles.svg}
+                width="10"
+                height="18"
+                viewBox="0 0 10 18"
+                fill="none"
+            >
+                <Path
+                    d="M1 1L9 9L1 17"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
             </Svg>
             <Text style={styles.text}>{label}</Text>
         </View>
@@ -37,7 +48,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         fontFamily: 'DM Sans',
-        fontWeight: "700",
+        fontWeight: '700',
         color: Colours.BLUE,
         alignItems: 'center'
     }

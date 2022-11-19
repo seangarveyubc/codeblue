@@ -5,6 +5,8 @@
     "skipLibCheck": true
   },
   "exclude": [
-    "__tests__/**/*-test.tsx"
+    "__tests__/**/*-test.tsx",
+    "android/*",
+    "ios/*"
   ]
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 
 interface Props {
-    navigation: any,
+    navigation: any;
 }
 
 export const MedicalInfoScreen = ({ navigation }: Props) => {

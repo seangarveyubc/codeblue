@@ -9,7 +9,7 @@
         "test": "jest",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "prettier": "prettier 'src/**/*.tsx'",
-        "prettier:write": "npx prettier --write **/*.{js,jsx,ts,tsx,json} && npx prettier --write *.{js,jsx,ts,tsx,json}"
+        "prettier:write": "npx prettier --write src/frontend/*/*.{js,jsx,ts,tsx,json} && npx prettier --write src/frontend/*/*/*.{js,jsx,ts,tsx,json} && npx prettier --write src/frontend/*/*/*/*.{js,jsx,ts,tsx,json}"
     },
     "dependencies": {
         "@expo-google-fonts/dm-sans": "^0.2.2",

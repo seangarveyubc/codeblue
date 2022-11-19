@@ -5,16 +5,12 @@ interface Props {
     children?: any;
 }
 
-export const CentredContent = ({children}: Props) => {
-    return (
-        <View style={styles.orientation}>
-            {children}
-        </View>
-    );
+export const CentredContent = ({ children }: Props) => {
+    return <View style={styles.orientation}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
     orientation: {
-        alignItems: 'center',
+        alignItems: 'center'
     }
 });
