@@ -3,7 +3,7 @@ import { Button, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import Colours from '../../../../utilities/Colours';
-import { SettingsOption } from '../SettingsOption';
+import { SettingsOption } from './SettingsOption';
 
 interface Props {
     navigation: any;
