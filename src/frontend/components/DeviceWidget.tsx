@@ -1,27 +1,59 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Colours from '../../utilities/Colours';
+import { DMSans_400Regular } from '@expo-google-fonts/dm-sans';
 
 interface Props {
-    name: string,
-    isConnected: boolean,
+    name: string;
+    isConnected: boolean;
 }
 
-const width = Dimensions.get('window').width
+const width = Dimensions.get('window').width;
 
-// todo: update with connected state vector icon
 export const DeviceWidget = ({ name, isConnected }: Props) => {
+    const statusIcon = isConnected ? (
+        <Icon name='broadcast' size={25} color={Colours.BLACK} />
+    ) : (
+        <Icon name='broadcast-off' size={25} color={Colours.GREY} />
+    );
+
     return (
         <View style={styles.container}>
             <View style={styles.leftContent}>
-                {/* TODO: Device icon based on state (text placeholder for now), update to color constants */}
-                <Text style={{...styles.icon, ...{color: isConnected ? '#000000' : '#757575'}}}>hi</Text>
-                <Text style={{...styles.deviceName, ...{color: isConnected ? '#000000' : '#757575'}}}>
+                {statusIcon}
+                <Text
+                    style={{
+                        ...styles.deviceName,
+                        ...{
+                            color: isConnected ? Colours.BLACK : Colours.GREY,
+                        },
+                    }}
+                >
                     {name}
                 </Text>
             </View>
             <View style={styles.rightContent}>
-                <View style={{...styles.statusBar, ...{backgroundColor: isConnected ? '#B6EAA4' : '#757575'}}}>
-                    <Text style={{...styles.statusText, ...{color: isConnected ? '#000000' : '#FFFFFF'}}}>
+                <View
+                    style={{
+                        ...styles.statusBar,
+                        ...{
+                            backgroundColor: isConnected
+                                ? Colours.LIGHTGREEN
+                                : Colours.GREY,
+                        },
+                    }}
+                >
+                    <Text
+                        style={{
+                            ...styles.statusText,
+                            ...{
+                                color: isConnected
+                                    ? Colours.BLACK
+                                    : Colours.WHITE,
+                            },
+                        }}
+                    >
                         {isConnected ? 'Connected' : 'Offline'}
                     </Text>
                 </View>
@@ -39,11 +71,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 14,
         borderRadius: 12,
-        backgroundColor: '#F6F6F6' // todo: update to constant
+        backgroundColor: Colours.LIGHTGREY,
     },
     rightContent: {
         alignItems: 'flex-end',
-        width: '35%'
+        width: '35%',
     },
     leftContent: {
         width: '60%',
@@ -51,13 +83,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row',
     },
-    icon: {
-        marginRight: 12,
-    },
     deviceName: {
+        marginLeft: 10,
         fontSize: 16,
         fontWeight: 'bold',
-        // todo: add font
     },
     statusBar: {
         width: '100%',
@@ -68,6 +97,6 @@ const styles = StyleSheet.create({
     },
     statusText: {
         fontSize: 15,
-        // todo: add font
+        fontFamily: 'DMSans_400Regular',
     },
 });
