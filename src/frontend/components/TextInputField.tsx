@@ -2,8 +2,12 @@ import React from "react";
 import { Image, StyleSheet, TextInput, View } from "react-native";
 import Colours from "../../utilities/Colours";
 
-const IconTextInput = () => {
-  const [text, onChangeText] = React.useState("");
+interface Props {
+  text:any,
+  onChangeText:any
+}
+
+const IconTextInput = ({ text, onChangeText }: Props) => {
 
   return (
     <View style={styles.inputfield}>
