@@ -1,7 +1,9 @@
 import React from 'react';
-import Colours from '../../../utilities/Colours';
 import { StyleSheet, View, Text } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+
+import Colours from '../../../utilities/Colours';
+
 
 interface Props {
     label: string,
@@ -22,7 +24,6 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        width: 100,
         padding: 2
     },
     svg: {
