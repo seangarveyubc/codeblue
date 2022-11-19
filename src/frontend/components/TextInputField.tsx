@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, TextInput, View } from "react-native";
+import Colours from "../../utilities/Colours";
 
 const IconTextInput = () => {
   const [text, onChangeText] = React.useState("");
@@ -29,15 +30,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin:10,
     height:60,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
-    borderColor: "blue",
+    borderColor: Colours.BLUE,
   },
   input: {
     alignContent: 'center'
   },
   ImageStyle: {
-    
     height:20,
     width:20,
     margin:8,
