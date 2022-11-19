@@ -1,0 +1,50 @@
+import React from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import Colours from "../../utilities/Colours";
+
+interface Props {
+    text:any,
+    onChangeText:any,
+    title: any,
+    placeholder: any
+}
+
+const UnderlineTextInput =  ({ text, onChangeText, title, placeholder}: Props) => {
+  
+
+  return (
+    <View style={styles.inputfield}>
+        <Text style = {styles.title}>{title}</Text>
+        <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={text}
+        placeholder={placeholder}
+        placeholderTextColor={Colours.GREY}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  inputfield:{
+    flexDirection: 'column',
+    justifyContent:'space-evenly',
+    margin:10,
+    height:50,
+    borderBottomWidth: 1,
+    borderBottomColor: Colours.GREY,
+    fontFamily: 'DM SANS'
+    // borderColor: Colours.BLUE,
+  },
+  input: {
+    marginTop:0,
+    fontSize: 18,
+  },
+  title: {
+    color:Colours.BLUE,
+    fontSize: 15,
+  }
+});
+
+export default UnderlineTextInput; 
