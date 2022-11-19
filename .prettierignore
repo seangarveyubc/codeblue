@@ -11,6 +11,12 @@ node_modules
 build
 coverage
 
+tsconfig.json
+package.json
+README.md
+.prettierrc
+app.json
+
 
 ###############################
 # .gitignore content
