@@ -1,23 +1,31 @@
 import * as React from 'react';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import Colours from '../../utilities/Colours';
 
 interface Props {
-    text: string,
-    textColour?: string, // todo: update with constant, defaults to black
-    colour?: string, // todo: update with constant, defaults to blue
-    onPress: () => void,
+    text: string;
+    textColour?: string; // defaults to blue
+    colour?: string; // defaults to white
+    onPress: () => void;
 }
 
-const width = Dimensions.get('window').width
+const width = Dimensions.get('window').width;
 
-// todo: update with check vector icon
 export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
     return (
-        <TouchableOpacity 
-            style={{...styles.container, ...{backgroundColor: colour ?? '#2075D9'}}}
+        <TouchableOpacity
+            style={{
+                ...styles.container,
+                ...{ backgroundColor: colour ?? Colours.BLUE },
+            }}
             onPress={onPress}
         >
-            <Text style={{...styles.text, ...{color: textColour ?? '#FFFFFF'}}}>
+            <Text
+                style={{
+                    ...styles.text,
+                    ...{ color: textColour ?? Colours.WHITE },
+                }}
+            >
                 {text}
             </Text>
         </TouchableOpacity>
@@ -35,6 +43,6 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 17,
         fontWeight: 'bold',
-        // todo: add font style
-    }
+        fontFamily: 'DM Sans', // todo: fix font
+    },
 });
