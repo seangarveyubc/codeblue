@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: Colours.BLACK,
         alignItems: 'center',
-        fontFamily: 'DM Sans'
+        fontFamily: 'DMSans-Regular'
     },
     arrow: {
         alignSelf: 'flex-end'
