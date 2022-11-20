@@ -8,17 +8,16 @@ interface Props {
     onValueChange: () => void;
 }
 
-// todo: update with check vector icon
 export const CheckBox = ({ value, onValueChange }: Props) => {
     return (
         <TouchableOpacity
             style={{
                 ...styles.container,
-                ...(value ? styles.selected : styles.notSelected),
+                ...(value ? styles.selected : styles.notSelected)
             }}
             onPress={onValueChange}
         >
-            {value && <Icon name='check' size={20} color={Colours.WHITE} />}
+            {value && <Icon name="check" size={20} color={Colours.WHITE} />}
         </TouchableOpacity>
     );
 };
@@ -31,12 +30,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderColor: Colours.BLUE,
         borderWidth: 1,
-        borderRadius: 8,
+        borderRadius: 8
     },
     notSelected: {
-        backgroundColor: Colours.LIGHTGREY,
+        backgroundColor: Colours.LIGHTGREY
     },
     selected: {
-        backgroundColor: Colours.BLUE,
-    },
+        backgroundColor: Colours.BLUE
+    }
 });
