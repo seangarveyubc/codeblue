@@ -4,17 +4,16 @@
 
 ## Repository Structure
 
-- CodeBlue/
-  - android/
-  - src/app/
-    - frontend/
-      - components/
-      - navigation/
-      - screens/
-        - homeScreen/
-    - backend/
-      - detectionAlgorithm/
-      - hooks/
-    - shared/
-      - utils/ 
-
+-   CodeBlue/
+    -   android/
+    -   src/app/
+        -   frontend/
+            -   components/
+            -   navigation/
+            -   screens/
+                -   homeScreen/
+        -   backend/
+            -   detectionAlgorithm/
+            -   hooks/
+        -   shared/
+            -   utils/
