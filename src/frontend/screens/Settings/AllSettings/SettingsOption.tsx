@@ -7,18 +7,15 @@ import Colours from '../../../../utilities/Colours';
 import { ForwardArrow } from '../../../components/utils/ForwardArrow';
 
 interface Props {
-    navigation: any;
+    onPress: any;
     title: string;
-    url: string;
 }
 
-export const SettingsOption = ({ navigation, title, url }: Props) => {
+export const SettingsOption = ({ onPress, title }: Props) => {
     return (
         <TouchableRipple
             style={styles.container}
-            onPress={() => {
-                navigation.navigate(url);
-            }}
+            onPress={onPress}
             rippleColor="rgba(0, 0, 0, .32)"
         >
             <View style={styles.row}>

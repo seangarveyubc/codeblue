@@ -14,14 +14,16 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
         <View>
             <Text>All settings screen</Text>
             <SettingsOption
-                navigation={navigation}
+                onPress={() => {
+                    navigation.navigate('AccountInfo');
+                }}
                 title={'Account Information'}
-                url={'AccountInfo'}
             />
             <SettingsOption
-                navigation={navigation}
+                onPress={() => {
+                    navigation.navigate('MedicalInfo');
+                }}
                 title={'Medical Information'}
-                url={'MedicalInfo'}
             />
             <Icon name="briefcase-medical" size={30} color={Colours.DARKBLUE} />
         </View>
