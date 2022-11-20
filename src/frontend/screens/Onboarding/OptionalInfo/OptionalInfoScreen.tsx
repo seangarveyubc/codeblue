@@ -20,10 +20,6 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                     navigation.navigate('RequiredInfo');
                 }}
             />
-            <CheckBox
-                value={isSelected}
-                onValueChange={() => setIsSelected(!isSelected)}
-            />
         </CentredContent>
     );
 };
