@@ -3,19 +3,22 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import Colours from "../../utilities/Colours";
 
 interface Props {
-    text:any,
-    onChangeText:any,
-    title: any,
-    placeholder: any
+  text: any;
+  onChangeText: any;
+  title: any;
+  placeholder: any;
 }
 
-const UnderlineTextInput =  ({ text, onChangeText, title, placeholder}: Props) => {
-  
-
+const UnderlineTextInput = ({
+  text,
+  onChangeText,
+  title,
+  placeholder,
+}: Props) => {
   return (
     <View style={styles.inputfield}>
-        <Text style = {styles.title}>{title}</Text>
-        <TextInput
+      <Text style={styles.title}>{title}</Text>
+      <TextInput
         style={styles.input}
         onChangeText={onChangeText}
         value={text}
@@ -27,24 +30,24 @@ const UnderlineTextInput =  ({ text, onChangeText, title, placeholder}: Props) =
 };
 
 const styles = StyleSheet.create({
-  inputfield:{
-    flexDirection: 'column',
-    justifyContent:'space-evenly',
-    margin:10,
-    height:50,
+  inputfield: {
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    margin: 10,
+    height: 50,
     borderBottomWidth: 1,
     borderBottomColor: Colours.GREY,
-    fontFamily: 'DM SANS'
-    // borderColor: Colours.BLUE,
   },
   input: {
-    marginTop:0,
+    fontFamily: "DM SANS",
     fontSize: 18,
   },
   title: {
-    color:Colours.BLUE,
+    fontFamily: "DM SANS",
+    paddingLeft:4,
+    color: Colours.BLUE,
     fontSize: 15,
-  }
+  },
 });
 
-export default UnderlineTextInput; 
+export default UnderlineTextInput;
