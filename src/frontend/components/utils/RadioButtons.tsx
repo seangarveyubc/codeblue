@@ -1,13 +1,18 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
+
 import Colours from '../../../utilities/Colours';
 
-const RadioButtons = () => {
-  const [value, setValue] = React.useState("");
 
+interface Props {
+  selectedValue: any,
+  onValueChange: any
+}
+
+const RadioButtons = ({ selectedValue, onValueChange }: Props) => {
   return (
-    <RadioButton.Group onValueChange={newValue => setValue(newValue)} value={value}>
+    <RadioButton.Group onValueChange={onValueChange} value={selectedValue}>
       <View style={styles.buttonRow}>
         <View style={styles.singleButton}>
           <RadioButton color={Colours.BLUE} value="Yes" />
