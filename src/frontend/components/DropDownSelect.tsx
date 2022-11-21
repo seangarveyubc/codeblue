@@ -17,7 +17,7 @@ const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
             defaultButtonText={'Select'}
             data={DDOptions.Medications}
             onSelect={(selectedItem, index) => {
-                // console.log(selectedItem, index)
+              onValueChange(selectedItem)
             }}
             buttonTextAfterSelection={(selectedItem, index) => {
                 // text represented after item is selected
@@ -30,7 +30,7 @@ const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
                 return item
             }}
             renderDropdownIcon={isOpened => {
-                return <Icons name={isOpened ? 'up' : 'down'} color={'#444'} size={25} />;
+                return <Icons name={isOpened ? 'up' : 'down'} color={Colours.GREY} size={25} />;
             }}
             dropdownIconPosition={'right'}
             dropdownStyle={styles.dropdown2DropdownStyle}
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       backgroundColor: Colours.WHITE,
       borderRadius: 8,
       borderWidth: 1,
-      borderColor: '#757575',
+      borderColor: Colours.GREY,
     },
     dropdown2BtnTxtStyle: {
       color: Colours.BLACK,
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
       borderBottomRightRadius: 8,
       borderTopLeftRadius: 8,
       borderTopRightRadius: 8,
-      borderColor: '#757575'
+      borderColor: Colours.GREY
     },
     dropdown2RowStyle: {backgroundColor: Colours.WHITE, borderColor: Colours.LIGHTGREY, borderWidth: 1},
     dropdown2RowTxtStyle: {

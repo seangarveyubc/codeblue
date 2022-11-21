@@ -19,7 +19,7 @@ const UnderlineDDSelect = ({ selectedValue, onValueChange }: Props) => {
             defaultButtonText={' '}
             data={DDOptions.BloodTypes}
             onSelect={(selectedItem, index) => {
-                // console.log(selectedItem, index)
+              onValueChange(selectedItem)
             }}
             buttonTextAfterSelection={(selectedItem, index) => {
                 // text represented after item is selected
@@ -32,7 +32,7 @@ const UnderlineDDSelect = ({ selectedValue, onValueChange }: Props) => {
                 return item
             }}
             renderDropdownIcon={isOpened => {
-                return <Icons name={isOpened ? 'up' : 'down'} color={'#444'} size={25} />;
+                return <Icons name={isOpened ? 'up' : 'down'} color={Colours.GREY} size={25} />;
             }}
             dropdownIconPosition={'right'}
             dropdownStyle={styles.dropdown2DropdownStyle}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
       height: 50,
       backgroundColor: Colours.WHITE,
       borderRadius: 0,
-      borderColor: "#757575",
+      borderColor: Colours.GREY,
       borderBottomWidth: 1
     },
     dropdown2BtnTxtStyle: {
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     },
     dropdown2DropdownStyle: {
       backgroundColor: Colours.WHITE,
-      borderColor: '#757575'
+      borderColor: Colours.GREY
     },
     dropdown2RowStyle: {backgroundColor: Colours.WHITE, borderColor: Colours.LIGHTGREY, borderWidth: 1},
     dropdown2RowTxtStyle: {
