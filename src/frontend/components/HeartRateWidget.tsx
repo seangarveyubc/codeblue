@@ -3,14 +3,14 @@ import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 import Colours from "../../utilities/Colours";
 
 interface Props {
-  heartRate: any;
+  heartRate: number;
 }
 
 const HeartRateWidget = ({ heartRate }: Props) => {
   const [active, setActive] = React.useState(false);
 
   React.useEffect(() => {
-    if (heartRate !== "") {
+    if (heartRate) {
       setActive(true);
     } else {
       setActive(false);
@@ -66,11 +66,12 @@ const styles = StyleSheet.create({
     height: 170,
     borderRadius: 20,
     backgroundColor: Colours.LIGHTBLUE,
-    fontFamily: "DM SANS",
+    fontFamily: 'DMSans-Regular', 
   },
   text: {
     flex: 0.5,
     flexDirection: "column",
+    fontFamily: 'DMSans-Regular', 
   },
   bpm: {
     alignItems: "flex-end",
