@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colours from '../../utilities/Colours';
-import { DMSans_400Regular } from '@expo-google-fonts/dm-sans';
 
 interface Props {
     name: string;
@@ -13,9 +12,9 @@ const width = Dimensions.get('window').width;
 
 export const DeviceWidget = ({ name, isConnected }: Props) => {
     const statusIcon = isConnected ? (
-        <Icon name='broadcast' size={25} color={Colours.BLACK} />
+        <Icon name="broadcast" size={25} color={Colours.BLACK} />
     ) : (
-        <Icon name='broadcast-off' size={25} color={Colours.GREY} />
+        <Icon name="broadcast-off" size={25} color={Colours.GREY} />
     );
 
     return (
@@ -26,8 +25,8 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
                     style={{
                         ...styles.deviceName,
                         ...{
-                            color: isConnected ? Colours.BLACK : Colours.GREY,
-                        },
+                            color: isConnected ? Colours.BLACK : Colours.GREY
+                        }
                     }}
                 >
                     {name}
@@ -40,8 +39,8 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
                         ...{
                             backgroundColor: isConnected
                                 ? Colours.LIGHTGREEN
-                                : Colours.GREY,
-                        },
+                                : Colours.GREY
+                        }
                     }}
                 >
                     <Text
@@ -50,8 +49,8 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
                             ...{
                                 color: isConnected
                                     ? Colours.BLACK
-                                    : Colours.WHITE,
-                            },
+                                    : Colours.WHITE
+                            }
                         }}
                     >
                         {isConnected ? 'Connected' : 'Offline'}
@@ -71,32 +70,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 14,
         borderRadius: 12,
-        backgroundColor: Colours.LIGHTGREY,
+        backgroundColor: Colours.LIGHTGREY
     },
     rightContent: {
         alignItems: 'flex-end',
-        width: '35%',
+        width: '35%'
     },
     leftContent: {
         width: '60%',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     deviceName: {
         marginLeft: 10,
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: 'DMSans-Bold'
     },
     statusBar: {
         width: '100%',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 8,
+        borderRadius: 8
     },
     statusText: {
         fontSize: 15,
-        fontFamily: 'DMSans_400Regular',
-    },
+        fontFamily: 'DMSans-Regular'
+    }
 });
