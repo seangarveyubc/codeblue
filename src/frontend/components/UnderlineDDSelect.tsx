@@ -6,15 +6,16 @@ import Icons from 'react-native-vector-icons/AntDesign';
 import DDOptions from '../../utilities/DDOptions'
 
 interface Props {
-  selectedValue: any,
-  onValueChange: any
+  selectedValue: string,
+  onValueChange: any,
+  Name: string
 }
 
-const UnderlineDDSelect = ({ selectedValue, onValueChange }: Props) => {
+const UnderlineDDSelect = ({ selectedValue, onValueChange, Name }: Props) => {
 
   return (
     <View style={styles.view}>
-        <Text style={styles.title}>Blood Type</Text>
+        <Text style={styles.title}>{Name}</Text>
         <SelectDropdown 
             defaultButtonText={' '}
             data={DDOptions.BloodTypes}
