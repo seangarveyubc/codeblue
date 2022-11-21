@@ -12,13 +12,16 @@ export const AppNavigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator
-                initialRouteName='SplashScreen'
-                screenOptions={{headerShown: false}}
+                initialRouteName="SplashScreen"
+                screenOptions={{ headerShown: false }}
             >
-                <Stack.Screen name='SplashScreen' component={SplashScreen} />
-                <Stack.Screen name='Onboarding' component={OnboardingStack} />
-                <Stack.Screen name='MainNavigator' component={MainNavigator} />
-                <Stack.Screen name='EmergencyProtocol' component={EmergencyProtocolStack} />
+                <Stack.Screen name="SplashScreen" component={SplashScreen} />
+                <Stack.Screen name="Onboarding" component={OnboardingStack} />
+                <Stack.Screen name="MainNavigator" component={MainNavigator} />
+                <Stack.Screen
+                    name="EmergencyProtocol"
+                    component={EmergencyProtocolStack}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );
