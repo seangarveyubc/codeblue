@@ -16,14 +16,14 @@ export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
         <TouchableOpacity
             style={{
                 ...styles.container,
-                ...{ backgroundColor: colour ?? Colours.BLUE },
+                ...{ backgroundColor: colour ?? Colours.BLUE }
             }}
             onPress={onPress}
         >
             <Text
                 style={{
                     ...styles.text,
-                    ...{ color: textColour ?? Colours.WHITE },
+                    ...{ color: textColour ?? Colours.WHITE }
                 }}
             >
                 {text}
@@ -38,11 +38,10 @@ const styles = StyleSheet.create({
         width: width * 0.9,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 8,
+        borderRadius: 8
     },
     text: {
         fontSize: 17,
-        fontWeight: 'bold',
-        fontFamily: 'DM Sans', // todo: fix font
-    },
+        fontFamily: 'DMSans-Bold'
+    }
 });
