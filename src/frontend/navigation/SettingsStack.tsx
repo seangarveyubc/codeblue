@@ -10,13 +10,13 @@ const Stack = createNativeStackNavigator();
 export const SettingsStack = () => {
     return (
         <Stack.Navigator
-            initialRouteName='AllSettings'
-            screenOptions={{headerShown: false}}
+            initialRouteName="AllSettings"
+            screenOptions={{ headerShown: false }}
         >
-            <Stack.Screen name='AllSettings' component={AllSettingsScreen} />
-            <Stack.Screen name='AccountInfo' component={AccountInfoScreen} />
-            <Stack.Screen name='MedicalInfo' component={MedicalInfoScreen} />
-            <Stack.Screen name='Tutorial' component={TutorialScreen} />
+            <Stack.Screen name="AllSettings" component={AllSettingsScreen} />
+            <Stack.Screen name="AccountInfo" component={AccountInfoScreen} />
+            <Stack.Screen name="MedicalInfo" component={MedicalInfoScreen} />
+            <Stack.Screen name="Tutorial" component={TutorialScreen} />
         </Stack.Navigator>
     );
 };
