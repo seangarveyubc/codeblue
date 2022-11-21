@@ -8,7 +8,7 @@ interface Props {
     isConnected: boolean;
 }
 
-const width = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
 
 export const DeviceWidget = ({ name, isConnected }: Props) => {
     const statusIcon = isConnected ? (
@@ -25,7 +25,10 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
                     style={{
                         ...styles.deviceName,
                         ...{
-                            color: isConnected ? Colours.BLACK : Colours.GREY
+                            color: isConnected ? Colours.BLACK : Colours.GREY,
+                            fontFamily: isConnected
+                                ? 'DMSans-Bold'
+                                : 'DMSans-Regular'
                         }
                     }}
                 >
@@ -64,7 +67,7 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
 const styles = StyleSheet.create({
     container: {
         height: 60,
-        width: width * 0.88,
+        width: windowWidth * 0.88,
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
@@ -84,8 +87,7 @@ const styles = StyleSheet.create({
     },
     deviceName: {
         marginLeft: 10,
-        fontSize: 16,
-        fontWeight: 'DMSans-Bold'
+        fontSize: 16
     },
     statusBar: {
         width: '100%',
