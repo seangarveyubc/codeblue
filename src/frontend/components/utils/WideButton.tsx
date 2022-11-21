@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import Colours from '../../utilities/Colours';
+import Colours from '../../../utilities/Colours';
 
 interface Props {
     text: string;
@@ -9,7 +9,7 @@ interface Props {
     onPress: () => void;
 }
 
-const width = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
 
 export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
     return (
@@ -35,7 +35,7 @@ export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
 const styles = StyleSheet.create({
     container: {
         height: 45,
-        width: width * 0.9,
+        width: windowWidth * 0.9,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 8
