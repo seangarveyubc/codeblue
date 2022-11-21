@@ -3,10 +3,10 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import Colours from "../../utilities/Colours";
 
 interface Props {
-  text: any;
+  text: string;
   onChangeText: any;
-  title: any;
-  placeholder: any;
+  title: string;
+  placeholder: string;
 }
 
 const UnderlineTextInput = ({
