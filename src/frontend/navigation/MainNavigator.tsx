@@ -10,11 +10,7 @@ import Colours from '../../utilities/Colours';
 
 const NavBar = createBottomTabNavigator();
 
-interface Props {
-    navigation: any;
-}
-
-export const MainNavigator = ({ navigation }: Props) => {
+export const MainNavigator = () => {
     return (
         <NavBar.Navigator
             initialRouteName="Home"
