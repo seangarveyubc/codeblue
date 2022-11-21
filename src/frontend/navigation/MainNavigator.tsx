@@ -27,7 +27,8 @@ export const MainNavigator = () => {
                     marginTop: 10
                 },
                 tabBarLabelStyle: {
-                    marginBottom: 10
+                    marginBottom: 10,
+                    fontFamily: 'DMSans-Regular'
                 },
                 tabBarLabelPosition: 'below-icon'
             }}
