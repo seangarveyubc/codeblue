@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
-import Colours from '../../utilities/Colours';
+import Colours from '../../../utilities/Colours';
 
 const RadioButtons = () => {
   const [value, setValue] = React.useState("");
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
 
   text:{
-    fontFamily: 'DM Sans',
+    fontFamily: 'DMSans-Regular', 
     fontweight: 500,
     fontSize: 18,
     color: Colours.BLACK

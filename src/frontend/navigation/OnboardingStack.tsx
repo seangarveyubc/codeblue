@@ -10,13 +10,16 @@ const Stack = createNativeStackNavigator();
 export const OnboardingStack = () => {
     return (
         <Stack.Navigator
-            initialRouteName='OptionalInfo'
-            screenOptions={{headerShown: false}}
+            initialRouteName="OptionalInfo"
+            screenOptions={{ headerShown: false }}
         >
-            <Stack.Screen name='OptionalInfo' component={OptionalInfoScreen} />
-            <Stack.Screen name='RequiredInfo' component={RequiredInfoScreen} />
-            <Stack.Screen name='OnboardingSuccess' component={OnboardingSuccessScreen} />
-            <Stack.Screen name='Tutorial' component={TutorialScreen} />
+            <Stack.Screen name="OptionalInfo" component={OptionalInfoScreen} />
+            <Stack.Screen name="RequiredInfo" component={RequiredInfoScreen} />
+            <Stack.Screen
+                name="OnboardingSuccess"
+                component={OnboardingSuccessScreen}
+            />
+            <Stack.Screen name="Tutorial" component={TutorialScreen} />
         </Stack.Navigator>
     );
 };
