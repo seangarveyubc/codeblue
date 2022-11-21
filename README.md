@@ -8,7 +8,7 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
 ## Repository Structure
     CodeBlue
     ├── android
-    ├── src/app
+    ├── src/
     │   ├── frontend
     |   │   ├── assets
     |   │   |    └── images
@@ -29,3 +29,4 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
     2. Upload screenshots/ recordings of changes when available
     3. Request everyone to review
     4. Merge changes after 1-2 approvals (depending on size of PR)
+      - When merging, choose the "Squash and merge" option
