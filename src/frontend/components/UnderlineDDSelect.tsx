@@ -3,19 +3,21 @@ import { View, StyleSheet, Text} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../utilities/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
+import DDOptions from '../../utilities/DDOptions'
 
+interface Props {
+  selectedValue: any,
+  onValueChange: any
+}
 
-const options = ["A", "B"]
-
-const UnderlineDDSelect = () => {
-  const [value, setValue] = React.useState("");
+const UnderlineDDSelect = ({ selectedValue, onValueChange }: Props) => {
 
   return (
     <View style={styles.view}>
         <Text style={styles.title}>Blood Type</Text>
         <SelectDropdown 
             defaultButtonText={' '}
-            data={options}
+            data={DDOptions.BloodTypes}
             onSelect={(selectedItem, index) => {
                 // console.log(selectedItem, index)
             }}
@@ -55,29 +57,31 @@ const styles = StyleSheet.create({
         color: Colours.BLUE,
         fontWeight: "500",
         fontSize: 14,
+        fontFamily: 'DMSans-Regular', 
         textalign: 'left'
     },
     dropdown2BtnStyle: {
       width: '40%',
       height: 50,
-      backgroundColor: '#FFF',
+      backgroundColor: Colours.WHITE,
       borderRadius: 0,
       borderColor: "#757575",
       borderBottomWidth: 1
     },
     dropdown2BtnTxtStyle: {
-      color: '#000',
+      color: Colours.BLACK,
       textAlign: 'left',
       fontWeight: '400',
     },
     dropdown2DropdownStyle: {
-      backgroundColor: '#FFF',
+      backgroundColor: Colours.WHITE,
       borderColor: '#757575'
     },
-    dropdown2RowStyle: {backgroundColor: '#FFF', borderColor: Colours.LIGHTGREY, borderWidth: 1},
+    dropdown2RowStyle: {backgroundColor: Colours.WHITE, borderColor: Colours.LIGHTGREY, borderWidth: 1},
     dropdown2RowTxtStyle: {
-      color: '#000',
+      color: Colours.BLACK,
       textAlign: 'left',
+      fontFamily: 'DMSans-Regular', 
       fontWeight: '400',
       marginLeft: 20,
       marginRight: 20

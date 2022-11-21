@@ -3,18 +3,19 @@ import { View, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../utilities/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
+import DDOptions from '../../utilities/DDOptions'
 
+interface Props {
+  selectedValue: any,
+  onValueChange: any
+}
 
-const options = ["med 1", "med 2", "med 3", "med 4"]
-
-const DropdownSelect = () => {
-  const [value, setValue] = React.useState("");
-
+const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
   return (
     <View style={styles.view}>
         <SelectDropdown 
             defaultButtonText={'Select'}
-            data={options}
+            data={DDOptions.Medications}
             onSelect={(selectedItem, index) => {
                 // console.log(selectedItem, index)
             }}
@@ -53,28 +54,30 @@ const styles = StyleSheet.create({
     dropdown2BtnStyle: {
       width: '90%',
       height: 50,
-      backgroundColor: '#FFF',
+      backgroundColor: Colours.WHITE,
       borderRadius: 8,
       borderWidth: 1,
       borderColor: '#757575',
     },
     dropdown2BtnTxtStyle: {
-      color: '#000',
+      color: Colours.BLACK,
       textAlign: 'left',
       fontWeight: '300',
+      fontFamily: 'DMSans-Regular', 
     },
     dropdown2DropdownStyle: {
-      backgroundColor: '#FFF',
+      backgroundColor: Colours.WHITE,
       borderBottomLeftRadius: 8,
       borderBottomRightRadius: 8,
       borderTopLeftRadius: 8,
       borderTopRightRadius: 8,
       borderColor: '#757575'
     },
-    dropdown2RowStyle: {backgroundColor: '#FFF', borderColor: Colours.LIGHTGREY, borderWidth: 1},
+    dropdown2RowStyle: {backgroundColor: Colours.WHITE, borderColor: Colours.LIGHTGREY, borderWidth: 1},
     dropdown2RowTxtStyle: {
-      color: '#000',
+      color: Colours.BLACK,
       textAlign: 'left',
+      fontFamily: 'DMSans-Regular', 
       fontWeight: '300',
       marginLeft: 20,
       marginRight: 20
