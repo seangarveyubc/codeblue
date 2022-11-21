@@ -1,19 +1,18 @@
 import React from "react";
 import { Image, StyleSheet, TextInput, View } from "react-native";
 import Colours from "../../utilities/Colours";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 interface Props {
-  text: any;
+  text: string;
   onChangeText: any;
+  iconName: string;
 }
 
-const IconTextInput = ({ text, onChangeText }: Props) => {
+const IconTextInput = ({ text, onChangeText, iconName }: Props) => {
   return (
     <View style={styles.inputfield}>
-      <Image
-        source={require("../assets/images/connected.png")} //Change your icon image here
-        style={styles.ImageStyle}
-      />
+      <Icon style={styles.icon} name={iconName} size={25} color={Colours.BLACK} />
       <TextInput
         style={styles.input}
         onChangeText={onChangeText}
@@ -39,13 +38,10 @@ const styles = StyleSheet.create({
   },
   input: {
     alignContent: "center",
-    fontFamily: "DM SANS"
+    fontFamily: "DMSans-Regular"
   },
-  ImageStyle: {
-    height: 20,
-    width: 20,
-    margin: 8,
-    resizeMode: "contain",
+  icon: {
+    margin: 5,
   },
 });
 
