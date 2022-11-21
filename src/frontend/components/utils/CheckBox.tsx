@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import Colours from '../../utilities/Colours';
+import Colours from '../../../utilities/Colours';
 
 interface Props {
     value: boolean;
-    onValueChange: () => void;
+    onValueChange: any;
 }
 
 export const CheckBox = ({ value, onValueChange }: Props) => {
