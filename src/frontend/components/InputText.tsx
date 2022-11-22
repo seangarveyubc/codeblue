@@ -1,46 +1,42 @@
-import React, { Component } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
-import Colors from "../../../utilities/Colours"
+import React from "react";
+import { SafeAreaView, StyleSheet, TextInput } from "react-native";
+
+import { Colours } from  "../../../utilities/Colours"
 
 interface Props {
-    text: string;
-    onChangeText: any;
-    placeholder: string;
-}
+  placeholder: string;
+};
 
-const InputText = ({
-    text,
-    onChangeText,
-    placeholder
-}: Props) => {
-    return (
-    <View style={styles.container}>
+const InputText = ({placeholder}: Props) => {
+  const [text, onChangeText] = React.useState("");
+
+  return (
+    <SafeAreaView
+      style={styles.container}>
       <TextInput
-        placeholder={placeholder}
-        placeholderTextColor={Colors.BLUE}
-        autoCapitalize="words"
-        style={styles.placeholder}
+        style={styles.input}
         value={text}
+        onChangeText={(text) => onChangeText(text)}
+        placeholder={placeholder}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: 340,
-    height: 56
+    borderRadius: 8,
+    backgroundColor: {Colours.LIGHTGREY}
   },
-  placeholder: {
-    padding: 10,
-    fontFamily: "DMSans-Regular",
+  input: {
     height: 56,
-    width: 340,
-    backgroundColor: Colors.LIGHTGREY,
+    margin: 12,
     borderWidth: 1,
-    borderColor: Colors.BLUE,
-    borderRadius: 8
-  }
+    padding: 10,
+    borderColor: {Colours.BLUE},
+    borderRadius: 8,
+    color: {Colours.BLUE}
+  },
 });
 
 export default InputText;
