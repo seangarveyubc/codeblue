@@ -7,18 +7,49 @@ import {
     Button,
     View
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import Colours from '../../../utilities/Colours';
 import { CentredContent } from '../CentredContent';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { RoundButton } from './RoundButton';
 import { CancelButton } from './CancelButton';
 
+export enum ModalType {
+    CallAlert,
+    CancelAlert,
+    ResetAlert
+}
+
+const MODAL_TYPE = [
+    //CallAlert
+    {
+        icon: <MaterialIcons name="call" size={100} color={Colours.BLUE} />,
+        title: 'Call 911 now',
+        description: 'Are you sure you want to call 911?',
+        confirmText: 'Yes, call now'
+    },
+    // CancelAlert
+    {
+        icon: <MaterialIcons name="call-end" size={100} color={Colours.RED} />,
+        title: 'Cancel 911 call',
+        description: 'Are you not experiencing cardiac symptoms?',
+        confirmText: 'I feel fine, cancel call'
+    },
+    // ResetAlert
+    {
+        icon: <Ionicons name="alert-circle" size={100} color={Colours.RED} />,
+        title: 'Reset App',
+        description:
+            'Are you sure you want to clear all data? This action cannot be undone.',
+        confirmText: 'Yes, clear data'
+    }
+];
+
 interface Props {
+    modalType: ModalType;
     modalVisible: boolean;
     setModalVisible: any;
-    title: string;
-    description: string;
-    confirmText: string;
     confirmAction: any;
 }
 
@@ -26,11 +57,9 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export const AlertModal = ({
+    modalType,
     modalVisible,
     setModalVisible,
-    title,
-    description,
-    confirmText,
     confirmAction
 }: Props) => {
     const onPress = () => {
@@ -49,18 +78,17 @@ export const AlertModal = ({
             >
                 <CentredContent>
                     <View style={styles.modalView}>
-                        <Icon
-                            style={styles.icon}
-                            name="alert-circle"
-                            size={100}
-                            color={Colours.RED}
-                        />
-                        <Text style={styles.titleText}>{title}</Text>
+                        <View style={styles.icon}>
+                            {MODAL_TYPE[modalType].icon}
+                        </View>
+                        <Text style={styles.titleText}>
+                            {MODAL_TYPE[modalType].title}
+                        </Text>
                         <Text style={styles.descriptionText}>
-                            {description}
+                            {MODAL_TYPE[modalType].description}
                         </Text>
                         <RoundButton
-                            text={confirmText}
+                            text={MODAL_TYPE[modalType].confirmText}
                             onPress={confirmAction}
                         />
                         <CancelButton onPress={onPress} />
