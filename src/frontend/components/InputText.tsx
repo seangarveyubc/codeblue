@@ -26,16 +26,18 @@ const InputText = ({placeholder}: Props) => {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 8,
-    backgroundColor: {Colours.LIGHTGREY}
+    backgroundColor: Colours.LIGHTGREY
   },
   input: {
     height: 56,
     margin: 12,
     borderWidth: 1,
     padding: 10,
-    borderColor: {Colours.BLUE},
+    borderColor: Colours.BLUE,
     borderRadius: 8,
-    color: {Colours.BLUE}
+    color: Colours.BLUE,
+    fontFamily: 'DMSans-Regular',
+    fontWeight: '300'
   },
 });
 
