@@ -1,23 +1,27 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 
-import { Colours } from  "../../../utilities/Colours"
+import Colours from  "../../utilities/Colours";
 
 interface Props {
   placeholder: string;
+  width: number;
 };
 
-const InputText = ({placeholder}: Props) => {
+const InputText = ({placeholder, width}: Props) => {
   const [text, onChangeText] = React.useState("");
 
   return (
     <SafeAreaView
-      style={styles.container}>
+      style={styles.container, {width: width}}>
       <TextInput
         style={styles.input}
         value={text}
         onChangeText={(text) => onChangeText(text)}
         placeholder={placeholder}
+        placeholderTextColor={Colours.BLUE}
+        autoCapitalize="words"
+        returnKeyType="next"
       />
     </SafeAreaView>
   );
@@ -25,8 +29,7 @@ const InputText = ({placeholder}: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 8,
-    backgroundColor: Colours.LIGHTGREY
+    borderRadius: 8
   },
   input: {
     height: 56,
@@ -34,11 +37,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderColor: Colours.BLUE,
+    backgroundColor: Colours.LIGHTGREY,
     borderRadius: 8,
-    color: Colours.BLUE,
-    fontFamily: 'DMSans-Regular',
-    fontWeight: '300'
-  },
+    color: Colours.BLUE
+  }
 });
 
 export default InputText;
