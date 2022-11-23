@@ -11,7 +11,7 @@ interface Props {
   Options: string[]
 }
 
-const DropdownSelect = ({ selectedValue, onValueChange, Name, Options }: Props) => {
+const SingleDropdownSelect = ({ selectedValue, onValueChange, Name, Options }: Props) => {
   return (
     <View style={styles.view}>
         <SelectDropdown 
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
     },
 })
   
-export default DropdownSelect;
+export default SingleDropdownSelect;
