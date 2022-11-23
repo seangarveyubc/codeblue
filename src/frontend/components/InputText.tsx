@@ -6,10 +6,11 @@ import Colours from  "../../utilities/Colours";
 interface Props {
   placeholder: string;
   width: number;
+  text: string;
+  onChangeText: any;
 };
 
-const InputText = ({placeholder, width}: Props) => {
-  const [text, onChangeText] = React.useState("");
+const InputText = ({placeholder, width, text, onChangeText}: Props) => {
 
   return (
     <SafeAreaView
@@ -17,7 +18,7 @@ const InputText = ({placeholder, width}: Props) => {
       <TextInput
         style={styles.input}
         value={text}
-        onChangeText={(text) => onChangeText(text)}
+        onChangeText={onChangeText}
         placeholder={placeholder}
         placeholderTextColor={Colours.BLUE}
         autoCapitalize="words"
@@ -39,7 +40,8 @@ const styles = StyleSheet.create({
     borderColor: Colours.BLUE,
     backgroundColor: Colours.LIGHTGREY,
     borderRadius: 8,
-    color: Colours.BLUE
+    color: Colours.BLUE,
+    fontFamily: "DMSans-Regular"
   }
 });
 
