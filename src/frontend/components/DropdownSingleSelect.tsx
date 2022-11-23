@@ -1,68 +1,67 @@
-import React, { useState } from 'react';
-  import { StyleSheet, Text, View } from 'react-native';
+  import React, { useState } from 'react';
+  import { StyleSheet, View } from 'react-native';
   import { Dropdown } from 'react-native-element-dropdown';
-  import Colours from "../../utilities/Colours";
+  import AntDesign from 'react-native-vector-icons/AntDesign';
 
-// data must be an array of objects [{label: '...', value: '...''}, {...}, ...]
-interface Props {
-    data: any
-    placeholder: string
-    width: number
-}
+  import Colours from  "../../utilities/Colours";
 
-  const DropdownComponent = ({ data, placeholder, width }: Props) => {
-    const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
+
+    interface Props {
+        data: any
+        placeholder: string
+        width: number
+    };
+
+  const DropdownSingleSelect = ({ width, placeholder, data}: Props) => {
+    const [selected, setSelected] = useState([]);
 
     return (
-      <View style={styles.container}>
-
+      <View style={[styles.container,  {width: width}]}>
         <Dropdown
-          style={[styles.dropdown, {width: width}]}
+          style={styles.dropdown}
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
           data={data}
-          maxHeight={300}
           labelField="label"
           valueField="value"
           placeholder={placeholder}
-          searchPlaceholder="Search..."
-          value={value}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
+          value={selected}
           onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
+            setSelected(item);
           }}
+          selectedStyle={styles.selectedStyle}
         />
       </View>
     );
   };
 
-  export default DropdownComponent;
+  export default DropdownSingleSelect;
 
   const styles = StyleSheet.create({
     container: {
-      padding: 16
+        padding: 16
     },
     dropdown: {
       height: 56,
-      borderColor: Colours.BLUE,
       backgroundColor: Colours.LIGHTGREY,
+      borderColor: Colours.BLUE,
       borderWidth: 1,
       borderRadius: 8,
-      paddingHorizontal: 10,
-      color: Colours.BLUE
+      padding: 10,
     },
     placeholderStyle: {
       fontSize: 16,
-      fontFamily: 'DMSans-Regular',
-      color: Colours.BLUE
+      color: Colours.BLUE,
+      fontFamily: 'DMSans-Regular'
     },
     selectedTextStyle: {
       fontSize: 16,
       fontFamily: 'DMSans-Regular',
-      color: Colours.BLUE
-    }
+      color: Colours.BLUE,
+    },
+    selectedStyle: {
+      borderRadius: 8,
+    },
   });
