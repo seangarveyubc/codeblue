@@ -12,9 +12,9 @@ interface Props {
 
 const InputText = ({ placeholder, width, text, onChangeText }: Props) => {
     return (
-        <SafeAreaView style={(styles.container, { width: width })}>
+        <SafeAreaView>
             <TextInput
-                style={styles.input}
+                style={{ ...styles.input, ...{ width: width } }}
                 value={text}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
@@ -27,14 +27,11 @@ const InputText = ({ placeholder, width, text, onChangeText }: Props) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        borderRadius: 8
-    },
     input: {
         height: 56,
-        margin: 12,
         borderWidth: 1,
         padding: 10,
+        marginVertical: 6,
         borderColor: Colours.BLUE,
         backgroundColor: Colours.LIGHTGREY,
         borderRadius: 8,

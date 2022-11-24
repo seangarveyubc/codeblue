@@ -33,6 +33,8 @@ export const BackArrow = ({ label }: Props) => {
 const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         flexWrap: 'wrap',
         padding: 2
     },
