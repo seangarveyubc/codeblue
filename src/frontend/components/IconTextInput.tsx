@@ -6,13 +6,13 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 interface Props {
   text: string;
   onChangeText: any;
-  iconName: string;
+  isConnected: boolean;
 }
 
-const IconTextInput = ({ text, onChangeText, iconName }: Props) => {
+const IconTextInput = ({ text, onChangeText, isConnected }: Props) => {
   return (
     <View style={styles.inputfield}>
-      <Icon style={styles.icon} name={iconName} size={25} color={Colours.BLACK} />
+      <Icon style={styles.icon} name={isConnected?'broadcast':'broadcast-off'} size={25} color={Colours.BLACK} />
       <TextInput
         style={styles.input}
         onChangeText={onChangeText}
