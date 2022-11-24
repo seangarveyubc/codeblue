@@ -8,7 +8,7 @@ import {
     ModalType
 } from '../../../components/AlertModal/AlertModal';
 import { RoundButton } from '../../../components/AlertModal/RoundButton';
-import { SettingsHeading } from '../../../components/SettingsHeading';
+import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading';
 import { SettingsOption } from './SettingsOption';
 
 interface Props {
@@ -23,7 +23,7 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
     };
     return (
         <View style={styles.container}>
-            <SettingsHeading title={'My Account'} />
+            <SettingsOptionHeading title={'My Account'} />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('AccountInfo');
@@ -39,16 +39,16 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                 iconName={'briefcase-medical'}
             />
 
-            <SettingsHeading title={'Help'} />
+            <SettingsOptionHeading title={'Help'} />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('Tutorial');
                 }}
                 title={'CodeBlue Tutorial Video'}
-                iconName={'user'}
+                iconName={'play'}
             />
 
-            <SettingsHeading title={''} />
+            <SettingsOptionHeading title={''} />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('Legal');

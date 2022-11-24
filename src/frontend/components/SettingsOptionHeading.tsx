@@ -7,7 +7,7 @@ interface Props {
     title: string;
 }
 
-export const SettingsHeading = ({ title }: Props) => {
+export const SettingsOptionHeading = ({ title }: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.row}>

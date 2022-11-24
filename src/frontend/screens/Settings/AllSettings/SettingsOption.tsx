@@ -27,7 +27,7 @@ export const SettingsOption = ({ onPress, title, iconName }: Props) => {
                 <Icon
                     style={displayIcon ? styles.icon : { width: 0 }}
                     size={25}
-                    name={iconName}
+                    name={displayIcon?iconName:'user'}
                     solid={true}
                 />
                 <Text style={styles.text}>{title}</Text>
