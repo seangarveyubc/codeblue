@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import Colours from '../../../../utilities/Colours';
@@ -8,6 +8,7 @@ import {
     ModalType
 } from '../../../components/AlertModal/AlertModal';
 import { RoundButton } from '../../../components/AlertModal/RoundButton';
+import { SettingsHeading } from '../../../components/SettingsHeading';
 import { SettingsOption } from './SettingsOption';
 
 interface Props {
@@ -21,28 +22,63 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
         setModalVisible(true);
     };
     return (
-        <View>
-            <Text>All settings screen</Text>
+        <View style={styles.container}>
+            <SettingsHeading title={'My Account'} />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('AccountInfo');
                 }}
                 title={'Account Information'}
+                iconName={'user'}
             />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('MedicalInfo');
                 }}
                 title={'Medical Information'}
+                iconName={'briefcase-medical'}
             />
-            <Icon name="briefcase-medical" size={30} color={Colours.DARKBLUE} />
+
+            <SettingsHeading title={'Help'} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Tutorial');
+                }}
+                title={'CodeBlue Tutorial Video'}
+                iconName={'user'}
+            />
+
+            <SettingsHeading title={''} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Legal');
+                }}
+                title={'Legal'}
+                iconName={''}
+            />
             <AlertModal
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
-                modalType={ModalType.CancelAlert}
+                modalType={ModalType.ResetAlert}
                 confirmAction={() => {}}
             />
-            <RoundButton text={'Show alert modal'} onPress={onPress} />
+            <Text style={styles.resetText} onPress={onPress}>
+                {'Reset App'}
+            </Text>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        height: '100%',
+        backgroundColor: Colours.WHITE
+    },
+    resetText: {
+        margin: 20,
+        fontSize: 20,
+        color: Colours.RED,
+        alignSelf: 'center',
+        fontFamily: 'DMSans-Bold'
+    }
+});
