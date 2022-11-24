@@ -98,7 +98,7 @@ export const CardiacArrestScreen = ({ navigation }: Props) => {
                 setModalVisible={setCancelModalVisible}
                 modalType={ModalType.CancelAlert}
                 confirmAction={() => {
-                    navigation.navigate('CallEnded');
+                    navigation.navigate('MainNavigator');
                 }}
             />
         </View>
