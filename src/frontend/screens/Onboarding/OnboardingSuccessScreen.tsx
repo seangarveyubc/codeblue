@@ -7,11 +7,13 @@ interface Props {
     navigation: any;
 }
 
+const DELAY_TIME = 2500;
+
 export const OnboardingSuccessScreen = ({ navigation }: Props) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate('Tutorial');
-        }, 2500);
+        }, DELAY_TIME);
     }, []);
 
     return (

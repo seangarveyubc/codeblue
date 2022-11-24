@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface Props {
