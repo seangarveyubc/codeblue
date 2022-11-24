@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen } from '../screens/Home/HomeScreen';
-import { AddDeviceScreen } from '../screens/AddDevice/AddDeviceScreen';
+import { AddDeviceStack } from './AddDeviceStack';
 import { SettingsStack } from './SettingsStack';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Colours from '../../utilities/Colours';
+
 
 const NavBar = createBottomTabNavigator();
 
@@ -48,7 +49,7 @@ export const MainNavigator = () => {
             />
             <NavBar.Screen
                 name="Add Device"
-                component={AddDeviceScreen}
+                component={AddDeviceStack}
                 options={{
                     tabBarIcon: () => (
                         <AntDesign
