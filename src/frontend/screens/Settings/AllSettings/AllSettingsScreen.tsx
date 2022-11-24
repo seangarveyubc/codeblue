@@ -42,6 +42,12 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                 modalType={ModalType.CancelAlert}
                 confirmAction={() => {}}
             />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Legal');
+                }}
+                title={'Legal'}
+            />
             <RoundButton text={'Show alert modal'} onPress={onPress} />
         </View>
     );
