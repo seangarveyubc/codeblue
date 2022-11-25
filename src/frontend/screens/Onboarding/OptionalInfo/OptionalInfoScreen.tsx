@@ -38,9 +38,13 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
         navigation.navigate('OnboardingSuccess');
     };
 
+    const navigateToRequiredInfoScreen = () => {
+        navigation.navigate('RequiredInfo');
+    };
+
     return (
         <View style={styles.screenContainer}>
-            <BackArrow label="Back" />
+            <BackArrow label="Back" onPress={navigateToRequiredInfoScreen} />
             <View style={styles.titleContainer}>
                 <Logo width={50} height={50} />
                 <Text style={styles.titleText}>Join CodeBlue</Text>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../utilities/Colours';
+import { CheckmarkAnimation } from '../../components/utils/CheckmarkAnimation';
 
 interface Props {
     navigation: any;
@@ -18,6 +19,7 @@ export const OnboardingSuccessScreen = ({ navigation }: Props) => {
 
     return (
         <View style={styles.screenContainer}>
+            <CheckmarkAnimation />
             <Text style={styles.welcomeText}>Welcome to CodeBlue!</Text>
         </View>
     );
@@ -34,6 +36,7 @@ const styles = StyleSheet.create({
     welcomeText: {
         fontFamily: 'DMSans-Bold',
         fontSize: 20,
-        color: Colours.WHITE
+        color: Colours.WHITE,
+        marginTop: 16
     }
 });

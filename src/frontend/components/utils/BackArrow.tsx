@@ -1,16 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import Colours from '../../../utilities/Colours';
 
 interface Props {
     label: string;
+    onPress: any;
 }
 
-export const BackArrow = ({ label }: Props) => {
+export const BackArrow = ({ label, onPress }: Props) => {
     return (
-        <View style={styles.row}>
+        <TouchableOpacity style={styles.row} onPress={onPress}>
             <Svg
                 style={styles.svg}
                 width="11"
@@ -26,7 +27,7 @@ export const BackArrow = ({ label }: Props) => {
                 />
             </Svg>
             <Text style={styles.text}>{label}</Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 
