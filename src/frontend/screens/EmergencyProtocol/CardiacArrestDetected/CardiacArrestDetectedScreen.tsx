@@ -107,6 +107,7 @@ export const CardiacArrestScreen = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: Colours.WHITE,
         padding: 12,
         margin: 'auto',
         justifyContent: 'space-around',
@@ -127,9 +128,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontWeight: '700',
-        fontSize: 36,
-        letterSpacing: 2
+        fontSize: 36
     },
     description: {
         marginBottom: 15,

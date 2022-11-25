@@ -46,6 +46,7 @@ export const CallEndedScreen = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: Colours.WHITE,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -64,7 +65,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontWeight: '700',
         fontSize: 36
     },
     description: {

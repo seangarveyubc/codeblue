@@ -39,6 +39,7 @@ export const CallInProgressScreen = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: Colours.WHITE,
         padding: 12,
         margin: 'auto',
         justifyContent: 'space-between',
@@ -52,16 +53,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     head: {
-        width: '72%'
+        width: '68%'
     },
     title: {
         marginBottom: 15,
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontWeight: '700',
-        fontSize: 36,
-        letterSpacing: 2
+        fontSize: 36
     },
     description: {
         marginBottom: 15,

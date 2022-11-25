@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontWeight: '700',
         fontSize: 24
     },
     descriptionText: {
