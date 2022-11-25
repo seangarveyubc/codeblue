@@ -2,25 +2,25 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
-import Colours from  "../../utilities/Colours";
-
-
+import Colours from '../../utilities/Colours';
 
 interface Props {
-    data: object[]
+    data: object[];
     // data must take an array of objects, each containing a 'label' and 'value' property
-    placeholder: string
-    width: number
-};
+    placeholder: string;
+    width: number;
+}
 
-const DropdownSingleSelect = ({ width, placeholder, data}: Props) => {
+const DropdownSingleSelect = ({ width, placeholder, data }: Props) => {
     const [selected, setSelected] = useState([]);
 
     return (
-        <View style={{
-            ...styles.container,
-            ...{width: width}
-            }}>
+        <View
+            style={{
+                ...styles.container,
+                ...{ width: width }
+            }}
+        >
             <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
@@ -31,7 +31,7 @@ const DropdownSingleSelect = ({ width, placeholder, data}: Props) => {
                 valueField="value"
                 placeholder={placeholder}
                 value={selected}
-                onChange={item => {
+                onChange={(item) => {
                     setSelected(item);
                 }}
                 selectedStyle={styles.selectedStyle}
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         borderColor: Colours.BLUE,
         borderWidth: 1,
         borderRadius: 8,
-        padding: 10,
+        padding: 10
     },
     placeholderStyle: {
         fontSize: 16,
@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     selectedTextStyle: {
         fontSize: 16,
         fontFamily: 'DMSans-Regular',
-        color: Colours.BLUE,
+        color: Colours.BLUE
     },
     selectedStyle: {
-        borderRadius: 8,
+        borderRadius: 8
     }
 });
