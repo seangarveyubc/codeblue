@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import {
+    Dimensions,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
 import Colours from '../../../../utilities/Colours';
 import { CentredContent } from '../../../components/CentredContent';
 import InputText from '../../../components/InputText';
@@ -32,7 +38,10 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
                     />
                     <Text style={styles.titleText}>Let's get started</Text>
                 </View>
-                <View style={styles.inputTextGroup}>
+                <KeyboardAvoidingView
+                    behavior="position"
+                    style={styles.inputTextGroup}
+                >
                     <InputText
                         placeholder="First Name"
                         text={firstName}
@@ -45,7 +54,7 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
                         onChangeText={setLastName}
                         width={windowWidth * 0.9}
                     />
-                </View>
+                </KeyboardAvoidingView>
                 <WideButton text="Next" onPress={handleNavigate} />
             </CentredContent>
         </View>
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     logoGroup: {
-        marginTop: windowHeight * 0.2,
+        marginTop: windowHeight * 0.15,
         alignItems: 'center'
     },
     titleText: {

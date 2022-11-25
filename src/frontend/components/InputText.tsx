@@ -1,5 +1,10 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TextInput } from 'react-native';
+import {
+    KeyboardTypeOptions,
+    SafeAreaView,
+    StyleSheet,
+    TextInput
+} from 'react-native';
 
 import Colours from '../../utilities/Colours';
 
@@ -7,10 +12,17 @@ interface Props {
     placeholder: string;
     width: number;
     text: string;
+    keyboardType?: KeyboardTypeOptions;
     onChangeText: any;
 }
 
-const InputText = ({ placeholder, width, text, onChangeText }: Props) => {
+const InputText = ({
+    placeholder,
+    width,
+    text,
+    keyboardType,
+    onChangeText
+}: Props) => {
     return (
         <SafeAreaView>
             <TextInput
@@ -21,6 +33,7 @@ const InputText = ({ placeholder, width, text, onChangeText }: Props) => {
                 placeholderTextColor={Colours.BLUE}
                 autoCapitalize="words"
                 returnKeyType="next"
+                keyboardType={keyboardType ?? 'default'}
             />
         </SafeAreaView>
     );

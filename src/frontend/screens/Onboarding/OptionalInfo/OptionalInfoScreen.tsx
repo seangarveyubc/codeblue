@@ -61,12 +61,14 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                         text={userHeight}
                         onChangeText={setUserHeight}
                         width={windowWidth * 0.43}
+                        keyboardType="numeric"
                     />
                     <InputText
                         placeholder="Weight (kg)"
                         text={userWeight}
                         onChangeText={setUserWeight}
                         width={windowWidth * 0.43}
+                        keyboardType="numeric"
                     />
                 </View>
                 <View style={styles.inputTextRow}>
