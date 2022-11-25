@@ -4,8 +4,11 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 import Colours from  "../../utilities/Colours";
 
+
+
 interface Props {
-    data: any
+    data: object[]
+    // data must take an array of objects, each containing a 'label' and 'value' property
     placeholder: string
     width: number
 };
@@ -14,13 +17,15 @@ const DropdownSingleSelect = ({ width, placeholder, data}: Props) => {
     const [selected, setSelected] = useState([]);
 
     return (
-        <View style={[styles.container,  {width: width}]}>
+        <View style={{
+            ...styles.container,
+            ...{width: width}
+            }}>
             <Dropdown
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
                 data={data}
                 labelField="label"
                 valueField="value"

@@ -5,22 +5,25 @@ import Colours from "../../utilities/Colours";
 
 
 interface Props {
+    data: object[]
+    // data must take an array of objects, each containing a 'label' and 'value' property
     placeholder: string
     width: number
-    data: any
 };
 
 const DropdownMultiSelect = ({ placeholder, width , data}) => {
     const [selected, setSelected] = useState([]);
 
     return (
-        <View style={[styles.container, {width: width}]}>
+        <View style={{
+            ...styles.container,
+            ...{width: width}
+            }}>
             <MultiSelect
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
                 search
                 data={data}
                 labelField="label"
@@ -50,10 +53,6 @@ const styles = StyleSheet.create({
           borderRadius: 8,
           paddingHorizontal: 8,
     },
-    icon: {
-          marginRight: 5,
-          color: Colours.BLUE
-    },
     label: {
           position: 'absolute',
           color: Colours.BLUE,
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
     selectedStyle: {
           borderRadius: 8,
           backgroundColor: Colours.WHITE,
-          borderColor: Colours.DARKGREY
+          borderColor: Colours.BLUE
     },
     inputSearchStyle: {
           height: 40,
