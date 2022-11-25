@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../../utilities/Colours';
 import {
     AlertModal,
     ModalType
 } from '../../../components/AlertModal/AlertModal';
-import { RoundButton } from '../../../components/AlertModal/RoundButton';
 import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading';
-import { SettingsOption } from './SettingsOption';
+
+import { OptionType, SettingsOption } from './SettingsOption';
 
 interface Props {
     navigation: any;
@@ -28,33 +26,27 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                 onPress={() => {
                     navigation.navigate('AccountInfo');
                 }}
-                title={'Account Information'}
-                iconName={'user'}
+                optionType={OptionType.AccountInfo}
             />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('MedicalInfo');
                 }}
-                title={'Medical Information'}
-                iconName={'briefcase-medical'}
+                optionType={OptionType.MedicalInfo}
             />
-
             <SettingsOptionHeading title={'Help'} />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('Tutorial');
                 }}
-                title={'CodeBlue Tutorial Video'}
-                iconName={'play'}
+                optionType={OptionType.Tutorial}
             />
-
             <SettingsOptionHeading title={''} />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('Legal');
                 }}
-                title={'Legal'}
-                iconName={''}
+                optionType={OptionType.Legal}
             />
             <AlertModal
                 modalVisible={modalVisible}

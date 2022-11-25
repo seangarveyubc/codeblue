@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'flex-end',
         height: 40,
-        marginHorizontal: 17
+        marginHorizontal: 20
     },
     text: {
         fontSize: 13,

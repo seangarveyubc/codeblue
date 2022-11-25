@@ -15,7 +15,7 @@ export const SettingsScreenHeader = ({ navigation, title }: Props) => {
             <View style={styles.semicircle}>
                 <View style={styles.header}>
                     <BackArrow
-                        navigation={navigation}
+                        onPress={() => navigation.goBack()}
                         label={'Back'}
                         colour={Colours.WHITE}
                     />
