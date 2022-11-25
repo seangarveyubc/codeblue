@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         alignContent: 'center',
-        alignItems: 'center',
-        margin: 10
+        alignItems: 'center'
     },
     singleButton: {
         flexDirection: 'row',
