@@ -17,7 +17,10 @@ export const MedicalInfoScreen = ({ navigation }: Props) => {
     };
     return (
         <View style={styles.container}>
-            <SettingsScreenHeader title="Medical Information" />
+            <SettingsScreenHeader
+                navigation={navigation}
+                title="Medical Information"
+            />
             <View style={styles.subHeading}>
                 <Text style={styles.subHeadingText}>{'Medical History'}</Text>
                 <Text style={styles.edit} onPress={onPress}>

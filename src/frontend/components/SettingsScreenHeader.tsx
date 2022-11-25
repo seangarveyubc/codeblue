@@ -6,14 +6,19 @@ import { BackArrow } from './utils/BackArrow';
 
 interface Props {
     title: string;
+    navigation: any;
 }
 
-export const SettingsScreenHeader = ({ title }: Props) => {
+export const SettingsScreenHeader = ({ navigation, title }: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.semicircle}>
                 <View style={styles.header}>
-                    <BackArrow label={'Back'} colour={Colours.WHITE} />
+                    <BackArrow
+                        navigation={navigation}
+                        label={'Back'}
+                        colour={Colours.WHITE}
+                    />
                     <Text style={styles.text}>{title}</Text>
                 </View>
             </View>

@@ -22,7 +22,10 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
     };
     return (
         <View style={styles.container}>
-            <SettingsScreenHeader title="Account Information" />
+            <SettingsScreenHeader
+                navigation={navigation}
+                title="Account Information"
+            />
             <View style={styles.subHeading}>
                 <Text style={styles.subHeadingText}>{'Basic Information'}</Text>
                 <Text style={styles.edit} onPress={onPress}>
