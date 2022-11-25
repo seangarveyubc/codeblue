@@ -16,6 +16,8 @@ package.json
 README.md
 .prettierrc
 app.json
+.github
+src/frontend/assets
 
 
 ###############################

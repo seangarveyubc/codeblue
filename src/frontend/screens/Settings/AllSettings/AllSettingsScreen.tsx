@@ -1,25 +1,13 @@
 import * as React from 'react';
-import { Button, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import { Text, View } from 'react-native';
 
-import Colours from '../../../../utilities/Colours';
-import {
-    AlertModal,
-    ModalType
-} from '../../../components/AlertModal/AlertModal';
-import { RoundButton } from '../../../components/AlertModal/RoundButton';
-import { SettingsOption } from './SettingsOption';
+import { OptionType, SettingsOption } from './SettingsOption';
 
 interface Props {
     navigation: any;
 }
 
 export const AllSettingsScreen = ({ navigation }: Props) => {
-    const [modalVisible, setModalVisible] = React.useState(false);
-
-    const onPress = () => {
-        setModalVisible(true);
-    };
     return (
         <View>
             <Text>All settings screen</Text>
@@ -27,22 +15,26 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                 onPress={() => {
                     navigation.navigate('AccountInfo');
                 }}
-                title={'Account Information'}
+                optionType={OptionType.AccountInfo}
             />
             <SettingsOption
                 onPress={() => {
                     navigation.navigate('MedicalInfo');
                 }}
-                title={'Medical Information'}
+                optionType={OptionType.MedicalInfo}
             />
-            <Icon name="briefcase-medical" size={30} color={Colours.DARKBLUE} />
-            <AlertModal
-                modalVisible={modalVisible}
-                setModalVisible={setModalVisible}
-                modalType={ModalType.CancelAlert}
-                confirmAction={() => {}}
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Tutorial');
+                }}
+                optionType={OptionType.Tutorial}
             />
-            <RoundButton text={'Show alert modal'} onPress={onPress} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Legal');
+                }}
+                optionType={OptionType.Legal}
+            />
         </View>
     );
 };
