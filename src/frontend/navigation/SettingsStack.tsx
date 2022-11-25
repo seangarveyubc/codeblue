@@ -4,7 +4,7 @@ import { AllSettingsScreen } from '../screens/Settings/AllSettings/AllSettingsSc
 import { AccountInfoScreen } from '../screens/Settings/AccountInfo/AccountInfoScreen';
 import { MedicalInfoScreen } from '../screens/Settings/MedicalInfo/MedicalInfoScreen';
 import { TutorialScreen } from '../screens/Onboarding/Tutorial/TutorialScreen';
-import {LegalScreen} from '../screens/Settings/Legal/LegalScreen'
+import { LegalScreen } from '../screens/Settings/Legal/LegalScreen';
 
 const Stack = createNativeStackNavigator();
 

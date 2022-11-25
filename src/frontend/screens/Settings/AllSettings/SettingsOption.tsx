@@ -1,17 +1,56 @@
 import * as React from 'react';
-import { StyleSheet, Button, Text, View } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colours from '../../../../utilities/Colours';
 import { ForwardArrow } from '../../../components/utils/ForwardArrow';
 
-interface Props {
-    onPress: any;
-    title: string;
+export enum OptionType {
+    AccountInfo,
+    MedicalInfo,
+    Tutorial,
+    Legal
 }
 
-export const SettingsOption = ({ onPress, title }: Props) => {
+const OPTION_TYPE = [
+    // AccountInfo
+    {
+        icon: <Ionicons name="person" size={25} color={Colours.DARKBLUE} />,
+        title: 'Account Information'
+    },
+    // MedicalInfo
+    {
+        icon: (
+            <FontAwesome5
+                name="briefcase-medical"
+                size={25}
+                color={Colours.DARKBLUE}
+            />
+        ),
+        title: 'Medical Information'
+    },
+    // Tutorial
+    {
+        icon: <FontAwesome5 name="play" size={25} color={Colours.DARKBLUE} />,
+        title: 'CodeBlue Tutorial Video'
+    },
+    // Legal
+    {
+        icon: (
+            <FontAwesome5 name="paperclip" size={25} color={Colours.DARKBLUE} />
+        ),
+        title: 'Legal'
+    }
+];
+
+interface Props {
+    optionType: OptionType;
+    onPress: any;
+}
+
+export const SettingsOption = ({ optionType, onPress }: Props) => {
     return (
         <TouchableRipple
             style={styles.container}
@@ -19,19 +58,8 @@ export const SettingsOption = ({ onPress, title }: Props) => {
             rippleColor="rgba(0, 0, 0, .32)"
         >
             <View style={styles.row}>
-                <Svg
-                    style={styles.svg}
-                    width="23"
-                    height="23"
-                    viewBox="0 0 23 23"
-                    fill="none"
-                >
-                    <Path
-                        d="M2.66325 22.6875C2.66325 22.6875 0.840332 22.6875 0.840332 20.8646C0.840332 19.0417 2.66325 13.5729 11.7778 13.5729C20.8924 13.5729 22.7153 19.0417 22.7153 20.8646C22.7153 22.6875 20.8924 22.6875 20.8924 22.6875H2.66325ZM11.7778 11.75C13.2282 11.75 14.6192 11.1738 15.6448 10.1482C16.6704 9.12265 17.2466 7.73165 17.2466 6.28125C17.2466 4.83085 16.6704 3.43985 15.6448 2.41426C14.6192 1.38867 13.2282 0.8125 11.7778 0.8125C10.3274 0.8125 8.93643 1.38867 7.91084 2.41426C6.88525 3.43985 6.30908 4.83085 6.30908 6.28125C6.30908 7.73165 6.88525 9.12265 7.91084 10.1482C8.93643 11.1738 10.3274 11.75 11.7778 11.75Z"
-                        fill="#115DA9"
-                    />
-                </Svg>
-                <Text style={styles.text}>{title}</Text>
+                <View style={styles.icon}>{OPTION_TYPE[optionType].icon}</View>
+                <Text style={styles.text}>{OPTION_TYPE[optionType].title}</Text>
                 <View style={styles.arrow}>
                     <ForwardArrow label={''} />
                 </View>
@@ -50,7 +78,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: 12
     },
-    svg: {
+    icon: {
         margin: 5,
         marginHorizontal: 16
     },
