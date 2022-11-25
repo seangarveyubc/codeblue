@@ -4,7 +4,7 @@ import { MultiSelect } from 'react-native-element-dropdown';
 import Colours from '../../utilities/Colours';
 
 interface Props {
-    data: { label: string, value: number}[];
+    data: { label: string; value: number }[];
     placeholder: string;
     width: number;
 }

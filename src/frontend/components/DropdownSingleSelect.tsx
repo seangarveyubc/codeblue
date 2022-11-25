@@ -5,13 +5,13 @@ import { Dropdown } from 'react-native-element-dropdown';
 import Colours from '../../utilities/Colours';
 
 interface Props {
-    data: { label: string, value: number}[];
+    data: { label: string; value: number }[];
     placeholder: string;
     width: number;
 }
 
 const DropdownSingleSelect = ({ width, placeholder, data }: Props) => {
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState('');
 
     return (
         <View
