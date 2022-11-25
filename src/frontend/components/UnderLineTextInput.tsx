@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-evenly',
         height: 50,
-        width:'100%',
+        width: '100%',
         borderBottomWidth: 1,
         borderBottomColor: Colours.GREY
     },

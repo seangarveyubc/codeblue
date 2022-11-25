@@ -8,7 +8,6 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Colours from '../../utilities/Colours';
 
-
 const NavBar = createBottomTabNavigator();
 
 export const MainNavigator = () => {

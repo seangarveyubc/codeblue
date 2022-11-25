@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Colours from '../../../../utilities/Colours';
-import {AddDeviceWidget} from '../../../components/AddDeviceWidget'
+import { AddDeviceWidget } from '../../../components/AddDeviceWidget';
 
 interface Props {
     navigation: any;
@@ -9,15 +9,15 @@ interface Props {
 
 export const NewDeviceListScreen = ({ navigation }: Props) => {
     return (
-    <View style={styles.page}>
-        <Text style={styles.title}>Add New Devices</Text>
-        <View style={styles.devicelist}>
-            <AddDeviceWidget name="default 1"></AddDeviceWidget>
-            <AddDeviceWidget name="default 2"></AddDeviceWidget>
-            <AddDeviceWidget name="default 3"></AddDeviceWidget>
-        </View>    
-    </View>
-);
+        <View style={styles.page}>
+            <Text style={styles.title}>Add New Devices</Text>
+            <View style={styles.devicelist}>
+                <AddDeviceWidget name="default 1"></AddDeviceWidget>
+                <AddDeviceWidget name="default 2"></AddDeviceWidget>
+                <AddDeviceWidget name="default 3"></AddDeviceWidget>
+            </View>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colours.WHITE
     },
     devicelist: {
-        alignItems: 'center',
+        alignItems: 'center'
     },
     title: {
         fontFamily: 'DMSans-Bold',
@@ -36,5 +36,5 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         color: Colours.BLACK,
         fontSize: 24
-    },
+    }
 });

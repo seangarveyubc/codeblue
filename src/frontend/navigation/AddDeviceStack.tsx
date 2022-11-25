@@ -12,7 +12,10 @@ export const AddDeviceStack = () => {
             screenOptions={{ headerShown: false }}
         >
             <Stack.Screen name="AddDevice" component={AddDeviceScreen} />
-            <Stack.Screen name="NewDeviceList" component={NewDeviceListScreen} />
+            <Stack.Screen
+                name="NewDeviceList"
+                component={NewDeviceListScreen}
+            />
         </Stack.Navigator>
     );
 };
