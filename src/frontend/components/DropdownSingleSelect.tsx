@@ -5,14 +5,13 @@ import { Dropdown } from 'react-native-element-dropdown';
 import Colours from '../../utilities/Colours';
 
 interface Props {
-    data: object[];
-    // data must take an array of objects, each containing a 'label' and 'value' property
+    data: { label: string, value: number}[];
     placeholder: string;
     width: number;
 }
 
 const DropdownSingleSelect = ({ width, placeholder, data }: Props) => {
-    const [selected, setSelected] = useState([]);
+    const [selected, setSelected] = useState("");
 
     return (
         <View
@@ -25,16 +24,14 @@ const DropdownSingleSelect = ({ width, placeholder, data }: Props) => {
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
                 data={data}
                 labelField="label"
                 valueField="value"
                 placeholder={placeholder}
                 value={selected}
                 onChange={(item) => {
-                    setSelected(item);
+                    setSelected(item.label);
                 }}
-                selectedStyle={styles.selectedStyle}
             />
         </View>
     );
@@ -63,8 +60,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'DMSans-Regular',
         color: Colours.BLUE
-    },
-    selectedStyle: {
-        borderRadius: 8
     }
 });
