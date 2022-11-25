@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 18,
-        fontFamily: 'DMSans-Regular',
-        fontWeight: '700',
+        fontFamily: 'DMSans-Bold',
         color: Colours.BLUE,
         alignItems: 'center'
     }
