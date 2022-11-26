@@ -6,6 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colours from '../../../../utilities/Colours';
 import { ForwardArrow } from '../../../components/utils/ForwardArrow';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 export enum OptionType {
     AccountInfo,
@@ -70,7 +71,8 @@ export const SettingsOption = ({ optionType, onPress }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomWidth: 0.5
+        borderBottomWidth: 0.5,
+        borderColor: Colours.LIGHTGREY
     },
     row: {
         display: 'flex',
@@ -80,12 +82,11 @@ const styles = StyleSheet.create({
     },
     icon: {
         margin: 5,
-        marginHorizontal: 16
+        marginHorizontal: 10
     },
     text: {
         flex: 1,
         fontSize: 16,
-        fontWeight: '500',
         color: Colours.BLACK,
         alignItems: 'center',
         fontFamily: 'DMSans-Regular'
