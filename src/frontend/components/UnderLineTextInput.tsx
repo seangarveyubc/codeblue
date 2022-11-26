@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     inputfield: {
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-        margin: 10,
         height: 50,
+        width: '100%',
         borderBottomWidth: 1,
         borderBottomColor: Colours.GREY
     },
