@@ -49,7 +49,7 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
                 setWeight={setWeight}
                 setBloodType={setBloodType}
                 setSex={setSex}
-            ></UserInformation>
+            />
         </View>
     );
 };

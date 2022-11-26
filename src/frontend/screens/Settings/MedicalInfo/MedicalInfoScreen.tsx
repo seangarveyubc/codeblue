@@ -34,7 +34,7 @@ export const MedicalInfoScreen = ({ navigation }: Props) => {
                 familyHistory={familyHistory}
                 setPersonalHistory={setPersonalHistory}
                 setFamilyHistory={setFamilyHistory}
-            ></UserMedicalInfo>
+            />
 
             <View style={styles.subHeading}>
                 <Text style={styles.subHeadingText}>{'Medication'}</Text>
