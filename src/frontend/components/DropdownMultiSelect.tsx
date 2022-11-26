@@ -7,12 +7,17 @@ interface Props {
     data: { label: string; value: number }[];
     placeholder: string;
     width: number;
-    selected: any,
-    setSelected: any
+    selected: any;
+    setSelected: any;
 }
 
-const DropdownMultiSelect = ({ placeholder, width, data, selected, setSelected }: Props) => {
-
+const DropdownMultiSelect = ({
+    placeholder,
+    width,
+    data,
+    selected,
+    setSelected
+}: Props) => {
     return (
         <View
             style={{
