@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    Dimensions,
-    Modal,
-    StyleSheet,
-    Text,
-    Button,
-    View
-} from 'react-native';
+import { Dimensions, Modal, StyleSheet, Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -22,7 +15,7 @@ export enum ModalType {
 }
 
 const MODAL_TYPE = [
-    //CallAlert
+    // CallAlert
     {
         icon: <MaterialIcons name="call" size={100} color={Colours.BLUE} />,
         title: 'Call 911 now',
@@ -125,7 +118,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontWeight: '700',
         fontSize: 24
     },
     descriptionText: {
