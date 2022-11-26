@@ -8,10 +8,11 @@ interface Props {
     data: { label: string; value: number }[];
     placeholder: string;
     width: number;
+    selected: any,
+    setSelected: any
 }
 
-const DropdownSingleSelect = ({ width, placeholder, data }: Props) => {
-    const [selected, setSelected] = useState('');
+const DropdownSingleSelect = ({ placeholder, width, data, selected, setSelected }: Props) => {
 
     return (
         <View
