@@ -58,8 +58,10 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                 {'Reset App'}
             </Text>
             <Button
-                title='Emergency Protocol'
-                onPress={() => { navigation.navigate('EmergencyProtocol')}}
+                title="Emergency Protocol"
+                onPress={() => {
+                    navigation.navigate('EmergencyProtocol');
+                }}
             />
         </View>
     );
