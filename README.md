@@ -7,7 +7,7 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
 
 ## Repository Structure
     CodeBlue
-    │   algorithm
+    ├── algorithm
     ├── android
     ├── src/app
     |   ├── assets
