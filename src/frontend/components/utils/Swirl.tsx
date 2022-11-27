@@ -4,7 +4,11 @@ import { Svg, Path, G } from 'react-native-svg';
 
 import Colours from '../../../utilities/Colours';
 
-export const Swirl = () => {
+interface Props {
+    rotation?: number;
+}
+
+export const Swirl = ({ rotation }: Props) => {
     return (
         <View>
             <Svg
@@ -14,6 +18,7 @@ export const Swirl = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 fillOpacity="0.2"
+                rotation={rotation ? rotation : 0}
             >
                 <Path
                     d="M444 112.888C444 112.888 372.925 163.644 185.228 52.1143C-2.46898 -59.4152 -32 42.7651 -32 42.7651L-2.46899 366H372.925L444 112.888Z"
