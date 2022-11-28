@@ -6,9 +6,10 @@ import { Swirl } from './Swirl';
 
 interface Props {
     title: string;
+    height?: number;
 }
-
-export const HeaderSwirl = ({ title }: Props) => {
+// Pass in a number <-25 if you want to increase the height and >-25 if you want to decrease
+export const HeaderSwirl = ({ title, height }: Props) => {
     return (
         <View>
             <View style={styles.logo}>
@@ -16,7 +17,7 @@ export const HeaderSwirl = ({ title }: Props) => {
                 <Text style={styles.codeBlue}>CodeBlue</Text>
             </View>
             <Text style={styles.header}>{title}</Text>
-            <View style={styles.swirl}>
+            <View style={{ ...styles.swirl, ...{ bottom: height ?? -25 } }}>
                 <Swirl />
             </View>
         </View>
@@ -45,7 +46,6 @@ const styles = StyleSheet.create({
     },
     swirl: {
         flex: 1,
-        bottom: -20,
         transform: [{ rotateX: '180deg' }]
     }
 });
