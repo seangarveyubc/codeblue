@@ -6,6 +6,7 @@ import {
     ModalType
 } from '../../../components/AlertModal/AlertModal';
 import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading';
+import { HeaderSwirl } from '../../../components/utils/HeaderSwirl';
 
 import { OptionType, SettingsOption } from './SettingsOption';
 
@@ -21,6 +22,9 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
     };
     return (
         <View style={styles.container}>
+            <View style={styles.header}>
+                <HeaderSwirl title={'Settings'} />
+            </View>
             <SettingsOptionHeading title={'My Account'} />
             <SettingsOption
                 onPress={() => {
@@ -66,6 +70,7 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: Colours.WHITE
     },
+    header: { marginBottom: 10 },
     resetText: {
         margin: 20,
         fontSize: 20,
