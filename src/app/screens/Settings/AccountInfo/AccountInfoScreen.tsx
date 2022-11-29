@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../assets/constants/Colours';
 import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader';
 import { UserInformation } from './UserAccountInfo';
@@ -21,7 +21,7 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
         setEdit(!edit);
     };
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <SettingsScreenHeader
                 navigation={navigation}
                 title="Account Information"
@@ -50,7 +50,7 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
                 setBloodType={setBloodType}
                 setSex={setSex}
             />
-        </View>
+        </ScrollView>
     );
 };
 

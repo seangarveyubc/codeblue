@@ -30,7 +30,8 @@ export const MainNavigator = () => {
                     marginBottom: 10,
                     fontFamily: 'DMSans-Regular'
                 },
-                tabBarLabelPosition: 'below-icon'
+                tabBarLabelPosition: 'below-icon',
+                tabBarHideOnKeyboard: true
             }}
         >
             <NavBar.Screen
