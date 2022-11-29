@@ -5,7 +5,7 @@ import {
     StyleSheet,
     Text,
     View,
-    Button,
+    Button
 } from 'react-native';
 import Colours from '../../assets/constants/Colours';
 
