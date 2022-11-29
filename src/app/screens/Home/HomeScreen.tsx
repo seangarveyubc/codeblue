@@ -8,6 +8,10 @@ import { CentredContent } from '../../components/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget';
 import IconTextInput from '../../components/IconTextInput';
 import Colours from '../../assets/constants/Colours';
+import {
+    OptionType,
+    SettingsOption
+} from '../Settings/AllSettings/SettingsOption';
 
 interface Props {
     navigation: any;
@@ -110,6 +114,12 @@ export const HomeScreen = ({ navigation }: Props) => {
                             )}
                         </View>
                     </View>
+                    <SettingsOption
+                        onPress={() => {
+                            navigation.navigate('EmergencyProtocol');
+                        }}
+                        optionType={OptionType.EmergencyProtocol}
+                    />
                 </SafeAreaView>
             </ScrollView>
         </View>

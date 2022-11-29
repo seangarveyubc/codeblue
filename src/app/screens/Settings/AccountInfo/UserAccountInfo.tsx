@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
 import Colours from '../../../assets/constants/Colours';
+import DDOptions from '../../../assets/constants/DDOptions';
 import UnderlineDDSelect from '../../../components/UnderlineDDSelect';
 import UnderlineTextInput from '../../../components/UnderLineTextInput';
 
@@ -93,12 +94,16 @@ export const UserInformation = ({
                     <UnderlineDDSelect
                         selectedValue={bloodType}
                         onValueChange={setBloodType}
+                        title={'Blood Type'}
+                        options={DDOptions.BloodTypes}
                     />
                 </View>
                 <View style={styles.item}>
                     <UnderlineDDSelect
                         selectedValue={sex}
                         onValueChange={setSex}
+                        title={'Sex'}
+                        options={DDOptions.Sex}
                     />
                 </View>
             </View>
@@ -137,8 +142,8 @@ export const UserInformation = ({
                     <Text style={styles.input}>{bloodType}</Text>
                 </View>
                 <View style={styles.item}>
-                    <Text style={styles.title}>{'Blood Type'}</Text>
-                    <Text style={styles.input}>{bloodType}</Text>
+                    <Text style={styles.title}>{'Sex'}</Text>
+                    <Text style={styles.input}>{sex}</Text>
                 </View>
             </View>
         </View>

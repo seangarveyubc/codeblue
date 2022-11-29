@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../assets/constants/Colours';
 import { CentredContent } from '../../../components/CentredContent';
 import InputText from '../../../components/InputText';
@@ -44,76 +44,86 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
 
     return (
         <View style={styles.screenContainer}>
-            <BackArrow label="Back" onPress={navigateToRequiredInfoScreen} />
-            <View style={styles.titleContainer}>
-                <Logo width={50} height={50} />
-                <Text style={styles.titleText}>Join CodeBlue</Text>
-            </View>
-            <Text style={styles.subtitleText}>
-                Please enter any additional information (Optional)
-            </Text>
-            <CentredContent>
-                <InputText
-                    placeholder="Birthday (DD/MM/YYYY)"
-                    text={birthday}
-                    onChangeText={setBirthday}
-                    width={windowWidth * 0.9}
-                />
-                <View style={styles.inputTextRow}>
-                    <InputText
-                        placeholder="Height (cm)"
-                        text={userHeight}
-                        onChangeText={setUserHeight}
-                        width={windowWidth * 0.43}
-                        keyboardType="numeric"
-                    />
-                    <InputText
-                        placeholder="Weight (kg)"
-                        text={userWeight}
-                        onChangeText={setUserWeight}
-                        width={windowWidth * 0.43}
-                        keyboardType="numeric"
+            <ScrollView>
+                <View style={{ display: 'flex', alignSelf: 'flex-start' }}>
+                    <BackArrow
+                        label="Back"
+                        onPress={navigateToRequiredInfoScreen}
                     />
                 </View>
-                <View style={styles.inputTextRow}>
-                    <InputText
-                        placeholder="Sex"
-                        text={userSex}
-                        onChangeText={setUserSex}
-                        width={windowWidth * 0.43}
-                    />
-                    <InputText
-                        placeholder="Blood Type"
-                        text={userBloodType}
-                        onChangeText={setUserBloodType}
-                        width={windowWidth * 0.43}
-                    />
+                <View style={styles.titleContainer}>
+                    <Logo width={50} height={50} />
+                    <Text style={styles.titleText}>Join CodeBlue</Text>
                 </View>
-            </CentredContent>
-            <View style={styles.checkBoxRow}>
-                <CheckBox
-                    value={hasHeartProblem}
-                    onValueChange={handleUpdateHeartProblem}
-                />
-                <Text style={styles.heartProblemsText}>
-                    Personal history of heart problems?
+                <Text style={styles.subtitleText}>
+                    Please enter any additional information (Optional)
                 </Text>
-            </View>
-            <View style={styles.checkBoxRow}>
-                <CheckBox
-                    value={hasFamilyHeartProblem}
-                    onValueChange={handleUpdateFamilyHeartProblem}
-                />
-                <Text style={styles.heartProblemsText}>
-                    Family history of heart problems?
-                </Text>
-            </View>
-            <CentredContent marginTop={VERTICAL_SPACE}>
-                <WideButton text="Join" onPress={navigateToSuccessScreen} />
-                <Text style={styles.skipText} onPress={navigateToSuccessScreen}>
-                    Skip
-                </Text>
-            </CentredContent>
+                <CentredContent>
+                    <InputText
+                        placeholder="Birthday (DD/MM/YYYY)"
+                        text={birthday}
+                        onChangeText={setBirthday}
+                        width={windowWidth * 0.9}
+                    />
+                    <View style={styles.inputTextRow}>
+                        <InputText
+                            placeholder="Height (cm)"
+                            text={userHeight}
+                            onChangeText={setUserHeight}
+                            width={windowWidth * 0.43}
+                            keyboardType="numeric"
+                        />
+                        <InputText
+                            placeholder="Weight (kg)"
+                            text={userWeight}
+                            onChangeText={setUserWeight}
+                            width={windowWidth * 0.43}
+                            keyboardType="numeric"
+                        />
+                    </View>
+                    <View style={styles.inputTextRow}>
+                        <InputText
+                            placeholder="Sex"
+                            text={userSex}
+                            onChangeText={setUserSex}
+                            width={windowWidth * 0.43}
+                        />
+                        <InputText
+                            placeholder="Blood Type"
+                            text={userBloodType}
+                            onChangeText={setUserBloodType}
+                            width={windowWidth * 0.43}
+                        />
+                    </View>
+                </CentredContent>
+                <View style={styles.checkBoxRow}>
+                    <CheckBox
+                        value={hasHeartProblem}
+                        onValueChange={handleUpdateHeartProblem}
+                    />
+                    <Text style={styles.heartProblemsText}>
+                        Personal history of heart problems?
+                    </Text>
+                </View>
+                <View style={styles.checkBoxRow}>
+                    <CheckBox
+                        value={hasFamilyHeartProblem}
+                        onValueChange={handleUpdateFamilyHeartProblem}
+                    />
+                    <Text style={styles.heartProblemsText}>
+                        Family history of heart problems?
+                    </Text>
+                </View>
+                <CentredContent marginTop={VERTICAL_SPACE}>
+                    <WideButton text="Join" onPress={navigateToSuccessScreen} />
+                    <Text
+                        style={styles.skipText}
+                        onPress={navigateToSuccessScreen}
+                    >
+                        Skip
+                    </Text>
+                </CentredContent>
+            </ScrollView>
         </View>
     );
 };

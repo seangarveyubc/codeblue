@@ -12,7 +12,8 @@ export enum OptionType {
     AccountInfo,
     MedicalInfo,
     Tutorial,
-    Legal
+    Legal,
+    EmergencyProtocol
 }
 
 const OPTION_TYPE = [
@@ -43,6 +44,12 @@ const OPTION_TYPE = [
             <FontAwesome5 name="paperclip" size={25} color={Colours.DARKBLUE} />
         ),
         title: 'Legal'
+    },
+
+    // Test EP
+    {
+        icon: <FontAwesome5 name="phone" size={0} color={Colours.DARKBLUE} />,
+        title: 'Emergency Protocol'
     }
 ];
 

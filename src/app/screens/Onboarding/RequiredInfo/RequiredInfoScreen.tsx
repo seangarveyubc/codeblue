@@ -3,6 +3,7 @@ import { useState } from 'react';
 import {
     Dimensions,
     KeyboardAvoidingView,
+    ScrollView,
     StyleSheet,
     Text,
     View
@@ -29,7 +30,7 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
     };
 
     return (
-        <View style={styles.screenContainer}>
+        <ScrollView style={styles.screenContainer}>
             <CentredContent>
                 <View style={styles.logoGroup}>
                     <Logo
@@ -57,7 +58,7 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
                 </KeyboardAvoidingView>
                 <WideButton text="Next" onPress={handleNavigate} />
             </CentredContent>
-        </View>
+        </ScrollView>
     );
 };
 

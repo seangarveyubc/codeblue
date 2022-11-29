@@ -54,6 +54,7 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                     }}
                     optionType={OptionType.Legal}
                 />
+
                 <AlertModal
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}

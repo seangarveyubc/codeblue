@@ -10,8 +10,9 @@ interface Props {
 
 export const MedicalInfoScreen = ({ navigation }: Props) => {
     const [edit, setEdit] = React.useState(false);
-    const [personalHistory, setPersonalHistory] = React.useState('');
-    const [familyHistory, setFamilyHistory] = React.useState('');
+    const [personalHistory, setPersonalHistory] =
+        React.useState('Not Provided');
+    const [familyHistory, setFamilyHistory] = React.useState('Not Provided');
     const onPress = () => {
         setEdit(!edit);
     };

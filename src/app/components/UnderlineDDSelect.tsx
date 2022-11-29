@@ -8,15 +8,22 @@ import DDOptions from '../assets/constants/DDOptions';
 interface Props {
     selectedValue: any;
     onValueChange: any;
+    title: string;
+    options: any;
 }
 
-const UnderlineDDSelect = ({ selectedValue, onValueChange }: Props) => {
+const UnderlineDDSelect = ({
+    selectedValue,
+    onValueChange,
+    title,
+    options
+}: Props) => {
     return (
         <View style={styles.view}>
-            <Text style={styles.title}>Blood Type</Text>
+            <Text style={styles.title}>{title}</Text>
             <SelectDropdown
                 defaultButtonText={' '}
-                data={DDOptions.BloodTypes}
+                data={options}
                 onSelect={(selectedItem, index) => {
                     onValueChange(selectedItem);
                 }}
