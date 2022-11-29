@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'flex-end',
         height: 40,
+        paddingVertical: 2,
         marginHorizontal: 20
     },
     text: {
