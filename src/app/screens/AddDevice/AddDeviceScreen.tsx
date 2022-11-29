@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import {
     ActivityIndicator,
     StyleSheet,
@@ -12,8 +13,16 @@ interface Props {
     navigation: any;
 }
 
+const DELAY_TIME = 2000;
+
 export const AddDeviceScreen = ({ navigation }: Props) => {
     let showLoading: boolean = true;
+
+    useEffect(() => {
+        setTimeout(() => {
+            navigation.navigate('NewDeviceList');
+        }, DELAY_TIME);
+    }, []);
 
     return (
         <View style={styles.page}>
@@ -25,12 +34,6 @@ export const AddDeviceScreen = ({ navigation }: Props) => {
                 color={Colours.BLUE}
                 hidesWhenStopped={true}
                 animating={showLoading}
-            ></ActivityIndicator>
-            <Button
-                title="Next Page"
-                onPress={() => {
-                    navigation.navigate('NewDeviceList');
-                }}
             />
         </View>
     );
