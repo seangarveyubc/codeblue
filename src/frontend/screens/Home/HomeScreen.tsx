@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, KeyboardAvoidingView, SafeAreaView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 
 import Colours from '../../../utilities/Colours';
 import { Logo } from '../../components/utils/Logo';
-import { Swirl } from '../../components/utils/Swirl';
+import { HeaderSwirl } from '../../components/utils/HeaderSwirl';
 import HeartRateWidget from '../../components/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget';
@@ -22,128 +22,117 @@ export const HomeScreen = ({ navigation }: Props) => {
     const toggleChecked = () => setDeviceListState((value) => !value);
 
     return (
-        <View style={styles.container}>
-            <View style={styles.swirl}>
-                <Swirl rotation={180} />
-            </View>
-            <View style={styles.container}>
-                <View style={styles.title}>
-                    <View style={styles.logo}>
-                        <Logo width={35} height={35} />
+    <KeyboardAvoidingView
+        behavior='padding'
+        style={{ flex: 1 }}
+        >
+        <SafeAreaView style={styles.container}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.inner}>
+                    <HeaderSwirl title="Test Name" />
+                    <View style={styles.heartContainer}>
+                        <HeartRateWidget heartRate={56} />
                     </View>
-                    <Text style={styles.codeblue}>CodeBlue</Text>
-                </View>
-                <Text style={styles.name}>Test Name</Text>
-                <View style={styles.heartContainer}>
-                    <HeartRateWidget heartRate={56} />
-                </View>
-            </View>
-            <View style={styles.devicesContainer}>
-                <View style={styles.deviceHeader}>
-                    <Text style={styles.yourDevices}>Your Devices</Text>
-                    <Text style={styles.edit} onPress={toggleChecked}>
-                        {deviceListState ? 'Edit' : 'Save'}
-                    </Text>
-                </View>
-                {!bluetoothState ? (
-                    <View style={styles.bluetoothPrompt}>
-                        <CentredContent>
-                            <Text>
-                                CodeBlue requires Bluetooth to monitor heart
-                                rate.
-                                <Text style={{ color: Colours.BLUE }}>
-                                    Turn on Bluetooth.
-                                </Text>
+                    <View style={styles.devicesContainer}>
+                        <View style={styles.deviceHeader}>
+                            <Text style={styles.yourDevices}>Your Devices</Text>
+                            <Text style={styles.edit} onPress={toggleChecked}>
+                                {deviceListState ? 'Edit' : 'Save'}
                             </Text>
-                        </CentredContent>
+                        </View>
+                        {!bluetoothState ? (
+                            <View style={styles.bluetoothPrompt}>
+                                <CentredContent>
+                                    <Text>
+                                        CodeBlue requires Bluetooth to monitor heart
+                                        rate.
+                                        <Text style={{ color: Colours.BLUE }}>
+                                            Turn on Bluetooth.
+                                        </Text>
+                                    </Text>
+                                </CentredContent>
+                            </View>
+                        ) : null}
+                        {deviceListState ? (
+                            <View
+                                style={{ flex: bluetoothState ? 7 : 6, marginTop: 10 }}
+                            >
+                                <CentredContent>
+                                    <View style={{paddingBottom: 15}}>
+                                        <DeviceWidget
+                                            name={deviceName1}
+                                            isConnected={true}
+                                        />
+                                    </View>
+                                    <View style={{paddingBottom: 15}}>
+                                        <DeviceWidget
+                                            name={deviceName2}
+                                            isConnected={false}
+                                        />
+                                    </View>
+                                </CentredContent>
+                            </View>
+                        ) : (
+                            <View
+                                style={{ flex: bluetoothState ? 7 : 6, marginTop: 10 }}
+                            >
+                                <CentredContent>
+                                    <View style={{width:'88%'}}>
+                                        <IconTextInput
+                                            text={deviceName1}
+                                            isConnected={true}
+                                            onChangeText={(text) => changeDeviceName1(text)}
+                                        />
+                                    </View>
+                                    <View style={{width:'88%'}}>
+                                        <IconTextInput
+                                            text={deviceName2}
+                                            isConnected={false}
+                                            onChangeText={(text) => changeDeviceName2(text)}
+                                        />
+                                    </View>
+                                </CentredContent>
+                            </View>
+                        )}
                     </View>
-                ) : null}
-                {deviceListState ? (
-                    <View
-                        style={{ flex: bluetoothState ? 7 : 6, marginTop: 10 }}
-                    >
-                        <CentredContent>
-                            <DeviceWidget
-                                name={deviceName1}
-                                isConnected={true}
-                            />
-                            <DeviceWidget
-                                name={deviceName2}
-                                isConnected={false}
-                            />
-                        </CentredContent>
-                    </View>
-                ) : (
-                    <View
-                        style={{ flex: bluetoothState ? 7 : 6, marginTop: 10 }}
-                    >
-                        <CentredContent>
-                            <IconTextInput
-                                text={deviceName1}
-                                isConnected={true}
-                                onChangeText={(text) => changeDeviceName1(text)}
-                            />
-                            <IconTextInput
-                                text={deviceName2}
-                                isConnected={false}
-                                onChangeText={(text) => changeDeviceName2(text)}
-                            />
-                        </CentredContent>
-                    </View>
-                )}
-            </View>
-        </View>
-    );
-};
+                </View>
+            </TouchableWithoutFeedback>
+        </SafeAreaView>
+    </KeyboardAvoidingView>
+    );};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        padding: 5
+        justifyContent: 'flex-end',
+        backgroundColor: Colours.WHITE,
+        padding: 0
     },
-    swirl: {
-        position: 'absolute',
-        top: -150,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        transform: [{ scaleX: -1 }]
-    },
-    headerContainer: {
+    inner: {
+        padding: 0,
         flex: 1,
-        flexDirection: 'row',
-        backgroundColor: Colours.BLACK
+        justifyContent: "flex-end",
+    },
+    header: {
+        fontSize: 36,
+        marginBottom: 48,
+    },
+    input: {
+        height: 40,
+        borderColor: "#000000",
+        borderBottomWidth: 1,
+        marginBottom: 36,
+    },
+    btnContainer: {
+        backgroundColor: "white",
+        marginTop: 12,
     },
     heartContainer: {
-        flex: 3
+        paddingTop: 20
     },
     devicesContainer: {
-        flex: 1
-    },
-    title: {
-        flex: 1,
-        flexDirection: 'row'
-    },
-    name: {
-        flex: 1,
-        color: Colours.BLACK,
-        fontFamily: 'DMSans-Bold',
-        fontSize: 36,
-        paddingTop: 5
-    },
-    logo: {
-        position: 'absolute',
-        bottom: 0
-    },
-    codeblue: {
-        flex: 1,
-        fontFamily: 'DMSans-Bold',
-        fontSize: 28,
-        color: Colours.BLUE,
-        position: 'absolute',
-        bottom: 0,
-        left: 50
+        flex: 2
     },
     yourDevices: {
         flex: 3,
