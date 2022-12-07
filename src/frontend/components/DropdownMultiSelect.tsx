@@ -4,15 +4,20 @@ import { MultiSelect } from 'react-native-element-dropdown';
 import Colours from '../../utilities/Colours';
 
 interface Props {
-    data: object[];
-    // data must take an array of objects, each containing a 'label' and 'value' property
+    data: { label: string; value: number }[];
     placeholder: string;
     width: number;
+    selected: any;
+    setSelected: any;
 }
 
-const DropdownMultiSelect = ({ placeholder, width, data }) => {
-    const [selected, setSelected] = useState([]);
-
+const DropdownMultiSelect = ({
+    placeholder,
+    width,
+    data,
+    selected,
+    setSelected
+}: Props) => {
     return (
         <View
             style={{
