@@ -37,7 +37,7 @@ const DropdownMultiSelect = ({
                 placeholder={placeholder}
                 searchPlaceholder="Search..."
                 value={selected}
-                onChange={(item) => {
+                onChange={(item: object) => {
                     setSelected(item);
                 }}
                 selectedStyle={styles.selectedStyle}
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     selectedStyle: {
         borderRadius: 8,
-        backgroundColor: Colours.WHITE,
+        backgroundColor: Colours.LIGHTGREY,
         borderColor: Colours.BLUE
     },
     inputSearchStyle: {

@@ -35,8 +35,8 @@ const DropdownSingleSelect = ({
                 valueField="value"
                 placeholder={placeholder}
                 value={selected}
-                onChange={(item) => {
-                    setSelected(item.label);
+                onChange={(item: object) => {
+                    setSelected(item);
                 }}
             />
         </View>
