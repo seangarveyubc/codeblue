@@ -17,7 +17,7 @@ README.md
 .prettierrc
 app.json
 .github
-src/frontend/assets
+src/app/assets
 
 
 ###############################
