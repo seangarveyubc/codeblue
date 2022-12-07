@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     selectedStyle: {
         borderRadius: 8,
-        backgroundColor: Colours.WHITE,
+        backgroundColor: Colours.LIGHTGREY,
         borderColor: Colours.BLUE
     },
     inputSearchStyle: {
