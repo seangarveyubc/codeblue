@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../assets/constants/Colours';
-import { CentredContent } from '../../../components/CentredContent';
+import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import InputText from '../../../components/InputText';
 import { BackArrow } from '../../../components/utils/BackArrow';
 import { CheckBox } from '../../../components/utils/CheckBox';

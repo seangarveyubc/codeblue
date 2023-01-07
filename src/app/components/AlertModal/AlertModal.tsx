@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Colours from '../../assets/constants/Colours';
-import { CentredContent } from '../CentredContent';
+import { CentredContent } from '../CentredContent/CentredContent';
 import { RoundButton } from './RoundButton';
 import { CancelButton } from './CancelButton';
 

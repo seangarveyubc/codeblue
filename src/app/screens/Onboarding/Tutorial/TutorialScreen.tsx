@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colours from '../../../assets/constants/Colours';
-import { CentredContent } from '../../../components/CentredContent';
+import { CentredContent } from '../../../components/CentredContent/CentredContent';
 
 interface Props {
     navigation: any;

@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native';
 import Colours from '../../../assets/constants/Colours';
-import { CentredContent } from '../../../components/CentredContent';
+import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import InputText from '../../../components/InputText';
 import { Logo } from '../../../components/utils/Logo';
 import { WideButton } from '../../../components/utils/WideButton';
