@@ -8,9 +8,7 @@ const appDataStorage = new LocalStorage(APP_DATA_STORAGE);
 const cardiacStorage = new LocalStorageCache(CARDIAC_STORAGE);
 
 export const useLocalStorage = () => {
-    const isLocalStorageEmpty = (): boolean => {
-        return appDataStorage.isEmpty() && cardiacStorage.isEmpty();
-    };
-
+    const isLocalStorageEmpty =
+        appDataStorage.isEmpty() && cardiacStorage.isEmpty();
     return { isLocalStorageEmpty, appDataStorage, cardiacStorage };
 };

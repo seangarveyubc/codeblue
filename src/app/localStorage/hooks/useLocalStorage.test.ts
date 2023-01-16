@@ -15,6 +15,6 @@ jest.mock('./localstorage', () => ({
 describe('useLocalStorage', () => {
     it('returns the correct value for the isLocalStorageEmpty method', () => {
         const { isLocalStorageEmpty } = useLocalStorage();
-        expect(isLocalStorageEmpty()).toEqual(true);
+        expect(isLocalStorageEmpty).toEqual(true);
     });
 });

@@ -13,7 +13,3 @@ export class CardiacData {
         this.expiration = new Date(this.timestamp.getTime() + DAY_IN_MILLIS);
     }
 }
-
-export const toKey = (data: CardiacData): string => {
-    return data.deviceId + ' ' + data.expiration.getTime();
-};

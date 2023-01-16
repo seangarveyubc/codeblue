@@ -1,5 +1,5 @@
 import { MMKV } from 'react-native-mmkv';
-import { CardiacData, toKey } from '../models/CardiacData';
+import { CardiacData } from '../models/CardiacData';
 import { LocalStorageCacheImpl } from './LocalStorageCacheImpl';
 
 const mockCardiacData: CardiacData = {
@@ -8,8 +8,6 @@ const mockCardiacData: CardiacData = {
     timestamp: new Date(2023, 0, 0, 0, 0, 0, 0),
     expiration: new Date(2023, 0, 0, 0, 0, 0, 0)
 };
-
-const mockDateInMillis = 1672473600000;
 
 jest.mock('react-native-mmkv', () => ({
     MMKV: jest.fn()
@@ -107,13 +105,6 @@ describe('LocalStorageCacheImpl', () => {
             expect(mmkv.delete).toHaveBeenCalledWith(
                 'key2-expires 1400000000000'
             );
-        });
-    });
-
-    describe('toKey', () => {
-        it('maps CardiacData to a key', () => {
-            const expectedKey = `device-id ${mockDateInMillis}`;
-            expect(toKey(mockCardiacData)).toEqual(expectedKey);
         });
     });
 });
