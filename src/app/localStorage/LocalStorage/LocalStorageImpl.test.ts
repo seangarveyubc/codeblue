@@ -10,9 +10,9 @@ describe('LocalStorageImpl', () => {
     let mmkv: jest.Mocked<MMKV>;
 
     beforeEach(() => {
-        const original = jest.requireMock('react-native-mmkv');
+        const mmkvOriginal = jest.requireMock('react-native-mmkv');
         mmkv = {
-            ...original,
+            ...mmkvOriginal,
             set: jest.fn(),
             getString: jest.fn(),
             getNumber: jest.fn(),
@@ -24,6 +24,10 @@ describe('LocalStorageImpl', () => {
         };
         (MMKV as jest.Mock).mockImplementation(() => mmkv);
         storage = new LocalStorageImpl('test-id');
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
     });
 
     describe('isEmpty', () => {

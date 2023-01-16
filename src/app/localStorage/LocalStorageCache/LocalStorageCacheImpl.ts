@@ -17,9 +17,9 @@ export class LocalStorageCacheImpl
             let item = this.getString(key);
             if (item) {
                 try {
-                    let cardiacData = JSON.parse(item);
+                    let cardiacData: CardiacData = this.parseCardiacData(item);
                     data.push(cardiacData);
-                } catch (ex) {
+                } catch (err) {
                     console.log('Could not deserialize cardiac data', item);
                 }
             }
@@ -28,14 +28,27 @@ export class LocalStorageCacheImpl
         return data;
     }
 
-    // remove all entries that have been stored for more than 24hours
+    private parseCardiacData(data: string): CardiacData {
+        const parsedData: CardiacData = JSON.parse(data);
+        if (!parsedData) {
+            throw Error('Could not deserialize cardiac data');
+        }
+
+        return {
+            frequency: parsedData.frequency,
+            deviceId: parsedData.deviceId,
+            timestamp: new Date(parsedData.timestamp),
+            expiration: new Date(parsedData.expiration)
+        };
+    }
+
     refresh() {
         const keys = this.storage.getAllKeys();
         const now = Date.now();
         keys.forEach((key) => {
             let expiryDate = parseInt(key.split(' ')[1]);
             if (now >= expiryDate) {
-                this.storage.delete(key);
+                this.delete(key);
             }
         });
     }
