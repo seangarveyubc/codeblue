@@ -7,7 +7,6 @@ import {
 } from '../../../components/AlertModal/AlertModal';
 import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading';
 import { HeaderSwirl } from '../../../components/HeaderSwirl/HeaderSwirl';
-import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
 
 import { OptionType, SettingsOption } from './SettingsOption';
 

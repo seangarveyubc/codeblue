@@ -6,8 +6,7 @@ const App = () => {
     return <AppNavigator />;
 };
 
-// export default App;
-
+// Variable to switch between running CodeBlue App and components Storybook
 const STORYBOOK_START = true;
 
 export default STORYBOOK_START ? StorybookUI : App;

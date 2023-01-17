@@ -15,7 +15,7 @@ interface Props {
 
 const windowHeight = Dimensions.get('window').height;
 
-export const CardiacArrestScreen = ({ navigation }: Props) => {
+export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const [callModalVisible, setCallModalVisible] = React.useState(false);
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
     const [time, setTime] = React.useState(30);

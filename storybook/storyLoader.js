@@ -17,6 +17,23 @@ function loadStories() {
     require('../src/app/components/Swirl/Swirl.stories');
     require('../src/app/components/WideButton/WideButton.stories');
     require('../src/app/screens/AddDevice/AddDeviceScreen.stories');
+    require('../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories');
+    require('../src/app/screens/EmergencyProtocol/CallEnded/CallEndedScreen.stories');
+    require('../src/app/screens/EmergencyProtocol/CallInProgress/CallInProgressScreen.stories');
+    require('../src/app/screens/EmergencyProtocol/CardiacArrestDetected/CardiacArrestDetectedScreen.stories');
+    require('../src/app/screens/Home/HomeScreen.stories');
+    require('../src/app/screens/Onboarding/OnboardingSuccessScreen.stories');
+    require('../src/app/screens/Onboarding/OptionalInfo/OptionalInfoScreen.stories');
+    require('../src/app/screens/Onboarding/RequiredInfo/RequiredInfoScreen.stories');
+    require('../src/app/screens/Onboarding/Tutorial/TutorialScreen.stories');
+    require('../src/app/screens/Settings/AccountInfo/AccountInfoScreen.stories');
+    require('../src/app/screens/Settings/AccountInfo/UserAccountInfo.stories');
+    require('../src/app/screens/Settings/AllSettings/AllSettingsScreen.stories');
+    require('../src/app/screens/Settings/AllSettings/SettingsOption.stories');
+    require('../src/app/screens/Settings/Legal/LegalScreen.stories');
+    require('../src/app/screens/Settings/MedicalInfo/MedicalInfoScreen.stories');
+    require('../src/app/screens/Settings/MedicalInfo/UserMedicalInfo.stories');
+    require('../src/app/screens/SplashScreen.stories');
 }
 
 const stories = [
@@ -32,7 +49,24 @@ const stories = [
     '../src/app/components/RoundButton/RoundButton.stories',
     '../src/app/components/Swirl/Swirl.stories',
     '../src/app/components/WideButton/WideButton.stories',
-    '../src/app/screens/AddDevice/AddDeviceScreen.stories'
+    '../src/app/screens/AddDevice/AddDeviceScreen.stories',
+    '../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories',
+    '../src/app/screens/EmergencyProtocol/CallEnded/CallEndedScreen.stories',
+    '../src/app/screens/EmergencyProtocol/CallInProgress/CallInProgressScreen.stories',
+    '../src/app/screens/EmergencyProtocol/CardiacArrestDetected/CardiacArrestDetectedScreen.stories',
+    '../src/app/screens/Home/HomeScreen.stories',
+    '../src/app/screens/Onboarding/OnboardingSuccessScreen.stories',
+    '../src/app/screens/Onboarding/OptionalInfo/OptionalInfoScreen.stories',
+    '../src/app/screens/Onboarding/RequiredInfo/RequiredInfoScreen.stories',
+    '../src/app/screens/Onboarding/Tutorial/TutorialScreen.stories',
+    '../src/app/screens/Settings/AccountInfo/AccountInfoScreen.stories',
+    '../src/app/screens/Settings/AccountInfo/UserAccountInfo.stories',
+    '../src/app/screens/Settings/AllSettings/AllSettingsScreen.stories',
+    '../src/app/screens/Settings/AllSettings/SettingsOption.stories',
+    '../src/app/screens/Settings/Legal/LegalScreen.stories',
+    '../src/app/screens/Settings/MedicalInfo/MedicalInfoScreen.stories',
+    '../src/app/screens/Settings/MedicalInfo/UserMedicalInfo.stories',
+    '../src/app/screens/SplashScreen.stories'
 ];
 
 module.exports = {
