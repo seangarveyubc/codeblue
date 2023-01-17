@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
 
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 
 // This logo has a natural aspect ratio of 133:118.
 // All references to width/height should maintain that

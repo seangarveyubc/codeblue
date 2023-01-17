@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
+import Colours from '../../../constants/Colours';
 import { AddDeviceWidget } from '../../../components/AddDeviceWidget';
 
 interface Props {

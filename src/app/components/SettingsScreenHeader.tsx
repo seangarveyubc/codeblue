@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import SelectDropdown from 'react-native-select-dropdown';
-import Colours from '../assets/constants/Colours';
-import { BackArrow } from './utils/BackArrow';
+import Colours from '../constants/Colours';
+import { BackArrow } from './BackArrow/BackArrow';
 
 interface Props {
     title: string;

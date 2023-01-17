@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     label: string;

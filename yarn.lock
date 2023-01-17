@@ -1884,7 +1884,7 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@storybook/addon-actions@*", "@storybook/addon-actions@^5.3":
+"@storybook/addon-actions@*", "@storybook/addon-actions@^5.3.21":
   "integrity" "sha512-6SAF/j8UBZaAbRz/rYUlcCXda+c4LQvvNlbVJc9GHjNNNMJQQVc3/EU+M7PyFz6uDUxudAW1+AFchGk04ACJ2g=="
   "resolved" "https://registry.npmjs.org/@storybook/addon-actions/-/addon-actions-5.3.21.tgz"
   "version" "5.3.21"
@@ -1904,7 +1904,7 @@
     "react-inspector" "^4.0.0"
     "uuid" "^3.3.2"
 
-"@storybook/addon-knobs@^5.3", "@storybook/addon-knobs@5.3.21":
+"@storybook/addon-knobs@^5.3.21", "@storybook/addon-knobs@5.3.21":
   "integrity" "sha512-w1g61n2j87i3bzBltNl64u2hH06xQHKitfWWKBfRCiy1plC1hjZQ31GiUrA7uLUrD4NUx3GNO9dw0cDTnIIHRw=="
   "resolved" "https://registry.npmjs.org/@storybook/addon-knobs/-/addon-knobs-5.3.21.tgz"
   "version" "5.3.21"

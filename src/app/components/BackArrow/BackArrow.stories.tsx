@@ -1,9 +1,11 @@
 import { storiesOf } from '@storybook/react-native'
+import { action } from '@storybook/addon-actions';
+
 import { CentredContent } from '../CentredContent/CentredContent';
-import { RoundButton } from './RoundButton'; 
+import { BackArrow } from './BackArrow'; 
 
 storiesOf('Components', module)
   .addDecorator((getStory) => <CentredContent>{ getStory() }</CentredContent>)
-  .add('RoundButton', () => (
-    <RoundButton text={"Test"} onPress={() => {}}/>
+  .add('BackArrow', () => (
+    <BackArrow label="Back" onPress={action("BackArrow pressed")} />
   ))

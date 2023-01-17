@@ -34,8 +34,8 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@storybook/addon-actions": "^5.3",
-    "@storybook/addon-knobs": "^5.3",
+    "@storybook/addon-actions": "^5.3.21",
+    "@storybook/addon-knobs": "^5.3.21",
     "@storybook/addon-links": "^5.3",
     "@storybook/addon-ondevice-actions": "^5.3.23",
     "@storybook/addon-ondevice-knobs": "^5.3.26",
@@ -75,5 +75,14 @@
       "json",
       "node"
     ]
+  },
+  "config": {
+    "react-native-storybook-loader": {
+      "searchDir": [
+        "./src/app/components"
+      ],
+      "pattern": "**/**/**/**/*.stories.tsx",
+      "outputFile": "./storybook/storyLoader.js"
+    }
   }
 }

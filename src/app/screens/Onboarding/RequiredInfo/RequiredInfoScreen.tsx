@@ -7,7 +7,7 @@ import {
     Text,
     View
 } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
+import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import InputText from '../../../components/InputText';
 import { Logo } from '../../../components/utils/Logo';

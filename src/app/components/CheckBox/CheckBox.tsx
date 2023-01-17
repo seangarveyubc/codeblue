@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     value: boolean;

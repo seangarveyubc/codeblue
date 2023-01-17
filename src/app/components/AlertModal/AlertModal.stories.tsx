@@ -1,17 +1,36 @@
 import { storiesOf } from '@storybook/react-native'
-import { CentredContent } from '../CentredContent/CentredContent';
+// import { withKnobs, select } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { useState } from 'react';
+
 import {
   AlertModal,
   ModalType
 } from './AlertModal';
 
-storiesOf('Components', module)
-.addDecorator((getStory) => <CentredContent>{ getStory() }</CentredContent>)
-  .add('AlertModal', () => (
+// const options = [ModalType.CallAlert, ModalType.CancelAlert, ModalType.ResetAlert];
+// const defaultValue = ModalType.CallAlert;
+// const groupId = 'GROUP-ID2';
+// const modalTypes = select("Modal types", options, defaultValue, groupId);
+
+const AlertModalStateful = () => {
+  const [modalVisible, setModalVisible] = useState(true);
+  const onExit = () => {
+    setModalVisible(!modalVisible);
+  }
+
+  return (
     <AlertModal
-      modalVisible={true}
-      setModalVisible={null}
-      modalType={ModalType.CallAlert}
-      confirmAction={() => {}}
-    />
+    modalVisible={modalVisible}
+    setModalVisible={onExit}
+    modalType={ModalType.CallAlert}
+    confirmAction={action("AlertModal confirm pressed")}
+  />
+  );
+};
+
+storiesOf('Components', module)
+  // .addDecorator(withKnobs)
+  .add('AlertModal', () => (
+    <AlertModalStateful />
   ))

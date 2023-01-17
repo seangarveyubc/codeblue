@@ -7,7 +7,7 @@ import HeartRateWidget from '../../components/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget';
 import IconTextInput from '../../components/IconTextInput';
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     navigation: any;

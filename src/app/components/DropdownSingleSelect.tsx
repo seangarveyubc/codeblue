@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
-import Colours from '../assets/constants/Colours';
+import Colours from '../constants/Colours';
 
 interface Props {
     data: { label: string; value: number }[];

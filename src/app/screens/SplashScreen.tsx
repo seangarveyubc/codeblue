@@ -10,7 +10,7 @@ import {
 
 import { Swirl } from '../components/utils/Swirl';
 import { Logo } from '../components/utils/Logo';
-import Colours from '../assets/constants/Colours';
+import Colours from '../constants/Colours';
 
 interface Props {
     navigation: any;

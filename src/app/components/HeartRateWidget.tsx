@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import Colours from '../assets/constants/Colours';
+import Colours from '../constants/Colours';
 
 interface Props {
     heartRate: number;
@@ -50,7 +50,7 @@ const HeartRateWidget = ({ heartRate }: Props) => {
                 </View>
             </View>
             <Image
-                source={require('../assets/images/heartRate.png')} //Change your icon image here
+                source={require('../constants/images/heartRate.png')} //Change your icon image here
                 style={styles.ImageStyle}
             />
         </View>

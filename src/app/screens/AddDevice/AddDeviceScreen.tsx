@@ -7,7 +7,7 @@ import {
     View,
     Button
 } from 'react-native';
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     navigation: any;

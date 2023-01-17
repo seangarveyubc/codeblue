@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Colours from '../../../assets/constants/Colours';
+import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/utils/WideButton';
 
 interface Props {

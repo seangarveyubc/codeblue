@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-import Colours from '../../../assets/constants/Colours';
+import Colours from '../../../constants/Colours';
 import UnderlineDDSelect from '../../../components/UnderlineDDSelect';
 import UnderlineTextInput from '../../../components/UnderLineTextInput';
 import RadioButtons from '../../../components/utils/RadioButtons';

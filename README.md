@@ -7,16 +7,14 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
 
 ## Repository Structure
     CodeBlue
-    ├── algorithm
-    ├── android
-    ├── src/app
-    |   ├── assets
-    |   |    |   constants
-    |   |    └── images
-    |   ├── components
-    |   |    └── utils
-    |   ├── navigation
-    │   └── screens
+    ├── algorithm/
+    ├── android/
+    ├── src/app/
+    |   ├── constants/
+    |   |    └── images/
+    |   ├── components/
+    |   ├── navigation/
+    │   └── screens/
     └── ...
 
 ## Best Practices
@@ -30,7 +28,7 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
 
 ## Testing
 #### UI Component Testing
-- Run [Storybook](https://storybook.js.org/) using `yarn storybook` or `npm run strorybook`
+- Run [Storybook](https://storybook.js.org/) using `yarn storybook` or `npm run storybook`
 - Might need to run `export NODE_OPTIONS=--openssl-legacy-provider` first if seeing a `digital envelope routines::unsupported` error (MacOS)
 
 #### UI and Integration Testing

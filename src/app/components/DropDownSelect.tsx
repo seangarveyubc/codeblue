@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
-import Colours from '../assets/constants/Colours';
+import Colours from '../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
-import DDOptions from '../assets/constants/DDOptions';
+import DDOptions from '../constants/DDOptions';
 
 interface Props {
     selectedValue: any;

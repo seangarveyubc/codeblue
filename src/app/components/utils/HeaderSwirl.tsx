@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 import { Logo } from './Logo';
 import { Swirl } from './Swirl';
 

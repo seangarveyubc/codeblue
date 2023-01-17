@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MultiSelect } from 'react-native-element-dropdown';
-import Colours from '../assets/constants/Colours';
+import Colours from '../constants/Colours';
 
 interface Props {
     data: { label: string; value: number }[];

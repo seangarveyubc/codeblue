@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
 
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     selectedValue: any;

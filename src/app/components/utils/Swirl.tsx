@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Svg, Path, G } from 'react-native-svg';
 
-import Colours from '../../assets/constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     rotation?: number;

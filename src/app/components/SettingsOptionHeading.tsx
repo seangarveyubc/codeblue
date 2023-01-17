@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Button, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
-import Colours from '../assets/constants/Colours';
+import Colours from '../constants/Colours';
 
 interface Props {
     title: string;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
+import Colours from '../../../constants/Colours';
 import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader';
 import { UserInformation } from './UserAccountInfo';
 
