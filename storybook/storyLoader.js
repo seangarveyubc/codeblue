@@ -16,6 +16,7 @@ function loadStories() {
     require('../src/app/components/RoundButton/RoundButton.stories');
     require('../src/app/components/Swirl/Swirl.stories');
     require('../src/app/components/WideButton/WideButton.stories');
+    require('../src/app/screens/AddDevice/AddDeviceScreen.stories');
 }
 
 const stories = [
@@ -30,7 +31,8 @@ const stories = [
     '../src/app/components/RadioButtons/RadioButtons.stories',
     '../src/app/components/RoundButton/RoundButton.stories',
     '../src/app/components/Swirl/Swirl.stories',
-    '../src/app/components/WideButton/WideButton.stories'
+    '../src/app/components/WideButton/WideButton.stories',
+    '../src/app/screens/AddDevice/AddDeviceScreen.stories'
 ];
 
 module.exports = {

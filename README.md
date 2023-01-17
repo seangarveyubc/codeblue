@@ -27,12 +27,29 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
       - Prettier bot will automatically append a `Prettified code!` commit to each PR
 
 ## Testing
-#### UI Component Testing
-- Run [Storybook](https://storybook.js.org/) using `yarn storybook` or `npm run storybook`
+### UI Component Storybook
+```bash
+npm run prestorybook # Add any newly written stories
+npm run storybook # Start storybook server
+```
+in a new terminal 
+```bash
+npx react-native run-android # Start emulator/ app
+```
+**Notes:** 
 - Might need to run `export NODE_OPTIONS=--openssl-legacy-provider` first if seeing a `digital envelope routines::unsupported` error (MacOS)
+- The navigator/ menu bar on browser at url `http://localhost:7007/?path=/story/*` does not load, view stories in the emulator instead
 
-#### UI and Integration Testing
+### Integration Testing
 - [Jest](https://jestjs.io/)
 
-#### E2E Testing
+### E2E Testing
 - manual
+
+
+## Debugging
+Quick debugging tips for how to solve common errors:
+- run `npm i` to install all dependencies
+- Storybook on MacOS: Might need to run `export NODE_OPTIONS=--openssl-legacy-provider` first if seeing a `digital envelope routines::unsupported` error
+- Reboot android device
+- Google the error message or ask in group. Most likely someone else has ran into the same error
