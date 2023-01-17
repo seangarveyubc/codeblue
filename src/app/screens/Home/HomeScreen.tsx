@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
-import { HeaderSwirl } from '../../components/utils/HeaderSwirl';
+import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
 import HeartRateWidget from '../../components/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget';

@@ -10,8 +10,8 @@ import {
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import InputText from '../../../components/InputText';
-import { Logo } from '../../../components/utils/Logo';
-import { WideButton } from '../../../components/utils/WideButton';
+import { Logo } from '../../../components/Logo/Logo';
+import { WideButton } from '../../../components/WideButton/WideButton';
 
 interface Props {
     navigation: any;

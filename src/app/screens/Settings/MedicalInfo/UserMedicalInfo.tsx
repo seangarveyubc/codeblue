@@ -4,7 +4,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import UnderlineDDSelect from '../../../components/UnderlineDDSelect';
 import UnderlineTextInput from '../../../components/UnderLineTextInput';
-import RadioButtons from '../../../components/utils/RadioButtons';
+import { RadioButtons } from '../../../components/RadioButtons/RadioButtons';
 
 interface Props {
     edit: boolean;

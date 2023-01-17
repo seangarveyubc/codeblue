@@ -8,8 +8,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import { Swirl } from '../components/utils/Swirl';
-import { Logo } from '../components/utils/Logo';
+import { Swirl } from '../components/Swirl/Swirl';
+import { Logo } from '../components/Logo/Logo';
 import Colours from '../constants/Colours';
 
 interface Props {

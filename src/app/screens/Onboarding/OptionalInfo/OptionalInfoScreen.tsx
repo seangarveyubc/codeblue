@@ -6,8 +6,8 @@ import { CentredContent } from '../../../components/CentredContent/CentredConten
 import InputText from '../../../components/InputText';
 import { BackArrow } from '../../../components/BackArrow/BackArrow';
 import { CheckBox } from '../../../components/CheckBox/CheckBox';
-import { Logo } from '../../../components/utils/Logo';
-import { WideButton } from '../../../components/utils/WideButton';
+import { Logo } from '../../../components/Logo/Logo';
+import { WideButton } from '../../../components/WideButton/WideButton';
 
 interface Props {
     navigation: any;

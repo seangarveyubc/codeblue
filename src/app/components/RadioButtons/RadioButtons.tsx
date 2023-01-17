@@ -9,7 +9,7 @@ interface Props {
     onValueChange: any;
 }
 
-const RadioButtons = ({ selectedValue, onValueChange }: Props) => {
+export const RadioButtons = ({ selectedValue, onValueChange }: Props) => {
     return (
         <RadioButton.Group onValueChange={onValueChange} value={selectedValue}>
             <View style={styles.buttonRow}>
@@ -52,5 +52,3 @@ const styles = StyleSheet.create({
         color: Colours.BLACK
     }
 });
-
-export default RadioButtons;
