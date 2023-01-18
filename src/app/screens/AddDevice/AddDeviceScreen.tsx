@@ -18,11 +18,11 @@ const DELAY_TIME = 2000;
 export const AddDeviceScreen = ({ navigation }: Props) => {
     let showLoading: boolean = true;
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         navigation.navigate('NewDeviceList');
-    //     }, DELAY_TIME);
-    // }, []);
+    useEffect(() => {
+        setTimeout(() => {
+            navigation.navigate('NewDeviceList');
+        }, DELAY_TIME);
+    }, []);
 
     return (
         <View style={styles.page}>

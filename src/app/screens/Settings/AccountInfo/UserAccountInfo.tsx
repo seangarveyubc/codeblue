@@ -75,7 +75,7 @@ export const UserInformation = ({
                     <UnderlineTextInput
                         text={height}
                         onChangeText={setHeight}
-                        title={'Height'}
+                        title={'Height (cm)'}
                         placeholder={''}
                     />
                 </View>
@@ -83,7 +83,7 @@ export const UserInformation = ({
                     <UnderlineTextInput
                         text={weight}
                         onChangeText={setWeight}
-                        title={'Weight'}
+                        title={'Weight (kg)'}
                         placeholder={''}
                     />
                 </View>
@@ -123,11 +123,11 @@ export const UserInformation = ({
             </View>
             <View style={styles.row}>
                 <View style={styles.item}>
-                    <Text style={styles.title}>{'Height'}</Text>
+                    <Text style={styles.title}>{'Height (cm)'}</Text>
                     <Text style={styles.input}>{height}</Text>
                 </View>
                 <View style={styles.item}>
-                    <Text style={styles.title}>{'Weight'}</Text>
+                    <Text style={styles.title}>{'Weight (kg)'}</Text>
                     <Text style={styles.input}>{weight}</Text>
                 </View>
             </View>

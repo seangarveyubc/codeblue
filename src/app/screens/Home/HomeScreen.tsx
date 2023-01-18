@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
-import HeartRateWidget from '../../components/HeartRateWidget/HeartRateWidget';
+import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import IconTextInput from '../../components/IconTextInput/IconTextInput';
