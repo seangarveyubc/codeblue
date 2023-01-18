@@ -6,7 +6,7 @@ import {
     TextInput
 } from 'react-native';
 
-import Colours from '../constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     placeholder: string;

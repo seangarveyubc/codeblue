@@ -57,5 +57,4 @@ npm run prestorybook # Add any newly written stories
 Quick debugging tips for how to solve common errors:
 - run `npm i` to install all dependencies
 - Storybook on MacOS: Might need to run `export NODE_OPTIONS=--openssl-legacy-provider` first if seeing a `digital envelope routines::unsupported` error
-- Reboot android device
-- Google the error message or ask in group. Most likely someone else has ran into the same error
+- Reboot android device/ emulator

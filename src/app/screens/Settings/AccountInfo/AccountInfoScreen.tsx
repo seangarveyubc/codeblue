@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
-import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader';
+import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
 import { UserInformation } from './UserAccountInfo';
 
 interface Props {

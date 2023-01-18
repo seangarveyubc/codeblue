@@ -1,12 +1,12 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TextInput, View } from 'react-native';
-import Colours from '../constants/Colours';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import Colours from '../../constants/Colours';
 
 interface Props {
     heartRate: number;
 }
 
-const HeartRateWidget = ({ heartRate }: Props) => {
+export const HeartRateWidget = ({ heartRate }: Props) => {
     const [active, setActive] = React.useState(false);
 
     React.useEffect(() => {
@@ -50,7 +50,7 @@ const HeartRateWidget = ({ heartRate }: Props) => {
                 </View>
             </View>
             <Image
-                source={require('../constants/images/heartRate.png')} //Change your icon image here
+                source={require('../../constants/images/heartRate.png')} //Change your icon image here
                 style={styles.ImageStyle}
             />
         </View>
@@ -80,5 +80,3 @@ const styles = StyleSheet.create({
     },
     ImageStyle: {}
 });
-
-export default HeartRateWidget;

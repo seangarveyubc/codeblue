@@ -5,7 +5,7 @@ import {
     AlertModal,
     ModalType
 } from '../../../components/AlertModal/AlertModal';
-import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading';
+import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading/SettingsOptionHeading';
 import { HeaderSwirl } from '../../../components/HeaderSwirl/HeaderSwirl';
 
 import { OptionType, SettingsOption } from './SettingsOption';

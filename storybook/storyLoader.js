@@ -4,6 +4,7 @@
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
+    require('../src/app/components/AddDeviceWidget/AddDeviceWidget.stories');
     require('../src/app/components/AlertModal/AlertModal.stories');
     require('../src/app/components/BackArrow/BackArrow.stories');
     require('../src/app/components/CancelButton/CancelButton.stories');
@@ -11,6 +12,7 @@ function loadStories() {
     require('../src/app/components/CheckmarkAnimation/CheckmarkAnimation.stories');
     require('../src/app/components/ForwardArrow/ForwardArrow.stories');
     require('../src/app/components/HeaderSwirl/HeaderSwirl.stories');
+    require('../src/app/components/HeartRateWidget/HeartRateWidget.stories');
     require('../src/app/components/Logo/Logo.stories');
     require('../src/app/components/RadioButtons/RadioButtons.stories');
     require('../src/app/components/RoundButton/RoundButton.stories');
@@ -27,16 +29,14 @@ function loadStories() {
     require('../src/app/screens/Onboarding/RequiredInfo/RequiredInfoScreen.stories');
     require('../src/app/screens/Onboarding/Tutorial/TutorialScreen.stories');
     require('../src/app/screens/Settings/AccountInfo/AccountInfoScreen.stories');
-    require('../src/app/screens/Settings/AccountInfo/UserAccountInfo.stories');
     require('../src/app/screens/Settings/AllSettings/AllSettingsScreen.stories');
-    require('../src/app/screens/Settings/AllSettings/SettingsOption.stories');
     require('../src/app/screens/Settings/Legal/LegalScreen.stories');
     require('../src/app/screens/Settings/MedicalInfo/MedicalInfoScreen.stories');
-    require('../src/app/screens/Settings/MedicalInfo/UserMedicalInfo.stories');
     require('../src/app/screens/SplashScreen.stories');
 }
 
 const stories = [
+    '../src/app/components/AddDeviceWidget/AddDeviceWidget.stories',
     '../src/app/components/AlertModal/AlertModal.stories',
     '../src/app/components/BackArrow/BackArrow.stories',
     '../src/app/components/CancelButton/CancelButton.stories',
@@ -44,6 +44,7 @@ const stories = [
     '../src/app/components/CheckmarkAnimation/CheckmarkAnimation.stories',
     '../src/app/components/ForwardArrow/ForwardArrow.stories',
     '../src/app/components/HeaderSwirl/HeaderSwirl.stories',
+    '../src/app/components/HeartRateWidget/HeartRateWidget.stories',
     '../src/app/components/Logo/Logo.stories',
     '../src/app/components/RadioButtons/RadioButtons.stories',
     '../src/app/components/RoundButton/RoundButton.stories',
@@ -60,12 +61,9 @@ const stories = [
     '../src/app/screens/Onboarding/RequiredInfo/RequiredInfoScreen.stories',
     '../src/app/screens/Onboarding/Tutorial/TutorialScreen.stories',
     '../src/app/screens/Settings/AccountInfo/AccountInfoScreen.stories',
-    '../src/app/screens/Settings/AccountInfo/UserAccountInfo.stories',
     '../src/app/screens/Settings/AllSettings/AllSettingsScreen.stories',
-    '../src/app/screens/Settings/AllSettings/SettingsOption.stories',
     '../src/app/screens/Settings/Legal/LegalScreen.stories',
     '../src/app/screens/Settings/MedicalInfo/MedicalInfoScreen.stories',
-    '../src/app/screens/Settings/MedicalInfo/UserMedicalInfo.stories',
     '../src/app/screens/SplashScreen.stories'
 ];
 

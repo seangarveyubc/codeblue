@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import Colours from '../constants/Colours';
-import { BackArrow } from './BackArrow/BackArrow';
+import Colours from '../../constants/Colours';
+import { BackArrow } from '../BackArrow/BackArrow';
 
 interface Props {
     title: string;

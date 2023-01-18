@@ -7,8 +7,8 @@ import {
     Button,
     TouchableOpacity
 } from 'react-native';
-import Colours from '../constants/Colours';
-import UnderLineTextInput from './UnderLineTextInput';
+import Colours from '../../constants/Colours';
+import UnderLineTextInput from '../UnderLineTextInput/UnderLineTextInput';
 
 interface Props {
     name: string;

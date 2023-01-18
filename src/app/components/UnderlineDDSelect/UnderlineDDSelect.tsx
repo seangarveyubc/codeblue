@@ -1,29 +1,24 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
-import Colours from '../constants/Colours';
+import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
+import DDOptions from '../../constants/DDOptions';
 
 interface Props {
-    selectedIndex: number;
-    onIndexChange: any;
-    name: string;
-    options: string[];
+    selectedValue: any;
+    onValueChange: any;
 }
 
-const SingleDropdownSelect = ({
-    selectedIndex,
-    onIndexChange,
-    name,
-    options
-}: Props) => {
+const UnderlineDDSelect = ({ selectedValue, onValueChange }: Props) => {
     return (
         <View style={styles.view}>
+            <Text style={styles.title}>Blood Type</Text>
             <SelectDropdown
-                defaultButtonText={name}
-                data={options}
+                defaultButtonText={' '}
+                data={DDOptions.BloodTypes}
                 onSelect={(selectedItem, index) => {
-                    onIndexChange(index);
+                    onValueChange(selectedItem);
                 }}
                 buttonTextAfterSelection={(selectedItem, index) => {
                     // text represented after item is selected
@@ -39,7 +34,7 @@ const SingleDropdownSelect = ({
                     return (
                         <Icons
                             name={isOpened ? 'up' : 'down'}
-                            color={Colours.BLUE}
+                            color={Colours.GREY}
                             size={25}
                         />
                     );
@@ -57,47 +52,48 @@ const SingleDropdownSelect = ({
 
 const styles = StyleSheet.create({
     view: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
         margin: 10
     },
+    title: {
+        color: Colours.BLUE,
+        fontWeight: '500',
+        fontSize: 14,
+        fontFamily: 'DMSans-Regular',
+        textalign: 'left'
+    },
     dropdown2BtnStyle: {
-        width: '40%',
+        width: '100%',
         height: 50,
-        backgroundColor: Colours.LIGHTGREY,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: Colours.BLUE
+        backgroundColor: Colours.WHITE,
+        borderRadius: 0,
+        borderColor: Colours.GREY,
+        borderBottomWidth: 1
     },
     dropdown2BtnTxtStyle: {
-        color: Colours.BLUE,
+        color: Colours.BLACK,
         textAlign: 'left',
-        fontWeight: '300',
-        fontFamily: 'DMSans-Regular',
-        fontSize: 16
+        fontWeight: '400'
     },
     dropdown2DropdownStyle: {
-        backgroundColor: Colours.LIGHTGREY,
-        borderBottomLeftRadius: 8,
-        borderBottomRightRadius: 8,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
+        backgroundColor: Colours.WHITE,
         borderColor: Colours.GREY
     },
     dropdown2RowStyle: {
-        backgroundColor: Colours.LIGHTGREY,
-        borderColor: Colours.BLUE,
+        backgroundColor: Colours.WHITE,
+        borderColor: Colours.LIGHTGREY,
         borderWidth: 1
     },
     dropdown2RowTxtStyle: {
-        color: Colours.BLUE,
+        color: Colours.BLACK,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
-        fontWeight: '300',
+        fontWeight: '400',
         marginLeft: 20,
         marginRight: 20
     }
 });
 
-export default SingleDropdownSelect;
+export default UnderlineDDSelect;

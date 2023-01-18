@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Colours from '../../../constants/Colours';
-import { AddDeviceWidget } from '../../../components/AddDeviceWidget';
+import { AddDeviceWidget } from '../../../components/AddDeviceWidget/AddDeviceWidget';
 
 interface Props {
     navigation: any;

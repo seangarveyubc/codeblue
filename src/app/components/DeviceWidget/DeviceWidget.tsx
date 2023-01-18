@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Colours from '../constants/Colours';
+import Colours from '../../constants/Colours';
 
 interface Props {
     name: string;

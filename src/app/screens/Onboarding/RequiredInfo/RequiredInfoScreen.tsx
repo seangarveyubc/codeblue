@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
-import InputText from '../../../components/InputText';
+import InputText from '../../../components/InputText/InputText';
 import { Logo } from '../../../components/Logo/Logo';
 import { WideButton } from '../../../components/WideButton/WideButton';
 
