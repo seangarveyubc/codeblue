@@ -1,7 +1,6 @@
-import { storiesOf } from '@storybook/react-native'
+import { storiesOf } from '@storybook/react-native';
 import { AddDeviceWidget } from './AddDeviceWidget';
 
-storiesOf('Components', module)
-  .add('AddDeviceWidget', () => (
-    <AddDeviceWidget name={"name"}/>
-  ))
+storiesOf('Components', module).add('AddDeviceWidget', () => (
+    <AddDeviceWidget name={'name'} />
+));

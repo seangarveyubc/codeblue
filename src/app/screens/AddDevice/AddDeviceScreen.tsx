@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import {
-    ActivityIndicator,
-    StyleSheet,
-    Text,
-    View,
-    Button
-} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
 
 interface Props {

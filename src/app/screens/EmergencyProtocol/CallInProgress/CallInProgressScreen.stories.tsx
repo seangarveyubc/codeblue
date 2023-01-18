@@ -1,7 +1,6 @@
-import { storiesOf } from '@storybook/react-native'
-import { CallInProgressScreen } from './CallInProgressScreen'; 
+import { storiesOf } from '@storybook/react-native';
+import { CallInProgressScreen } from './CallInProgressScreen';
 
-storiesOf('Screens', module)
-  .add('CallInProgressScreen', () => (
-    <CallInProgressScreen navigation={{navigate: ()=>{}}}/>
-  ))
+storiesOf('Screens', module).add('CallInProgressScreen', () => (
+    <CallInProgressScreen navigation={{ navigate: () => {} }} />
+));

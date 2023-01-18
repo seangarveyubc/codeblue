@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import Colours from '../../../constants/Colours';
-import UnderlineDDSelect from '../../../components/UnderlineDDSelect/UnderlineDDSelect';
-import UnderlineTextInput from '../../../components/UnderLineTextInput/UnderLineTextInput';
+import Colours from '../../constants/Colours';
+import UnderlineDDSelect from '../UnderlineDDSelect/UnderlineDDSelect';
+import UnderlineTextInput from '../UnderLineTextInput/UnderLineTextInput';
 
 interface Props {
     edit: boolean;
@@ -22,7 +22,7 @@ interface Props {
     setBloodType: any;
     setSex: any;
 }
-export const UserInformation = ({
+export const UserAccountInfo = ({
     edit,
     firstName,
     lastName,

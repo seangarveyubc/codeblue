@@ -1,7 +1,6 @@
-import { storiesOf } from '@storybook/react-native'
-import { CardiacArrestDetectedScreen } from './CardiacArrestDetectedScreen'; 
+import { storiesOf } from '@storybook/react-native';
+import { CardiacArrestDetectedScreen } from './CardiacArrestDetectedScreen';
 
-storiesOf('Screens', module)
-  .add('CardiacArrestDetectedScreen', () => (
-    <CardiacArrestDetectedScreen navigation={{navigate: ()=>{}}}/>
-  ))
+storiesOf('Screens', module).add('CardiacArrestDetectedScreen', () => (
+    <CardiacArrestDetectedScreen navigation={{ navigate: () => {} }} />
+));

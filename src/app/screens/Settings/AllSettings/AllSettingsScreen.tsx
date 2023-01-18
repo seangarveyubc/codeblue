@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Colours from '../../../constants/Colours';
 import {
     AlertModal,
@@ -8,7 +8,10 @@ import {
 import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading/SettingsOptionHeading';
 import { HeaderSwirl } from '../../../components/HeaderSwirl/HeaderSwirl';
 
-import { OptionType, SettingsOption } from './SettingsOption';
+import {
+    OptionType,
+    SettingsOption
+} from '../../../components/SettingsOption/SettingsOption';
 
 interface Props {
     navigation: any;

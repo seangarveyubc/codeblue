@@ -43,7 +43,7 @@ npm run prestorybook # Add any newly written stories
 
 **Notes:** 
 - Might need to run `export NODE_OPTIONS=--openssl-legacy-provider` first if seeing a `digital envelope routines::unsupported` error (MacOS)
-- The navigator/ menu bar on browser at url `http://localhost:7007/?path=/story/*` does not load, view stories in the emulator instead
+- Storybook also opens on the browser using an arbitrary local ip but it renders the components on the connected device/ emulator anyways so I would just close and ignore the browser
 - Set the `STORYBOOK_START` variable in `./App.tsx` back to `false` to run CodeBlue app
 
 ### Integration Testing

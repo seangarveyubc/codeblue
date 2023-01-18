@@ -16,7 +16,10 @@ function loadStories() {
     require('../src/app/components/Logo/Logo.stories');
     require('../src/app/components/RadioButtons/RadioButtons.stories');
     require('../src/app/components/RoundButton/RoundButton.stories');
+    require('../src/app/components/SettingsOption/SettingsOption.stories');
     require('../src/app/components/Swirl/Swirl.stories');
+    require('../src/app/components/UserAccountInfo/UserAccountInfo.stories');
+    require('../src/app/components/UserMedicalInfo/UserMedicalInfo.stories');
     require('../src/app/components/WideButton/WideButton.stories');
     require('../src/app/screens/AddDevice/AddDeviceScreen.stories');
     require('../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories');
@@ -32,7 +35,7 @@ function loadStories() {
     require('../src/app/screens/Settings/AllSettings/AllSettingsScreen.stories');
     require('../src/app/screens/Settings/Legal/LegalScreen.stories');
     require('../src/app/screens/Settings/MedicalInfo/MedicalInfoScreen.stories');
-    require('../src/app/screens/SplashScreen.stories');
+    require('../src/app/screens/Splash/SplashScreen.stories');
 }
 
 const stories = [
@@ -48,7 +51,10 @@ const stories = [
     '../src/app/components/Logo/Logo.stories',
     '../src/app/components/RadioButtons/RadioButtons.stories',
     '../src/app/components/RoundButton/RoundButton.stories',
+    '../src/app/components/SettingsOption/SettingsOption.stories',
     '../src/app/components/Swirl/Swirl.stories',
+    '../src/app/components/UserAccountInfo/UserAccountInfo.stories',
+    '../src/app/components/UserMedicalInfo/UserMedicalInfo.stories',
     '../src/app/components/WideButton/WideButton.stories',
     '../src/app/screens/AddDevice/AddDeviceScreen.stories',
     '../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories',
@@ -64,7 +70,7 @@ const stories = [
     '../src/app/screens/Settings/AllSettings/AllSettingsScreen.stories',
     '../src/app/screens/Settings/Legal/LegalScreen.stories',
     '../src/app/screens/Settings/MedicalInfo/MedicalInfoScreen.stories',
-    '../src/app/screens/SplashScreen.stories'
+    '../src/app/screens/Splash/SplashScreen.stories'
 ];
 
 module.exports = {

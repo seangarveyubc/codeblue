@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { Svg, Path, G } from 'react-native-svg';
 
 import Colours from '../../constants/Colours';
@@ -16,7 +16,6 @@ export const Swirl = ({ rotation }: Props) => {
                 height={300}
                 viewBox="0 0 375 275"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg"
                 fillOpacity="0.2"
                 rotation={rotation ? rotation : 0}
             >

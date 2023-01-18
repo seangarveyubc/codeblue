@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-    Button,
     Text,
     View,
     Dimensions,
@@ -8,9 +7,9 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import { Swirl } from '../components/Swirl/Swirl';
-import { Logo } from '../components/Logo/Logo';
-import Colours from '../constants/Colours';
+import { Swirl } from '../../components/Swirl/Swirl';
+import { Logo } from '../../components/Logo/Logo';
+import Colours from '../../constants/Colours';
 
 interface Props {
     navigation: any;

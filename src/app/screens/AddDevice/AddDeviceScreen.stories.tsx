@@ -1,7 +1,6 @@
-import { storiesOf } from '@storybook/react-native'
-import { AddDeviceScreen } from './AddDeviceScreen'; 
+import { storiesOf } from '@storybook/react-native';
+import { AddDeviceScreen } from './AddDeviceScreen';
 
-storiesOf('Screens', module)
-  .add('AddDeviceScreen', () => (
-    <AddDeviceScreen navigation={{navigate: (a:any)=>{}}}/>
-  ))
+storiesOf('Screens', module).add('AddDeviceScreen', () => (
+    <AddDeviceScreen navigation={{ navigate: (a: any) => {} }} />
+));

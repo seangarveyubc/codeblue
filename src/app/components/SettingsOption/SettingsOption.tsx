@@ -4,9 +4,8 @@ import { TouchableRipple } from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Colours from '../../../constants/Colours';
-import { ForwardArrow } from '../../../components/ForwardArrow/ForwardArrow';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Colours from '../../constants/Colours';
+import { ForwardArrow } from '../ForwardArrow/ForwardArrow';
 
 export enum OptionType {
     AccountInfo,

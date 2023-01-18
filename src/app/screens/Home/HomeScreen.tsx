@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';

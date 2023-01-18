@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
-import { UserMedicalInfo } from './UserMedicalInfo';
+import { UserMedicalInfo } from '../../../components/UserMedicalInfo/UserMedicalInfo';
 
 interface Props {
     navigation: any;

@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import Colours from '../../../constants/Colours';
-import UnderlineDDSelect from '../../../components/UnderlineDDSelect/UnderlineDDSelect';
-import UnderlineTextInput from '../../../components/UnderLineTextInput/UnderLineTextInput';
-import { RadioButtons } from '../../../components/RadioButtons/RadioButtons';
+import Colours from '../../constants/Colours';
+import { RadioButtons } from '../RadioButtons/RadioButtons';
 
 interface Props {
     edit: boolean;

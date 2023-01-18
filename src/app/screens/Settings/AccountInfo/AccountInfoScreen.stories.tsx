@@ -1,7 +1,6 @@
-import { storiesOf } from '@storybook/react-native'
-import { AccountInfoScreen } from './AccountInfoScreen'; 
+import { storiesOf } from '@storybook/react-native';
+import { AccountInfoScreen } from './AccountInfoScreen';
 
-storiesOf('Screens', module)
-  .add('AccountInfoScreen', () => (
-    <AccountInfoScreen navigation={{navigate: ()=>{}}}/>
-  ))
+storiesOf('Screens', module).add('AccountInfoScreen', () => (
+    <AccountInfoScreen navigation={{ navigate: () => {} }} />
+));

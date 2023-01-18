@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "prettier": "npx prettier --write .",
-    "storybook": "start-storybook -p 7007",
+    "storybook": "start-storybook -p 7007 -h 192.168.0.42",
     "build-storybook": "build-storybook",
     "prestorybook": "rnstl"
   },
