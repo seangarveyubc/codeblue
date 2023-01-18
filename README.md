@@ -17,15 +17,6 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
     │   └── screens/
     └── ...
 
-## Best Practices
-1. Update tickets on Clickup to track progress
-2. Submitting PR's
-    1. Upload screenshots/ recordings of changes when available
-    2. Request everyone to review
-    3. Merge changes after 1-2 approvals (depending on size of PR)
-      - When merging, choose the "Squash and merge" option
-      - Prettier bot will automatically append a `Prettified code!` commit to each PR
-
 ## Testing
 ### UI Component Storybook
 To run the components Storybook set the `STORYBOOK_START` variable in `./App.tsx` to be `true`. Then run:
@@ -51,10 +42,3 @@ npm run prestorybook # Add any newly written stories
 
 ### E2E Testing
 - manual
-
-
-## Debugging
-Quick debugging tips for how to solve common errors:
-- run `npm i` to install all dependencies
-- Storybook on MacOS: Might need to run `export NODE_OPTIONS=--openssl-legacy-provider` first if seeing a `digital envelope routines::unsupported` error
-- Reboot android device/ emulator
