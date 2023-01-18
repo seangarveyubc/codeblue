@@ -17,6 +17,7 @@ README.md
 .prettierrc
 app.json
 .github
+src/app/constants/images
 
 
 ###############################
