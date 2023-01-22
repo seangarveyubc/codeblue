@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Colours from '../../assets/constants/Colours';
-import { CheckmarkAnimation } from '../../components/utils/CheckmarkAnimation';
+import Colours from '../../constants/Colours';
+import { CheckmarkAnimation } from '../../components/CheckmarkAnimation/CheckmarkAnimation';
 
 interface Props {
     navigation: any;

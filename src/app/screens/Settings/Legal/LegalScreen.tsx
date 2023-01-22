@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
+import Colours from '../../../constants/Colours';
 
 interface Props {
     navigation: any;

@@ -7,11 +7,11 @@ import {
     Text,
     View
 } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
-import { CentredContent } from '../../../components/CentredContent';
-import InputText from '../../../components/InputText';
-import { Logo } from '../../../components/utils/Logo';
-import { WideButton } from '../../../components/utils/WideButton';
+import Colours from '../../../constants/Colours';
+import { CentredContent } from '../../../components/CentredContent/CentredContent';
+import InputText from '../../../components/InputText/InputText';
+import { Logo } from '../../../components/Logo/Logo';
+import { WideButton } from '../../../components/WideButton/WideButton';
 
 interface Props {
     navigation: any;

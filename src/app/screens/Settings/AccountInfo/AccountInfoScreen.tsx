@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
-import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader';
-import { UserInformation } from './UserAccountInfo';
+import Colours from '../../../constants/Colours';
+import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
+import { UserAccountInfo } from '../../../components/UserAccountInfo/UserAccountInfo';
 
 interface Props {
     navigation: any;
@@ -33,7 +33,7 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
                 </Text>
             </View>
 
-            <UserInformation
+            <UserAccountInfo
                 edit={edit}
                 firstName={firstName}
                 lastName={lastName}

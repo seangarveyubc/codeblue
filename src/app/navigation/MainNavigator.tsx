@@ -6,7 +6,7 @@ import { SettingsStack } from './SettingsStack';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Colours from '../assets/constants/Colours';
+import Colours from '../constants/Colours';
 
 const NavBar = createBottomTabNavigator();
 

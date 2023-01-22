@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Colours from '../../../assets/constants/Colours';
-import { WideButton } from '../../../components/utils/WideButton';
+import Colours from '../../../constants/Colours';
+import { WideButton } from '../../../components/WideButton/WideButton';
 import {
     AlertModal,
     ModalType
@@ -15,7 +15,7 @@ interface Props {
 
 const windowHeight = Dimensions.get('window').height;
 
-export const CardiacArrestScreen = ({ navigation }: Props) => {
+export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const [callModalVisible, setCallModalVisible] = React.useState(false);
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
     const [time, setTime] = React.useState(30);
