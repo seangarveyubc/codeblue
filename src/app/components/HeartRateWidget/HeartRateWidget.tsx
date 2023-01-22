@@ -50,7 +50,7 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                 </View>
             </View>
             <Image
-                source={require('../../constants/images/heartRate.png')} //Change your icon image here
+                source={require('../../assets/heartRate.png')} //Change your icon image here
                 style={styles.ImageStyle}
             />
         </View>
