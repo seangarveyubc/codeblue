@@ -12,7 +12,7 @@ import { Swirl } from '../../components/Swirl/Swirl';
 import { Logo } from '../../components/Logo/Logo';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
-import { SCREEN_NAV_DELAY_TIME } from '../../utils/constants';
+import { SCREEN_NAV_DELAY_TIME } from '../../constants/constants';
 
 interface Props {
     navigation: any;

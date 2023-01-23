@@ -1,4 +1,4 @@
-import { DAY_IN_MILLIS } from '../../utils/constants';
+import { DAY_IN_MILLIS } from '../../constants/constants';
 
 export class CardiacData {
     frequency: number;
