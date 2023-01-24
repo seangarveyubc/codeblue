@@ -5,7 +5,6 @@ import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import Video from 'react-native-video';
 
-
 interface Props {
     navigation: any;
 }
@@ -36,10 +35,7 @@ export const TutorialScreen = ({ navigation }: Props) => {
                         Tutorial
                     </Text>
                 </View>
-                <Video source={video}
-                    style={styles.video}
-                    resizeMode="cover"
-                />
+                <Video source={video} style={styles.video} resizeMode="cover" />
                 <Text style={styles.videoDescription}>
                     Access this video any time in the app{' '}
                     <Text style={{ color: Colours.BLUE }}>Settings</Text>
