@@ -3,18 +3,17 @@ import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
 import { CheckmarkAnimation } from '../../components/CheckmarkAnimation/CheckmarkAnimation';
+import { SCREEN_NAV_DELAY_TIME } from '../../constants/constants';
 
 interface Props {
     navigation: any;
 }
 
-const DELAY_TIME = 2500;
-
 export const OnboardingSuccessScreen = ({ navigation }: Props) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate('Tutorial');
-        }, DELAY_TIME);
+        }, SCREEN_NAV_DELAY_TIME);
     }, []);
 
     return (

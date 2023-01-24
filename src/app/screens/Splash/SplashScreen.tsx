@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import {
     Text,
     View,
@@ -10,12 +11,26 @@ import {
 import { Swirl } from '../../components/Swirl/Swirl';
 import { Logo } from '../../components/Logo/Logo';
 import Colours from '../../constants/Colours';
+import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
+import { SCREEN_NAV_DELAY_TIME } from '../../constants/constants';
 
 interface Props {
     navigation: any;
 }
 
 export const SplashScreen = ({ navigation }: Props) => {
+    const { isLocalStorageEmpty } = useLocalStorage();
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (isLocalStorageEmpty) {
+                navigation.navigate('Onboarding');
+            } else {
+                navigation.navigate('MainNavigator');
+            }
+        }, SCREEN_NAV_DELAY_TIME);
+    }, []);
+
     return (
         <View style={styles.container}>
             <TouchableOpacity
