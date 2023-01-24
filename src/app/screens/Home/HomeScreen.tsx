@@ -8,6 +8,7 @@ import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import IconTextInput from '../../components/IconTextInput/IconTextInput';
 import Colours from '../../constants/Colours';
+import { Link } from '@react-navigation/native';
 
 interface Props {
     navigation: any;
@@ -29,9 +30,6 @@ export const HomeScreen = ({ navigation }: Props) => {
 
                 <SafeAreaView>
                     <View style={styles.inner}>
-                        <View style={styles.heartContainer}>
-                            <HeartRateWidget heartRate={56} />
-                        </View>
                         <View style={styles.devicesContainer}>
                             <View style={styles.deviceHeader}>
                                 <Text style={styles.yourDevices}>
@@ -47,16 +45,17 @@ export const HomeScreen = ({ navigation }: Props) => {
                             {!bluetoothState ? (
                                 <View style={styles.bluetoothPrompt}>
                                     <CentredContent>
-                                        <Text>
+                                        <Text
+                                            style={styles.bluetoothDescription}
+                                        >
                                             CodeBlue requires Bluetooth to
-                                            monitor heart rate.
-                                            <Text
-                                                style={{
-                                                    color: Colours.BLUE
-                                                }}
+                                            monitor cardiovascular data.
+                                            <Link
+                                                to={{ screen: 'Settings' }}
+                                                style={styles.bluetoothLink}
                                             >
-                                                Turn on Bluetooth.
-                                            </Text>
+                                                <Text>Turn on Bluetooth.</Text>
+                                            </Link>
                                         </Text>
                                     </CentredContent>
                                 </View>
@@ -73,12 +72,14 @@ export const HomeScreen = ({ navigation }: Props) => {
                                             <DeviceWidget
                                                 name={deviceName1}
                                                 isConnected={true}
+                                                location={'hand'}
                                             />
                                         </View>
                                         <View style={{ paddingBottom: 15 }}>
                                             <DeviceWidget
                                                 name={deviceName2}
                                                 isConnected={false}
+                                                location={'foot'}
                                             />
                                         </View>
                                     </CentredContent>
@@ -124,20 +125,15 @@ const styles = StyleSheet.create({
         backgroundColor: Colours.WHITE,
         padding: 0
     },
-
     inner: {
         padding: 0,
         flex: 1,
         justifyContent: 'flex-end'
-        // borderWidth: 1
     },
     header: { height: '15%' },
-    heartContainer: {
-        paddingTop: 20
-    },
     devicesContainer: {
+        paddingTop: 44,
         flex: 2
-        // borderWidth: 1
     },
     yourDevices: {
         flex: 3,
@@ -165,5 +161,11 @@ const styles = StyleSheet.create({
     bluetoothPrompt: {
         flex: 1,
         margin: 10
+    },
+    bluetoothDescription: {
+        marginHorizontal: 2
+    },
+    bluetoothLink: {
+        color: Colours.BLUE
     }
 });

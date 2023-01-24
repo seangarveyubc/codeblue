@@ -6,11 +6,12 @@ import Colours from '../../constants/Colours';
 interface Props {
     name: string;
     isConnected: boolean;
+    location: string;
 }
 
 const windowWidth = Dimensions.get('window').width;
 
-export const DeviceWidget = ({ name, isConnected }: Props) => {
+export const DeviceWidget = ({ name, isConnected, location }: Props) => {
     const statusIcon = isConnected ? (
         <Icon name="broadcast" size={25} color={Colours.BLACK} />
     ) : (
@@ -21,19 +22,44 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
         <View style={styles.container}>
             <View style={styles.leftContent}>
                 {statusIcon}
-                <Text
-                    style={{
-                        ...styles.deviceName,
-                        ...{
-                            color: isConnected ? Colours.BLACK : Colours.GREY,
-                            fontFamily: isConnected
-                                ? 'DMSans-Bold'
-                                : 'DMSans-Regular'
-                        }
-                    }}
-                >
-                    {name}
-                </Text>
+                <View style={styles.colContainer}>
+                    <View style={styles.rowContainer}>
+                        <Text>name:</Text>
+                        <Text
+                            style={{
+                                ...styles.name,
+                                ...{
+                                    color: isConnected
+                                        ? Colours.BLACK
+                                        : Colours.GREY,
+                                    fontFamily: isConnected
+                                        ? 'DMSans-Bold'
+                                        : 'DMSans-Regular'
+                                }
+                            }}
+                        >
+                            {name}
+                        </Text>
+                    </View>
+                    <View style={styles.rowContainer}>
+                        <Text>location:</Text>
+                        <Text
+                            style={{
+                                ...styles.name,
+                                ...{
+                                    color: isConnected
+                                        ? Colours.BLACK
+                                        : Colours.GREY,
+                                    fontFamily: isConnected
+                                        ? 'DMSans-Bold'
+                                        : 'DMSans-Regular'
+                                }
+                            }}
+                        >
+                            {location}
+                        </Text>
+                    </View>
+                </View>
             </View>
             <View style={styles.rightContent}>
                 <View
@@ -66,7 +92,7 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 60,
+        height: 80,
         width: windowWidth * 0.88,
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -85,8 +111,18 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row'
     },
-    deviceName: {
-        marginLeft: 10,
+    rowContainer: {
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        flexDirection: 'row'
+    },
+    colContainer: {
+        marginLeft: 12,
+        justifyContent: 'flex-start',
+        flexDirection: 'column'
+    },
+    name: {
+        marginLeft: 6,
         fontSize: 16
     },
     statusBar: {

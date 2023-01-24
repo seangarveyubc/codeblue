@@ -103,12 +103,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         flexDirection: 'row'
     },
-    deviceName: {
-        marginLeft: 10,
-        fontSize: 18,
-        fontFamily: 'DMSans-Regular',
-        color: Colours.BLACK
-    },
     statusBar: {
         width: '100%',
         height: '100%',
