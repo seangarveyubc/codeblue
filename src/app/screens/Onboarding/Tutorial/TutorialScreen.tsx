@@ -3,11 +3,14 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
+import Video from 'react-native-video';
+
 
 interface Props {
     navigation: any;
 }
 
+const video = require('../../../assets/video.mov');
 const VERTICAL_SPACE = 40;
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -33,13 +36,10 @@ export const TutorialScreen = ({ navigation }: Props) => {
                         Tutorial
                     </Text>
                 </View>
-                <View style={styles.video}>
-                    <MaterialCommunityIcon
-                        name="play"
-                        color={Colours.WHITE}
-                        size={40}
-                    />
-                </View>
+                <Video source={video}
+                    style={styles.video}
+                    resizeMode="cover"
+                />
                 <Text style={styles.videoDescription}>
                     Access this video any time in the app{' '}
                     <Text style={{ color: Colours.BLUE }}>Settings</Text>
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     video: {
         height: windowHeight * 0.5,
         width: windowWidth * 0.8,
-        backgroundColor: Colours.BLACK,
         alignItems: 'center',
         justifyContent: 'center'
     },
