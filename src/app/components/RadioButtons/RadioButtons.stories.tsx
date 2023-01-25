@@ -6,7 +6,7 @@ import { RadioButtons } from './RadioButtons';
 
 const RadioButtonsStateful = () => {
     const [value, setValue] = useState('');
-    const onValueChange = (newValue: any) => {
+    const onValueChange = (newValue: string) => {
         setValue(newValue);
     };
 

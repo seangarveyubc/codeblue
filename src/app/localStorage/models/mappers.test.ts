@@ -1,10 +1,10 @@
 import { CardiacData } from './CardiacData';
 import {
-    deserializeMedicationData,
+    deserializeMedicationList,
     generateCardiacDataKey,
-    serializeMedicationData
+    serializeMedicationList
 } from './mappers';
-import { MedicationData } from './MedicationData';
+import { MedicationList } from './MedicationList';
 
 const mockCardiacData: CardiacData = {
     frequency: 10,
@@ -13,7 +13,7 @@ const mockCardiacData: CardiacData = {
     expiration: new Date(2023, 0, 0, 0, 0, 0, 0)
 };
 
-const mockMedicationData: MedicationData = {
+const mockMedicationList: MedicationList = {
     medications: ['Atorvastatin', 'Levothyroxine', 'Metformin']
 };
 
@@ -26,30 +26,30 @@ describe('generateCardiacDataKey', () => {
     });
 });
 
-describe('MedicationData', () => {
-    describe('serializeMedicationData', () => {
-        it('serializes MedicationData to a JSON string', () => {
+describe('MedicationList', () => {
+    describe('serializeMedicationList', () => {
+        it('serializes MedicationList to a JSON string', () => {
             const expectedString =
                 '{"medications":["Atorvastatin","Levothyroxine","Metformin"]}';
-            expect(serializeMedicationData(mockMedicationData)).toEqual(
+            expect(serializeMedicationList(mockMedicationList)).toEqual(
                 expectedString
             );
         });
     });
 
-    describe('deserialzieMedicationData', () => {
-        it('converts a valid JSON string to a MedicationData object', () => {
+    describe('deserialzieMedicationList', () => {
+        it('converts a valid JSON string to a MedicationList object', () => {
             const jsonString =
                 '{"medications":["Atorvastatin", "Levothyroxine", "Metformin"]}';
-            expect(deserializeMedicationData(jsonString)).toEqual(
-                mockMedicationData
+            expect(deserializeMedicationList(jsonString)).toEqual(
+                mockMedicationList
             );
         });
 
         it('returns undefined if given an invalid JSON string', () => {
             const jsonString =
                 '{"invalid":["Atorvastatin", "Levothyroxine", "Metformin"]}';
-            expect(deserializeMedicationData(jsonString)).toBeUndefined();
+            expect(deserializeMedicationList(jsonString)).toBeUndefined();
         });
     });
 });

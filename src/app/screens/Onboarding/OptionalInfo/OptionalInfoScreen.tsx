@@ -8,6 +8,8 @@ import { BackArrow } from '../../../components/BackArrow/BackArrow';
 import { CheckBox } from '../../../components/CheckBox/CheckBox';
 import { Logo } from '../../../components/Logo/Logo';
 import { WideButton } from '../../../components/WideButton/WideButton';
+import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 
 interface Props {
     navigation: any;
@@ -17,29 +19,77 @@ const windowWidth = Dimensions.get('window').width;
 const VERTICAL_SPACE = windowWidth * 0.07;
 
 export const OptionalInfoScreen = ({ navigation }: Props) => {
-    const [birthday, setBirthday] = useState('');
-    const [userHeight, setUserHeight] = useState('');
-    const [userWeight, setUserWeight] = useState('');
-    const [userSex, setUserSex] = useState('');
-    const [userBloodType, setUserBloodType] = useState('');
+    const {
+        appDataStorage,
+        saveUserBirthday,
+        saveUserWeightHeight,
+        saveUserSex,
+        saveUserBloodType,
+        saveHeartProblem
+    } = useLocalStorage();
 
-    const [hasHeartProblem, setHasHeartProblem] = useState(false);
-    const [hasFamilyHeartProblem, setHasFamilyHeartProblem] = useState(false);
+    const [birthday, setBirthday] = useState(
+        appDataStorage.getString(PersonalDataKeys.BIRTHDAY) ?? ''
+    );
+    const [userHeight, setUserHeight] = useState(
+        appDataStorage.getString(PersonalDataKeys.HEIGHT) ?? ''
+    );
+    const [userWeight, setUserWeight] = useState(
+        appDataStorage.getString(PersonalDataKeys.WEIGHT) ?? ''
+    );
+    const [userSex, setUserSex] = useState(
+        appDataStorage.getString(PersonalDataKeys.SEX) ?? ''
+    );
+    const [userBloodType, setUserBloodType] = useState(
+        appDataStorage.getString(PersonalDataKeys.BLOOD_TYPE) ?? ''
+    );
+
+    const [hasHeartProblem, setHasHeartProblem] = useState(
+        appDataStorage.getBoolean(PersonalDataKeys.HAS_HEART_PROBLEM)
+    );
+    const [hasFamilyHeartProblem, setHasFamilyHeartProblem] = useState(
+        appDataStorage.getBoolean(PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM)
+    );
 
     const handleUpdateHeartProblem = () => {
+        // for a first time user, initial state of checkbox is undefined
+        if (hasHeartProblem === undefined) {
+            setHasHeartProblem(true);
+        }
+
         setHasHeartProblem(!hasHeartProblem);
     };
 
     const handleUpdateFamilyHeartProblem = () => {
+        // for a first time user, initial state of checkbox is undefined
+        if (hasFamilyHeartProblem === undefined) {
+            setHasFamilyHeartProblem(true);
+        }
+
         setHasFamilyHeartProblem(!hasFamilyHeartProblem);
     };
 
     const navigateToSuccessScreen = () => {
+        saveEnteredInfo();
         navigation.navigate('OnboardingSuccess');
     };
 
     const navigateToRequiredInfoScreen = () => {
+        saveEnteredInfo();
         navigation.navigate('RequiredInfo');
+    };
+
+    const saveEnteredInfo = () => {
+        saveUserBirthday(birthday);
+        saveUserWeightHeight(PersonalDataKeys.HEIGHT, userHeight);
+        saveUserWeightHeight(PersonalDataKeys.WEIGHT, userWeight);
+        saveUserSex(userSex);
+        saveUserBloodType(userBloodType);
+        saveHeartProblem(PersonalDataKeys.HAS_HEART_PROBLEM, hasHeartProblem);
+        saveHeartProblem(
+            PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM,
+            hasFamilyHeartProblem
+        );
     };
 
     return (

@@ -3,9 +3,10 @@ import { View, StyleSheet } from 'react-native';
 import { RadioButton, Text } from 'react-native-paper';
 
 import Colours from '../../constants/Colours';
+import { HeartProblemOptions } from '../../constants/HeartProblemOptions';
 
 interface Props {
-    selectedValue: any;
+    selectedValue: string;
     onValueChange: any;
 }
 
@@ -14,16 +15,27 @@ export const RadioButtons = ({ selectedValue, onValueChange }: Props) => {
         <RadioButton.Group onValueChange={onValueChange} value={selectedValue}>
             <View style={styles.buttonRow}>
                 <View style={styles.singleButton}>
-                    <RadioButton color={Colours.BLUE} value="Yes" />
-                    <Text style={styles.text}>Yes</Text>
+                    <RadioButton
+                        color={Colours.BLUE}
+                        value={HeartProblemOptions.YES}
+                    />
+                    <Text style={styles.text}>{HeartProblemOptions.YES}</Text>
                 </View>
                 <View style={styles.singleButton}>
-                    <RadioButton color={Colours.BLUE} value="No" />
-                    <Text style={styles.text}>No</Text>
+                    <RadioButton
+                        color={Colours.BLUE}
+                        value={HeartProblemOptions.NO}
+                    />
+                    <Text style={styles.text}>{HeartProblemOptions.NO}</Text>
                 </View>
                 <View style={styles.singleButton}>
-                    <RadioButton color={Colours.BLUE} value="Not Provided" />
-                    <Text style={styles.text}>Not Provided</Text>
+                    <RadioButton
+                        color={Colours.BLUE}
+                        value={HeartProblemOptions.NOT_PROVIDED}
+                    />
+                    <Text style={styles.text}>
+                        {HeartProblemOptions.NOT_PROVIDED}
+                    </Text>
                 </View>
             </View>
         </RadioButton.Group>

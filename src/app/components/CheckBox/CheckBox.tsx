@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import Colours from '../../constants/Colours';
 
 interface Props {
-    value: boolean;
+    value: boolean | undefined;
     onValueChange: any;
 }
 

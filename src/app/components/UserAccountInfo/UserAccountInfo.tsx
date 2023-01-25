@@ -137,8 +137,8 @@ export const UserAccountInfo = ({
                     <Text style={styles.input}>{bloodType}</Text>
                 </View>
                 <View style={styles.item}>
-                    <Text style={styles.title}>{'Blood Type'}</Text>
-                    <Text style={styles.input}>{bloodType}</Text>
+                    <Text style={styles.title}>{'Sex'}</Text>
+                    <Text style={styles.input}>{sex}</Text>
                 </View>
             </View>
         </View>
