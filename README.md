@@ -10,11 +10,13 @@ Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
     ├── algorithm/
     ├── android/
     ├── src/app/
-    |   ├── constants/
-    |   |    └── images/
+    |   ├── assets/
     |   ├── components/
+    |   ├── constants/
+    |   ├── localStorage/
     |   ├── navigation/
     │   └── screens/
+    ├── storybook/
     └── ...
 
 ## Testing
