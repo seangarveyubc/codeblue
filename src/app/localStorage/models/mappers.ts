@@ -6,7 +6,9 @@ export const generateCardiacDataKey = (data: CardiacData): string => {
     return data.deviceId + ' ' + data.expiration.getTime();
 };
 
-export const serializeMedicationList = (data: MedicationList): string => {
+export const serializeLocalStorageObject = (
+    data: MedicationList | DeviceList
+): string => {
     return JSON.stringify(data);
 };
 

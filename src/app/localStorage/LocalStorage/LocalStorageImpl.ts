@@ -32,9 +32,7 @@ export class LocalStorageImpl implements LocalAppStorage {
     // possible improvement: throw error if key does not exist
     delete(key: string) {
         if (!this.storage.contains(key)) {
-            console.error(
-                `${key} does not exist in storage with id ${this.id}`
-            );
+            console.log(`${key} does not exist in storage with id ${this.id}`);
         }
 
         this.storage.delete(key);

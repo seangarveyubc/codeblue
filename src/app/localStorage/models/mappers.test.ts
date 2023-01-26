@@ -1,8 +1,10 @@
 import { CardiacData } from './CardiacData';
+import { DeviceList } from './DeviceList';
 import {
+    deserializeDeviceList,
     deserializeMedicationList,
     generateCardiacDataKey,
-    serializeMedicationList
+    serializeLocalStorageObject
 } from './mappers';
 import { MedicationList } from './MedicationList';
 
@@ -17,7 +19,18 @@ const mockMedicationList: MedicationList = {
     medications: ['Atorvastatin', 'Levothyroxine', 'Metformin']
 };
 
+const mockDeviceList: DeviceList = {
+    devices: [
+        { name: 'PPG1', location: 'Right hand' },
+        { name: 'PPG2', location: 'Left hand' }
+    ]
+};
+
 const mockDateInMillis = 1672473600000;
+const mockMedicationListString =
+    '{"medications":["Atorvastatin","Levothyroxine","Metformin"]}';
+const mockDeviceListString =
+    '{"devices":[{"name":"PPG1","location":"Right hand"},{"name":"PPG2","location":"Left hand"}]}';
 
 describe('generateCardiacDataKey', () => {
     it('maps CardiacData to a key', () => {
@@ -27,22 +40,40 @@ describe('generateCardiacDataKey', () => {
 });
 
 describe('MedicationList', () => {
-    describe('serializeMedicationList', () => {
-        it('serializes MedicationList to a JSON string', () => {
-            const expectedString =
-                '{"medications":["Atorvastatin","Levothyroxine","Metformin"]}';
-            expect(serializeMedicationList(mockMedicationList)).toEqual(
-                expectedString
+    describe('deserializeMedicationList', () => {
+        it('converts a valid JSON string to a MedicationList object', () => {
+            expect(deserializeMedicationList(mockMedicationListString)).toEqual(
+                mockMedicationList
             );
         });
+
+        it('returns undefined if given an invalid JSON string', () => {
+            const jsonString =
+                '{"invalid":["Atorvastatin", "Levothyroxine", "Metformin"]}';
+            expect(deserializeMedicationList(jsonString)).toBeUndefined();
+        });
+    });
+});
+
+describe('serializeLocalStorageObject', () => {
+    it('serializes MedicationList to a JSON string', () => {
+        expect(serializeLocalStorageObject(mockMedicationList)).toEqual(
+            mockMedicationListString
+        );
     });
 
-    describe('deserialzieMedicationList', () => {
-        it('converts a valid JSON string to a MedicationList object', () => {
-            const jsonString =
-                '{"medications":["Atorvastatin", "Levothyroxine", "Metformin"]}';
-            expect(deserializeMedicationList(jsonString)).toEqual(
-                mockMedicationList
+    it('serializes DeviceList to a JSON string', () => {
+        expect(serializeLocalStorageObject(mockDeviceList)).toEqual(
+            mockDeviceListString
+        );
+    });
+});
+
+describe('DeviceList', () => {
+    describe('deserializeDeviceList', () => {
+        it('converts a valid JSON string to a DeviceList object', () => {
+            expect(deserializeDeviceList(mockDeviceListString)).toEqual(
+                mockDeviceList
             );
         });
 
