@@ -23,11 +23,11 @@ export const SplashScreen = ({ navigation }: Props) => {
 
     useEffect(() => {
         setTimeout(() => {
-            //if (isLocalStorageEmpty) {
-            navigation.navigate('Onboarding');
-            //} else {
-            //    navigation.navigate('MainNavigator');
-            //}
+            if (isLocalStorageEmpty) {
+                navigation.navigate('Onboarding');
+            } else {
+                navigation.navigate('MainNavigator');
+            }
         }, SCREEN_NAV_DELAY_TIME);
     }, []);
 
