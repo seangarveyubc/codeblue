@@ -29,7 +29,8 @@
     "react-native-select-dropdown": "^3.0.3",
     "react-native-svg": "^13.6.0",
     "react-native-svg-transformer": "^1.0.0",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-native-video": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -47,6 +48,7 @@
     "@types/react": "^18.0.21",
     "@types/react-native": "^0.70.6",
     "@types/react-native-vector-icons": "^6.4.12",
+    "@types/react-native-video": "^5.0.14",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.37.0",
