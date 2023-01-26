@@ -1,6 +1,10 @@
 import DDOptions from '../../constants/DDOptions';
 import { PersonalDataKeys } from '../models/LocalStorageKeys';
-import { isBirthdayValid, isPositiveNum } from '../../utils/formatValidators';
+import {
+    isBirthdayValid,
+    isBlank,
+    isPositiveNum
+} from '../../utils/formatValidators';
 import { LocalStorage } from '../LocalStorage/LocalStorage';
 import { LocalStorageCache } from '../LocalStorageCache/LocalStorageCache';
 
@@ -15,31 +19,29 @@ export const useLocalStorage = () => {
         appDataStorage.isEmpty() && cardiacStorage.isEmpty();
 
     const saveUserBirthday = (birthday: string) => {
-        if (birthday && isBirthdayValid(birthday)) {
+        if (isBlank(birthday) || isBirthdayValid(birthday)) {
             appDataStorage.add(PersonalDataKeys.BIRTHDAY, birthday);
         }
     };
 
     const saveUserName = (key: string, name: string) => {
-        if (name) {
-            appDataStorage.add(key, name);
-        }
+        appDataStorage.add(key, name);
     };
 
     const saveUserWeightHeight = (key: string, num: string) => {
-        if (num && isPositiveNum(num)) {
+        if (isBlank(num) || isPositiveNum(num)) {
             appDataStorage.add(key, num);
         }
     };
 
     const saveUserSex = (sex: string) => {
-        if (sex && DDOptions.Sex.includes(sex)) {
+        if (isBlank(sex) || DDOptions.Sex.includes(sex)) {
             appDataStorage.add(PersonalDataKeys.SEX, sex);
         }
     };
 
     const saveUserBloodType = (bloodType: string) => {
-        if (bloodType && DDOptions.BloodTypes.includes(bloodType)) {
+        if (isBlank(bloodType) || DDOptions.BloodTypes.includes(bloodType)) {
             appDataStorage.add(PersonalDataKeys.BLOOD_TYPE, bloodType);
         }
     };

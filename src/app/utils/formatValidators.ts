@@ -12,3 +12,8 @@ export const isPositiveNum = (num: string): boolean => {
     const regex = /^\d+(\.\d{1,5})?$/;
     return regex.test(num);
 };
+
+// Returns true if the string is blank - empty string or all spaces. False otherwise
+export const isBlank = (str: string): boolean => {
+    return !str || /^\s*$/.test(str);
+};

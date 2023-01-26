@@ -29,6 +29,7 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
     const deleteAllAppData = () => {
         appDataStorage.clearStorage();
         cardiacStorage.clearStorage();
+        navigation.navigate('SplashScreen');
     };
 
     return (

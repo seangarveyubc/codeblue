@@ -4,17 +4,20 @@ import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
 import { CheckmarkAnimation } from '../../components/CheckmarkAnimation/CheckmarkAnimation';
 import { SCREEN_NAV_DELAY_TIME } from '../../constants/constants';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props {
     navigation: any;
 }
 
 export const OnboardingSuccessScreen = ({ navigation }: Props) => {
+    const isFocused = useIsFocused();
+
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate('Tutorial');
         }, SCREEN_NAV_DELAY_TIME);
-    }, []);
+    }, [isFocused]);
 
     return (
         <View style={styles.screenContainer}>
