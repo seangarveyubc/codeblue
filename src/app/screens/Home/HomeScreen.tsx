@@ -1,6 +1,13 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import {
+    Text,
+    View,
+    StyleSheet,
+    SafeAreaView,
+    ScrollView,
+    NativeModules
+} from 'react-native';
 
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
 import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
@@ -8,6 +15,7 @@ import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import IconTextInput from '../../components/IconTextInput/IconTextInput';
 import Colours from '../../constants/Colours';
+import { WideButton } from '../../components/WideButton/WideButton';
 
 interface Props {
     navigation: any;
@@ -20,6 +28,13 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [deviceName2, changeDeviceName2] = useState('EKG1');
     const toggleChecked = () => setDeviceListState((value) => !value);
 
+    const { BackgroundWorkManager } = NativeModules;
+
+    const startBackground = () => {
+        console.log('initiate bg task on home screen');
+        BackgroundWorkManager.startBackgroundWork();
+    };
+
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -28,6 +43,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                 </View>
 
                 <SafeAreaView>
+                    <WideButton text="test" onPress={startBackground} />
                     <View style={styles.inner}>
                         <View style={styles.heartContainer}>
                             <HeartRateWidget heartRate={56} />

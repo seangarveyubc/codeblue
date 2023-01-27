@@ -1,15 +1,43 @@
 package com.awesometsproject;
 
 import android.os.Bundle;
+import android.util.Log;
+
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
+import com.awesometsproject.backgroundTask.BackgroundWorker;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends ReactActivity {
+  private PeriodicWorkRequest request;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(null);
+  }
+
+  @Override
+  protected void onStart(){
+    super.onStart();
+    Log.d("TAG", "MainActivity on start called");
+    //request = new PeriodicWorkRequest.Builder(BackgroundWorker.class, 8, TimeUnit.SECONDS).build();
+    //WorkManager.getInstance(getApplicationContext()).enqueue(request);
+    WorkManager.getInstance(getApplicationContext()).cancelUniqueWork("testWork");
+  }
+
+
+  @Override
+  public void onStop() {
+    Log.d("TAG", "MainActivity on stop called");
+    request = new PeriodicWorkRequest.Builder(BackgroundWorker.class, 5, TimeUnit.SECONDS).build();
+    WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork("testWork", ExistingPeriodicWorkPolicy.REPLACE, request);
+    super.onStop();
   }
   
   /**
