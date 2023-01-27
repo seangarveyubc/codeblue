@@ -6,19 +6,19 @@ import { Alert } from 'react-native';
 
 const App = () => {
     useEffect(() => {
-        messaging().setBackgroundMessageHandler(async (remoteMessage:any) => {
+        messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
             console.log(remoteMessage);
-    
+
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
             let avatar = remoteMessage.notification.android.imageUrl;
-    
+
             Alert.alert(message_title, message_body);
         });
-    }, [])
-    
+    }, []);
+
     useEffect(() => {
-        const subscribe = messaging().onMessage(async (remoteMessage:any) => {
+        const subscribe = messaging().onMessage(async (remoteMessage: any) => {
             console.log(remoteMessage);
 
             let message_body = remoteMessage.notification.body;
@@ -30,7 +30,7 @@ const App = () => {
 
         return subscribe;
     }, []);
-    
+
     return <AppNavigator />;
 };
 
