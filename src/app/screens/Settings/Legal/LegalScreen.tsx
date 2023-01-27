@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import Colours from '../../../assets/constants/Colours';
+import { TriggerCall } from '../../../EMSCall/TriggerCall';
 
 interface Props {
     navigation: any;
@@ -10,6 +11,7 @@ export const LegalScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.page}>
             <ScrollView>
+                <Button color="#300000" onPress={TriggerCall} title="Call" />
                 <Text style={styles.title}>Privacy Policy</Text>
                 <Text style={styles.paragraph}>
                     This Privacy Policy describes Our policies and procedures on
