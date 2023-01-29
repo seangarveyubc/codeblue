@@ -70,8 +70,12 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
     };
 
     const navigateToSuccessScreen = () => {
-        saveEnteredInfo();
         navigation.navigate('OnboardingSuccess');
+    };
+
+    const saveAndNavigateToSuccessScreen = () => {
+        saveEnteredInfo();
+        navigateToSuccessScreen();
     };
 
     const navigateToRequiredInfoScreen = () => {
@@ -159,7 +163,10 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                 </Text>
             </View>
             <CentredContent marginTop={VERTICAL_SPACE}>
-                <WideButton text="Join" onPress={navigateToSuccessScreen} />
+                <WideButton
+                    text="Join"
+                    onPress={saveAndNavigateToSuccessScreen}
+                />
                 <Text style={styles.skipText} onPress={navigateToSuccessScreen}>
                     Skip
                 </Text>
