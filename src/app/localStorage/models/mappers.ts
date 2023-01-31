@@ -1,17 +1,20 @@
 import { CardiacData } from './CardiacData';
-import { MedicationData } from './MedicationData';
+import { DeviceList } from './DeviceList';
+import { MedicationList } from './MedicationList';
 
 export const generateCardiacDataKey = (data: CardiacData): string => {
     return data.deviceId + ' ' + data.expiration.getTime();
 };
 
-export const serializeMedicationData = (data: MedicationData): string => {
+export const serializeLocalStorageObject = (
+    data: MedicationList | DeviceList
+): string => {
     return JSON.stringify(data);
 };
 
-export const deserializeMedicationData = (
+export const deserializeMedicationList = (
     data: string
-): MedicationData | undefined => {
+): MedicationList | undefined => {
     const medData = JSON.parse(data);
     if (medData.hasOwnProperty('medications')) {
         return {
@@ -20,7 +23,18 @@ export const deserializeMedicationData = (
     }
 
     console.error(
-        'Could not deserialize MedicationData from JSON string',
+        'Could not deserialize MedicationList from JSON string',
         data
     );
+};
+
+export const deserializeDeviceList = (data: string): DeviceList | undefined => {
+    const deviceListData = JSON.parse(data);
+    if (deviceListData.hasOwnProperty('devices')) {
+        return {
+            devices: deviceListData.devices
+        };
+    }
+
+    console.error('Could not deserialize DeviceList from JSON string', data);
 };

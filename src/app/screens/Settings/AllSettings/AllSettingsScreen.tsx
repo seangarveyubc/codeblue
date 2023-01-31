@@ -12,6 +12,7 @@ import {
     OptionType,
     SettingsOption
 } from '../../../components/SettingsOption/SettingsOption';
+import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 
 interface Props {
     navigation: any;
@@ -19,10 +20,18 @@ interface Props {
 
 export const AllSettingsScreen = ({ navigation }: Props) => {
     const [modalVisible, setModalVisible] = React.useState(false);
+    const { appDataStorage, cardiacStorage } = useLocalStorage();
 
-    const onPress = () => {
+    const onPressResetApp = () => {
         setModalVisible(true);
     };
+
+    const deleteAllAppData = () => {
+        appDataStorage.clearStorage();
+        cardiacStorage.clearStorage();
+        navigation.navigate('SplashScreen');
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -60,9 +69,9 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
                     modalType={ModalType.ResetAlert}
-                    confirmAction={() => {}}
+                    confirmAction={deleteAllAppData}
                 />
-                <Text style={styles.resetText} onPress={onPress}>
+                <Text style={styles.resetText} onPress={onPressResetApp}>
                     {'Reset App'}
                 </Text>
             </ScrollView>

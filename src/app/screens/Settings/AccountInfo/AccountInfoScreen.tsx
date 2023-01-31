@@ -3,23 +3,61 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
 import { UserAccountInfo } from '../../../components/UserAccountInfo/UserAccountInfo';
+import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 
 interface Props {
     navigation: any;
 }
 
 export const AccountInfoScreen = ({ navigation }: Props) => {
+    const {
+        appDataStorage,
+        saveUserName,
+        saveUserBirthday,
+        saveUserWeightHeight,
+        saveUserSex,
+        saveUserBloodType
+    } = useLocalStorage();
+
     const [edit, setEdit] = React.useState(false);
-    const [firstName, setFirstName] = React.useState('');
-    const [lastName, setLastName] = React.useState('');
-    const [birthday, setBirthday] = React.useState('');
-    const [height, setHeight] = React.useState('');
-    const [weight, setWeight] = React.useState('');
-    const [bloodType, setBloodType] = React.useState('');
-    const [sex, setSex] = React.useState('');
-    const onPress = () => {
+    const [firstName, setFirstName] = React.useState(
+        appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? ''
+    );
+    const [lastName, setLastName] = React.useState(
+        appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? ''
+    );
+    const [birthday, setBirthday] = React.useState(
+        appDataStorage.getString(PersonalDataKeys.BIRTHDAY) ?? ''
+    );
+    const [height, setHeight] = React.useState(
+        appDataStorage.getString(PersonalDataKeys.HEIGHT) ?? ''
+    );
+    const [weight, setWeight] = React.useState(
+        appDataStorage.getString(PersonalDataKeys.WEIGHT) ?? ''
+    );
+    const [bloodType, setBloodType] = React.useState(
+        appDataStorage.getString(PersonalDataKeys.BLOOD_TYPE) ?? ''
+    );
+    const [sex, setSex] = React.useState(
+        appDataStorage.getString(PersonalDataKeys.SEX) ?? ''
+    );
+
+    const updateViewOption = () => {
+        if (edit) {
+            // save any updates
+            saveUserName(PersonalDataKeys.FIRST_NAME, firstName);
+            saveUserName(PersonalDataKeys.LAST_NAME, lastName);
+            saveUserBirthday(birthday);
+            saveUserWeightHeight(PersonalDataKeys.HEIGHT, height);
+            saveUserWeightHeight(PersonalDataKeys.WEIGHT, weight);
+            saveUserBloodType(bloodType);
+            saveUserSex(sex);
+        }
+
         setEdit(!edit);
     };
+
     return (
         <ScrollView style={styles.container}>
             <SettingsScreenHeader
@@ -28,7 +66,7 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
             />
             <View style={styles.subHeading}>
                 <Text style={styles.subHeadingText}>{'Basic Information'}</Text>
-                <Text style={styles.edit} onPress={onPress}>
+                <Text style={styles.edit} onPress={updateViewOption}>
                     {edit ? 'Save' : 'Edit'}
                 </Text>
             </View>

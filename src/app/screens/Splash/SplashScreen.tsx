@@ -13,6 +13,7 @@ import { Logo } from '../../components/Logo/Logo';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { SCREEN_NAV_DELAY_TIME } from '../../constants/constants';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props {
     navigation: any;
@@ -20,6 +21,7 @@ interface Props {
 
 export const SplashScreen = ({ navigation }: Props) => {
     const { isLocalStorageEmpty } = useLocalStorage();
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         setTimeout(() => {
@@ -29,7 +31,7 @@ export const SplashScreen = ({ navigation }: Props) => {
                 navigation.navigate('MainNavigator');
             }
         }, SCREEN_NAV_DELAY_TIME);
-    }, []);
+    }, [isFocused]);
 
     return (
         <View style={styles.container}>

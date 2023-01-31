@@ -12,6 +12,8 @@ import { CentredContent } from '../../../components/CentredContent/CentredConten
 import InputText from '../../../components/InputText/InputText';
 import { Logo } from '../../../components/Logo/Logo';
 import { WideButton } from '../../../components/WideButton/WideButton';
+import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 
 interface Props {
     navigation: any;
@@ -21,11 +23,23 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export const RequiredInfoScreen = ({ navigation }: Props) => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const { appDataStorage, saveUserName } = useLocalStorage();
+
+    const [firstName, setFirstName] = useState(
+        appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? ''
+    );
+    const [lastName, setLastName] = useState(
+        appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? ''
+    );
 
     const handleNavigate = () => {
+        saveEnteredInfo();
         navigation.navigate('OptionalInfo');
+    };
+
+    const saveEnteredInfo = () => {
+        saveUserName(PersonalDataKeys.FIRST_NAME, firstName);
+        saveUserName(PersonalDataKeys.LAST_NAME, lastName);
     };
 
     return (
