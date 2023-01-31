@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { OptionalInfoScreen } from '../screens/Onboarding/OptionalInfo/OptionalInfoScreen';
 import { RequiredInfoScreen } from '../screens/Onboarding/RequiredInfo/RequiredInfoScreen';
-import { OnboardingSuccessScreen } from '../screens/Onboarding/OnboardingSuccessScreen';
+import { OnboardingSuccessScreen } from '../screens/Onboarding/Success/OnboardingSuccessScreen';
 import { TutorialScreen } from '../screens/Onboarding/Tutorial/TutorialScreen';
 
 const Stack = createNativeStackNavigator();

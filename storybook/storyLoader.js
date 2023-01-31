@@ -27,7 +27,7 @@ function loadStories() {
     require('../src/app/screens/EmergencyProtocol/CallInProgress/CallInProgressScreen.stories');
     require('../src/app/screens/EmergencyProtocol/CardiacArrestDetected/CardiacArrestDetectedScreen.stories');
     require('../src/app/screens/Home/HomeScreen.stories');
-    require('../src/app/screens/Onboarding/OnboardingSuccessScreen.stories');
+    require('../src/app/screens/Onboarding/Success/OnboardingSuccessScreen.stories');
     require('../src/app/screens/Onboarding/OptionalInfo/OptionalInfoScreen.stories');
     require('../src/app/screens/Onboarding/RequiredInfo/RequiredInfoScreen.stories');
     require('../src/app/screens/Onboarding/Tutorial/TutorialScreen.stories');
