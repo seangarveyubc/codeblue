@@ -5,6 +5,7 @@ import { UnderlineDropdownSelect } from './UnderlineDropdownSelect';
 
 const UnderlineDropdownSelectStateful = () => {
     const [value, setValue] = useState('');
+    const data = ['Option 1', 'Option 2', 'Option 3'];
 
     const onValueChange = (newValue: string) => {
         console.log(newValue);
@@ -13,6 +14,8 @@ const UnderlineDropdownSelectStateful = () => {
 
     return (
         <UnderlineDropdownSelect
+            title="Underline dropdown select"
+            data={data}
             selectedValue={value}
             onValueChange={onValueChange}
         />

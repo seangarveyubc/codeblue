@@ -3,19 +3,27 @@ import { View, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
-import DropdownOptions from '../../constants/DropdownOptions';
 
 interface Props {
+    type: string;
+    data: string[];
     selectedValue: any;
     onValueChange: any;
+    width: number;
 }
 
-export const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
+export const DropdownSelect = ({
+    type,
+    data,
+    selectedValue,
+    onValueChange,
+    width
+}: Props) => {
     return (
         <View style={styles.view}>
             <SelectDropdown
-                defaultButtonText={'Select'}
-                data={DropdownOptions.Medications}
+                defaultButtonText={type}
+                data={data}
                 onSelect={(selectedItem, index) => {
                     onValueChange(selectedItem);
                 }}
@@ -33,7 +41,7 @@ export const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
                     return (
                         <Icons
                             name={isOpened ? 'up' : 'down'}
-                            color={Colours.GREY}
+                            color={Colours.DARKBLUE}
                             size={25}
                         />
                     );
@@ -42,7 +50,7 @@ export const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
                 dropdownStyle={styles.dropdown2DropdownStyle}
                 rowStyle={styles.dropdown2RowStyle}
                 rowTextStyle={styles.dropdown2RowTxtStyle}
-                buttonStyle={styles.dropdown2BtnStyle}
+                buttonStyle={{ width, ...styles.dropdown2BtnStyle }}
                 buttonTextStyle={styles.dropdown2BtnTxtStyle}
             />
         </View>
@@ -54,41 +62,38 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        margin: 10
+        marginVertical: 6
     },
     dropdown2BtnStyle: {
-        width: '90%',
         height: 50,
-        backgroundColor: Colours.WHITE,
+        backgroundColor: Colours.LIGHTGREY,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: Colours.GREY
+        borderColor: Colours.DARKBLUE
     },
     dropdown2BtnTxtStyle: {
-        color: Colours.BLACK,
+        color: Colours.DARKBLUE,
         textAlign: 'left',
-        fontWeight: '300',
-        fontFamily: 'DMSans-Regular'
+        fontFamily: 'DMSans-Regular',
+        fontSize: 14
     },
     dropdown2DropdownStyle: {
-        backgroundColor: Colours.WHITE,
+        backgroundColor: Colours.LIGHTGREY,
         borderBottomLeftRadius: 8,
         borderBottomRightRadius: 8,
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
-        borderColor: Colours.GREY
+        borderColor: Colours.DARKBLUE
     },
     dropdown2RowStyle: {
-        backgroundColor: Colours.WHITE,
-        borderColor: Colours.LIGHTGREY,
+        backgroundColor: Colours.LIGHTGREY,
+        borderColor: Colours.DARKBLUE,
         borderWidth: 1
     },
     dropdown2RowTxtStyle: {
-        color: Colours.BLACK,
+        color: Colours.DARKBLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
-        fontWeight: '300',
-        marginLeft: 20,
-        marginRight: 20
+        padding: 10
     }
 });

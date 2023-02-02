@@ -2,8 +2,9 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Colours from '../../constants/Colours';
-import UnderlineDDSelect from '../UnderlineDropdownSelect/UnderlineDropdownSelect';
-import UnderlineTextInput from '../UnderlineTextInput/UnderlineTextInput';
+import DropdownOptions from '../../constants/DropdownOptions';
+import { UnderlineDropdownSelect } from '../UnderlineDropdownSelect/UnderlineDropdownSelect';
+import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {
     edit: boolean;
@@ -77,6 +78,7 @@ export const UserAccountInfo = ({
                         onChangeText={setHeight}
                         title={'Height (cm)'}
                         placeholder={''}
+                        keyboardType="numeric"
                     />
                 </View>
                 <View style={styles.item}>
@@ -85,18 +87,23 @@ export const UserAccountInfo = ({
                         onChangeText={setWeight}
                         title={'Weight (kg)'}
                         placeholder={''}
+                        keyboardType="numeric"
                     />
                 </View>
             </View>
             <View style={styles.row}>
                 <View style={styles.item}>
-                    <UnderlineDDSelect
+                    <UnderlineDropdownSelect
+                        title="Blood Type"
+                        data={DropdownOptions.BloodTypes}
                         selectedValue={bloodType}
                         onValueChange={setBloodType}
                     />
                 </View>
                 <View style={styles.item}>
-                    <UnderlineDDSelect
+                    <UnderlineDropdownSelect
+                        title="Sex"
+                        data={DropdownOptions.Sex}
                         selectedValue={sex}
                         onValueChange={setSex}
                     />

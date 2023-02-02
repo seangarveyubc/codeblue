@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+    KeyboardTypeOptions,
+    StyleSheet,
+    Text,
+    TextInput,
+    TextInputProps,
+    View
+} from 'react-native';
 import Colours from '../../constants/Colours';
 
 interface Props {
@@ -7,13 +14,15 @@ interface Props {
     onChangeText: any;
     title: string;
     placeholder: string;
+    keyboardType?: KeyboardTypeOptions;
 }
 
 export const UnderlineTextInput = ({
     text,
     onChangeText,
     title,
-    placeholder
+    placeholder,
+    keyboardType
 }: Props) => {
     return (
         <View style={styles.inputfield}>
@@ -24,6 +33,7 @@ export const UnderlineTextInput = ({
                 value={text}
                 placeholder={placeholder}
                 placeholderTextColor={Colours.GREY}
+                keyboardType={keyboardType ?? 'default'}
             />
         </View>
     );

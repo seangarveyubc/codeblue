@@ -35,13 +35,16 @@ export const useLocalStorage = () => {
     };
 
     const saveUserSex = (sex: string) => {
-        if (isBlank(sex) || DDOptions.Sex.includes(sex)) {
+        if (isBlank(sex) || DropdownOptions.Sex.includes(sex)) {
             appDataStorage.add(PersonalDataKeys.SEX, sex);
         }
     };
 
     const saveUserBloodType = (bloodType: string) => {
-        if (isBlank(bloodType) || DDOptions.BloodTypes.includes(bloodType)) {
+        if (
+            isBlank(bloodType) ||
+            DropdownOptions.BloodTypes.includes(bloodType)
+        ) {
             appDataStorage.add(PersonalDataKeys.BLOOD_TYPE, bloodType);
         }
     };
