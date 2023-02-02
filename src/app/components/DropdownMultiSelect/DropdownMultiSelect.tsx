@@ -11,7 +11,7 @@ interface Props {
     setSelected: any;
 }
 
-const DropdownMultiSelect = ({
+export const DropdownMultiSelect = ({
     placeholder,
     width,
     data,
@@ -45,8 +45,6 @@ const DropdownMultiSelect = ({
         </View>
     );
 };
-
-export default DropdownMultiSelect;
 
 const styles = StyleSheet.create({
     container: {

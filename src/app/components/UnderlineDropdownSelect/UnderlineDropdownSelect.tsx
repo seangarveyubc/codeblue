@@ -3,20 +3,23 @@ import { View, StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
-import DDOptions from '../../constants/DDOptions';
+import DropdownOptions from '../../constants/DropdownOptions';
 
 interface Props {
     selectedValue: any;
     onValueChange: any;
 }
 
-const UnderlineDDSelect = ({ selectedValue, onValueChange }: Props) => {
+export const UnderlineDropdownSelect = ({
+    selectedValue,
+    onValueChange
+}: Props) => {
     return (
         <View style={styles.view}>
             <Text style={styles.title}>Blood Type</Text>
             <SelectDropdown
                 defaultButtonText={' '}
-                data={DDOptions.BloodTypes}
+                data={DropdownOptions.BloodTypes}
                 onSelect={(selectedItem, index) => {
                     onValueChange(selectedItem);
                 }}
@@ -95,5 +98,3 @@ const styles = StyleSheet.create({
         marginRight: 20
     }
 });
-
-export default UnderlineDDSelect;
