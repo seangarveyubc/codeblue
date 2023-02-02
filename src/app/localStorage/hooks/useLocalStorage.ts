@@ -1,4 +1,4 @@
-import DDOptions from '../../constants/DDOptions';
+import DropdownOptions from '../../constants/DropdownOptions';
 import { PersonalDataKeys } from '../models/LocalStorageKeys';
 import {
     isBirthdayValid,
