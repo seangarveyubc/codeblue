@@ -1,20 +1,80 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
-import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader';
-import { UserMedicalInfo } from './UserMedicalInfo';
+import Colours from '../../../constants/Colours';
+import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
+import { UserMedicalInfo } from '../../../components/UserMedicalInfo/UserMedicalInfo';
+import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
+import { HeartProblemOptions } from '../../../constants/HeartProblemOptions';
 
 interface Props {
     navigation: any;
 }
 
+const heartProblemToString = (hasProblem: boolean | undefined): string => {
+    switch (hasProblem) {
+        case true:
+            return HeartProblemOptions.YES;
+        case false:
+            return HeartProblemOptions.NO;
+        default:
+            return HeartProblemOptions.NOT_PROVIDED;
+    }
+};
+
+const stringToHeartProblem = (hasProblem: string): boolean | undefined => {
+    switch (hasProblem) {
+        case HeartProblemOptions.YES:
+            return true;
+        case HeartProblemOptions.NO:
+            return false;
+        default:
+            return undefined;
+    }
+};
+
 export const MedicalInfoScreen = ({ navigation }: Props) => {
+    const { appDataStorage, saveHeartProblem } = useLocalStorage();
+
     const [edit, setEdit] = React.useState(false);
-    const [personalHistory, setPersonalHistory] = React.useState('');
-    const [familyHistory, setFamilyHistory] = React.useState('');
-    const onPress = () => {
+    const [personalHistory, setPersonalHistory] = React.useState(
+        heartProblemToString(
+            appDataStorage.getBoolean(PersonalDataKeys.HAS_HEART_PROBLEM)
+        )
+    );
+    const [familyHistory, setFamilyHistory] = React.useState(
+        heartProblemToString(
+            appDataStorage.getBoolean(PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM)
+        )
+    );
+
+    const updateViewOption = () => {
+        if (edit) {
+            // delete previous selection if user does not provide info
+            if (personalHistory === HeartProblemOptions.NOT_PROVIDED) {
+                appDataStorage.delete(PersonalDataKeys.HAS_HEART_PROBLEM);
+            } else {
+                // else update the information
+                saveHeartProblem(
+                    PersonalDataKeys.HAS_HEART_PROBLEM,
+                    stringToHeartProblem(personalHistory)
+                );
+            }
+
+            if (familyHistory === HeartProblemOptions.NOT_PROVIDED) {
+                appDataStorage.delete(
+                    PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM
+                );
+            } else {
+                saveHeartProblem(
+                    PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM,
+                    stringToHeartProblem(familyHistory)
+                );
+            }
+        }
         setEdit(!edit);
     };
+
     return (
         <View style={styles.container}>
             <SettingsScreenHeader
@@ -23,7 +83,7 @@ export const MedicalInfoScreen = ({ navigation }: Props) => {
             />
             <View style={styles.subHeading}>
                 <Text style={styles.subHeadingText}>{'Medical History'}</Text>
-                <Text style={styles.edit} onPress={onPress}>
+                <Text style={styles.edit} onPress={updateViewOption}>
                     {edit ? 'Save' : 'Edit'}
                 </Text>
             </View>

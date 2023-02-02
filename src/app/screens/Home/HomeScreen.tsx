@@ -1,13 +1,15 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
-import { HeaderSwirl } from '../../components/utils/HeaderSwirl';
-import HeartRateWidget from '../../components/HeartRateWidget';
-import { CentredContent } from '../../components/CentredContent';
-import { DeviceWidget } from '../../components/DeviceWidget';
-import IconTextInput from '../../components/IconTextInput';
-import Colours from '../../assets/constants/Colours';
+import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
+import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
+import { CentredContent } from '../../components/CentredContent/CentredContent';
+import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
+import IconTextInput from '../../components/IconTextInput/IconTextInput';
+import Colours from '../../constants/Colours';
+import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
+import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 
 interface Props {
     navigation: any;
@@ -18,13 +20,22 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [bluetoothState, setBluetoothState] = useState(false);
     const [deviceName1, changeDeviceName1] = useState('PPG1');
     const [deviceName2, changeDeviceName2] = useState('EKG1');
+    const { appDataStorage } = useLocalStorage();
+
+    const firstName =
+        appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? '';
+    const lastName = appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? '';
+
     const toggleChecked = () => setDeviceListState((value) => !value);
 
     return (
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.header}>
-                    <HeaderSwirl title="Test Name" height={250} />
+                    <HeaderSwirl
+                        title={firstName + ' ' + lastName}
+                        height={250}
+                    />
                 </View>
 
                 <SafeAreaView>

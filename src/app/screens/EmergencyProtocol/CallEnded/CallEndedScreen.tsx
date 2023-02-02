@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import Colours from '../../../assets/constants/Colours';
-import { WideButton } from '../../../components/utils/WideButton';
+import Colours from '../../../constants/Colours';
+import { WideButton } from '../../../components/WideButton/WideButton';
 
 interface Props {
     navigation: any;

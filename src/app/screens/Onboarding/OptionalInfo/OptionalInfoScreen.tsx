@@ -1,13 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
-import { CentredContent } from '../../../components/CentredContent';
-import InputText from '../../../components/InputText';
-import { BackArrow } from '../../../components/utils/BackArrow';
-import { CheckBox } from '../../../components/utils/CheckBox';
-import { Logo } from '../../../components/utils/Logo';
-import { WideButton } from '../../../components/utils/WideButton';
+import Colours from '../../../constants/Colours';
+import { CentredContent } from '../../../components/CentredContent/CentredContent';
+import InputText from '../../../components/InputText/InputText';
+import { BackArrow } from '../../../components/BackArrow/BackArrow';
+import { CheckBox } from '../../../components/CheckBox/CheckBox';
+import { Logo } from '../../../components/Logo/Logo';
+import { WideButton } from '../../../components/WideButton/WideButton';
+import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 
 interface Props {
     navigation: any;
@@ -17,20 +19,53 @@ const windowWidth = Dimensions.get('window').width;
 const VERTICAL_SPACE = windowWidth * 0.07;
 
 export const OptionalInfoScreen = ({ navigation }: Props) => {
-    const [birthday, setBirthday] = useState('');
-    const [userHeight, setUserHeight] = useState('');
-    const [userWeight, setUserWeight] = useState('');
-    const [userSex, setUserSex] = useState('');
-    const [userBloodType, setUserBloodType] = useState('');
+    const {
+        appDataStorage,
+        saveUserBirthday,
+        saveUserWeightHeight,
+        saveUserSex,
+        saveUserBloodType,
+        saveHeartProblem
+    } = useLocalStorage();
 
-    const [hasHeartProblem, setHasHeartProblem] = useState(false);
-    const [hasFamilyHeartProblem, setHasFamilyHeartProblem] = useState(false);
+    const [birthday, setBirthday] = useState(
+        appDataStorage.getString(PersonalDataKeys.BIRTHDAY) ?? ''
+    );
+    const [userHeight, setUserHeight] = useState(
+        appDataStorage.getString(PersonalDataKeys.HEIGHT) ?? ''
+    );
+    const [userWeight, setUserWeight] = useState(
+        appDataStorage.getString(PersonalDataKeys.WEIGHT) ?? ''
+    );
+    const [userSex, setUserSex] = useState(
+        appDataStorage.getString(PersonalDataKeys.SEX) ?? ''
+    );
+    const [userBloodType, setUserBloodType] = useState(
+        appDataStorage.getString(PersonalDataKeys.BLOOD_TYPE) ?? ''
+    );
+
+    const [hasHeartProblem, setHasHeartProblem] = useState(
+        appDataStorage.getBoolean(PersonalDataKeys.HAS_HEART_PROBLEM)
+    );
+    const [hasFamilyHeartProblem, setHasFamilyHeartProblem] = useState(
+        appDataStorage.getBoolean(PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM)
+    );
 
     const handleUpdateHeartProblem = () => {
+        // for a first time user, initial state of checkbox is undefined
+        if (hasHeartProblem === undefined) {
+            setHasHeartProblem(true);
+        }
+
         setHasHeartProblem(!hasHeartProblem);
     };
 
     const handleUpdateFamilyHeartProblem = () => {
+        // for a first time user, initial state of checkbox is undefined
+        if (hasFamilyHeartProblem === undefined) {
+            setHasFamilyHeartProblem(true);
+        }
+
         setHasFamilyHeartProblem(!hasFamilyHeartProblem);
     };
 
@@ -38,8 +73,27 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
         navigation.navigate('OnboardingSuccess');
     };
 
+    const saveAndNavigateToSuccessScreen = () => {
+        saveEnteredInfo();
+        navigateToSuccessScreen();
+    };
+
     const navigateToRequiredInfoScreen = () => {
+        saveEnteredInfo();
         navigation.navigate('RequiredInfo');
+    };
+
+    const saveEnteredInfo = () => {
+        saveUserBirthday(birthday);
+        saveUserWeightHeight(PersonalDataKeys.HEIGHT, userHeight);
+        saveUserWeightHeight(PersonalDataKeys.WEIGHT, userWeight);
+        saveUserSex(userSex);
+        saveUserBloodType(userBloodType);
+        saveHeartProblem(PersonalDataKeys.HAS_HEART_PROBLEM, hasHeartProblem);
+        saveHeartProblem(
+            PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM,
+            hasFamilyHeartProblem
+        );
     };
 
     return (
@@ -109,7 +163,10 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                 </Text>
             </View>
             <CentredContent marginTop={VERTICAL_SPACE}>
-                <WideButton text="Join" onPress={navigateToSuccessScreen} />
+                <WideButton
+                    text="Join"
+                    onPress={saveAndNavigateToSuccessScreen}
+                />
                 <Text style={styles.skipText} onPress={navigateToSuccessScreen}>
                     Skip
                 </Text>

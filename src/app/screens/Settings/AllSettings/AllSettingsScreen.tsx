@@ -1,15 +1,18 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
-import Colours from '../../../assets/constants/Colours';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import Colours from '../../../constants/Colours';
 import {
     AlertModal,
     ModalType
 } from '../../../components/AlertModal/AlertModal';
-import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading';
-import { HeaderSwirl } from '../../../components/utils/HeaderSwirl';
-import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
+import { SettingsOptionHeading } from '../../../components/SettingsOptionHeading/SettingsOptionHeading';
+import { HeaderSwirl } from '../../../components/HeaderSwirl/HeaderSwirl';
 
-import { OptionType, SettingsOption } from './SettingsOption';
+import {
+    OptionType,
+    SettingsOption
+} from '../../../components/SettingsOption/SettingsOption';
+import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 
 interface Props {
     navigation: any;
@@ -17,10 +20,18 @@ interface Props {
 
 export const AllSettingsScreen = ({ navigation }: Props) => {
     const [modalVisible, setModalVisible] = React.useState(false);
+    const { appDataStorage, cardiacStorage } = useLocalStorage();
 
-    const onPress = () => {
+    const onPressResetApp = () => {
         setModalVisible(true);
     };
+
+    const deleteAllAppData = () => {
+        appDataStorage.clearStorage();
+        cardiacStorage.clearStorage();
+        navigation.navigate('SplashScreen');
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -58,9 +69,9 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
                     modalType={ModalType.ResetAlert}
-                    confirmAction={() => {}}
+                    confirmAction={deleteAllAppData}
                 />
-                <Text style={styles.resetText} onPress={onPress}>
+                <Text style={styles.resetText} onPress={onPressResetApp}>
                     {'Reset App'}
                 </Text>
             </ScrollView>

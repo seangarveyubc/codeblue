@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { CardiacArrestScreen } from '../screens/EmergencyProtocol/CardiacArrestDetected/CardiacArrestDetectedScreen';
+import { CardiacArrestDetectedScreen } from '../screens/EmergencyProtocol/CardiacArrestDetected/CardiacArrestDetectedScreen';
 import { CallInProgressScreen } from '../screens/EmergencyProtocol/CallInProgress/CallInProgressScreen';
 import { CallEndedScreen } from '../screens/EmergencyProtocol/CallEnded/CallEndedScreen';
 
@@ -14,7 +14,7 @@ export const EmergencyProtocolStack = () => {
         >
             <Stack.Screen
                 name="CardiacArrestDetected"
-                component={CardiacArrestScreen}
+                component={CardiacArrestDetectedScreen}
             />
             <Stack.Screen
                 name="CallInProgress"
