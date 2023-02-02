@@ -42,6 +42,14 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
         saveUserName(PersonalDataKeys.LAST_NAME, lastName);
     };
 
+    let isDisabled = !firstName.trim() || !lastName.trim();
+    const setButtonColour = () => {
+        if (isDisabled) {
+            return Colours.GREY;
+        }
+        return Colours.BLUE;
+    };
+
     return (
         <View style={styles.screenContainer}>
             <CentredContent>
@@ -69,7 +77,12 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
                         width={windowWidth * 0.9}
                     />
                 </KeyboardAvoidingView>
-                <WideButton text="Next" onPress={handleNavigate} />
+                <WideButton
+                    text="Next"
+                    disabled={isDisabled}
+                    colour={setButtonColour()}
+                    onPress={handleNavigate}
+                />
             </CentredContent>
         </View>
     );

@@ -6,12 +6,19 @@ interface Props {
     text: string;
     textColour?: string; // defaults to blue
     colour?: string; // defaults to white
+    disabled?: boolean; // defaults to false
     onPress: () => void;
 }
 
 const windowWidth = Dimensions.get('window').width;
 
-export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
+export const WideButton = ({
+    text,
+    textColour,
+    colour,
+    disabled,
+    onPress
+}: Props) => {
     return (
         <TouchableOpacity
             style={{
@@ -19,6 +26,7 @@ export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
                 ...{ backgroundColor: colour ?? Colours.BLUE }
             }}
             onPress={onPress}
+            disabled={disabled ?? false}
         >
             <Text
                 style={{
