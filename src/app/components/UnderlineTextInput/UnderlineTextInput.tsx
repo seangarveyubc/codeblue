@@ -9,7 +9,7 @@ interface Props {
     placeholder: string;
 }
 
-const UnderlineTextInput = ({
+export const UnderlineTextInput = ({
     text,
     onChangeText,
     title,
@@ -49,5 +49,3 @@ const styles = StyleSheet.create({
         fontSize: 15
     }
 });
-
-export default UnderlineTextInput;

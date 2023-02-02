@@ -11,7 +11,7 @@ interface Props {
     options: string[];
 }
 
-const SingleDropdownSelect = ({
+export const SingleDropdownSelect = ({
     selectedIndex,
     onIndexChange,
     name,
@@ -99,5 +99,3 @@ const styles = StyleSheet.create({
         marginRight: 20
     }
 });
-
-export default SingleDropdownSelect;

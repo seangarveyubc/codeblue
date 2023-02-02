@@ -12,7 +12,7 @@ interface Props {
     setSelected: any;
 }
 
-const DropdownSingleSelect = ({
+export const DropdownSingleSelect = ({
     placeholder,
     width,
     data,
@@ -42,8 +42,6 @@ const DropdownSingleSelect = ({
         </View>
     );
 };
-
-export default DropdownSingleSelect;
 
 const styles = StyleSheet.create({
     container: {

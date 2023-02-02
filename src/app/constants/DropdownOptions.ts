@@ -1,4 +1,4 @@
-const DDOptions = {
+const DropdownOptions = {
     //Blood types array
     BloodTypes: ['', 'A', 'AB+', 'AB', 'AB-', 'B+', 'B', 'B-', 'O+', 'O', 'O-'],
 
@@ -20,4 +20,4 @@ const DDOptions = {
     Sex: ['', 'Male', 'Female', 'Other']
 };
 
-export default DDOptions;
+export default DropdownOptions;

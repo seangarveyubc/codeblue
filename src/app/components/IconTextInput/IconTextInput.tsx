@@ -9,7 +9,7 @@ interface Props {
     isConnected: boolean;
 }
 
-const IconTextInput = ({ text, onChangeText, isConnected }: Props) => {
+export const IconTextInput = ({ text, onChangeText, isConnected }: Props) => {
     return (
         <View style={styles.inputfield}>
             <Icon
@@ -49,5 +49,3 @@ const styles = StyleSheet.create({
         margin: 5
     }
 });
-
-export default IconTextInput;

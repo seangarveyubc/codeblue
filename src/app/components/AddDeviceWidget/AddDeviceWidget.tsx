@@ -7,7 +7,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import Colours from '../../constants/Colours';
-import UnderLineTextInput from '../UnderLineTextInput/UnderLineTextInput';
+import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {
     name: string;
@@ -26,12 +26,12 @@ export const AddDeviceWidget = ({ name }: Props) => {
                 {!isEditing || isSaved ? (
                     <Text>{text}</Text>
                 ) : (
-                    <UnderLineTextInput
+                    <UnderlineTextInput
                         text={text}
                         onChangeText={onChangetext}
                         title=""
                         placeholder={name}
-                    ></UnderLineTextInput>
+                    ></UnderlineTextInput>
                 )}
             </View>
 

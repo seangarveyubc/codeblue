@@ -2,8 +2,8 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Colours from '../../constants/Colours';
-import UnderlineDDSelect from '../UnderlineDDSelect/UnderlineDDSelect';
-import UnderlineTextInput from '../UnderLineTextInput/UnderLineTextInput';
+import UnderlineDDSelect from '../UnderlineDropdownSelect/UnderlineDropdownSelect';
+import UnderlineTextInput from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {
     edit: boolean;

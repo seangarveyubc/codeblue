@@ -3,19 +3,19 @@ import { View, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
-import DDOptions from '../../constants/DDOptions';
+import DropdownOptions from '../../constants/DropdownOptions';
 
 interface Props {
     selectedValue: any;
     onValueChange: any;
 }
 
-const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
+export const DropdownSelect = ({ selectedValue, onValueChange }: Props) => {
     return (
         <View style={styles.view}>
             <SelectDropdown
                 defaultButtonText={'Select'}
-                data={DDOptions.Medications}
+                data={DropdownOptions.Medications}
                 onSelect={(selectedItem, index) => {
                     onValueChange(selectedItem);
                 }}
@@ -92,5 +92,3 @@ const styles = StyleSheet.create({
         marginRight: 20
     }
 });
-
-export default DropdownSelect;
