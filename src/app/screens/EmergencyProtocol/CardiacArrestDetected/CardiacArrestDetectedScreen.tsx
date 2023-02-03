@@ -8,12 +8,14 @@ import {
     AlertModal,
     ModalType
 } from '../../../components/AlertModal/AlertModal';
+import { TriggerCall } from '../../../EMSCall/TriggerCall';
 
 interface Props {
     navigation: any;
 }
 
 const windowHeight = Dimensions.get('window').height;
+var timerId: any = null;
 
 export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const [callModalVisible, setCallModalVisible] = React.useState(false);
@@ -22,10 +24,12 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const timerRef = React.useRef(time);
 
     React.useEffect(() => {
-        const timerId = setInterval(() => {
+        timerId = setInterval(() => {
             timerRef.current -= 1;
             if (timerRef.current < 0) {
+                TriggerCall();
                 clearInterval(timerId);
+                navigation.navigate('CallEnded');
             } else {
                 setTime(timerRef.current);
             }
@@ -73,7 +77,12 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 </Text>
                 <Text style={styles.description}>seconds</Text>
             </View>
-            <WideButton text="Call 911 now" onPress={showCallModal} />
+            <WideButton
+                text="Call 911 now"
+                onPress={() => {
+                    showCallModal();
+                }}
+            />
             <View>
                 <Text style={styles.cancelDescription}>False alarm?</Text>
                 <WideButton
@@ -89,7 +98,10 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 setModalVisible={setCallModalVisible}
                 modalType={ModalType.CallAlert}
                 confirmAction={() => {
-                    navigation.navigate('CallInProgress');
+                    TriggerCall();
+                    setCallModalVisible(false);
+                    clearInterval(timerId);
+                    navigation.navigate('CallEnded');
                 }}
             />
             {/* Cancel alert modal */}
