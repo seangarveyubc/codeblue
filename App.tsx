@@ -3,6 +3,7 @@ import { AppNavigator } from './src/app/navigation/AppNavigator';
 import messaging from '@react-native-firebase/messaging';
 import StorybookUI from './storybook';
 import { Alert } from 'react-native';
+import BackgroundTask from './src/app/backgroundTask/BackgroundTask';
 
 const App = () => {
     useEffect(() => {
@@ -29,6 +30,10 @@ const App = () => {
         });
 
         return subscribe;
+    }, []);
+
+    useEffect(() => {
+        BackgroundTask.startService();
     }, []);
 
     return <AppNavigator />;
