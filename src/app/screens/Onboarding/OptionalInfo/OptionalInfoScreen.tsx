@@ -10,6 +10,8 @@ import { Logo } from '../../../components/Logo/Logo';
 import { WideButton } from '../../../components/WideButton/WideButton';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
+import { DropdownSelect } from '../../../components/DropdownSelect/DropdownSelect';
+import DropdownOptions from '../../../constants/DropdownOptions';
 
 interface Props {
     navigation: any;
@@ -130,16 +132,18 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                     />
                 </View>
                 <View style={styles.inputTextRow}>
-                    <InputText
-                        placeholder="Sex"
-                        text={userSex}
-                        onChangeText={setUserSex}
+                    <DropdownSelect
+                        type="Blood Type"
+                        data={DropdownOptions.BloodTypes}
+                        selectedValue={userBloodType}
+                        onValueChange={setUserBloodType}
                         width={windowWidth * 0.43}
                     />
-                    <InputText
-                        placeholder="Blood Type"
-                        text={userBloodType}
-                        onChangeText={setUserBloodType}
+                    <DropdownSelect
+                        type="Sex"
+                        data={DropdownOptions.Sex}
+                        selectedValue={userSex}
+                        onValueChange={setUserSex}
                         width={windowWidth * 0.43}
                     />
                 </View>
