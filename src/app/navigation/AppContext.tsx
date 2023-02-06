@@ -1,4 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useMemo, useReducer, useState } from 'react';
+import {
+    BackgroundTaskType,
+    BackgroundTaskUpdatePayload
+} from '../backgroundTask/BackgroundTaskModels';
+import { setNotificationForegroundService } from '../backgroundTask/NotifeeService';
 
 export const AppContext = createContext({});
 
@@ -7,13 +12,34 @@ interface Props {
 }
 
 export const AppContextProvider = ({ children }: Props) => {
-    const [user, setUser] = useState(null);
+    const reducer = (
+        state: BackgroundTaskType,
+        action: BackgroundTaskUpdatePayload
+    ): BackgroundTaskType => {
+        switch (action.type) {
+            case BackgroundTaskType.MONITOR_HEART:
+                return BackgroundTaskType.MONITOR_HEART;
+            case BackgroundTaskType.PHONE_CALL:
+                return BackgroundTaskType.PHONE_CALL;
+            case BackgroundTaskType.TEXT_TO_SPEECH:
+                return BackgroundTaskType.TEXT_TO_SPEECH;
+            default:
+                return BackgroundTaskType.IDLE;
+        }
+    };
+
+    const [backgroundState, dispatch] = useReducer(
+        reducer,
+        BackgroundTaskType.IDLE
+    );
+
+    setNotificationForegroundService(backgroundState);
 
     return (
         <AppContext.Provider
             value={{
-                user,
-                setUser
+                backgroundState,
+                dispatch
             }}
         >
             {children}

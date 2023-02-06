@@ -4,7 +4,6 @@ import { AppNavigator } from './src/app/navigation/AppNavigator';
 import messaging from '@react-native-firebase/messaging';
 import StorybookUI from './storybook';
 import { Alert } from 'react-native';
-import { setNotificationForegroundService } from './src/app/backgroundTask/foregroundService';
 
 async function printDeviceFCMToken() {
     const getFcmToken = async () => {
@@ -54,8 +53,6 @@ const App = () => {
 
         return subscribe;
     }, []);
-
-    setNotificationForegroundService();
 
     return <AppNavigator />;
 };
