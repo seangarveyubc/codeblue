@@ -5,7 +5,7 @@ import { SplashScreen } from '../screens/Splash/SplashScreen';
 import { OnboardingStack } from './OnboardingStack';
 import { MainNavigator } from './MainNavigator';
 import { EmergencyProtocolStack } from './EmergencyProtocolStack';
-import { AppContextProvider } from './AppContext';
+import { AppContextProvider } from '../backgroundMode/context/AppContext';
 
 const Stack = createNativeStackNavigator();
 
