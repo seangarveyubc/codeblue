@@ -14,3 +14,5 @@ export enum PersonalDataKeys {
 export enum DeviceKeys {
     DEVICE_LIST = 'deviceList'
 }
+
+export const BACKGROUND_MODE = 'backgroundMode';
