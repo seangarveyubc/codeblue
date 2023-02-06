@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@expo-google-fonts/dm-sans": "^0.2.2",
+    "@notifee/react-native": "^7.4.0",
     "@react-native-firebase/app": "^16.5.2",
     "@react-native-firebase/messaging": "^16.5.2",
     "@react-navigation/bottom-tabs": "^6.4.0",
