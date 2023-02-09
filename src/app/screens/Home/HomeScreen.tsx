@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
@@ -9,13 +9,12 @@ import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import IconTextInput from '../../components/IconTextInput/IconTextInput';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
-import {
-    BACKGROUND_MODE,
-    PersonalDataKeys
-} from '../../localStorage/models/LocalStorageKeys';
+import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
+import { useBackgroundMode } from '../../backgroundMode/hooks/useBackgroundMode';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props {
     navigation: any;
@@ -27,12 +26,16 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [deviceName1, changeDeviceName1] = useState('PPG1');
     const [deviceName2, changeDeviceName2] = useState('EKG1');
     const { appDataStorage } = useLocalStorage();
+    const { isBackgroundModeDefined } = useBackgroundMode();
     const { dispatch } = useContext(AppContext);
+    const isFocused = useIsFocused();
 
     // initialize the background state to idle for a first time user
-    if (!appDataStorage.getString(BACKGROUND_MODE)) {
-        appDataStorage.add(BACKGROUND_MODE, BackgroundMode.IDLE);
-    }
+    useEffect(() => {
+        if (!isBackgroundModeDefined) {
+            dispatch({ type: BackgroundMode.IDLE });
+        }
+    }, [isFocused]);
 
     const firstName =
         appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? '';

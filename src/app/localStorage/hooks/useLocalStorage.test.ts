@@ -28,6 +28,7 @@ describe('useLocalStorage', () => {
         useLocalStorage: {
             appDataStorage: mockLocalStorage,
             cardiacStorage: mockLocalStorageCache,
+            backgroundModeStorage: mockLocalStorage,
             saveUserBirthday: jest.fn(),
             saveUserName: jest.fn(),
             saveUserWeightHeight: jest.fn(),
