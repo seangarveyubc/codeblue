@@ -10,9 +10,11 @@ import { LocalStorageCache } from '../LocalStorageCache/LocalStorageCache';
 
 export const APP_DATA_STORAGE = 'APP_DATA_STORAGE';
 export const CARDIAC_STORAGE = 'CARDIAC_STORAGE';
+export const BACKGROUND_MODE_STORAGE = 'BACKGROUND_MODE_STORAGE';
 
 const appDataStorage = new LocalStorage(APP_DATA_STORAGE);
 const cardiacStorage = new LocalStorageCache(CARDIAC_STORAGE);
+const backgroundModeStorage = new LocalStorage(BACKGROUND_MODE_STORAGE);
 
 export const useLocalStorage = () => {
     const isLocalStorageEmpty =
@@ -62,6 +64,7 @@ export const useLocalStorage = () => {
         isLocalStorageEmpty,
         appDataStorage,
         cardiacStorage,
+        backgroundModeStorage,
         saveUserBirthday,
         saveUserName,
         saveUserWeightHeight,
