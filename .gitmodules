@@ -1,0 +1,3 @@
+[submodule "codeblue-server"]
+	path = codeblue-server
+	url = git@github.com:stellaw1/codeblue-server.git
