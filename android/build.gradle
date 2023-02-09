@@ -30,6 +30,7 @@ buildscript {
 }
 
 allprojects {
+
     repositories {
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -50,3 +51,4 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
+

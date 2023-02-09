@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import Colours from '../../../constants/Colours';
+import { TriggerCall } from '../../../EMSCall/TriggerCall';
+import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
 
 interface Props {
     navigation: any;
@@ -10,6 +12,12 @@ export const LegalScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.page}>
             <ScrollView>
+                <Button
+                    title="Detect"
+                    onPress={() => {
+                        navigation.navigate('EmergencyProtocol');
+                    }}
+                />
                 <Text style={styles.title}>Privacy Policy</Text>
                 <Text style={styles.paragraph}>
                     This Privacy Policy describes Our policies and procedures on
