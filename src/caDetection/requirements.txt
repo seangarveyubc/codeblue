@@ -1,0 +1,4 @@
+matplotlib==3.6.3
+numpy==1.24.2
+pynufft==2023.1.1
+scipy==1.10.0
