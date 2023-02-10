@@ -8,11 +8,11 @@ class FCMUtils:
             './firebase-ppk.json')
         default_app = firebase_admin.initialize_app(creds)
 
-    def send_to_token(self, registration_token):
+    def send_to_token(self, registration_token, title, body):
         message = messaging.Message(
             notification=messaging.Notification(
-                title="CARDIAC ARREST DETECTED! ",
-                body="911 will be alerted soon",
+                title=title,
+                body=body,
             ),
             token=registration_token
         )
