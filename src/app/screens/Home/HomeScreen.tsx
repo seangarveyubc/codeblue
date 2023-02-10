@@ -57,26 +57,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                         height={250}
                     />
                 </View>
-
                 <View style={styles.heartContainer}>
                     <HeartRateWidget heartRate={56} />
                 </View>
-                <Button
-                    title="heart"
-                    onPress={() =>
-                        dispatch({ type: BackgroundMode.MONITOR_HEART })
-                    }
-                />
-                <Button
-                    title="call"
-                    onPress={() =>
-                        dispatch({ type: BackgroundMode.PHONE_CALL })
-                    }
-                />
-                <Button
-                    title="idle"
-                    onPress={() => dispatch({ type: BackgroundMode.IDLE })}
-                />
                 <CentredContent>
                     <View style={styles.deviceHeader}>
                         <Text style={styles.yourDevices}>Your Devices</Text>

@@ -1,5 +1,6 @@
 import notifee, { EventType, EventDetail } from '@notifee/react-native';
 import { DAY_IN_MILLIS } from '../../constants/constants';
+import { TriggerCall } from '../../EMSCall/TriggerCall';
 import {
     backgroundModeStorage,
     cardiacStorage
@@ -36,6 +37,7 @@ export const setNotificationForegroundService = () => {
                 listener.remove();
             });
 
+            // refresh the local cardiac data cache
             setInterval(() => {
                 cardiacStorage.refresh();
             }, DAY_IN_MILLIS);
@@ -45,12 +47,21 @@ export const setNotificationForegroundService = () => {
                 console.log('executeBackgroundTask mode', mode);
                 switch (mode) {
                     case BackgroundMode.MONITOR_HEART: // send data to algorithm
-                        heartFn = setInterval(() => {
+                        heartFn = setInterval(async () => {
                             console.log('reading heart rate');
-                        }, 5000);
+                            // TODO: update fetch to send data to algo
+                            /*const response = await fetch(
+                                `http://34.209.158.8:3000/`,
+                                {
+                                    method: 'GET'
+                                }
+                            );
+                            console.log(response);*/
+                        }, 10000);
                         break;
                     case BackgroundMode.PHONE_CALL:
                     case BackgroundMode.TEXT_TO_SPEECH:
+                        TriggerCall();
                         callFn = setInterval(() => {
                             console.log('calling');
                         }, 5000);
