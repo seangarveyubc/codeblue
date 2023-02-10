@@ -25,10 +25,10 @@ describe('useLocalStorage', () => {
     );
 
     jest.mock('./useLocalStorage', () => ({
+        cardiacStorage: mockLocalStorageCache,
+        backgroundModeStorage: mockLocalStorage,
         useLocalStorage: {
             appDataStorage: mockLocalStorage,
-            cardiacStorage: mockLocalStorageCache,
-            backgroundModeStorage: mockLocalStorage,
             saveUserBirthday: jest.fn(),
             saveUserName: jest.fn(),
             saveUserWeightHeight: jest.fn(),

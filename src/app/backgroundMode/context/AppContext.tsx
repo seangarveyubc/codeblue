@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
+import { backgroundModeStorage } from '../../localStorage/hooks/useLocalStorage';
 import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
 import {
     BackgroundMode,
@@ -17,7 +17,6 @@ interface Props {
 }
 
 export const AppContextProvider = ({ children }: Props) => {
-    const { backgroundModeStorage } = useLocalStorage();
     const initialBackgroundState: BackgroundMode =
         (backgroundModeStorage.getString(BACKGROUND_MODE) as BackgroundMode) ??
         BackgroundMode.IDLE;

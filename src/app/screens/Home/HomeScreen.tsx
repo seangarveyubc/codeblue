@@ -12,8 +12,8 @@ import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
-import { useBackgroundMode } from '../../backgroundMode/hooks/useBackgroundMode';
 import { useIsFocused } from '@react-navigation/native';
+import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
 
 interface Props {
     navigation: any;
@@ -27,7 +27,6 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [deviceName1, changeDeviceName1] = useState('PPG1');
     const [deviceName2, changeDeviceName2] = useState('EKG1');
     const { appDataStorage } = useLocalStorage();
-    const { isBackgroundModeDefined } = useBackgroundMode();
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
 
