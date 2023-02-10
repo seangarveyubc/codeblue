@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Vibration } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Colours from '../../../constants/Colours';
@@ -12,6 +12,8 @@ interface Props {
 const windowHeight = Dimensions.get('window').height;
 
 export const CallEndedScreen = ({ navigation }: Props) => {
+    Vibration.cancel();
+
     return (
         <View>
             <View style={styles.container}>

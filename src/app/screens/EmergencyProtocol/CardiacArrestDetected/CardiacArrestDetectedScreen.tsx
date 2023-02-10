@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Vibration } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colours from '../../../constants/Colours';
@@ -22,6 +22,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
     const [time, setTime] = React.useState(30);
     const timerRef = React.useRef(time);
+    const pattern = [1000, 500, 1000, 500, 1000, 2000];
 
     React.useEffect(() => {
         timerId = setInterval(() => {
@@ -45,6 +46,8 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const showCancelModal = () => {
         setCancelModalVisible(true);
     };
+
+    Vibration.vibrate(pattern, true);
 
     return (
         <View style={styles.container}>
@@ -110,6 +113,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 setModalVisible={setCancelModalVisible}
                 modalType={ModalType.CancelAlert}
                 confirmAction={() => {
+                    Vibration.cancel();
                     navigation.navigate('MainNavigator');
                 }}
             />
