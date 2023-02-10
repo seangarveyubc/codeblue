@@ -4,6 +4,28 @@ import messaging from '@react-native-firebase/messaging';
 import StorybookUI from './storybook';
 import { Alert } from 'react-native';
 
+async function printDeviceFCMToken() {
+    const getFcmToken = async () => {
+        const fcmToken = await messaging().getToken();
+        if (fcmToken) {
+            console.log('TOKEN:', fcmToken);
+        } else {
+            console.log('Failed', 'No token received');
+        }
+    };
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+    if (enabled) {
+        getFcmToken();
+        console.log('Authorization status:', authStatus);
+    }
+}
+
+// printDeviceFCMToken();
+
 const App = () => {
     useEffect(() => {
         messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
