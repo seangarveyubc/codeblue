@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import {
     BleError,
@@ -73,14 +73,14 @@ function useBLE(): BluetoothLowEnergyApi {
 
     const isDuplicteDevice = (devices: Device[], nextDevice: Device) =>
         devices.findIndex((device) => nextDevice.id === device.id) > -1;
-    let devicecounter=0;
+    let devicecounter = 0;
     const scanForPeripherals = () =>
         bleManager.startDeviceScan(null, null, (error, device) => {
             if (error) {
                 console.log(error);
             }
-            if (device) {
-                devicecounter+=1;
+            if (device?.name) {
+                devicecounter += 1;
                 setAllDevices((prevState: Device[]) => {
                     if (!isDuplicteDevice(prevState, device)) {
                         return [...prevState, device];
@@ -88,9 +88,9 @@ function useBLE(): BluetoothLowEnergyApi {
                     return prevState;
                 });
             }
-            if(devicecounter>=5){
-                bleManager.stopDeviceScan()
-            }
+            // if (devicecounter >= 5) {
+            //     bleManager.stopDeviceScan();
+            // }
         });
 
     const connectToDevice = async (device: Device) => {

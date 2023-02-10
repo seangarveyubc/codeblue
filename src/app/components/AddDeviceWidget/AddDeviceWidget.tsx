@@ -6,20 +6,33 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
+import { Device } from 'react-native-ble-plx';
 import Colours from '../../constants/Colours';
 import UnderLineTextInput from '../UnderLineTextInput/UnderLineTextInput';
 
 interface Props {
     name: string;
+    item: any;
+    connectToPeripheral: (device: Device) => void;
+    closeModal: () => void;
 }
 
 const windowWidth = Dimensions.get('window').width;
 
-export const AddDeviceWidget = ({ name }: Props) => {
+export const AddDeviceWidget = ({
+    name,
+    item,
+    connectToPeripheral,
+    closeModal
+}: Props) => {
     const [text, onChangetext] = React.useState(name);
     const [isEditing, onChangeEditing] = React.useState(false);
     const [isSaved, onChangeSaved] = React.useState(false);
 
+    const connectAndCloseModal = React.useCallback(() => {
+        connectToPeripheral(item.item);
+        // closeModal();
+    }, [closeModal, connectToPeripheral, item.item]);
     return (
         <View style={styles.container}>
             <View style={styles.leftContent}>
@@ -37,13 +50,14 @@ export const AddDeviceWidget = ({ name }: Props) => {
 
             <View style={styles.rightContent}>
                 <TouchableOpacity
-                    onPress={() =>
+                    onPress={() => {
+                        connectAndCloseModal();
                         !isEditing && !isSaved
                             ? onChangeEditing((isEditing) => !isEditing)
                             : isEditing && !isSaved
                             ? onChangeSaved((isSaved) => !isSaved)
-                            : onChangeSaved((isSaved) => isSaved)
-                    }
+                            : onChangeSaved((isSaved) => isSaved);
+                    }}
                 >
                     <View
                         style={{
@@ -122,3 +136,5 @@ const styles = StyleSheet.create({
         fontFamily: 'DMSans-Regular'
     }
 });
+
+/// On clicking the button, have loading indicator and if successful than move to editing stage, once saved can click others
