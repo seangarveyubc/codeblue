@@ -146,7 +146,7 @@ class Heart:
 
         # At the end of the above loop, highestFreq will contain the strongest freq from the fourier transform
         print(highestFreq)
-        print(str(60.0/highestFreq) + " BPM")
+        print(str(60.0 * highestFreq) + " BPM")
         # Plotting
         # plt.figure(figsize = (12, 6))
         # plt.subplot(121)
