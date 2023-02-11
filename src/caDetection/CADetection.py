@@ -43,8 +43,6 @@ DETAILS
 """ IMPORTS """
 import numpy as np
 import time
-import json
-import codecs
 from Heart import Heart
 
 """ CORE FUNCTION DEFINTION """
@@ -70,48 +68,40 @@ mid = windowSize // 2
 peakLog = []
 
 """ DATA PREPPING """
-# sensorData = np.genfromtxt('sensor_data.csv', delimiter=',')
-# sensorData = np.delete(sensorData, (0), axis=0)
-# sensorData2 = np.genfromtxt('sensor_data2.csv', delimiter=',')
-# sensorData2 = np.delete(sensorData2, (0), axis=0)
-
-jsonString = codecs.open("data/healthyData.json", 'r', encoding='utf-8').read()
-jsonObj = json.loads(jsonString)
-sensorData2 = np.array(jsonObj)
+sensorData = np.genfromtxt('sensor_data.csv', delimiter=',')
+sensorData = np.delete(sensorData, (0), axis=0)
+sensorData2 = np.genfromtxt('sensor_data2.csv', delimiter=',')
+sensorData2 = np.delete(sensorData2, (0), axis=0)
 
 """
 Test NUFFT
 """
 heart = Heart(name, minHeartRate, maxHeartRate)
 
-heart.FFT(sensorData2)
-
-# for i in range(len(sensorData2)//512):
-#     d = sensorData2[i*512:(i+1)*512]
-#     print(d)
-#     heart.FFT(d)
+for i in range(len(sensorData2)//512):
+    heart.FFT(sensorData2[i*512:(i+1)*512, 1])
     #heart.NUFFT(sensorData[i*512:(i+1)*512, 1])
 
-# """ SENSOR SIMULATION """
-# for i in range(windowSize, len(sensorData)-(windowSize-1)):
-#     # Grab the current 3-value window
-#     timeVals = sensorData[0:i, 0] if (i <= windowSize) else sensorData[i-windowSize:i, 0]
-#     signalVals = sensorData[0:i, 1] if (i <= windowSize) else sensorData[i-windowSize:i, 1]
+""" SENSOR SIMULATION """
+for i in range(windowSize, len(sensorData)-(windowSize-1)):
+    # Grab the current 3-value window
+    timeVals = sensorData[0:i, 0] if (i <= windowSize) else sensorData[i-windowSize:i, 0]
+    signalVals = sensorData[0:i, 1] if (i <= windowSize) else sensorData[i-windowSize:i, 1]
 
-#     #print("time: " + str(timeVals))
-#     #print("signal: " + str(signalVals))
+    #print("time: " + str(timeVals))
+    #print("signal: " + str(signalVals))
 
-#     #  Check for peak
-#     type = isMaxima(signalVals)
-#     status = ""
-#     if(type == "peak"):
-#         # print("Logging peak...")
-#         status = heart.addMaxima((timeVals[mid], signalVals[mid]), type)
-#         #print("Status: " + status)
-#     elif(type == "trough"):
-#         # print("Logging trough...")
-#         status = heart.addMaxima((timeVals[mid], signalVals[mid]), type)
-#         #print("Status: " + status)
+    #  Check for peak
+    type = isMaxima(signalVals)
+    status = ""
+    if(type == "peak"):
+        # print("Logging peak...")
+        status = heart.addMaxima((timeVals[mid], signalVals[mid]), type)
+        #print("Status: " + status)
+    elif(type == "trough"):
+        # print("Logging trough...")
+        status = heart.addMaxima((timeVals[mid], signalVals[mid]), type)
+        #print("Status: " + status)
 
-#     # Call API with 'status'
-#     # time.sleep(0.002)
+    # Call API with 'status'
+    # time.sleep(0.002)
