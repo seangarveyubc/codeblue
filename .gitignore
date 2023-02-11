@@ -136,4 +136,4 @@ package-lock.json
 .metro-health-check*
 
 *ppk.json
-__pycache__
+__pycache__/
