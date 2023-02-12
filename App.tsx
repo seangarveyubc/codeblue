@@ -24,7 +24,7 @@ async function printDeviceFCMToken() {
     }
 }
 
-// printDeviceFCMToken();
+printDeviceFCMToken();
 
 const App = () => {
     useEffect(() => {
