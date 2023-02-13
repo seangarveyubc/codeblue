@@ -5,7 +5,6 @@ import StorybookUI from './storybook';
 import { Alert } from 'react-native';
 import { TriggerCall } from './src/app/EMSCall/TriggerCall';
 
-
 async function printDeviceFCMToken() {
     const getFcmToken = async () => {
         const fcmToken = await messaging().getToken();
@@ -54,7 +53,7 @@ const App = () => {
 
         return subscribe;
     }, []);
-    
+
     return <AppNavigator />;
 };
 

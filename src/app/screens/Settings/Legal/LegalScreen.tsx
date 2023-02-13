@@ -21,27 +21,27 @@ export const LegalScreen = ({ navigation }: Props) => {
                 <Button
                     title="Healthy"
                     onPress={() => {
-                        fetch("http://54.218.58.172:3000/healthy")
-                        .then(response => response.json())
-                        .then(json => {
-                            console.log(json);
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        })
+                        fetch('http://54.218.58.172:3000/healthy')
+                            .then((response) => response.json())
+                            .then((json) => {
+                                console.log(json);
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
                     }}
                 />
                 <Button
                     title="CA"
                     onPress={() => {
-                        fetch("http://54.218.58.172:3000/ca")
-                            .then(response => response.json())
-                            .then(json => {
+                        fetch('http://54.218.58.172:3000/ca')
+                            .then((response) => response.json())
+                            .then((json) => {
                                 console.log(json);
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 console.error(error);
-                            })
+                            });
                     }}
                 />
                 <Text style={styles.title}>Privacy Policy</Text>
