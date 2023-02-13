@@ -28,7 +28,7 @@ async function printDeviceFCMToken() {
 
 printDeviceFCMToken();
 
-const App = ({navigation}:any) => {
+const App = () => {
     useEffect(() => {
         messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
             console.log(remoteMessage);
