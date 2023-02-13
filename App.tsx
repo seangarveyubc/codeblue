@@ -55,7 +55,7 @@ const App = () => {
         return subscribe;
     }, []);
     
-    return<AppNavigator />;
+    return <AppNavigator />;
 };
 
 // Variable to switch between running CodeBlue App and components Storybook
