@@ -28,14 +28,13 @@ async function printDeviceFCMToken() {
 
 printDeviceFCMToken();
 
-const App = () => {
+const App = ({navigation}:any) => {
     useEffect(() => {
         messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
             console.log(remoteMessage);
 
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
 
             Alert.alert(message_title, message_body);
             TriggerCall();
@@ -48,7 +47,6 @@ const App = () => {
 
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
 
             Alert.alert(message_title, message_body);
             TriggerCall();
@@ -57,20 +55,7 @@ const App = () => {
         return subscribe;
     }, []);
     
-    const url = "http://54.218.58.172:3000/ca"
-
-    useEffect(() => {
-        fetch(url, { method: 'GET'})
-            .then(response => response.json())
-            .then(json => {
-                console.log(json);
-            })
-            .catch(error => {
-                console.error(error);
-            }
-    )}, []);
-
-    return <AppNavigator />;
+    return<AppNavigator />;
 };
 
 // Variable to switch between running CodeBlue App and components Storybook
