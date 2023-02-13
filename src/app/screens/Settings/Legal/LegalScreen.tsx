@@ -18,6 +18,32 @@ export const LegalScreen = ({ navigation }: Props) => {
                         navigation.navigate('EmergencyProtocol');
                     }}
                 />
+                <Button
+                    title="Healthy"
+                    onPress={() => {
+                        fetch('http://54.218.58.172:3000/healthy')
+                            .then((response) => response.json())
+                            .then((json) => {
+                                console.log(json);
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }}
+                />
+                <Button
+                    title="CA"
+                    onPress={() => {
+                        fetch('http://54.218.58.172:3000/ca')
+                            .then((response) => response.json())
+                            .then((json) => {
+                                console.log(json);
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }}
+                />
                 <Text style={styles.title}>Privacy Policy</Text>
                 <Text style={styles.paragraph}>
                     This Privacy Policy describes Our policies and procedures on

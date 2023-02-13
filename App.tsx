@@ -3,6 +3,7 @@ import { AppNavigator } from './src/app/navigation/AppNavigator';
 import messaging from '@react-native-firebase/messaging';
 import StorybookUI from './storybook';
 import { Alert } from 'react-native';
+import { TriggerCall } from './src/app/EMSCall/TriggerCall';
 
 async function printDeviceFCMToken() {
     const getFcmToken = async () => {
@@ -33,9 +34,9 @@ const App = () => {
 
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
 
             Alert.alert(message_title, message_body);
+            TriggerCall();
         });
     }, []);
 
@@ -45,9 +46,9 @@ const App = () => {
 
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
 
             Alert.alert(message_title, message_body);
+            TriggerCall();
         });
 
         return subscribe;
