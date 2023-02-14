@@ -6,10 +6,12 @@ import {
     SafeAreaView,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Button
 } from 'react-native';
 import { Device } from 'react-native-ble-plx';
 import { AddDeviceWidget } from '../components/AddDeviceWidget/AddDeviceWidget';
+import { CancelButton } from '../components/CancelButton/CancelButton';
 
 type DeviceModalListItemProps = {
     item: ListRenderItemInfo<Device>;
@@ -22,6 +24,7 @@ type DeviceModalProps = {
     visible: boolean;
     connectToPeripheral: (device: Device) => void;
     closeModal: () => void;
+    navigation: any;
 };
 
 // const DeviceModalListItem: FC<DeviceModalListItemProps> = (props) => {
@@ -43,13 +46,14 @@ type DeviceModalProps = {
 // };
 
 const DeviceModal: FC<DeviceModalProps> = (props) => {
-    const { devices, visible, connectToPeripheral, closeModal } = props;
+    const { devices, visible, connectToPeripheral, closeModal, navigation } =
+        props;
 
     const renderDeviceModalListItem = useCallback(
         (item: ListRenderItemInfo<Device>) => {
             return (
                 <AddDeviceWidget
-                    name={item.item.id}
+                    name={item.item.name ?? 'hu'}
                     item={item}
                     connectToPeripheral={connectToPeripheral}
                     closeModal={closeModal}
@@ -60,23 +64,30 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
     );
 
     return (
-        <Modal
-            style={modalStyle.modalContainer}
-            animationType="slide"
-            transparent={false}
-            visible={visible}
-        >
-            <SafeAreaView style={modalStyle.modalTitle}>
-                <Text style={modalStyle.modalTitleText}>
-                    Tap on a device to connect
-                </Text>
-                <FlatList
-                    contentContainerStyle={modalStyle.modalFlatlistContiner}
-                    data={devices}
-                    renderItem={renderDeviceModalListItem}
-                />
-            </SafeAreaView>
-        </Modal>
+        // <Modal
+        //     style={modalStyle.modalContainer}
+        //     animationType="slide"
+        //     transparent={false}
+        //     visible={visible}
+        // >
+        <SafeAreaView style={modalStyle.modalTitle}>
+            <FlatList
+                contentContainerStyle={modalStyle.modalFlatlistContiner}
+                data={devices}
+                renderItem={renderDeviceModalListItem}
+            />
+            {/* <Button
+                title="End Scanning"
+                onPress={
+                    closeModal
+                    // navigation.navigate('NewDeviceList');
+                }
+            />
+            <TouchableOpacity onPress={closeModal}>
+                <Text>'Done'</Text>
+            </TouchableOpacity> */}
+        </SafeAreaView>
+        // </Modal>
     );
 };
 

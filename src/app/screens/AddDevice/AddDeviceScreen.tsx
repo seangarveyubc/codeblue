@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import {
+    ActivityIndicator,
+    Button,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
 import Colours from '../../constants/Colours';
 
 interface Props {
@@ -13,15 +19,19 @@ export const AddDeviceScreen = ({ navigation }: Props) => {
     let showLoading: boolean = true;
 
     useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate('NewDeviceList');
-        }, DELAY_TIME);
+        navigation.navigate('NewDeviceList');
+        setTimeout(() => {}, DELAY_TIME);
+        navigation.navigate('NewDeviceList');
     }, []);
 
     return (
         <View style={styles.page}>
             <Text style={styles.title}>Add New Devices</Text>
             <Text style={styles.subtitle}>Scanning for devices...</Text>
+            {/* <Button
+                title={'Begin Scanning'}
+                onPress={navigation.navigate('NewDeviceList')}
+            ></Button> */}
             <ActivityIndicator
                 style={styles.loader}
                 size={100}

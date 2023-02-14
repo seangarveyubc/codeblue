@@ -31,6 +31,11 @@ export const AddDeviceWidget = ({
 
     const connectAndCloseModal = React.useCallback(() => {
         connectToPeripheral(item.item);
+        if (item.item.isConnected) {
+            onChangeEditing((isEditing) => !isEditing);
+        } else {
+            onChangeSaved((isSaved) => !isSaved);
+        }
         // closeModal();
     }, [closeModal, connectToPeripheral, item.item]);
     return (
@@ -51,7 +56,6 @@ export const AddDeviceWidget = ({
             <View style={styles.rightContent}>
                 <TouchableOpacity
                     onPress={() => {
-                        connectAndCloseModal();
                         !isEditing && !isSaved
                             ? onChangeEditing((isEditing) => !isEditing)
                             : isEditing && !isSaved

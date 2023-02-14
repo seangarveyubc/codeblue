@@ -4,7 +4,9 @@ import {
     View,
     StyleSheet,
     SafeAreaView,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator,
+    Button
 } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { AddDeviceWidget } from '../../../components/AddDeviceWidget/AddDeviceWidget';
@@ -26,7 +28,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
         disconnectFromDevice
     } = useBLE();
     const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
-
+    const [showLoading, setShowLoading] = React.useState<boolean>(true);
     const scanForDevices = () => {
         requestPermissions((isGranted) => {
             if (isGranted) {
@@ -37,23 +39,38 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
 
     const hideModal = () => {
         setIsModalVisible(false);
+        setShowLoading(false);
     };
 
     const openModal = async () => {
         scanForDevices();
         setIsModalVisible(true);
     };
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            openModal();
+            // navigation.navigate('NewDeviceList');
+        }, 1000);
+    }, []);
+    let devicescount = allDevices.length;
+
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.heartRateTitleWrapper}>
-                {connectedDevice ? (
+        <SafeAreaView style={styles.page}>
+            {/* <View style={styles.heartRateTitleWrapper}>
+                {allDevices ? (
                     <>
-                        <Text style={styles.heartRateTitleText}>
-                            Your Heart Rate Is:
-                        </Text>
-                        <Text style={styles.heartRateText}>
-                            {heartRate} bpm
-                        </Text>
+                        <View style={styles.page}>
+                            <Text style={styles.title}>Add New Devices</Text>
+                            <Text style={styles.subtitle}>{devicescount}</Text>
+                            <ActivityIndicator
+                                style={styles.loader}
+                                size={100}
+                                color={Colours.BLUE}
+                                hidesWhenStopped={true}
+                                animating={showLoading}
+                            />
+                        </View>
                     </>
                 ) : (
                     <Text style={styles.heartRateTitleText}>
@@ -61,20 +78,34 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
                     </Text>
                 )}
             </View>
-
-            <TouchableOpacity
+            <Button title={'Begin Scanning'} onPress={openModal}></Button> */}
+            {/* <TouchableOpacity
                 onPress={connectedDevice ? disconnectFromDevice : openModal}
                 style={styles.ctaButton}
             >
                 <Text style={styles.ctaButtonText}>
                     {connectedDevice ? 'Disconnect' : 'Connect'}
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            {/* <View style={styles.page}>
+                <Text style={styles.title}>Add New Devices</Text>
+                <Text style={styles.subtitle}>Scanning for devices...</Text>
+                <ActivityIndicator
+                    style={styles.loader}
+                    size={100}
+                    color={Colours.BLUE}
+                    hidesWhenStopped={true}
+                    animating={showLoading}
+                />
+            </View> */}
+            <Text style={styles.title}>Add New Devices</Text>
+            {/* <Text style={styles.subtitle}>Scanning for devices...</Text> */}
             <DeviceModal
                 closeModal={hideModal}
                 visible={isModalVisible}
                 connectToPeripheral={connectToDevice}
                 devices={allDevices}
+                navigation={navigation}
             />
         </SafeAreaView>
     );
@@ -114,6 +145,29 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white'
+    },
+    page: {
+        height: '100%',
+        flexDirection: 'column',
+        backgroundColor: Colours.WHITE
+    },
+    title: {
+        fontFamily: 'DMSans-Bold',
+        marginLeft: 20,
+        marginTop: 30,
+        color: Colours.BLACK,
+        fontSize: 24
+    },
+    subtitle: {
+        fontFamily: 'DMSans-Regular',
+        fontSize: 20,
+        color: Colours.BLACK,
+        marginTop: 80,
+        alignSelf: 'center'
+    },
+    loader: {
+        alignSelf: 'center',
+        marginTop: 40
     }
 });
 //     return (
