@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 
@@ -11,6 +11,7 @@ import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
+import { useIsFocused } from '@react-navigation/native';
 
 interface Props {
     navigation: any;
@@ -19,13 +20,17 @@ interface Props {
 export const HomeScreen = ({ navigation }: Props) => {
     const [deviceListState, setDeviceListState] = useState(true);
     const [bluetoothState, setBluetoothState] = useState(false);
+    const [firstName, changeFirstName] = useState('');
+    const [lastName, changeLastName] = useState('');
     const [deviceName1, changeDeviceName1] = useState('PPG1');
     const [deviceName2, changeDeviceName2] = useState('EKG1');
     const { appDataStorage } = useLocalStorage();
+    const isFocused = useIsFocused();
 
-    const firstName =
-        appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? '';
-    const lastName = appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? '';
+    useEffect(() => {
+        changeFirstName(appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? '');
+        changeLastName(appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? '');
+    }, [isFocused]);
 
     const toggleChecked = () => setDeviceListState((value) => !value);
 
