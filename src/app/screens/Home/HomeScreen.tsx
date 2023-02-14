@@ -6,7 +6,7 @@ import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
 import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
-import IconTextInput from '../../components/IconTextInput/IconTextInput';
+import { IconTextInput } from '../../components/IconTextInput/IconTextInput';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
