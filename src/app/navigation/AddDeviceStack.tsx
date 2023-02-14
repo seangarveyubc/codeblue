@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 export const AddDeviceStack = () => {
     return (
         <Stack.Navigator
-            initialRouteName="AddDevice"
+            initialRouteName="NewDeviceList"
             screenOptions={{ headerShown: false }}
         >
             <Stack.Screen name="AddDevice" component={AddDeviceScreen} />
