@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {
+    Dimensions,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity
+} from 'react-native';
+import { Device } from 'react-native-ble-plx';
 import Colours from '../../constants/Colours';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { normalize } from '../../utils/normalizer/normalizer';
@@ -7,10 +14,21 @@ import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {
     name: string;
+    item: any;
+    connectToPeripheral: (device: Device) => void;
+    closeModal: () => void;
 }
 
-export const AddDeviceWidget = ({ name }: Props) => {
+const windowWidth = Dimensions.get('window').width;
+
+export const AddDeviceWidget = ({
+    name,
+    item,
+    connectToPeripheral,
+    closeModal
+}: Props) => {
     const [text, onChangetext] = React.useState(name);
+    const [connected, onChangeConnected] = React.useState(false);
     const [isEditing, onChangeEditing] = React.useState(false);
     const [isSaved, onChangeSaved] = React.useState(false);
 
@@ -34,9 +52,9 @@ export const AddDeviceWidget = ({ name }: Props) => {
                     onPress={() =>
                         !isEditing && !isSaved
                             ? onChangeEditing((isEditing) => !isEditing)
-                            : isEditing && !isSaved
+                            : isEditing && !isSaved && connected
                             ? onChangeSaved((isSaved) => !isSaved)
-                            : onChangeSaved((isSaved) => isSaved)
+                            : onChangeConnected((connected) => !connected)
                     }
                 >
                     <View
@@ -65,7 +83,9 @@ export const AddDeviceWidget = ({ name }: Props) => {
                                 }
                             }}
                         >
-                            {isEditing && !isSaved
+                            {isEditing && !isSaved && !connected
+                                ? 'Failed to Connect'
+                                : isEditing && !isSaved
                                 ? 'Save Device'
                                 : isEditing && isSaved
                                 ? 'Saved'

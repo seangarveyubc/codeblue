@@ -14,7 +14,9 @@ export const AddDeviceScreen = ({ navigation }: Props) => {
     let showLoading: boolean = true;
 
     useEffect(() => {
+        // navigation.navigate('NewDeviceList');
         setTimeout(() => {
+            showLoading = false;
             navigation.navigate('NewDeviceList');
         }, DELAY_TIME);
     }, []);
