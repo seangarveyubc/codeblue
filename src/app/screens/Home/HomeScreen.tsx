@@ -28,8 +28,12 @@ export const HomeScreen = ({ navigation }: Props) => {
     const isFocused = useIsFocused();
 
     useEffect(() => {
-        changeFirstName(appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? '');
-        changeLastName(appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? '');
+        changeFirstName(
+            appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? ''
+        );
+        changeLastName(
+            appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? ''
+        );
     }, [isFocused]);
 
     const toggleChecked = () => setDeviceListState((value) => !value);
