@@ -21,7 +21,7 @@ export const LegalScreen = ({ navigation }: Props) => {
                 <Button
                     title="Healthy"
                     onPress={() => {
-                        fetch('http://54.218.58.172:3000/healthy')
+                        fetch('http://54.190.226.175:3000/healthy')
                             .then((response) => response.json())
                             .then((json) => {
                                 console.log(json);
@@ -34,7 +34,7 @@ export const LegalScreen = ({ navigation }: Props) => {
                 <Button
                     title="CA"
                     onPress={() => {
-                        fetch('http://54.218.58.172:3000/ca')
+                        fetch('http://54.190.226.175:3000/ca')
                             .then((response) => response.json())
                             .then((json) => {
                                 console.log(json);
