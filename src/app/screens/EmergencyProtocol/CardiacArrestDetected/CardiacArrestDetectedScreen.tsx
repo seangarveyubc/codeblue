@@ -22,7 +22,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
     const [time, setTime] = React.useState(30);
     const timerRef = React.useRef(time);
-    const pattern = [1000, 500, 1000, 500, 1000, 2000];
+    const pattern = [0, 1000, 500, 1000, 500, 1000, 2000];
 
     React.useEffect(() => {
         timerId = setInterval(() => {
