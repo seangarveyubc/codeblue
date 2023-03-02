@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useMemo, useReducer } from 'react';
 import { backgroundModeStorage } from '../../localStorage/hooks/useLocalStorage';
 import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
 import {
@@ -33,6 +33,11 @@ export const AppContextProvider = ({ children }: Props) => {
         backgroundModeReducer,
         initialBackgroundState
     );
+
+    // logging
+    useMemo(() => {
+        console.log('[AppContext] Context backgroundState', backgroundState);
+    }, [backgroundState]);
 
     return (
         <AppContext.Provider

@@ -1,12 +1,11 @@
 import notifee, { EventType, EventDetail } from '@notifee/react-native';
 import { DAY_IN_MILLIS } from '../../constants/constants';
-import { TriggerCall } from '../../EMSCall/TriggerCall';
 import {
     backgroundModeStorage,
     cardiacStorage
 } from '../../localStorage/hooks/useLocalStorage';
 import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
-import { BackgroundMode } from '../models/BackgroundMode';
+import { BackgroundProcess } from './BackgroundProcess';
 
 export const FOREGROUND_NOTIF_CHANNEL_ID = 'codeblue.foreground.notification';
 
@@ -15,80 +14,25 @@ export const isBackgroundModeDefined = Boolean(
 );
 
 export const setNotificationForegroundService = () => {
-    const initialBackgroundState =
-        (backgroundModeStorage.getString(BACKGROUND_MODE) as BackgroundMode) ??
-        BackgroundMode.IDLE;
-
-    let heartFn: any;
-    let idleFn: any;
-    let callFn: any;
-
-    notifee.registerForegroundService((notification) => {
+    notifee.registerForegroundService(() => {
         return new Promise(() => {
-            console.log('registered foreground service');
-
-            notifee.onForegroundEvent(async ({ type, detail }) => {
-                cancelBackgroundTask(type, detail);
-                listener.remove();
-            });
-
-            notifee.onBackgroundEvent(async ({ type, detail }) => {
-                cancelBackgroundTask(type, detail);
-                listener.remove();
-            });
+            console.log('[notifeeService] registered foreground service');
+            const process = new BackgroundProcess();
 
             // refresh the local cardiac data cache
             setInterval(() => {
                 cardiacStorage.refresh();
             }, DAY_IN_MILLIS);
 
-            // TODO: replace with actual background tasks
-            const executeBackgroundTask = (mode: BackgroundMode) => {
-                console.log('executeBackgroundTask mode', mode);
-                switch (mode) {
-                    case BackgroundMode.MONITOR_HEART: // send data to algorithm
-                        heartFn = setInterval(async () => {
-                            console.log('reading heart rate');
-                            // TODO: update fetch to send data to algo
-                            /*const response = await fetch(
-                                `http://34.209.158.8:3000/`,
-                                {
-                                    method: 'GET'
-                                }
-                            );
-                            console.log(response);*/
-                        }, 10000);
-                        break;
-                    case BackgroundMode.PHONE_CALL:
-                    case BackgroundMode.TEXT_TO_SPEECH:
-                        TriggerCall();
-                        callFn = setInterval(() => {
-                            console.log('calling');
-                        }, 5000);
-                        break;
-                    default: // idle - do nothing
-                        idleFn = setInterval(() => {
-                            console.log('idle');
-                        }, 5000);
-                        break;
-                }
-            };
+            notifee.onForegroundEvent(async ({ type, detail }) => {
+                cancelBackgroundTask(type, detail);
+                process.removeBackgroundTaskListener();
+            });
 
-            const listener =
-                backgroundModeStorage.storage.addOnValueChangedListener(
-                    (changedKey) => {
-                        if (changedKey === BACKGROUND_MODE) {
-                            const newValue =
-                                backgroundModeStorage.getString(changedKey);
-                            console.log(
-                                `"${changedKey}" new value: ${newValue}`
-                            );
-                            clearExistingIntervals(heartFn, callFn, idleFn);
-                            executeBackgroundTask(newValue as BackgroundMode);
-                        }
-                    }
-                );
-            executeBackgroundTask(initialBackgroundState);
+            notifee.onBackgroundEvent(async ({ type, detail }) => {
+                cancelBackgroundTask(type, detail);
+                process.removeBackgroundTaskListener();
+            });
         });
     });
 
@@ -96,7 +40,11 @@ export const setNotificationForegroundService = () => {
 };
 
 // TODO: delete once real tasks are implemented
-const clearExistingIntervals = (heartFn: any, callFn: any, idleFn: any) => {
+export const clearExistingIntervals = (
+    heartFn: any,
+    callFn: any,
+    idleFn: any
+) => {
     if (heartFn) {
         clearInterval(heartFn);
         heartFn = undefined;
