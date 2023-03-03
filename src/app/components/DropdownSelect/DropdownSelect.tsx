@@ -41,7 +41,7 @@ export const DropdownSelect = ({
                     return (
                         <Icons
                             name={isOpened ? 'up' : 'down'}
-                            color={Colours.DARKBLUE}
+                            color={Colours.BLUE}
                             size={25}
                         />
                     );
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
         backgroundColor: Colours.LIGHTGREY,
         borderRadius: 8,
         borderWidth: 1,
-        borderColor: Colours.DARKBLUE
+        borderColor: Colours.BLUE
     },
     dropdown2BtnTxtStyle: {
-        color: Colours.DARKBLUE,
+        color: Colours.BLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
         fontSize: 14
@@ -83,15 +83,15 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 8,
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
-        borderColor: Colours.DARKBLUE
+        borderColor: Colours.BLUE
     },
     dropdown2RowStyle: {
         backgroundColor: Colours.LIGHTGREY,
-        borderColor: Colours.DARKBLUE,
+        borderColor: Colours.BLUE,
         borderWidth: 1
     },
     dropdown2RowTxtStyle: {
-        color: Colours.DARKBLUE,
+        color: Colours.BLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
         padding: 10

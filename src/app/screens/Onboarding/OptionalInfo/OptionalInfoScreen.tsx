@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Alert, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import InputText from '../../../components/InputText/InputText';
@@ -76,19 +76,26 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
     };
 
     const saveAndNavigateToSuccessScreen = () => {
-        saveEnteredInfo();
-        navigateToSuccessScreen();
+        const didSave = saveEnteredInfo();
+        if (didSave) {
+            navigateToSuccessScreen();
+        }
     };
 
     const navigateToRequiredInfoScreen = () => {
-        saveEnteredInfo();
         navigation.navigate('RequiredInfo');
     };
 
-    const saveEnteredInfo = () => {
-        saveUserBirthday(birthday);
-        saveUserWeightHeight(PersonalDataKeys.HEIGHT, userHeight);
-        saveUserWeightHeight(PersonalDataKeys.WEIGHT, userWeight);
+    const saveEnteredInfo = (): boolean => {
+        const birthdayResult = saveUserBirthday(birthday);
+        const heightResult = saveUserWeightHeight(
+            PersonalDataKeys.HEIGHT,
+            userHeight
+        );
+        const weightResult = saveUserWeightHeight(
+            PersonalDataKeys.WEIGHT,
+            userWeight
+        );
         saveUserSex(userSex);
         saveUserBloodType(userBloodType);
         saveHeartProblem(PersonalDataKeys.HAS_HEART_PROBLEM, hasHeartProblem);
@@ -96,6 +103,18 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
             PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM,
             hasFamilyHeartProblem
         );
+
+        const errors = [birthdayResult, heightResult, weightResult]
+            .filter((item) => item !== undefined)
+            .map((item) => item?.message);
+
+        if (errors.length > 0) {
+            const errorMessage = errors.map((err) => '-  ' + err).join('\n');
+            Alert.alert('Please fix form errors', errorMessage);
+            return false;
+        }
+
+        return true;
     };
 
     return (
