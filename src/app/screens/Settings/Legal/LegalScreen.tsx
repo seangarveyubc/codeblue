@@ -14,33 +14,33 @@ interface Props {
 }
 
 export const LegalScreen = ({ navigation }: Props) => {
-    useEffect(() => {
-        messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
-            console.log(remoteMessage);
+    // useEffect(() => {
+    //     messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
+    //         console.log(remoteMessage);
 
-            let message_body = remoteMessage.notification.body;
-            let message_title = remoteMessage.notification.title;
+    //         let message_body = remoteMessage.notification.body;
+    //         let message_title = remoteMessage.notification.title;
 
-            Alert.alert(message_title, message_body);
-            navigation.navigate('EmergencyProtocol');
-            // TriggerCall();
-        });
-    }, []);
+    //         Alert.alert(message_title, message_body);
+    //         navigation.navigate('EmergencyProtocol');
+    //         // TriggerCall();
+    //     });
+    // }, []);
 
-    useEffect(() => {
-        const subscribe = messaging().onMessage(async (remoteMessage: any) => {
-            console.log(remoteMessage);
+    // useEffect(() => {
+    //     const subscribe = messaging().onMessage(async (remoteMessage: any) => {
+    //         console.log(remoteMessage);
 
-            let message_body = remoteMessage.notification.body;
-            let message_title = remoteMessage.notification.title;
+    //         let message_body = remoteMessage.notification.body;
+    //         let message_title = remoteMessage.notification.title;
 
-            Alert.alert(message_title, message_body);
-            navigation.navigate('EmergencyProtocol');
-            // TriggerCall();
-        });
+    //         Alert.alert(message_title, message_body);
+    //         navigation.navigate('EmergencyProtocol');
+    //         // TriggerCall();
+    //     });
 
-        return subscribe;
-    }, []);
+    //     return subscribe;
+    // }, []);
     const { dispatch } = useContext(AppContext);
 
     return (
