@@ -77,10 +77,16 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
                     animating={showLoading}
                 />
             ) : (
+                <></>
+            )}
+            {connectedDevice ? (
+                <Text>connected</Text>
+            ) : (
                 <DeviceModal
                     closeModal={hideModal}
                     visible={isModalVisible}
                     connectToPeripheral={connectToDevice}
+                    connectedDevice={connectedDevice}
                     devices={allDevices}
                     navigation={navigation}
                 />

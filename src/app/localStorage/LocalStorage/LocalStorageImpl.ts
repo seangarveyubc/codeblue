@@ -1,4 +1,6 @@
 import { MMKV } from 'react-native-mmkv';
+import { DeviceList } from '../models/DeviceList';
+import { DeviceKeys } from '../models/LocalStorageKeys';
 import { LocalAppStorage } from './LocalStorage';
 
 export class LocalStorageImpl implements LocalAppStorage {
@@ -17,6 +19,11 @@ export class LocalStorageImpl implements LocalAppStorage {
         this.storage.set(key, value);
     }
 
+    addDevice(key: string, value: string) {
+        let devices = this.storage.getString(DeviceKeys.DEVICE_LIST);
+        this.storage.set(DeviceKeys.DEVICE_LIST, devices + ',' + value);
+    }
+
     getString(key: string): string | undefined {
         return this.storage.getString(key);
     }
@@ -27,6 +34,13 @@ export class LocalStorageImpl implements LocalAppStorage {
 
     getBoolean(key: string): boolean | undefined {
         return this.storage.getBoolean(key);
+    }
+
+    getList(key: string): string[] | undefined {
+        let listString = this.storage.getString(DeviceKeys.DEVICE_LIST);
+        var listDevices = listString?.split(',')
+        console.log(listDevices);
+        return listDevices
     }
 
     // possible improvement: throw error if key does not exist
