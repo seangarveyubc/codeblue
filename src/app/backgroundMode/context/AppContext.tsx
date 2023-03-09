@@ -7,8 +7,10 @@ import {
 } from '../models/BackgroundMode';
 
 export const AppContext = createContext<{
+    initialBackgroundState: BackgroundMode;
     dispatch: React.Dispatch<BackgroundModeUpdatePayload>;
 }>({
+    initialBackgroundState: BackgroundMode.IDLE,
     dispatch: () => undefined
 });
 
@@ -42,6 +44,7 @@ export const AppContextProvider = ({ children }: Props) => {
     return (
         <AppContext.Provider
             value={{
+                initialBackgroundState: initialBackgroundState,
                 dispatch: dispatch
             }}
         >

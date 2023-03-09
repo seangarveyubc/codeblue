@@ -68,6 +68,7 @@ export const LegalScreen = ({ navigation }: Props) => {
                 <Button
                     title="CA"
                     onPress={() => {
+                        dispatch({ type: BackgroundMode.CA_DETECTED });
                         fetch('http://54.190.226.175:3000/ca')
                             .then((response) => response.json())
                             .then((json) => {

@@ -1,44 +1,46 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/WideButton/WideButton';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/constants';
 
 interface Props {
     navigation: any;
 }
 
-const windowHeight = Dimensions.get('window').height;
-
 export const CallEndedScreen = ({ navigation }: Props) => {
+    const { dispatch } = useContext(AppContext);
+
     return (
-        <View>
-            <View style={styles.container}>
-                <View style={styles.head}>
-                    <MaterialIcons
-                        style={styles.icon}
-                        name="call-end"
-                        size={40}
-                        color={Colours.RED}
-                    />
-                    <Text style={styles.title}>
-                        <Text style={styles.red}>911 call</Text> ended
-                    </Text>
-                </View>
-                <Text style={styles.description}>
-                    <Text style={styles.blue}>CodeBlue</Text> detected a{' '}
-                    <Text style={styles.bold}>cardiac arrest</Text> and placed a
-                    911 call
+        <View style={styles.container}>
+            <View style={styles.head}>
+                <MaterialIcons
+                    style={styles.icon}
+                    name="call-end"
+                    size={40}
+                    color={Colours.RED}
+                />
+                <Text style={styles.title}>
+                    <Text style={styles.red}>911 call</Text> ended
                 </Text>
-                <View style={styles.button}>
-                    <WideButton
-                        text={'Go back Home'}
-                        onPress={() => {
-                            navigation.navigate('MainNavigator');
-                        }}
-                    />
-                </View>
+            </View>
+            <Text style={styles.description}>
+                <Text style={styles.blue}>CodeBlue</Text> detected a{' '}
+                <Text style={styles.bold}>cardiac arrest</Text> and placed a 911
+                call
+            </Text>
+            <View style={styles.button}>
+                <WideButton
+                    text={'Go back Home'}
+                    onPress={() => {
+                        dispatch({ type: BackgroundMode.MONITOR_HEART });
+                    }}
+                />
             </View>
         </View>
     );
@@ -50,8 +52,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: 12,
-        height: windowHeight * 0.9
+        height: SCREEN_HEIGHT,
+        width: SCREEN_WIDTH
     },
     icon: {
         padding: 24,
@@ -79,8 +81,7 @@ const styles = StyleSheet.create({
         letterSpacing: 1
     },
     button: {
-        alignSelf: 'flex-end',
-        marginBottom: 15
+        marginBottom: SCREEN_HEIGHT * 0.1
     },
     red: {
         color: Colours.RED

@@ -1,8 +1,9 @@
-import { TriggerCall } from '../../EMSCall/TriggerCall';
+import { AppState } from 'react-native';
 import { backgroundModeStorage } from '../../localStorage/hooks/useLocalStorage';
 import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
 import { clearExistingIntervals } from './notifeeService';
 import { BackgroundMode } from '../models/BackgroundMode';
+import { TriggerCall } from '../../EMSCall/TriggerCall';
 
 export class BackgroundProcess {
     mode: BackgroundMode;
@@ -27,7 +28,6 @@ export class BackgroundProcess {
         switch (mode) {
             case BackgroundMode.MONITOR_HEART: {
                 // send data to algorithm
-                this.wasCallTriggered = false;
                 this.heartFn = setInterval(async () => {
                     console.log('reading heart rate');
                     // TODO: update fetch to send data to algo
@@ -41,20 +41,23 @@ export class BackgroundProcess {
                 }, 10000);
                 break;
             }
-            case BackgroundMode.PHONE_CALL:
-            case BackgroundMode.TEXT_TO_SPEECH: {
-                if (!this.wasCallTriggered) {
-                    this.wasCallTriggered = true;
+            case BackgroundMode.CA_DETECTED: {
+                // Place call if app is backgrounded
+                if (AppState.currentState === 'background') {
                     TriggerCall();
+                    // Resume cardiac monitoring after call placed
+                    backgroundModeStorage.add(
+                        BACKGROUND_MODE,
+                        BackgroundMode.MONITOR_HEART
+                    );
                 }
                 this.callFn = setInterval(() => {
-                    console.log('calling');
+                    console.log('ca detected');
                 }, 5000);
                 break;
             }
             default: {
                 // idle - do nothing
-                this.wasCallTriggered = false;
                 this.idleFn = setInterval(() => {
                     console.log('idle');
                 }, 5000);
@@ -67,17 +70,19 @@ export class BackgroundProcess {
         this.listener = backgroundModeStorage.storage.addOnValueChangedListener(
             (changedKey) => {
                 if (changedKey === BACKGROUND_MODE) {
-                    const newValue =
-                        backgroundModeStorage.getString(changedKey);
+                    const newMode: BackgroundMode =
+                        backgroundModeStorage.getString(
+                            changedKey
+                        ) as BackgroundMode;
                     console.log(
-                        `[notifeeService listener] "${changedKey}" new value: ${newValue}`
+                        `[notifeeService listener] "${changedKey}" new value: ${newMode}`
                     );
                     clearExistingIntervals(
                         this.heartFn,
                         this.callFn,
                         this.idleFn
                     );
-                    this.executeBackgroundTask(newValue as BackgroundMode);
+                    this.executeBackgroundTask(newMode);
                 }
             }
         );

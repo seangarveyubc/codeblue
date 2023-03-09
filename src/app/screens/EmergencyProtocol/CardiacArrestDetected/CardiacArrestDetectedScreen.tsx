@@ -9,6 +9,8 @@ import {
     ModalType
 } from '../../../components/AlertModal/AlertModal';
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 
 interface Props {
     navigation: any;
@@ -18,6 +20,7 @@ const windowHeight = Dimensions.get('window').height;
 var timerId: any = null;
 
 export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
+    const { dispatch } = React.useContext(AppContext);
     const [callModalVisible, setCallModalVisible] = React.useState(false);
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
     const [time, setTime] = React.useState(30);
@@ -44,6 +47,13 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     };
     const showCancelModal = () => {
         setCancelModalVisible(true);
+    };
+
+    const placeEMSCall = () => {
+        TriggerCall();
+        setCallModalVisible(false);
+        clearInterval(timerId);
+        navigation.navigate('CallEnded');
     };
 
     return (
@@ -97,12 +107,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 modalVisible={callModalVisible}
                 setModalVisible={setCallModalVisible}
                 modalType={ModalType.CallAlert}
-                confirmAction={() => {
-                    TriggerCall();
-                    setCallModalVisible(false);
-                    clearInterval(timerId);
-                    navigation.navigate('CallEnded');
-                }}
+                confirmAction={placeEMSCall}
             />
             {/* Cancel alert modal */}
             <AlertModal
@@ -110,7 +115,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 setModalVisible={setCancelModalVisible}
                 modalType={ModalType.CancelAlert}
                 confirmAction={() => {
-                    navigation.navigate('MainNavigator');
+                    dispatch({ type: BackgroundMode.MONITOR_HEART });
                 }}
             />
         </View>
