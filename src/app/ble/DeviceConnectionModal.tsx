@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useState } from 'react';
 import {
     FlatList,
     ListRenderItemInfo,
@@ -25,6 +25,7 @@ type DeviceModalProps = {
     devices: Device[];
     visible: boolean;
     connectToPeripheral: (device: Device) => void;
+    connectedDevice: Device | null;
     closeModal: () => void;
     navigation: any;
 };
@@ -48,16 +49,23 @@ type DeviceModalProps = {
 // };
 
 const DeviceModal: FC<DeviceModalProps> = (props) => {
-    const { devices, visible, connectToPeripheral, closeModal, navigation } =
-        props;
+    const {
+        devices,
+        visible,
+        connectToPeripheral,
+        closeModal,
+        navigation,
+        connectedDevice
+    } = props;
 
     const renderDeviceModalListItem = useCallback(
         (item: ListRenderItemInfo<Device>) => {
             return (
                 <AddDeviceWidget
-                    name={item.item.name ?? 'hu'}
+                    name={item.item.name ?? item.item.id}
                     item={item}
                     connectToPeripheral={connectToPeripheral}
+                    connectedDevice={connectedDevice}
                     closeModal={closeModal}
                 />
             );

@@ -1,6 +1,13 @@
-import * as React from 'react';
-import { useContext, useState, useEffect } from 'react';
-import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import {
+    Text,
+    View,
+    StyleSheet,
+    ScrollView,
+    FlatList,
+    ListRenderItemInfo
+} from 'react-native';
+
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
 import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
@@ -8,7 +15,10 @@ import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import { IconTextInput } from '../../components/IconTextInput/IconTextInput';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
-import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
+import {
+    DeviceKeys,
+    PersonalDataKeys
+} from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
@@ -21,7 +31,9 @@ interface Props {
 }
 
 export const HomeScreen = ({ navigation }: Props) => {
+    const temp: string[] = [];
     const [deviceListState, setDeviceListState] = useState(true);
+    const [deviceList, setDeviceList] = useState(temp);
     const [bluetoothState, setBluetoothState] = useState(false);
     const [firstName, changeFirstName] = useState('');
     const [lastName, changeLastName] = useState('');
@@ -45,9 +57,37 @@ export const HomeScreen = ({ navigation }: Props) => {
         changeLastName(
             appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? ''
         );
+        setDeviceList(appDataStorage.getList(DeviceKeys.DEVICE_LIST) ?? []);
+
+        // changeDeviceName1(appDataStorage.getList(DeviceKeys.DEVICE_LIST) ?? '');
     }, [isFocused]);
 
     const toggleChecked = () => setDeviceListState((value) => !value);
+
+    const renderIconTextInput = useCallback(
+        (item: ListRenderItemInfo<string>) => {
+            return (
+                <View style={{ width: '88%' }}>
+                    <IconTextInput
+                        text={item.item}
+                        isConnected={false}
+                        onChangeText={changeDeviceName1}
+                    />
+                </View>
+            );
+        },
+        []
+    );
+    const renderDeviceWidget = useCallback(
+        (item: ListRenderItemInfo<string>) => {
+            return (
+                <View style={{ paddingBottom: 15 }}>
+                    <DeviceWidget name={item.item} isConnected={true} />
+                </View>
+            );
+        },
+        []
+    );
 
     return (
         <View style={styles.container}>
@@ -92,7 +132,11 @@ export const HomeScreen = ({ navigation }: Props) => {
                         }}
                     >
                         <CentredContent>
-                            <View style={{ paddingBottom: normalize(15) }}>
+                            <FlatList
+                                data={deviceList}
+                                renderItem={renderDeviceWidget}
+                            />
+                            {/* <View style={{ paddingBottom: 15 }}>
                                 <DeviceWidget
                                     name={deviceName1}
                                     isConnected={true}
@@ -103,7 +147,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                                     name={deviceName2}
                                     isConnected={false}
                                 />
-                            </View>
+                            </View> */}
                         </CentredContent>
                     </View>
                 ) : (
@@ -114,7 +158,11 @@ export const HomeScreen = ({ navigation }: Props) => {
                         }}
                     >
                         <CentredContent>
-                            <View style={{ width: '88%' }}>
+                            <FlatList
+                                data={deviceList}
+                                renderItem={renderIconTextInput}
+                            />
+                            {/* <View style={{ width: '88%' }}>
                                 <IconTextInput
                                     text={deviceName1}
                                     isConnected={true}
@@ -127,7 +175,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                                     isConnected={false}
                                     onChangeText={changeDeviceName2}
                                 />
-                            </View>
+                            </View> */}
                         </CentredContent>
                     </View>
                 )}

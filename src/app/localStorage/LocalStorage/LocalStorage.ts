@@ -1,3 +1,4 @@
+import { DeviceList } from '../models/DeviceList';
 import { LocalStorageImpl } from './LocalStorageImpl';
 
 export interface LocalAppStorage {
@@ -5,9 +6,10 @@ export interface LocalAppStorage {
     getString: (key: string) => string | undefined;
     getNumber: (key: string) => number | undefined;
     getBoolean: (key: string) => boolean | undefined;
+    getList: (key: string) => string[] | undefined;
     delete: (key: string) => void;
     clearStorage: () => void;
     isEmpty: () => boolean;
 }
 
-export class LocalStorage extends LocalStorageImpl {}
+export class LocalStorage extends LocalStorageImpl { }

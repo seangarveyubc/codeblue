@@ -1,5 +1,5 @@
 import DropdownOptions from '../../constants/DropdownOptions';
-import { PersonalDataKeys } from '../models/LocalStorageKeys';
+import { DeviceKeys, PersonalDataKeys } from '../models/LocalStorageKeys';
 import {
     isBirthdayValid,
     isBlank,
@@ -80,6 +80,10 @@ export const useLocalStorage = () => {
         }
     };
 
+    const saveDevice = (name: string) => {
+        appDataStorage.addDevice(DeviceKeys.DEVICE_LIST, name);
+    }
+
     return {
         isLocalStorageEmpty,
         appDataStorage,
@@ -88,6 +92,7 @@ export const useLocalStorage = () => {
         saveUserWeightHeight,
         saveUserSex,
         saveUserBloodType,
-        saveHeartProblem
+        saveHeartProblem,
+        saveDevice
     };
 };
