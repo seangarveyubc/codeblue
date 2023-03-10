@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 import Colours from '../../../constants/Colours';
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
 import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
@@ -39,6 +41,7 @@ export const LegalScreen = ({ navigation }: Props) => {
 
         return subscribe;
     }, []);
+    const { dispatch } = useContext(AppContext);
 
     return (
         <View style={styles.page}>
@@ -50,8 +53,9 @@ export const LegalScreen = ({ navigation }: Props) => {
                     }}
                 />
                 <Button
-                    title="Healthy"
+                    title="Healthy/Monitor Heart"
                     onPress={() => {
+                        dispatch({ type: BackgroundMode.MONITOR_HEART });
                         fetch('http://54.190.226.175:3000/healthy')
                             .then((response) => response.json())
                             .then((json) => {
@@ -74,6 +78,10 @@ export const LegalScreen = ({ navigation }: Props) => {
                                 console.error(error);
                             });
                     }}
+                />
+                <Button
+                    title="idle"
+                    onPress={() => dispatch({ type: BackgroundMode.IDLE })}
                 />
                 <Text style={styles.title}>Privacy Policy</Text>
                 <Text style={styles.paragraph}>

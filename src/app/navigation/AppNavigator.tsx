@@ -5,24 +5,36 @@ import { SplashScreen } from '../screens/Splash/SplashScreen';
 import { OnboardingStack } from './OnboardingStack';
 import { MainNavigator } from './MainNavigator';
 import { EmergencyProtocolStack } from './EmergencyProtocolStack';
+import { AppContextProvider } from '../backgroundMode/context/AppContext';
 
 const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName="SplashScreen"
-                screenOptions={{ headerShown: false }}
-            >
-                <Stack.Screen name="SplashScreen" component={SplashScreen} />
-                <Stack.Screen name="Onboarding" component={OnboardingStack} />
-                <Stack.Screen name="MainNavigator" component={MainNavigator} />
-                <Stack.Screen
-                    name="EmergencyProtocol"
-                    component={EmergencyProtocolStack}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <AppContextProvider>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName="SplashScreen"
+                    screenOptions={{ headerShown: false }}
+                >
+                    <Stack.Screen
+                        name="SplashScreen"
+                        component={SplashScreen}
+                    />
+                    <Stack.Screen
+                        name="Onboarding"
+                        component={OnboardingStack}
+                    />
+                    <Stack.Screen
+                        name="MainNavigator"
+                        component={MainNavigator}
+                    />
+                    <Stack.Screen
+                        name="EmergencyProtocol"
+                        component={EmergencyProtocolStack}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </AppContextProvider>
     );
 };

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
-
+import * as React from 'react';
+import { useContext, useState, useEffect } from 'react';
+import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
 import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
@@ -11,7 +10,10 @@ import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
+import { AppContext } from '../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
 import { useIsFocused } from '@react-navigation/native';
+import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
 import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
@@ -26,7 +28,15 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [deviceName1, changeDeviceName1] = useState('PPG1');
     const [deviceName2, changeDeviceName2] = useState('EKG1');
     const { appDataStorage } = useLocalStorage();
+    const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
+
+    // initialize the background state to idle for a first time user
+    useEffect(() => {
+        if (!isBackgroundModeDefined) {
+            dispatch({ type: BackgroundMode.IDLE });
+        }
+    }, [isFocused]);
 
     useEffect(() => {
         changeFirstName(
@@ -48,7 +58,6 @@ export const HomeScreen = ({ navigation }: Props) => {
                         height={normalize(250)}
                     />
                 </View>
-
                 <View style={styles.heartContainer}>
                     <HeartRateWidget heartRate={normalize(56)} />
                 </View>
