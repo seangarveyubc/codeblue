@@ -39,28 +39,6 @@ export const setNotificationForegroundService = () => {
     displayNotification();
 };
 
-// TODO: delete once real tasks are implemented
-export const clearExistingIntervals = (
-    heartFn: any,
-    callFn: any,
-    idleFn: any
-) => {
-    if (heartFn) {
-        clearInterval(heartFn);
-        heartFn = undefined;
-    }
-
-    if (callFn) {
-        clearInterval(callFn);
-        callFn = undefined;
-    }
-
-    if (idleFn) {
-        clearInterval(idleFn);
-        idleFn = undefined;
-    }
-};
-
 const createChannelId = async () => {
     return await notifee.createChannel({
         name: 'Foreground Service',

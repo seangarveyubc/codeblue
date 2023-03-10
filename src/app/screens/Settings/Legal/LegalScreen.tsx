@@ -4,8 +4,6 @@ import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { AppContext } from '../../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 import Colours from '../../../constants/Colours';
-import { TriggerCall } from '../../../EMSCall/TriggerCall';
-import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
 import { Alert } from 'react-native';
 
 interface Props {
@@ -13,6 +11,8 @@ interface Props {
 }
 
 export const LegalScreen = ({ navigation }: Props) => {
+    const { dispatch } = useContext(AppContext);
+
     useEffect(() => {
         messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
             console.log(remoteMessage);
@@ -21,8 +21,7 @@ export const LegalScreen = ({ navigation }: Props) => {
             let message_title = remoteMessage.notification.title;
 
             Alert.alert(message_title, message_body);
-            navigation.navigate('EmergencyProtocol');
-            // TriggerCall();
+            dispatch({ type: BackgroundMode.CA_DETECTED });
         });
     }, []);
 
@@ -34,13 +33,11 @@ export const LegalScreen = ({ navigation }: Props) => {
             let message_title = remoteMessage.notification.title;
 
             Alert.alert(message_title, message_body);
-            navigation.navigate('EmergencyProtocol');
-            // TriggerCall();
+            dispatch({ type: BackgroundMode.CA_DETECTED });
         });
 
         return subscribe;
     }, []);
-    const { dispatch } = useContext(AppContext);
 
     return (
         <View style={styles.page}>

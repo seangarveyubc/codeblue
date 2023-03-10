@@ -4,6 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/WideButton/WideButton';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 
 interface Props {
     navigation: any;
@@ -12,6 +14,8 @@ interface Props {
 const windowHeight = Dimensions.get('window').height;
 
 export const CallInProgressScreen = ({ navigation }: Props) => {
+    const { dispatch } = React.useContext(AppContext);
+
     return (
         <View style={styles.container}>
             <View>
@@ -30,6 +34,7 @@ export const CallInProgressScreen = ({ navigation }: Props) => {
             <WideButton
                 text={'Go to call ended screen'}
                 onPress={() => {
+                    dispatch({ type: BackgroundMode.CALL_ENDED });
                     navigation.navigate('CallEnded');
                 }}
             />
