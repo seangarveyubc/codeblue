@@ -4,15 +4,15 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import Video from 'react-native-video';
+import { normalize } from '../../../normalizer/normalizer';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/constants';
 
 interface Props {
     navigation: any;
 }
 
 const video = require('../../../assets/video.mov');
-const VERTICAL_SPACE = 40;
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+const VERTICAL_SPACE = normalize(40);
 
 export const TutorialScreen = ({ navigation }: Props) => {
     return (
@@ -28,7 +28,7 @@ export const TutorialScreen = ({ navigation }: Props) => {
                     <MaterialCommunityIcon
                         name="hand-wave-outline"
                         color={Colours.BLACK}
-                        size={40}
+                        size={normalize(40)}
                     />
                     <Text style={styles.titleText}>
                         <Text style={{ color: Colours.BLUE }}>CodeBlue</Text>{' '}
@@ -47,13 +47,13 @@ export const TutorialScreen = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
     screenContainer: {
-        paddingHorizontal: windowWidth * 0.05
+        paddingHorizontal: SCREEN_WIDTH * 0.05
     },
     skipText: {
         fontFamily: 'DMSans-Regular',
-        fontSize: 18,
+        fontSize: normalize(18),
         color: Colours.BLUE,
-        marginTop: 16,
+        marginTop: normalize(16),
         textAlign: 'right'
     },
     screenTitleRow: {
@@ -64,18 +64,18 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 24,
+        fontSize: normalize(24),
         color: Colours.BLACK
     },
     video: {
-        height: windowHeight * 0.5,
-        width: windowWidth * 0.8,
+        height: SCREEN_HEIGHT * 0.5,
+        width: SCREEN_WIDTH * 0.8,
         alignItems: 'center',
         justifyContent: 'center'
     },
     videoDescription: {
         fontFamily: 'DMSans-Regular',
-        fontSize: 18,
+        fontSize: normalize(18),
         color: Colours.BLACK,
         textAlign: 'center',
         marginTop: VERTICAL_SPACE

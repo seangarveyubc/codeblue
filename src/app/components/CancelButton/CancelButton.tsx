@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Colours from '../../constants/Colours';
+import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     onPress: () => void;
@@ -20,10 +21,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
-        fontSize: 18,
+        fontSize: normalize(18),
         fontFamily: 'DMSans-Bold',
         fontWeight: '500',
         color: Colours.RED,
-        lineHeight: 24
+        lineHeight: normalize(24)
     }
 });

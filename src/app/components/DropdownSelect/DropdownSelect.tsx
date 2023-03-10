@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
+import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     type: string;
@@ -42,7 +43,7 @@ export const DropdownSelect = ({
                         <Icons
                             name={isOpened ? 'up' : 'down'}
                             color={Colours.DARKBLUE}
-                            size={25}
+                            size={normalize(25)}
                         />
                     );
                 }}
@@ -62,38 +63,38 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        marginVertical: 6
+        marginVertical: normalize(6)
     },
     dropdown2BtnStyle: {
-        height: 50,
+        height: normalize(50),
         backgroundColor: Colours.LIGHTGREY,
-        borderRadius: 8,
-        borderWidth: 1,
+        borderRadius: normalize(8),
+        borderWidth: normalize(1),
         borderColor: Colours.DARKBLUE
     },
     dropdown2BtnTxtStyle: {
         color: Colours.DARKBLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
-        fontSize: 14
+        fontSize: normalize(14)
     },
     dropdown2DropdownStyle: {
         backgroundColor: Colours.LIGHTGREY,
-        borderBottomLeftRadius: 8,
-        borderBottomRightRadius: 8,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
+        borderBottomLeftRadius: normalize(8),
+        borderBottomRightRadius: normalize(8),
+        borderTopLeftRadius: normalize(8),
+        borderTopRightRadius: normalize(8),
         borderColor: Colours.DARKBLUE
     },
     dropdown2RowStyle: {
         backgroundColor: Colours.LIGHTGREY,
         borderColor: Colours.DARKBLUE,
-        borderWidth: 1
+        borderWidth: normalize(1)
     },
     dropdown2RowTxtStyle: {
         color: Colours.DARKBLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
-        padding: 10
+        padding: normalize(10)
     }
 });

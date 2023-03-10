@@ -12,6 +12,7 @@ import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { useIsFocused } from '@react-navigation/native';
+import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -44,12 +45,12 @@ export const HomeScreen = ({ navigation }: Props) => {
                 <View style={styles.header}>
                     <HeaderSwirl
                         title={firstName + ' ' + lastName}
-                        height={250}
+                        height={normalize(250)}
                     />
                 </View>
 
                 <View style={styles.heartContainer}>
-                    <HeartRateWidget heartRate={56} />
+                    <HeartRateWidget heartRate={normalize(56)} />
                 </View>
                 <CentredContent>
                     <View style={styles.deviceHeader}>
@@ -79,18 +80,18 @@ export const HomeScreen = ({ navigation }: Props) => {
                 {deviceListState ? (
                     <View
                         style={{
-                            flex: bluetoothState ? 7 : 6,
-                            marginTop: 10
+                            flex: bluetoothState ? normalize(7) : normalize(6),
+                            marginTop: normalize(10)
                         }}
                     >
                         <CentredContent>
-                            <View style={{ paddingBottom: 15 }}>
+                            <View style={{ paddingBottom: normalize(15) }}>
                                 <DeviceWidget
                                     name={deviceName1}
                                     isConnected={true}
                                 />
                             </View>
-                            <View style={{ paddingBottom: 15 }}>
+                            <View style={{ paddingBottom: normalize(15) }}>
                                 <DeviceWidget
                                     name={deviceName2}
                                     isConnected={false}
@@ -101,8 +102,8 @@ export const HomeScreen = ({ navigation }: Props) => {
                 ) : (
                     <View
                         style={{
-                            flex: bluetoothState ? 7 : 6,
-                            marginTop: 10
+                            flex: bluetoothState ? normalize(7) : normalize(6),
+                            marginTop: normalize(10)
                         }}
                     >
                         <CentredContent>
@@ -139,16 +140,16 @@ const styles = StyleSheet.create({
         height: '15%'
     },
     heartContainer: {
-        paddingTop: 20
+        paddingTop: normalize(20)
     },
     yourDevices: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 24,
+        fontSize: normalize(24),
         color: Colours.BLACK
     },
     edit: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 18,
+        fontSize: normalize(18),
         color: Colours.BLUE
     },
     deviceHeader: {
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     },
     bluetoothPrompt: {
         textAlign: 'center',
-        marginVertical: 8,
+        marginVertical: normalize(8),
         width: SCREEN_WIDTH * 0.9,
         alignSelf: 'center'
     }

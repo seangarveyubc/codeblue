@@ -13,6 +13,7 @@ import {
     SettingsOption
 } from '../../../components/SettingsOption/SettingsOption';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { normalize } from '../../../normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -84,11 +85,11 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: Colours.WHITE
     },
-    scroll: { marginTop: 10 },
-    header: { marginBottom: 10 },
+    scroll: { marginTop: normalize(10) },
+    header: { marginBottom: normalize(10) },
     resetText: {
-        margin: 20,
-        fontSize: 20,
+        margin: normalize(20),
+        fontSize: normalize(20),
         color: Colours.RED,
         alignSelf: 'center',
         fontFamily: 'DMSans-Bold'

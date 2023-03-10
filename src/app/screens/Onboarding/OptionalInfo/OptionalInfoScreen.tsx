@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import InputText from '../../../components/InputText/InputText';
@@ -12,13 +12,14 @@ import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 import { DropdownSelect } from '../../../components/DropdownSelect/DropdownSelect';
 import DropdownOptions from '../../../constants/DropdownOptions';
+import { SCREEN_WIDTH } from '../../../constants/constants';
+import { normalize } from '../../../normalizer/normalizer';
 
 interface Props {
     navigation: any;
 }
 
-const windowWidth = Dimensions.get('window').width;
-const VERTICAL_SPACE = windowWidth * 0.07;
+const VERTICAL_SPACE = SCREEN_WIDTH * 0.07;
 
 export const OptionalInfoScreen = ({ navigation }: Props) => {
     const {
@@ -102,7 +103,7 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
         <View style={styles.screenContainer}>
             <BackArrow label="Back" onPress={navigateToRequiredInfoScreen} />
             <View style={styles.titleContainer}>
-                <Logo width={50} height={50} />
+                <Logo width={normalize(50)} height={normalize(50)} />
                 <Text style={styles.titleText}>Join CodeBlue</Text>
             </View>
             <Text style={styles.subtitleText}>
@@ -113,21 +114,21 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                     placeholder="Birthday (DD/MM/YYYY)"
                     text={birthday}
                     onChangeText={setBirthday}
-                    width={windowWidth * 0.9}
+                    width={SCREEN_WIDTH * 0.9}
                 />
                 <View style={styles.inputTextRow}>
                     <InputText
                         placeholder="Height (cm)"
                         text={userHeight}
                         onChangeText={setUserHeight}
-                        width={windowWidth * 0.43}
+                        width={SCREEN_WIDTH * 0.43}
                         keyboardType="numeric"
                     />
                     <InputText
                         placeholder="Weight (kg)"
                         text={userWeight}
                         onChangeText={setUserWeight}
-                        width={windowWidth * 0.43}
+                        width={SCREEN_WIDTH * 0.43}
                         keyboardType="numeric"
                     />
                 </View>
@@ -137,14 +138,14 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                         data={DropdownOptions.BloodTypes}
                         selectedValue={userBloodType}
                         onValueChange={setUserBloodType}
-                        width={windowWidth * 0.43}
+                        width={SCREEN_WIDTH * 0.43}
                     />
                     <DropdownSelect
                         type="Sex"
                         data={DropdownOptions.Sex}
                         selectedValue={userSex}
                         onValueChange={setUserSex}
-                        width={windowWidth * 0.43}
+                        width={SCREEN_WIDTH * 0.43}
                     />
                 </View>
             </CentredContent>
@@ -181,7 +182,7 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
     screenContainer: {
-        paddingHorizontal: windowWidth * 0.05,
+        paddingHorizontal: SCREEN_WIDTH * 0.05,
         paddingVertical: VERTICAL_SPACE,
         alignItems: 'flex-start',
         height: '100%',
@@ -195,37 +196,37 @@ const styles = StyleSheet.create({
     },
     titleText: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 24,
+        fontSize: normalize(24),
         color: Colours.BLUE,
-        marginLeft: 12
+        marginLeft: normalize(12)
     },
     subtitleText: {
         fontFamily: 'DMSans-Regular',
-        fontSize: 16,
+        fontSize: normalize(16),
         color: Colours.BLACK,
         marginBottom: VERTICAL_SPACE
     },
     inputTextRow: {
         flexDirection: 'row',
-        width: windowWidth * 0.9,
+        width: SCREEN_WIDTH * 0.9,
         justifyContent: 'space-between',
         alignItems: 'center'
     },
     checkBoxRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 12
+        marginTop: normalize(12)
     },
     heartProblemsText: {
         fontFamily: 'DMSans-Regular',
-        fontSize: 16,
+        fontSize: normalize(16),
         color: Colours.BLUE,
-        marginLeft: 8
+        marginLeft: normalize(8)
     },
     skipText: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 18,
+        fontSize: normalize(18),
         color: Colours.BLUE,
-        marginTop: 20
+        marginTop: normalize(20)
     }
 });

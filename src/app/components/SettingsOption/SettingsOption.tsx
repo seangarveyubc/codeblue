@@ -5,6 +5,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colours from '../../constants/Colours';
+import { normalize } from '../../normalizer/normalizer';
 import { ForwardArrow } from '../ForwardArrow/ForwardArrow';
 
 export enum OptionType {
@@ -17,7 +18,13 @@ export enum OptionType {
 const OPTION_TYPE = [
     // AccountInfo
     {
-        icon: <Ionicons name="person" size={25} color={Colours.DARKBLUE} />,
+        icon: (
+            <Ionicons
+                name="person"
+                size={normalize(25)}
+                color={Colours.DARKBLUE}
+            />
+        ),
         title: 'Account Information'
     },
     // MedicalInfo
@@ -25,7 +32,7 @@ const OPTION_TYPE = [
         icon: (
             <FontAwesome5
                 name="briefcase-medical"
-                size={25}
+                size={normalize(25)}
                 color={Colours.DARKBLUE}
             />
         ),
@@ -33,13 +40,23 @@ const OPTION_TYPE = [
     },
     // Tutorial
     {
-        icon: <FontAwesome5 name="play" size={25} color={Colours.DARKBLUE} />,
+        icon: (
+            <FontAwesome5
+                name="play"
+                size={normalize(25)}
+                color={Colours.DARKBLUE}
+            />
+        ),
         title: 'CodeBlue Tutorial Video'
     },
     // Legal
     {
         icon: (
-            <FontAwesome5 name="paperclip" size={25} color={Colours.DARKBLUE} />
+            <FontAwesome5
+                name="paperclip"
+                size={normalize(25)}
+                color={Colours.DARKBLUE}
+            />
         ),
         title: 'Legal'
     }
@@ -70,22 +87,22 @@ export const SettingsOption = ({ optionType, onPress }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomWidth: 0.5,
+        borderBottomWidth: normalize(0.5),
         borderColor: Colours.LIGHTGREY
     },
     row: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        margin: 12
+        margin: normalize(12)
     },
     icon: {
-        margin: 5,
-        marginHorizontal: 10
+        margin: normalize(5),
+        marginHorizontal: normalize(10)
     },
     text: {
         flex: 1,
-        fontSize: 16,
+        fontSize: normalize(16),
         color: Colours.BLACK,
         alignItems: 'center',
         fontFamily: 'DMSans-Regular'

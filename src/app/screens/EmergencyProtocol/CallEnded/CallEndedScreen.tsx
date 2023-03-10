@@ -4,12 +4,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/WideButton/WideButton';
+import { normalize } from '../../../normalizer/normalizer';
+import { SCREEN_HEIGHT } from '../../../constants/constants';
 
 interface Props {
     navigation: any;
 }
-
-const windowHeight = Dimensions.get('window').height;
 
 export const CallEndedScreen = ({ navigation }: Props) => {
     return (
@@ -19,7 +19,7 @@ export const CallEndedScreen = ({ navigation }: Props) => {
                     <MaterialIcons
                         style={styles.icon}
                         name="call-end"
-                        size={40}
+                        size={normalize(40)}
                         color={Colours.RED}
                     />
                     <Text style={styles.title}>
@@ -50,37 +50,37 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: 12,
-        height: windowHeight * 0.9
+        margin: normalize(12),
+        height: SCREEN_HEIGHT * 0.9
     },
     icon: {
-        padding: 24,
+        padding: normalize(24),
         alignSelf: 'center'
     },
     head: {
         width: '72%',
-        marginBottom: 36
+        marginBottom: normalize(36)
     },
     title: {
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontSize: 36
+        fontSize: normalize(36)
     },
     description: {
         flex: 1,
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Regular',
         fontWeight: '400',
-        fontSize: 24,
-        padding: 48,
-        letterSpacing: 1
+        fontSize: normalize(24),
+        padding: normalize(48),
+        letterSpacing: normalize(1)
     },
     button: {
         alignSelf: 'flex-end',
-        marginBottom: 15
+        marginBottom: normalize(15)
     },
     red: {
         color: Colours.RED

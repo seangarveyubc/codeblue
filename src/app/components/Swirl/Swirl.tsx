@@ -3,6 +3,8 @@ import { View, Dimensions } from 'react-native';
 import { Svg, Path, G } from 'react-native-svg';
 
 import Colours from '../../constants/Colours';
+import { SCREEN_WIDTH } from '../../constants/constants';
+//import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     rotation?: number;
@@ -12,7 +14,7 @@ export const Swirl = ({ rotation }: Props) => {
     return (
         <View>
             <Svg
-                width={Dimensions.get('window').width}
+                width={SCREEN_WIDTH}
                 height={300}
                 viewBox="0 0 375 275"
                 fill="none"

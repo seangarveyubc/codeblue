@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Colours from '../../constants/Colours';
+import { SCREEN_WIDTH } from '../../constants/constants';
+import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     text: string;
@@ -8,8 +10,6 @@ interface Props {
     colour?: string; // defaults to white
     onPress: () => void;
 }
-
-const windowWidth = Dimensions.get('window').width;
 
 export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
     return (
@@ -34,14 +34,14 @@ export const WideButton = ({ text, textColour, colour, onPress }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 45,
-        width: windowWidth * 0.9,
+        height: normalize(45),
+        width: SCREEN_WIDTH * 0.9,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 8
+        borderRadius: normalize(8)
     },
     text: {
-        fontSize: 17,
+        fontSize: normalize(17),
         fontFamily: 'DMSans-Bold'
     }
 });

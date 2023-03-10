@@ -8,6 +8,7 @@ import {
     View
 } from 'react-native';
 import Colours from '../../constants/Colours';
+import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     text: string;
@@ -43,19 +44,19 @@ const styles = StyleSheet.create({
     inputfield: {
         flexDirection: 'column',
         justifyContent: 'space-evenly',
-        height: 50,
+        height: normalize(50),
         width: '100%',
-        borderBottomWidth: 1,
+        borderBottomWidth: normalize(1),
         borderBottomColor: Colours.GREY
     },
     input: {
         fontFamily: 'DMSans-Regular',
-        fontSize: 18
+        fontSize: normalize(18)
     },
     title: {
         fontFamily: 'DMSans-Regular',
-        paddingLeft: 4,
+        paddingLeft: normalize(4),
         color: Colours.BLUE,
-        fontSize: 15
+        fontSize: normalize(15)
     }
 });

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Colours from '../../constants/Colours';
+import { normalize } from '../../normalizer/normalizer';
 import { RadioButtons } from '../RadioButtons/RadioButtons';
 
 interface Props {
@@ -74,23 +75,23 @@ const styles = StyleSheet.create({
         marginHorizontal: '5%'
     },
     row: {
-        marginVertical: 10
+        marginVertical: normalize(10)
     },
     item: {
         paddingHorizontal: '3%'
     },
     input: {
-        paddingLeft: 4,
+        paddingLeft: normalize(4),
         fontFamily: 'DMSans-Regular',
         color: Colours.BLACK,
-        fontSize: 18,
+        fontSize: normalize(18),
         width: '100%',
-        paddingTop: 4
+        paddingTop: normalize(4)
     },
     title: {
         fontFamily: 'DMSans-Regular',
-        paddingLeft: 4,
+        paddingLeft: normalize(4),
         color: Colours.BLUE,
-        fontSize: 15
+        fontSize: normalize(15)
     }
 });

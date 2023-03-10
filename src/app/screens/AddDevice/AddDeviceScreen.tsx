@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
+import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -24,7 +25,7 @@ export const AddDeviceScreen = ({ navigation }: Props) => {
             <Text style={styles.subtitle}>Scanning for devices...</Text>
             <ActivityIndicator
                 style={styles.loader}
-                size={100}
+                size={normalize(100)}
                 color={Colours.BLUE}
                 hidesWhenStopped={true}
                 animating={showLoading}
@@ -41,20 +42,20 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'DMSans-Bold',
-        marginLeft: 20,
-        marginTop: 30,
+        marginLeft: normalize(20),
+        marginTop: normalize(30),
         color: Colours.BLACK,
-        fontSize: 24
+        fontSize: normalize(24)
     },
     subtitle: {
         fontFamily: 'DMSans-Regular',
-        fontSize: 20,
+        fontSize: normalize(20),
         color: Colours.BLACK,
-        marginTop: 80,
+        marginTop: normalize(80),
         alignSelf: 'center'
     },
     loader: {
         alignSelf: 'center',
-        marginTop: 40
+        marginTop: normalize(40)
     }
 });

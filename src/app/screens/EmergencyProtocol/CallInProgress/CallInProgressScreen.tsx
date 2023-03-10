@@ -4,12 +4,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/WideButton/WideButton';
+import { normalize } from '../../../normalizer/normalizer';
+import { SCREEN_HEIGHT } from '../../../constants/constants';
 
 interface Props {
     navigation: any;
 }
-
-const windowHeight = Dimensions.get('window').height;
 
 export const CallInProgressScreen = ({ navigation }: Props) => {
     return (
@@ -18,7 +18,7 @@ export const CallInProgressScreen = ({ navigation }: Props) => {
                 <Ionicons
                     style={styles.icon}
                     name="alert-circle"
-                    size={40}
+                    size={normalize(40)}
                     color={Colours.RED}
                 />
                 <Text style={styles.title}>
@@ -40,43 +40,43 @@ export const CallInProgressScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Colours.WHITE,
-        padding: 12,
+        padding: normalize(12),
         margin: 'auto',
         justifyContent: 'space-between',
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
-        height: windowHeight * 0.9
+        height: SCREEN_HEIGHT * 0.9
     },
     icon: {
-        padding: 24,
+        padding: normalize(24),
         alignSelf: 'center'
     },
     head: {
         width: '68%'
     },
     title: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontSize: 36
+        fontSize: normalize(36)
     },
     description: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
         fontWeight: '400',
-        fontSize: 24
+        fontSize: normalize(24)
     },
     cancelDescription: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
         fontWeight: '400',
-        fontSize: 18
+        fontSize: normalize(18)
     },
     red: {
         color: Colours.RED

@@ -3,6 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
+import { normalize } from '../../normalizer/normalizer';
 
 interface Props {
     title: string;
@@ -41,7 +42,7 @@ export const UnderlineDropdownSelect = ({
                         <Icons
                             name={isOpened ? 'up' : 'down'}
                             color={Colours.GREY}
-                            size={25}
+                            size={normalize(25)}
                         />
                     );
                 }}
@@ -61,22 +62,22 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        margin: 10
+        margin: normalize(10)
     },
     title: {
         color: Colours.BLUE,
         fontWeight: '500',
-        fontSize: 14,
+        fontSize: normalize(14),
         fontFamily: 'DMSans-Regular',
         textalign: 'left'
     },
     dropdown2BtnStyle: {
         width: '100%',
-        height: 50,
+        height: normalize(50),
         backgroundColor: Colours.WHITE,
-        borderRadius: 0,
+        borderRadius: normalize(0),
         borderColor: Colours.GREY,
-        borderBottomWidth: 1
+        borderBottomWidth: normalize(1)
     },
     dropdown2BtnTxtStyle: {
         color: Colours.BLACK,
@@ -90,14 +91,14 @@ const styles = StyleSheet.create({
     dropdown2RowStyle: {
         backgroundColor: Colours.WHITE,
         borderColor: Colours.LIGHTGREY,
-        borderWidth: 1
+        borderWidth: normalize(1)
     },
     dropdown2RowTxtStyle: {
         color: Colours.BLACK,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
         fontWeight: '400',
-        marginLeft: 20,
-        marginRight: 20
+        marginLeft: normalize(20),
+        marginRight: normalize(20)
     }
 });

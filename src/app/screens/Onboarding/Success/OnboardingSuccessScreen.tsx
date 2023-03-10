@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { CheckmarkAnimation } from '../../../components/CheckmarkAnimation/CheckmarkAnimation';
 import { SCREEN_NAV_DELAY_TIME } from '../../../constants/constants';
+import { normalize } from '../../../normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 20,
+        fontSize: normalize(20),
         color: Colours.WHITE,
-        marginTop: 16
+        marginTop: normalize(16)
     }
 });
