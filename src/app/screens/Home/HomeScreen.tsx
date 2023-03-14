@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
-
+import { useContext, useState, useEffect } from 'react';
+import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
 import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
-import IconTextInput from '../../components/IconTextInput/IconTextInput';
+import { IconTextInput } from '../../components/IconTextInput/IconTextInput';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
+import { AppContext } from '../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
+import { useIsFocused } from '@react-navigation/native';
+import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
 
 interface Props {
     navigation: any;
@@ -19,13 +22,29 @@ interface Props {
 export const HomeScreen = ({ navigation }: Props) => {
     const [deviceListState, setDeviceListState] = useState(true);
     const [bluetoothState, setBluetoothState] = useState(false);
+    const [firstName, changeFirstName] = useState('');
+    const [lastName, changeLastName] = useState('');
     const [deviceName1, changeDeviceName1] = useState('PPG1');
     const [deviceName2, changeDeviceName2] = useState('EKG1');
     const { appDataStorage } = useLocalStorage();
+    const { dispatch } = useContext(AppContext);
+    const isFocused = useIsFocused();
 
-    const firstName =
-        appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? '';
-    const lastName = appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? '';
+    // initialize the background state to idle for a first time user
+    useEffect(() => {
+        if (!isBackgroundModeDefined) {
+            dispatch({ type: BackgroundMode.IDLE });
+        }
+    }, [isFocused]);
+
+    useEffect(() => {
+        changeFirstName(
+            appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? ''
+        );
+        changeLastName(
+            appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? ''
+        );
+    }, [isFocused]);
 
     const toggleChecked = () => setDeviceListState((value) => !value);
 
@@ -38,7 +57,6 @@ export const HomeScreen = ({ navigation }: Props) => {
                         height={250}
                     />
                 </View>
-
                 <View style={styles.heartContainer}>
                     <HeartRateWidget heartRate={56} />
                 </View>
