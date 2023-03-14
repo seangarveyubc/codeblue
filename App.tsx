@@ -24,23 +24,25 @@ const App = () => {
     utils.get_request(utils.local_healthy_address, deviceId);
 
     notifee.onForegroundEvent(({ type, detail }: Event) => {
-        console.log("f type: " + type)
-        console.log(detail)
-        // if (type === EventType.ACTION_PRESS && detail.pressAction.id) {
-        //     console.log(
-        //         'User pressed an action with the id: ',
-        //         detail.pressAction.id
-        //     );
-        // }
+        if (type === EventType.ACTION_PRESS && detail.pressAction?.id) {
+            console.log(
+                'User pressed an action with the id: ',
+                detail.pressAction.id
+            );
+        }
     });
 
     notifee.onBackgroundEvent(async ({ type, detail }:Event) => {
-        console.log("b type: " + type)
-        console.log(detail)
-        // if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'reply') {
+        // if (type === EventType.ACTION_PRESS && detail.pressAction?.id === 'reply') {
         //   await updateChat(detail.notification.data.chatId, detail.input);
         //   await notifee.cancelNotification(detail.notification.id);
         // }
+        if (type === EventType.ACTION_PRESS && detail.pressAction?.id) {
+            console.log(
+                'User pressed an action with the id: ',
+                detail.pressAction.id
+            );
+        }
     });
 
     // set background push notification handler
