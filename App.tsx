@@ -1,17 +1,19 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AppNavigator } from './src/app/navigation/AppNavigator';
 import messaging from '@react-native-firebase/messaging';
 import StorybookUI from './storybook';
 import { Alert } from 'react-native';
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
+import { useLocalStorage } from './src/app/localStorage/hooks/useLocalStorage';
+import { DeviceKeys } from './src/app/localStorage/models/LocalStorageKeys';
 
 
 const displayNotification = async (title:string, body:string) => {
     // Create a channel (required for Android)
     const channelId = await notifee.createChannel({
-        id: 'test',
-        name: 'Test Channel',
+        id: 'codeblue',
+        name: 'CodeBlue Channel',
         importance: AndroidImportance.HIGH,
     });
   
@@ -25,11 +27,15 @@ const displayNotification = async (title:string, body:string) => {
             // pressAction is needed if you want the notification to open the app when pressed
             pressAction: {
                 id: 'default',
+                mainComponent: 'ca-component',
             },
             actions: [
                 {
-                  title: '<b>Call</b> &#9989;',
-                  pressAction: { id: 'call' },
+                    title: '<b>Call</b> &#9989;',
+                    pressAction: {
+                        id: 'default',
+                        mainComponent: 'ca-component',
+                    },
                 },
                 {
                   title: '<p style="color: #f44336;"><b>Cancel</b> &#10060;</p>',
@@ -46,11 +52,16 @@ const displayNotification = async (title:string, body:string) => {
     });
 };
 
+const {
+    saveDeviceId
+} = useLocalStorage();
+
 async function printDeviceFCMToken() {
     const getFcmToken = async () => {
         const fcmToken = await messaging().getToken();
         if (fcmToken) {
             console.log('TOKEN:', fcmToken);
+            saveDeviceId(DeviceKeys.DEVICE_LIST, fcmToken);
         } else {
             console.log('Failed', 'No token received');
         }
@@ -69,6 +80,23 @@ async function printDeviceFCMToken() {
 printDeviceFCMToken();
 
 const App = () => {
+    const { appDataStorage, saveDeviceId } = useLocalStorage();
+
+    // useEffect(() => {
+    //     // declare the data fetching function
+    //     const fetchData = async () => {
+    //         const token = await messaging().getToken();
+    //         return token;
+    //     }
+      
+    //     // call the function
+    //     fetchData().then((val) => {
+    //         console.log(val);
+    //         saveDeviceId(DeviceKeys.DEVICE_LIST, val);
+    //     });
+        
+    // }, [])
+    
     notifee.onForegroundEvent(({ type, detail }:any) => {
         if (type === EventType.ACTION_PRESS && detail.pressAction.id) {
           console.log('User pressed an action with the id: ', detail.pressAction.id);
@@ -81,11 +109,11 @@ const App = () => {
 
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
 
             displayNotification(message_title, message_body);
-            // Alert.alert(message_title, message_body);
         });
+
+        console.log(appDataStorage.getString(DeviceKeys.DEVICE_LIST))
     }, []);
 
     useEffect(() => {
@@ -94,10 +122,9 @@ const App = () => {
 
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
 
-            displayNotification(message_title, message_body);
-            // Alert.alert(message_title, message_body);
+            Alert.alert(message_title, message_body);
+            // navigate to EP screen
         });
 
         return subscribe;
