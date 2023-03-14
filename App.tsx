@@ -4,10 +4,10 @@ import { AppNavigator } from './src/app/navigation/AppNavigator';
 import StorybookUI from './storybook';
 import { Alert } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
-import notifee, { EventType } from '@notifee/react-native';
+import notifee, { EventType, Event } from '@notifee/react-native';
 import { useLocalStorage } from './src/app/localStorage/hooks/useLocalStorage';
 import { DeviceKeys } from './src/app/localStorage/models/LocalStorageKeys';
-import * as utils from './AppUtils';
+import * as utils from './src/app/utils/AppUtils';
 
 
 // save FCM device token id into local storage
@@ -20,13 +20,27 @@ const App = () => {
         appDataStorage.getString(DeviceKeys.DEVICE_LIST) ?? ''
     );
 
-    console.log(deviceId)
-    utils.get_request('http://10.0.2.2:3000/ca', deviceId);
-    
-    notifee.onForegroundEvent(({ type, detail }:any) => {
-        if (type === EventType.ACTION_PRESS && detail.pressAction.id) {
-          console.log('User pressed an action with the id: ', detail.pressAction.id);
-        }
+    // console.log(deviceId);
+    utils.get_request(utils.local_healthy_address, deviceId);
+
+    notifee.onForegroundEvent(({ type, detail }: Event) => {
+        console.log("f type: " + type)
+        console.log(detail)
+        // if (type === EventType.ACTION_PRESS && detail.pressAction.id) {
+        //     console.log(
+        //         'User pressed an action with the id: ',
+        //         detail.pressAction.id
+        //     );
+        // }
+    });
+
+    notifee.onBackgroundEvent(async ({ type, detail }:Event) => {
+        console.log("b type: " + type)
+        console.log(detail)
+        // if (type === EventType.ACTION_PRESS && detail.pressAction.id === 'reply') {
+        //   await updateChat(detail.notification.data.chatId, detail.input);
+        //   await notifee.cancelNotification(detail.notification.id);
+        // }
     });
 
     // set background push notification handler
