@@ -1,101 +1,27 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { AppNavigator } from './src/app/navigation/AppNavigator';
-import messaging from '@react-native-firebase/messaging';
 import StorybookUI from './storybook';
 import { Alert } from 'react-native';
-import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
+import notifee, { EventType } from '@notifee/react-native';
 import { useLocalStorage } from './src/app/localStorage/hooks/useLocalStorage';
 import { DeviceKeys } from './src/app/localStorage/models/LocalStorageKeys';
+import * as utils from './AppUtils';
 
 
-const displayNotification = async (title:string, body:string) => {
-    // Create a channel (required for Android)
-    const channelId = await notifee.createChannel({
-        id: 'codeblue',
-        name: 'CodeBlue Channel',
-        importance: AndroidImportance.HIGH,
-    });
-  
-    // Display a notification
-    await notifee.displayNotification({
-        title: title,
-        body: body,
-        android: {
-            channelId,
-            importance: AndroidImportance.HIGH,
-            // pressAction is needed if you want the notification to open the app when pressed
-            pressAction: {
-                id: 'default',
-                mainComponent: 'ca-component',
-            },
-            actions: [
-                {
-                    title: '<b>Call</b> &#9989;',
-                    pressAction: {
-                        id: 'default',
-                        mainComponent: 'ca-component',
-                    },
-                },
-                {
-                  title: '<p style="color: #f44336;"><b>Cancel</b> &#10060;</p>',
-                  pressAction: { id: 'cancel' },
-                },
-            ],
-            autoCancel: false,
-            loopSound: true,
-            ongoing: true,
-            showChronometer: true,
-            chronometerDirection: 'down',
-            timestamp: Date.now() + 60000, // 5 minutes
-        },
-    });
-};
+// save FCM device token id into local storage
+utils.saveDeviceFCMToken();
 
-const {
-    saveDeviceId
-} = useLocalStorage();
-
-async function printDeviceFCMToken() {
-    const getFcmToken = async () => {
-        const fcmToken = await messaging().getToken();
-        if (fcmToken) {
-            console.log('TOKEN:', fcmToken);
-            saveDeviceId(DeviceKeys.DEVICE_LIST, fcmToken);
-        } else {
-            console.log('Failed', 'No token received');
-        }
-    };
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-        authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-        authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    if (enabled) {
-        getFcmToken();
-        console.log('Authorization status:', authStatus);
-    }
-}
-
-printDeviceFCMToken();
 
 const App = () => {
-    const { appDataStorage, saveDeviceId } = useLocalStorage();
+    const { appDataStorage } = useLocalStorage();
+    const [deviceId, setDeviceId] = useState(
+        appDataStorage.getString(DeviceKeys.DEVICE_LIST) ?? ''
+    );
 
-    // useEffect(() => {
-    //     // declare the data fetching function
-    //     const fetchData = async () => {
-    //         const token = await messaging().getToken();
-    //         return token;
-    //     }
-      
-    //     // call the function
-    //     fetchData().then((val) => {
-    //         console.log(val);
-    //         saveDeviceId(DeviceKeys.DEVICE_LIST, val);
-    //     });
-        
-    // }, [])
+    console.log(deviceId)
+    utils.get_request('http://10.0.2.2:3000/ca', deviceId);
     
     notifee.onForegroundEvent(({ type, detail }:any) => {
         if (type === EventType.ACTION_PRESS && detail.pressAction.id) {
@@ -103,6 +29,7 @@ const App = () => {
         }
     });
 
+    // set background push notification handler
     useEffect(() => {
         messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
             console.log(remoteMessage);
@@ -110,13 +37,13 @@ const App = () => {
             let message_body = remoteMessage.notification.body;
             let message_title = remoteMessage.notification.title;
 
-            displayNotification(message_title, message_body);
+            utils.displayNotification(message_title, message_body);
         });
-
-        console.log(appDataStorage.getString(DeviceKeys.DEVICE_LIST))
     }, []);
 
+    // set foreground push notification handler
     useEffect(() => {
+        console.log(deviceId);
         const subscribe = messaging().onMessage(async (remoteMessage: any) => {
             console.log(remoteMessage);
 
