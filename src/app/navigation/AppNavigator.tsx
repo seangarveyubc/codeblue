@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import messaging from '@react-native-firebase/messaging';
 import { SplashScreen } from '../screens/Splash/SplashScreen';
 import { OnboardingStack } from './OnboardingStack';
 import { MainNavigator } from './MainNavigator';
@@ -20,12 +22,46 @@ import { getLocalStorageBackgroundMode } from '../backgroundMode/notifee/Backgro
 const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => {
-    const { initialBackgroundState } = useContext(AppContext);
+    const { initialBackgroundState, dispatch } = useContext(AppContext);
     const [isEP, setIsEP] = useState(
         initialBackgroundState === BackgroundMode.CA_DETECTED ||
             initialBackgroundState === BackgroundMode.CALL_ENDED
     );
     let listener: any;
+
+    useEffect(() => {
+        messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
+            console.log(remoteMessage);
+
+            let message_body = remoteMessage.notification.body;
+            let message_title = remoteMessage.notification.title;
+            let avatar = remoteMessage.notification.android.imageUrl;
+
+            if (message_body === 'CARDIAC ARREST DETECTED! ') {
+                dispatch({ type: BackgroundMode.CA_DETECTED });
+            }
+
+            Alert.alert(message_title, message_body);
+        });
+    }, []);
+
+    useEffect(() => {
+        const subscribe = messaging().onMessage(async (remoteMessage: any) => {
+            console.log(remoteMessage);
+
+            let message_body = remoteMessage.notification.body;
+            let message_title = remoteMessage.notification.title;
+            let avatar = remoteMessage.notification.android.imageUrl;
+
+            if (message_body === 'CARDIAC ARREST DETECTED! ') {
+                dispatch({ type: BackgroundMode.CA_DETECTED });
+            }
+
+            Alert.alert(message_title, message_body);
+        });
+
+        return subscribe;
+    }, []);
 
     // subsribe to background mode value changes in local storage
     useEffect(() => {
