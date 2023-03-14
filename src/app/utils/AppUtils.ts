@@ -35,7 +35,7 @@ export const displayNotification = async (title: string, body: string) => {
                     pressAction: { id: 'cancel' }
                 }
             ],
-            autoCancel: false,
+            autoCancel: true,
             loopSound: true,
             ongoing: true,
             showChronometer: true,
