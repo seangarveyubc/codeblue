@@ -9,7 +9,6 @@ import { useLocalStorage } from './src/app/localStorage/hooks/useLocalStorage';
 import { DeviceKeys } from './src/app/localStorage/models/LocalStorageKeys';
 import * as utils from './src/app/utils/AppUtils';
 
-
 // save FCM device token id into local storage
 utils.saveDeviceFCMToken();
 
