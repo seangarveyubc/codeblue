@@ -12,6 +12,10 @@ import {
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
 import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
+import { backgroundModeStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { EP_TIMER } from '../../../localStorage/models/LocalStorageKeys';
 
 interface Props {
     navigation: any;
@@ -20,9 +24,14 @@ interface Props {
 var timerId: any = null;
 
 export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
+    const { dispatch } = React.useContext(AppContext);
     const [callModalVisible, setCallModalVisible] = React.useState(false);
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
-    const [time, setTime] = React.useState(30);
+
+    // initialize the timer to the current value in local storage
+    const [time, setTime] = React.useState(
+        backgroundModeStorage.getNumber(EP_TIMER) ?? 30
+    );
     const timerRef = React.useRef(time);
 
     React.useEffect(() => {
@@ -46,6 +55,13 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     };
     const showCancelModal = () => {
         setCancelModalVisible(true);
+    };
+
+    const placeEMSCall = () => {
+        TriggerCall();
+        setCallModalVisible(false);
+        clearInterval(timerId);
+        navigation.navigate('CallEnded');
     };
 
     return (
@@ -99,12 +115,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 modalVisible={callModalVisible}
                 setModalVisible={setCallModalVisible}
                 modalType={ModalType.CallAlert}
-                confirmAction={() => {
-                    TriggerCall();
-                    setCallModalVisible(false);
-                    clearInterval(timerId);
-                    navigation.navigate('CallEnded');
-                }}
+                confirmAction={placeEMSCall}
             />
             {/* Cancel alert modal */}
             <AlertModal
@@ -112,7 +123,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 setModalVisible={setCancelModalVisible}
                 modalType={ModalType.CancelAlert}
                 confirmAction={() => {
-                    navigation.navigate('MainNavigator');
+                    dispatch({ type: BackgroundMode.MONITOR_HEART });
                 }}
             />
         </View>
@@ -165,4 +176,7 @@ const styles = StyleSheet.create({
     }
 });
 
-AppRegistry.registerComponent('ca-component', () => CardiacArrestDetectedScreen);
+AppRegistry.registerComponent(
+    'ca-component',
+    () => CardiacArrestDetectedScreen
+);
