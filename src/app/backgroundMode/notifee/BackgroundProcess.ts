@@ -1,11 +1,9 @@
-import { AppState } from 'react-native';
 import { backgroundModeStorage } from '../../localStorage/hooks/useLocalStorage';
 import {
     BACKGROUND_MODE,
     EP_TIMER
 } from '../../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../models/BackgroundMode';
-import { TriggerCall } from '../../EMSCall/TriggerCall';
 
 export class BackgroundProcess {
     mode: BackgroundMode;
@@ -44,7 +42,8 @@ export class BackgroundProcess {
                 break;
             }
             case BackgroundMode.CA_DETECTED: {
-                if (AppState.currentState === 'background') {
+                // TODO: handle CA detected while in background mode
+                /*if (AppState.currentState === 'background') {
                     // handle countdown in the background
                     for (let i = 1; i <= 30; i++) {
                         setTimeout(() => {
@@ -55,7 +54,7 @@ export class BackgroundProcess {
                             }
                         }, i * 1000);
                     }
-                }
+                }*/
                 this.callFn = setInterval(() => {
                     console.log('ca detected');
                 }, 5000);
@@ -77,11 +76,12 @@ export class BackgroundProcess {
         }
     }
 
-    handleBackgroundCADetected() {
+    // TODO: handle CA detected while in background mode
+    /*handleBackgroundCADetected() {
         TriggerCall();
         // (short circuit dispatch) open to call ended screen after call placed
         backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CALL_ENDED);
-    }
+    }*/
 
     startBackgroundTaskListener() {
         this.listener = backgroundModeStorage.storage.addOnValueChangedListener(
