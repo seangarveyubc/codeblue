@@ -12,8 +12,6 @@ import {
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
 import { AppContext } from '../../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
-import { backgroundModeStorage } from '../../../localStorage/hooks/useLocalStorage';
-import { EP_TIMER } from '../../../localStorage/models/LocalStorageKeys';
 
 interface Props {
     navigation: any;
@@ -27,10 +25,8 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     const [callModalVisible, setCallModalVisible] = React.useState(false);
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
 
-    // initialize the timer to the current value in local storage
-    const [time, setTime] = React.useState(
-        backgroundModeStorage.getNumber(EP_TIMER) ?? 30
-    );
+    // TODO: initialize timer current value in local storage
+    const [time, setTime] = React.useState(30);
     const timerRef = React.useRef(time);
 
     React.useEffect(() => {

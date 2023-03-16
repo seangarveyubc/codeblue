@@ -24,27 +24,28 @@ export const LegalScreen = ({ navigation }: Props) => {
                     title="Healthy/Monitor Heart"
                     onPress={() => {
                         dispatch({ type: BackgroundMode.MONITOR_HEART });
-                        fetch('http://54.190.226.175:3000/healthy')
+                        /*fetch('http://54.190.226.175:3000/healthy')
                             .then((response) => response.json())
                             .then((json) => {
                                 console.log(json);
                             })
                             .catch((error) => {
                                 console.error(error);
-                            });
+                            });*/
                     }}
                 />
                 <Button
                     title="CA"
                     onPress={() => {
-                        fetch('http://54.190.226.175:3000/ca')
+                        dispatch({ type: BackgroundMode.CA_DETECTED });
+                        /*fetch('http://54.190.226.175:3000/ca')
                             .then((response) => response.json())
                             .then((json) => {
                                 console.log(json);
                             })
                             .catch((error) => {
                                 console.error(error);
-                            });
+                            });*/
                     }}
                 />
                 <Button

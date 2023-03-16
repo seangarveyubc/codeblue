@@ -85,8 +85,8 @@ export const AppNavigator = () => {
         );
     }, [listener]);
 
-    // TODO: case where app is opened when call is in progress
-    const initialEPScreen = useMemo((): EmergencyProtocolScreen => {
+    // TODO: case where app is opened when call is in progress, CA detected while in background mode
+    /*const initialEPScreen = useMemo((): EmergencyProtocolScreen => {
         const backgroundState = getLocalStorageBackgroundMode();
 
         if (backgroundState === BackgroundMode.CA_DETECTED) {
@@ -96,14 +96,14 @@ export const AppNavigator = () => {
         }
 
         return 'CallInProgress';
-    }, [backgroundModeStorage]);
+    }, [backgroundModeStorage]);*/
 
     return (
         <AppContextProvider>
             <NavigationContainer>
                 {isEP ? (
                     <EmergencyProtocolStack
-                        initialRouteName={initialEPScreen}
+                        initialRouteName={'CardiacArrestDetected'}
                     />
                 ) : (
                     <Stack.Navigator
