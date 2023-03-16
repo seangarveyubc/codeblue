@@ -60,10 +60,7 @@ export const useLocalStorage = () => {
         }
     };
 
-    const saveDeviceId = (
-        key: string,
-        deviceId: string
-    ) => {
+    const saveDeviceId = (key: string, deviceId: string) => {
         appDataStorage.add(key, deviceId);
     };
 

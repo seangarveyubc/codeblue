@@ -55,8 +55,8 @@ const createChannelId = async () => {
 };
 
 const cancelBackgroundTask = async (type: EventType, detail: EventDetail) => {
-    console.log(type)
-    console.log(detail)
+    console.log(type);
+    console.log(detail);
     if (type === EventType.ACTION_PRESS && detail?.pressAction?.id === 'stop') {
         await notifee.stopForegroundService();
         notifee.cancelNotification(FOREGROUND_NOTIF_CHANNEL_ID);

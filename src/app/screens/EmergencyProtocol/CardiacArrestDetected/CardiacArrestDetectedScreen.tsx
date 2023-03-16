@@ -175,4 +175,7 @@ const styles = StyleSheet.create({
     }
 });
 
-AppRegistry.registerComponent('ca-component', () => CardiacArrestDetectedScreen);
+AppRegistry.registerComponent(
+    'ca-component',
+    () => CardiacArrestDetectedScreen
+);
