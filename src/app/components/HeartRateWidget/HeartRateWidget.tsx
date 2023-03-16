@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from '@notifee/react-native';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
@@ -50,10 +51,16 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                     </Text>
                 </View>
             </View>
-            <Image
-                source={require('../../assets/heartRate.png')} //Change your icon image here
-                style={styles.ImageStyle}
-            />
+            <View style={styles.ImageStyle}>
+                <Image
+                    source={require('../../assets/heartRate.png')} //Change your icon image here
+                    style={{
+                        resizeMode: 'contain',
+                        height: '100%',
+                        width: '100%'
+                    }}
+                />
+            </View>
         </View>
     );
 };
@@ -79,5 +86,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
-    ImageStyle: {}
+    ImageStyle: {
+        height: '60%',
+        width: '40%'
+    }
 });

@@ -7,10 +7,9 @@ import { Swirl } from '../Swirl/Swirl';
 
 interface Props {
     title: string;
-    height?: number;
 }
 // Pass in a number <-25 if you want to increase the height and >-25 if you want to decrease
-export const HeaderSwirl = ({ title, height }: Props) => {
+export const HeaderSwirl = ({ title }: Props) => {
     return (
         <View>
             <View style={styles.logo}>
@@ -21,7 +20,7 @@ export const HeaderSwirl = ({ title, height }: Props) => {
             <View
                 style={{
                     ...styles.swirl,
-                    ...{ bottom: height ?? normalize(-25) }
+                    ...{ bottom: normalize(-25) }
                 }}
             >
                 <Swirl />

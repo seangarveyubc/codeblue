@@ -51,15 +51,12 @@ export const HomeScreen = ({ navigation }: Props) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
+            <>
                 <View style={styles.header}>
-                    <HeaderSwirl
-                        title={firstName + ' ' + lastName}
-                        height={normalize(250)}
-                    />
+                    <HeaderSwirl title={firstName + ' ' + lastName} />
                 </View>
                 <View style={styles.heartContainer}>
-                    <HeartRateWidget heartRate={normalize(56)} />
+                    <HeartRateWidget heartRate={56} />
                 </View>
                 <CentredContent>
                     <View style={styles.deviceHeader}>
@@ -133,7 +130,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         </CentredContent>
                     </View>
                 )}
-            </ScrollView>
+            </>
         </View>
     );
 };
@@ -143,13 +140,15 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-end',
         backgroundColor: Colours.WHITE,
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '100%'
     },
     header: {
         height: '15%'
     },
     heartContainer: {
-        paddingTop: normalize(20)
+        paddingTop: normalize(20),
+        width: '100%'
     },
     yourDevices: {
         fontFamily: 'DMSans-Bold',

@@ -21,7 +21,7 @@ interface Props {
 
 export const AllSettingsScreen = ({ navigation }: Props) => {
     const [modalVisible, setModalVisible] = React.useState(false);
-    const { appDataStorage, cardiacStorage } = useLocalStorage();
+    const { appDataStorage } = useLocalStorage();
 
     const onPressResetApp = () => {
         setModalVisible(true);
@@ -29,7 +29,7 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
 
     const deleteAllAppData = () => {
         appDataStorage.clearStorage();
-        cardiacStorage.clearStorage();
+        // cardiacStorage.clearStorage();
         navigation.navigate('SplashScreen');
     };
 
@@ -38,44 +38,42 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
             <View style={styles.header}>
                 <HeaderSwirl title={'Settings'} />
             </View>
-            <ScrollView style={styles.scroll}>
-                <SettingsOptionHeading title={'My Account'} />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('AccountInfo');
-                    }}
-                    optionType={OptionType.AccountInfo}
-                />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('MedicalInfo');
-                    }}
-                    optionType={OptionType.MedicalInfo}
-                />
-                <SettingsOptionHeading title={'Help'} />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('Tutorial');
-                    }}
-                    optionType={OptionType.Tutorial}
-                />
-                <SettingsOptionHeading title={''} />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('Legal');
-                    }}
-                    optionType={OptionType.Legal}
-                />
-                <AlertModal
-                    modalVisible={modalVisible}
-                    setModalVisible={setModalVisible}
-                    modalType={ModalType.ResetAlert}
-                    confirmAction={deleteAllAppData}
-                />
-                <Text style={styles.resetText} onPress={onPressResetApp}>
-                    {'Reset App'}
-                </Text>
-            </ScrollView>
+            <SettingsOptionHeading title={'My Account'} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('AccountInfo');
+                }}
+                optionType={OptionType.AccountInfo}
+            />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('MedicalInfo');
+                }}
+                optionType={OptionType.MedicalInfo}
+            />
+            <SettingsOptionHeading title={'Help'} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Tutorial');
+                }}
+                optionType={OptionType.Tutorial}
+            />
+            <SettingsOptionHeading title={''} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Legal');
+                }}
+                optionType={OptionType.Legal}
+            />
+            <AlertModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                modalType={ModalType.ResetAlert}
+                confirmAction={deleteAllAppData}
+            />
+            <Text style={styles.resetText} onPress={onPressResetApp}>
+                {'Reset App'}
+            </Text>
         </View>
     );
 };
@@ -85,8 +83,7 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: Colours.WHITE
     },
-    scroll: { marginTop: normalize(10) },
-    header: { marginBottom: normalize(10) },
+    header: { marginBottom: normalize(20) },
     resetText: {
         margin: normalize(20),
         fontSize: normalize(20),
