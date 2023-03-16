@@ -19,12 +19,7 @@ export const DropdownMultiSelect = ({
     setSelected
 }: Props) => {
     return (
-        <View
-            style={{
-                ...styles.container,
-                ...{ width: width }
-            }}
-        >
+        <View style={{ width: width }}>
             <MultiSelect
                 style={styles.dropdown}
                 placeholderStyle={styles.placeholderStyle}
@@ -41,15 +36,13 @@ export const DropdownMultiSelect = ({
                     setSelected(item);
                 }}
                 selectedStyle={styles.selectedStyle}
+                iconColor={Colours.BLUE}
             />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 16
-    },
     dropdown: {
         height: 56,
         borderColor: Colours.BLUE,
@@ -78,7 +71,7 @@ const styles = StyleSheet.create({
     },
     selectedStyle: {
         borderRadius: 8,
-        backgroundColor: Colours.LIGHTGREY,
+        backgroundColor: Colours.WHITE,
         borderColor: Colours.BLUE
     },
     inputSearchStyle: {

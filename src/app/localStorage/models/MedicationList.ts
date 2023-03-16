@@ -1,3 +1,4 @@
 export interface MedicationList {
-    medications: string[];
+    // a list of indicies corresponding to the DropdownOptions medications array
+    medications: number[];
 }
