@@ -25,11 +25,19 @@ export const setNotificationForegroundService = () => {
             }, DAY_IN_MILLIS);
 
             notifee.onForegroundEvent(async ({ type, detail }) => {
+                console.log(
+                    'User pressed a foreground action with the id: ',
+                    detail.pressAction?.id
+                );
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
             });
 
             notifee.onBackgroundEvent(async ({ type, detail }) => {
+                console.log(
+                    'User pressed a background action with the id: ',
+                    detail.pressAction?.id
+                );
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
             });
@@ -69,6 +77,8 @@ const createChannelId = async () => {
 };
 
 const cancelBackgroundTask = async (type: EventType, detail: EventDetail) => {
+    console.log(type)
+    console.log(detail)
     if (type === EventType.ACTION_PRESS && detail?.pressAction?.id === 'stop') {
         await notifee.stopForegroundService();
         notifee.cancelNotification(FOREGROUND_NOTIF_CHANNEL_ID);

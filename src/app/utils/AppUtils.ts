@@ -3,7 +3,17 @@ import { useLocalStorage } from '../localStorage/hooks/useLocalStorage';
 import messaging from '@react-native-firebase/messaging';
 import { DeviceKeys } from '../localStorage/models/LocalStorageKeys';
 
-export const displayNotification = async (title: string, body: string) => {
+
+export const handleRemoteNotification = async (remoteMessage: any) => {
+    console.log(remoteMessage);
+
+    let message_body = remoteMessage.notification.body;
+    let message_title = remoteMessage.notification.title;
+
+    displayCANotification(message_title, message_body);
+}
+
+export const displayCANotification = async (title: string, body: string) => {
     // Create a channel (required for Android)
     const channelId = await notifee.createChannel({
         id: 'codeblue',
