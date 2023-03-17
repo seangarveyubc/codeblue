@@ -20,13 +20,13 @@ const App = () => {
 
     // utils.get_request(utils.local_healthy_address, deviceId);
 
-    useEffect(() => {
-        // set background push notification handler
-        messaging().setBackgroundMessageHandler(utils.handleRemoteNotification);
+    // useEffect(() => {
+    //     // set background push notification handler
+    //     messaging().setBackgroundMessageHandler(utils.handleRemoteNotification);
 
-        // set foreground push notification handler
-        messaging().onMessage(utils.handleRemoteNotification);
-    }, []);
+    //     // set foreground push notification handler
+    //     messaging().onMessage(utils.handleRemoteNotification);
+    // }, []);
 
     return <AppNavigator />;
 };

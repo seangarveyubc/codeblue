@@ -18,6 +18,8 @@ import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
 import { backgroundModeStorage } from '../localStorage/hooks/useLocalStorage';
 import { BACKGROUND_MODE } from '../localStorage/models/LocalStorageKeys';
 import { getLocalStorageBackgroundMode } from '../backgroundMode/notifee/BackgroundProcess';
+import * as utils from '../utils/AppUtils';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -30,37 +32,11 @@ export const AppNavigator = () => {
     let listener: any;
 
     useEffect(() => {
-        messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
-            console.log(remoteMessage);
+        // set background push notification handler
+        messaging().setBackgroundMessageHandler(utils.handleBackgroundNotification);
 
-            let message_body = remoteMessage.notification.body;
-            let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
-
-            if (message_body === 'CARDIAC ARREST DETECTED! ') {
-                dispatch({ type: BackgroundMode.CA_DETECTED });
-            }
-
-            Alert.alert(message_title, message_body);
-        });
-    }, []);
-
-    useEffect(() => {
-        const subscribe = messaging().onMessage(async (remoteMessage: any) => {
-            console.log(remoteMessage);
-
-            let message_body = remoteMessage.notification.body;
-            let message_title = remoteMessage.notification.title;
-            let avatar = remoteMessage.notification.android.imageUrl;
-
-            if (message_body === 'CARDIAC ARREST DETECTED! ') {
-                dispatch({ type: BackgroundMode.CA_DETECTED });
-            }
-
-            Alert.alert(message_title, message_body);
-        });
-
-        return subscribe;
+        // set foreground push notification handler
+        messaging().onMessage(utils.handleForegroundNotification);
     }, []);
 
     // subsribe to background mode value changes in local storage

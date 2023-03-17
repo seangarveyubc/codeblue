@@ -5,6 +5,7 @@ import {
     cardiacStorage
 } from '../../localStorage/hooks/useLocalStorage';
 import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
+import { BackgroundMode } from '../models/BackgroundMode';
 import { BackgroundProcess } from './BackgroundProcess';
 
 export const FOREGROUND_NOTIF_CHANNEL_ID = 'codeblue.foreground.notification';
@@ -60,6 +61,9 @@ const cancelBackgroundTask = async (type: EventType, detail: EventDetail) => {
     if (type === EventType.ACTION_PRESS && detail?.pressAction?.id === 'stop') {
         await notifee.stopForegroundService();
         notifee.cancelNotification(FOREGROUND_NOTIF_CHANNEL_ID);
+    } else if (type === EventType.ACTION_PRESS && detail?.pressAction?.id === 'ca') {
+        console.log('notif call button pressed');
+        backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CA_DETECTED);
     }
 };
 

@@ -1,15 +1,26 @@
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
-import { useLocalStorage } from '../localStorage/hooks/useLocalStorage';
+import { backgroundModeStorage, useLocalStorage } from '../localStorage/hooks/useLocalStorage';
 import messaging from '@react-native-firebase/messaging';
-import { DeviceKeys } from '../localStorage/models/LocalStorageKeys';
+import { BACKGROUND_MODE, DeviceKeys } from '../localStorage/models/LocalStorageKeys';
+import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
 
-export const handleRemoteNotification = async (remoteMessage: any) => {
+export const handleBackgroundNotification = async (remoteMessage: any) => {
     console.log(remoteMessage);
 
     let message_body = remoteMessage.notification.body;
     let message_title = remoteMessage.notification.title;
 
     displayCANotification(message_title, message_body);
+};
+
+export const handleForegroundNotification = async (remoteMessage: any) => {
+    console.log(remoteMessage);
+
+    let message_body = remoteMessage.notification.body;
+    let message_title = remoteMessage.notification.title;
+
+    // displayCANotification(message_title, message_body);
+    backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CA_DETECTED);
 };
 
 export const displayCANotification = async (title: string, body: string) => {
