@@ -1,6 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { Alert, Dimensions, StyleSheet, Text, View } from 'react-native';
+import {
+    Alert,
+    Dimensions,
+    PermissionsAndroid,
+    Platform,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import InputText from '../../../components/InputText/InputText';
@@ -12,6 +20,12 @@ import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 import { DropdownSelect } from '../../../components/DropdownSelect/DropdownSelect';
 import DropdownOptions from '../../../constants/DropdownOptions';
+import {
+    AlertModal,
+    ModalType
+} from '../../../components/AlertModal/AlertModal';
+import DeviceInfo from 'react-native-device-info';
+import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 
 interface Props {
     navigation: any;
@@ -53,6 +67,9 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
         appDataStorage.getBoolean(PersonalDataKeys.HAS_FAMILY_HEART_PROBLEM)
     );
 
+    const [permissionModalVisible, setPermissionModalVisible] =
+        React.useState(false);
+
     const handleUpdateHeartProblem = () => {
         // for a first time user, initial state of checkbox is undefined
         if (hasHeartProblem === undefined) {
@@ -78,7 +95,7 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
     const saveAndNavigateToSuccessScreen = () => {
         const didSave = saveEnteredInfo();
         if (didSave) {
-            navigateToSuccessScreen();
+            showPermissionModal();
         }
     };
 
@@ -115,6 +132,55 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
         }
 
         return true;
+    };
+
+    const showPermissionModal = () => {
+        setPermissionModalVisible(true);
+    };
+
+    type VoidCallback = (result: boolean) => void;
+
+    const requestPermissions = async (cb: VoidCallback) => {
+        if (Platform.OS === 'android') {
+            const apiLevel = await DeviceInfo.getApiLevel();
+
+            if (apiLevel < 31) {
+                PermissionsAndroid.requestMultiple([
+                    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                    PermissionsAndroid.PERMISSIONS.CALL_PHONE
+                ]).then((result) => {
+                    if (
+                        result['android.permission.ACCESS_FINE_LOCATION'] &&
+                        result['android.permission.CALL_PHONE'] === 'granted'
+                    ) {
+                        cb(true);
+                    } else {
+                        cb(false);
+                    }
+                });
+            } else {
+                const result = await requestMultiple([
+                    PERMISSIONS.ANDROID.BLUETOOTH_SCAN,
+                    PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+                    PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+                    PERMISSIONS.ANDROID.CALL_PHONE
+                ]);
+
+                const isGranted =
+                    result['android.permission.BLUETOOTH_CONNECT'] ===
+                        PermissionsAndroid.RESULTS.GRANTED &&
+                    result['android.permission.BLUETOOTH_SCAN'] ===
+                        PermissionsAndroid.RESULTS.GRANTED &&
+                    result['android.permission.ACCESS_FINE_LOCATION'] ===
+                        PermissionsAndroid.RESULTS.GRANTED &&
+                    result['android.permission.CALL_PHONE'] ===
+                        PermissionsAndroid.RESULTS.GRANTED;
+
+                cb(isGranted);
+            }
+        } else {
+            cb(true);
+        }
     };
 
     return (
@@ -190,10 +256,27 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                     text="Join"
                     onPress={saveAndNavigateToSuccessScreen}
                 />
-                <Text style={styles.skipText} onPress={navigateToSuccessScreen}>
+                <Text style={styles.skipText} onPress={showPermissionModal}>
                     Skip
                 </Text>
             </CentredContent>
+            {/* Call alert modal */}
+            <AlertModal
+                modalVisible={permissionModalVisible}
+                setModalVisible={setPermissionModalVisible}
+                modalType={ModalType.PermissionAlert}
+                confirmAction={() => {
+                    requestPermissions((isGranted) => {
+                        console.log('Entereed da bussy');
+                        if (isGranted) {
+                            navigateToSuccessScreen();
+                        } else {
+                            console.log('ERROR YOU IDIOT');
+                        }
+                    });
+                    setPermissionModalVisible(false);
+                }}
+            />
         </View>
     );
 };

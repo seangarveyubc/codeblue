@@ -20,7 +20,7 @@ interface Props {
 
 export const AllSettingsScreen = ({ navigation }: Props) => {
     const [modalVisible, setModalVisible] = React.useState(false);
-    const { appDataStorage, cardiacStorage } = useLocalStorage();
+    const { appDataStorage } = useLocalStorage();
 
     const onPressResetApp = () => {
         setModalVisible(true);
@@ -28,7 +28,7 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
 
     const deleteAllAppData = () => {
         appDataStorage.clearStorage();
-        cardiacStorage.clearStorage();
+        // cardiacStorage.clearStorage();
         navigation.navigate('SplashScreen');
     };
 
