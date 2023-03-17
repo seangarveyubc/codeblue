@@ -20,7 +20,6 @@ import { BACKGROUND_MODE } from '../localStorage/models/LocalStorageKeys';
 import { getLocalStorageBackgroundMode } from '../backgroundMode/notifee/BackgroundProcess';
 import * as utils from '../utils/AppUtils';
 
-
 const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => {
@@ -33,7 +32,9 @@ export const AppNavigator = () => {
 
     useEffect(() => {
         // set background push notification handler
-        messaging().setBackgroundMessageHandler(utils.handleBackgroundNotification);
+        messaging().setBackgroundMessageHandler(
+            utils.handleBackgroundNotification
+        );
 
         // set foreground push notification handler
         messaging().onMessage(utils.handleForegroundNotification);

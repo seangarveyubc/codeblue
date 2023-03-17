@@ -1,7 +1,13 @@
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
-import { backgroundModeStorage, useLocalStorage } from '../localStorage/hooks/useLocalStorage';
+import {
+    backgroundModeStorage,
+    useLocalStorage
+} from '../localStorage/hooks/useLocalStorage';
 import messaging from '@react-native-firebase/messaging';
-import { BACKGROUND_MODE, DeviceKeys } from '../localStorage/models/LocalStorageKeys';
+import {
+    BACKGROUND_MODE,
+    DeviceKeys
+} from '../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
 
 export const handleBackgroundNotification = async (remoteMessage: any) => {
