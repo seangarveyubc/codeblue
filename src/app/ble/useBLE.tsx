@@ -11,8 +11,8 @@ import DeviceInfo from 'react-native-device-info';
 
 import { atob } from 'react-native-quick-base64';
 
-const HEART_RATE_UUID = '0000180d-0000-1000-8000-00805f9b34fb';
-const HEART_RATE_CHARACTERISTIC = '00002a37-0000-1000-8000-00805f9b34fb';
+const HEART_RATE_UUID = '180D';
+const HEART_RATE_CHARACTERISTIC = '2A37';
 
 const bleManager = new BleManager();
 
@@ -73,6 +73,7 @@ function useBLE(): BluetoothLowEnergyApi {
 
     const isDuplicteDevice = (devices: Device[], nextDevice: Device) =>
         devices.findIndex((device) => nextDevice.id === device.id) > -1;
+
     let devicecounter = 0;
     const scanForPeripherals = () =>
         bleManager.startDeviceScan(null, null, (error, device) => {
@@ -89,22 +90,22 @@ function useBLE(): BluetoothLowEnergyApi {
                     return prevState;
                 });
             }
-            if (devicecounter >= 5) {
+            if (devicecounter >= 10) {
                 bleManager.stopDeviceScan();
             }
         });
 
     const connectToDevice = async (device: Device) => {
         try {
-            const deviceConnection = await bleManager.connectToDevice(
-                device.id
-            );
+            await device.connect();
             console.log('Trying to conncet');
-            setConnectedDevice(deviceConnection);
-            console.log(connectedDevice);
-            await deviceConnection.discoverAllServicesAndCharacteristics();
+            setConnectedDevice(device);
+
+            await device.discoverAllServicesAndCharacteristics();
+            console.log(device);
             bleManager.stopDeviceScan();
-            startStreamingData(deviceConnection);
+
+            startStreamingData(device);
         } catch (e) {
             console.log('FAILED TO CONNECT', e);
         }
@@ -122,6 +123,10 @@ function useBLE(): BluetoothLowEnergyApi {
         error: BleError | null,
         characteristic: Characteristic | null
     ) => {
+        console.log('error in update');
+        console.log(error);
+        console.log('charac in update');
+        console.log(characteristic);
         if (error) {
             console.log(error);
             return -1;
@@ -131,6 +136,8 @@ function useBLE(): BluetoothLowEnergyApi {
         }
 
         const rawData = atob(characteristic.value);
+        console.log(rawData);
+        console.log(rawData[1].charCodeAt(0));
         let innerHeartRate: number = -1;
 
         const firstBitValue: number = Number(rawData) & 0x01;
@@ -142,21 +149,44 @@ function useBLE(): BluetoothLowEnergyApi {
                 Number(rawData[1].charCodeAt(0) << 8) +
                 Number(rawData[2].charCodeAt(2));
         }
-
-        setHeartRate(innerHeartRate);
+        console.log(rawData);
+        setHeartRate(Number(rawData));
     };
 
     const startStreamingData = async (device: Device) => {
-        if (device) {
-            device.monitorCharacteristicForService(
-                HEART_RATE_UUID,
-                HEART_RATE_CHARACTERISTIC,
-                (error, characteristic) =>
-                    onHeartRateUpdate(error, characteristic)
-            );
-        } else {
-            console.log('No Device Connected');
-        }
+        const services = await device.services();
+        console.log(services);
+        const char = await services[11].characteristics();
+        console.log(char);
+
+        console.log('111111');
+        // console.log(temp1.value!);
+        console.log(char[0].serviceUUID);
+        // const temp = await device.readCharacteristicForService(
+        //     char[0].serviceUUID,
+        //     char[0].uuid
+        // );
+        // console.log(temp.value);
+        // console.log('here');
+        // temp.monitor((error, characteristic) => {
+        //     console.log(error);
+        //     console.log(characteristic);
+        //     setHeartRate(heartRate + 1);
+        //     // onHeartRateUpdate(error, characteristic);
+        // });
+
+        // if (device) {
+        //     device.monitorCharacteristicForService(
+        //         char[0].serviceUUID,
+        //         char[0].uuid,
+        //         (error, characteristic) => {
+        //             console.log(characteristic);
+        //             onHeartRateUpdate(error, characteristic);
+        //         }
+        //     );
+        // } else {
+        //     console.log('No Device Connected');
+        // }
     };
 
     return {
