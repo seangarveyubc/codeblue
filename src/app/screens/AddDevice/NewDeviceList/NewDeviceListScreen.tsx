@@ -6,7 +6,8 @@ import {
     SafeAreaView,
     TouchableOpacity,
     ActivityIndicator,
-    Button
+    Button,
+    ScrollView
 } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { AddDeviceWidget } from '../../../components/AddDeviceWidget/AddDeviceWidget';
@@ -28,8 +29,10 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
         heartRate,
         disconnectFromDevice
     } = useBLE();
+
     const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
     const [showLoading, setShowLoading] = React.useState<boolean>(true);
+    const [temp, setTemp] = React.useState<string>('');
     const scanForDevices = () => {
         requestPermissions((isGranted) => {
             if (isGranted) {
@@ -48,12 +51,25 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
         setIsModalVisible(true);
         setShowLoading(false);
     };
+    const connect = async () => {
+        const services = await connectedDevice!.services();
+        const char = await services[11].characteristics();
+
+        console.log(char[0].serviceUUID);
+
+        connectedDevice!.monitorCharacteristicForService(
+            char[0].serviceUUID,
+            char[0].uuid,
+            (error, characteristic) => {
+                console.log(characteristic);
+                setTemp(characteristic?.value || '');
+            }
+        );
+    };
 
     React.useEffect(() => {
-        // openModal();
         setTimeout(() => {
             openModal();
-            // navigation.navigate('NewDeviceList');
         }, 1000);
     }, []);
     let devicescount = allDevices.length;
@@ -61,13 +77,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.page}>
             <Text style={styles.title}>Add New Devices</Text>
-            {/* <View style={styles.devicelist}>
-                <AddDeviceWidget name="default 1"></AddDeviceWidget>
-                <AddDeviceWidget name="default 2"></AddDeviceWidget>
-                <AddDeviceWidget name="default 3"></AddDeviceWidget>
-            </View> */}
-            {/* <Text style={styles.title}>Add New Devices</Text> */}
-            {/* <Text style={styles.subtitle}>Scanning for devices...</Text> */}
+
             {showLoading ? (
                 <ActivityIndicator
                     style={styles.loader}
@@ -80,7 +90,11 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
                 <></>
             )}
             {connectedDevice ? (
-                <Text>connected</Text>
+                <>
+                    <Text>{temp}</Text>
+                    <Button onPress={disconnectFromDevice} title="Close" />
+                    <Button onPress={connect} title="Read Update" />
+                </>
             ) : (
                 <DeviceModal
                     closeModal={hideModal}

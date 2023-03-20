@@ -25,6 +25,7 @@ import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
 import { useIsFocused } from '@react-navigation/native';
 import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
 import { normalize } from '../../utils/normalizer/normalizer';
+import { BleManager } from 'react-native-ble-plx';
 
 interface Props {
     navigation: any;
@@ -50,6 +51,7 @@ export const HomeScreen = ({ navigation }: Props) => {
         }
     }, [isFocused]);
 
+    // const bleManager = new BleManager();
     useEffect(() => {
         changeFirstName(
             appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? ''
@@ -58,7 +60,12 @@ export const HomeScreen = ({ navigation }: Props) => {
             appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? ''
         );
         setDeviceList(appDataStorage.getList(DeviceKeys.DEVICE_LIST) ?? []);
-
+        // bleManager.onStateChange((state) => {
+        //     if (state === 'PoweredOn') {
+        //         setBluetoothState(true);
+        //         setBluetoothState(false);
+        //     }
+        // }, true);
         // changeDeviceName1(appDataStorage.getList(DeviceKeys.DEVICE_LIST) ?? '');
     }, [isFocused]);
 
@@ -91,52 +98,52 @@ export const HomeScreen = ({ navigation }: Props) => {
 
     return (
         <View style={styles.container}>
-            <>
-                <View style={styles.header}>
-                    <HeaderSwirl title={firstName + ' ' + lastName} />
+            <View style={styles.header}>
+                <HeaderSwirl title={firstName + ' ' + lastName} height={250} />
+            </View>
+
+            <View style={styles.heartContainer}>
+                <HeartRateWidget heartRate={56} />
+            </View>
+            <CentredContent>
+                <View style={styles.deviceHeader}>
+                    <Text style={styles.yourDevices}>Your Devices</Text>
+                    <Text style={styles.edit} onPress={toggleChecked}>
+                        {deviceListState ? 'Edit' : 'Save'}
+                    </Text>
                 </View>
-                <View style={styles.heartContainer}>
-                    <HeartRateWidget heartRate={56} />
-                </View>
-                <CentredContent>
-                    <View style={styles.deviceHeader}>
-                        <Text style={styles.yourDevices}>Your Devices</Text>
-                        <Text style={styles.edit} onPress={toggleChecked}>
-                            {deviceListState ? 'Edit' : 'Save'}
-                        </Text>
-                    </View>
-                </CentredContent>
-                {!bluetoothState ? (
-                    <View style={styles.bluetoothPrompt}>
-                        <CentredContent>
-                            <Text>
-                                CodeBlue requires Bluetooth to monitor heart
-                                rate.
-                                <Text
-                                    style={{
-                                        color: Colours.BLUE,
-                                        fontFamily: 'DMSans-Regular'
-                                    }}
-                                >
-                                    Turn on Bluetooth.
-                                </Text>
+            </CentredContent>
+            {!bluetoothState ? (
+                <View style={styles.bluetoothPrompt}>
+                    <CentredContent>
+                        <Text>
+                            CodeBlue requires Bluetooth to monitor heart rate.
+                            <Text
+                                style={{
+                                    color: Colours.BLUE
+                                }}
+                            >
+                                Turn on Bluetooth.
                             </Text>
-                        </CentredContent>
-                    </View>
-                ) : null}
-                {deviceListState ? (
-                    <View
-                        style={{
-                            flex: bluetoothState ? normalize(7) : normalize(6),
-                            marginTop: normalize(10)
-                        }}
-                    >
-                        <CentredContent>
-                            <FlatList
-                                data={deviceList}
-                                renderItem={renderDeviceWidget}
-                            />
-                            {/* <View style={{ paddingBottom: 15 }}>
+                        </Text>
+                    </CentredContent>
+                </View>
+            ) : (
+                <Text>On</Text>
+            )}
+            {deviceListState ? (
+                <View
+                    style={{
+                        flex: bluetoothState ? 7 : 6,
+                        marginTop: 10
+                    }}
+                >
+                    <CentredContent>
+                        <FlatList
+                            data={deviceList}
+                            renderItem={renderDeviceWidget}
+                        />
+                        {/* <View style={{ paddingBottom: 15 }}>
                                 <DeviceWidget
                                     name={deviceName1}
                                     isConnected={true}
@@ -148,21 +155,21 @@ export const HomeScreen = ({ navigation }: Props) => {
                                     isConnected={false}
                                 />
                             </View> */}
-                        </CentredContent>
-                    </View>
-                ) : (
-                    <View
-                        style={{
-                            flex: bluetoothState ? normalize(7) : normalize(6),
-                            marginTop: normalize(10)
-                        }}
-                    >
-                        <CentredContent>
-                            <FlatList
-                                data={deviceList}
-                                renderItem={renderIconTextInput}
-                            />
-                            {/* <View style={{ width: '88%' }}>
+                    </CentredContent>
+                </View>
+            ) : (
+                <View
+                    style={{
+                        flex: bluetoothState ? 7 : 6,
+                        marginTop: 10
+                    }}
+                >
+                    <CentredContent>
+                        <FlatList
+                            data={deviceList}
+                            renderItem={renderIconTextInput}
+                        />
+                        {/* <View style={{ width: '88%' }}>
                                 <IconTextInput
                                     text={deviceName1}
                                     isConnected={true}
@@ -176,10 +183,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                                     onChangeText={changeDeviceName2}
                                 />
                             </View> */}
-                        </CentredContent>
-                    </View>
-                )}
-            </>
+                    </CentredContent>
+                </View>
+            )}
         </View>
     );
 };

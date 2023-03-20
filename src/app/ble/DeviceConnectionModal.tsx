@@ -8,7 +8,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     Button,
-    View
+    View,
+    ScrollView
 } from 'react-native';
 import { Device } from 'react-native-ble-plx';
 import { AddDeviceWidget } from '../components/AddDeviceWidget/AddDeviceWidget';
@@ -30,24 +31,6 @@ type DeviceModalProps = {
     navigation: any;
 };
 
-// const DeviceModalListItem: FC<DeviceModalListItemProps> = (props) => {
-//     const { item, connectToPeripheral, closeModal } = props;
-
-//     const connectAndCloseModal = useCallback(() => {
-//         connectToPeripheral(item.item);
-//         closeModal();
-//     }, [closeModal, connectToPeripheral, item.item]);
-
-//     return (
-//         <TouchableOpacity
-//             onPress={connectAndCloseModal}
-//             style={modalStyle.ctaButton}
-//         >
-
-//         </TouchableOpacity>
-//     );
-// };
-
 const DeviceModal: FC<DeviceModalProps> = (props) => {
     const {
         devices,
@@ -61,43 +44,26 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
     const renderDeviceModalListItem = useCallback(
         (item: ListRenderItemInfo<Device>) => {
             return (
-                <AddDeviceWidget
-                    name={item.item.name ?? item.item.id}
-                    item={item}
-                    connectToPeripheral={connectToPeripheral}
-                    connectedDevice={connectedDevice}
-                    closeModal={closeModal}
-                />
+                <ScrollView>
+                    <AddDeviceWidget
+                        name={item.item.name ?? item.item.id}
+                        item={item}
+                        connectToPeripheral={connectToPeripheral}
+                        connectedDevice={connectedDevice}
+                        closeModal={closeModal}
+                    />
+                </ScrollView>
             );
         },
         [closeModal, connectToPeripheral]
     );
 
     return (
-        // <Modal
-        //     style={modalStyle.modalContainer}
-        //     animationType="slide"
-        //     transparent={false}
-        //     visible={visible}
-        // >
-        <View style={modalStyle.modalTitle}>
-            <FlatList
-                contentContainerStyle={modalStyle.modalFlatlistContiner}
-                data={devices}
-                renderItem={renderDeviceModalListItem}
-            />
-            {/* <Button
-                title="End Scanning"
-                onPress={
-                    closeModal
-                    // navigation.navigate('NewDeviceList');
-                }
-            />
-            <TouchableOpacity onPress={closeModal}>
-                <Text>'Done'</Text>
-            </TouchableOpacity> */}
-        </View>
-        // </Modal>
+        <FlatList
+            contentContainerStyle={modalStyle.modalFlatlistContiner}
+            data={devices}
+            renderItem={renderDeviceModalListItem}
+        />
     );
 };
 
@@ -107,7 +73,6 @@ const modalStyle = StyleSheet.create({
         backgroundColor: Colours.WHITE
     },
     modalFlatlistContiner: {
-        flex: 1,
         justifyContent: 'flex-start'
     },
     modalCellOutline: {
