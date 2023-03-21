@@ -139,8 +139,7 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
     };
 
     type VoidCallback = (result: boolean) => void;
-
-    const requestPermissions = async (cb: VoidCallback) => {
+    const requestPermissions = async () => {
         if (Platform.OS === 'android') {
             const apiLevel = await DeviceInfo.getApiLevel();
 
@@ -150,12 +149,14 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                     PermissionsAndroid.PERMISSIONS.CALL_PHONE
                 ]).then((result) => {
                     if (
-                        result['android.permission.ACCESS_FINE_LOCATION'] &&
+                        result['android.permission.ACCESS_FINE_LOCATION'] ===
+                            'granted' &&
                         result['android.permission.CALL_PHONE'] === 'granted'
                     ) {
-                        cb(true);
+                        navigateToSuccessScreen();
                     } else {
-                        cb(false);
+                        // re-request permissions
+                        requestPermissions();
                     }
                 });
             } else {
@@ -176,10 +177,15 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                     result['android.permission.CALL_PHONE'] ===
                         PermissionsAndroid.RESULTS.GRANTED;
 
-                cb(isGranted);
+                if (isGranted) {
+                    navigateToSuccessScreen();
+                } else {
+                    // re-request permissions
+                    requestPermissions();
+                }
             }
         } else {
-            cb(true);
+            navigateToSuccessScreen();
         }
     };
 
@@ -266,14 +272,7 @@ export const OptionalInfoScreen = ({ navigation }: Props) => {
                 setModalVisible={setPermissionModalVisible}
                 modalType={ModalType.PermissionAlert}
                 confirmAction={() => {
-                    requestPermissions((isGranted) => {
-                        console.log('Entereed da bussy');
-                        if (isGranted) {
-                            navigateToSuccessScreen();
-                        } else {
-                            console.log('ERROR YOU IDIOT');
-                        }
-                    });
+                    requestPermissions();
                     setPermissionModalVisible(false);
                 }}
             />
