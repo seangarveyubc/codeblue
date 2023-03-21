@@ -14,6 +14,8 @@ import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
 import { useIsFocused } from '@react-navigation/native';
 import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
+import { EditDeviceWidget } from '../../components/EditDeviceWidget/EditDeviceWidget';
+import { SensorLocations } from '../../constants/SensorLocations';
 
 interface Props {
     navigation: any;
@@ -97,12 +99,14 @@ export const HomeScreen = ({ navigation }: Props) => {
                             <View style={{ paddingBottom: 15 }}>
                                 <DeviceWidget
                                     name={deviceName1}
+                                    location={'Forehead'}
                                     isConnected={true}
                                 />
                             </View>
                             <View style={{ paddingBottom: 15 }}>
                                 <DeviceWidget
                                     name={deviceName2}
+                                    location={'Right Tip of Finger'}
                                     isConnected={false}
                                 />
                             </View>
@@ -116,20 +120,14 @@ export const HomeScreen = ({ navigation }: Props) => {
                         }}
                     >
                         <CentredContent>
-                            <View style={{ width: '88%' }}>
-                                <IconTextInput
-                                    text={deviceName1}
-                                    isConnected={true}
-                                    onChangeText={changeDeviceName1}
-                                />
-                            </View>
-                            <View style={{ width: '88%' }}>
-                                <IconTextInput
-                                    text={deviceName2}
-                                    isConnected={false}
-                                    onChangeText={changeDeviceName2}
-                                />
-                            </View>
+                            <EditDeviceWidget
+                                name={deviceName1}
+                                onUpdateName={() => {}}
+                                location={2}
+                                onUpdateLocationIndex={() => {}}
+                                deleteDevice={() => {}}
+                                isConnected={true}
+                            />
                         </CentredContent>
                     </View>
                 )}
