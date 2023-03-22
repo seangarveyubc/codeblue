@@ -32,6 +32,7 @@ export const setNotificationForegroundService = () => {
                 );
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
+                // handleNotificationPress(type, detail);
             });
 
             notifee.onBackgroundEvent(async ({ type, detail }) => {
@@ -41,6 +42,7 @@ export const setNotificationForegroundService = () => {
                 );
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
+                // handleNotificationPress(type, detail);
             });
         });
     });
@@ -56,17 +58,24 @@ const createChannelId = async () => {
 };
 
 const cancelBackgroundTask = async (type: EventType, detail: EventDetail) => {
-    console.log(type);
-    console.log(detail);
     if (type === EventType.ACTION_PRESS && detail?.pressAction?.id === 'stop') {
         await notifee.stopForegroundService();
         notifee.cancelNotification(FOREGROUND_NOTIF_CHANNEL_ID);
-    } else if (
-        type === EventType.ACTION_PRESS &&
-        detail?.pressAction?.id === 'ca'
-    ) {
-        console.log('notif call button pressed');
-        backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CA_DETECTED);
+    }
+};
+
+const handleNotificationPress = async (
+    type: EventType,
+    detail: EventDetail
+) => {
+    if (type === EventType.ACTION_PRESS) {
+        if (detail?.pressAction?.id === 'call') {
+            //TODO
+            console.log('call immediately');
+        } else if (detail?.pressAction?.id === 'cancel') {
+            //TODO
+            console.log('cancel timer immediately');
+        }
     }
 };
 

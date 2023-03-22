@@ -80,10 +80,6 @@ export const useLocalStorage = () => {
         }
     };
 
-    const saveDeviceId = (key: string, deviceId: string) => {
-        appDataStorage.add(key, deviceId);
-    };
-
     return {
         isLocalStorageEmpty,
         appDataStorage,
@@ -92,7 +88,6 @@ export const useLocalStorage = () => {
         saveUserWeightHeight,
         saveUserSex,
         saveUserBloodType,
-        saveHeartProblem,
-        saveDeviceId
+        saveHeartProblem
     };
 };

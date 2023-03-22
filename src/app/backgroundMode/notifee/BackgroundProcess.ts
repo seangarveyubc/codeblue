@@ -1,7 +1,11 @@
-import { backgroundModeStorage } from '../../localStorage/hooks/useLocalStorage';
+import {
+    backgroundModeStorage,
+    useLocalStorage
+} from '../../localStorage/hooks/useLocalStorage';
 import {
     BACKGROUND_MODE,
-    EP_TIMER
+    EP_TIMER,
+    HOST_DEVICE_ID
 } from '../../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../models/BackgroundMode';
 
@@ -25,19 +29,15 @@ export class BackgroundProcess {
                 // send data to algorithm
                 this.heartFn = setInterval(async () => {
                     console.log('reading heart rate');
-                    // TODO: update fetch to send data to algo
-                    /*const response = await fetch(
-                        `http://34.209.158.8:3000/`,
-                        {
-                            method: 'GET'
-                        }
+                    const { appDataStorage } = useLocalStorage();
+                    const deviceId =
+                        appDataStorage.getString(HOST_DEVICE_ID) ?? '';
+                    utils.fetchDetectCA(
+                        utils.local_healthy_address,
+                        [1, 2, 3],
+                        'forehead',
+                        deviceId
                     );
-                    if (response is CA) {
-                        backgroundModeStorage.add(
-                            BACKGROUND_MODE,
-                            BackgroundMode.CA_DETECTED
-                        );
-                    }*/
                 }, 10000);
                 break;
             }

@@ -1,4 +1,3 @@
-import { AppRegistry } from 'react-native';
 import * as React from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -171,8 +170,3 @@ const styles = StyleSheet.create({
         color: Colours.RED
     }
 });
-
-AppRegistry.registerComponent(
-    'ca-component',
-    () => CardiacArrestDetectedScreen
-);

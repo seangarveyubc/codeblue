@@ -15,44 +15,6 @@ export const LegalScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.page}>
             <ScrollView>
-                <Button
-                    title="Detect"
-                    onPress={() => {
-                        navigation.navigate('EmergencyProtocol');
-                    }}
-                />
-                <Button
-                    title="Healthy/Monitor Heart"
-                    onPress={() => {
-                        dispatch({ type: BackgroundMode.MONITOR_HEART });
-                        /*fetch('http://54.190.226.175:3000/healthy')
-                            .then((response) => response.json())
-                            .then((json) => {
-                                console.log(json);
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                            });*/
-                    }}
-                />
-                <Button
-                    title="CA"
-                    onPress={() => {
-                        dispatch({ type: BackgroundMode.CA_DETECTED });
-                        /*fetch('http://54.190.226.175:3000/ca')
-                            .then((response) => response.json())
-                            .then((json) => {
-                                console.log(json);
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                            });*/
-                    }}
-                />
-                <Button
-                    title="idle"
-                    onPress={() => dispatch({ type: BackgroundMode.IDLE })}
-                />
                 <Text style={styles.title}>Privacy Policy</Text>
                 <Text style={styles.paragraph}>
                     This Privacy Policy describes Our policies and procedures on
