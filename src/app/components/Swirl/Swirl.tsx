@@ -4,7 +4,7 @@ import { Svg, Path, G } from 'react-native-svg';
 
 import Colours from '../../constants/Colours';
 import { SCREEN_WIDTH } from '../../constants/constants';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 //import { normalize } from '../../normalizer/normalizer';
 
 interface Props {

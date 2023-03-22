@@ -7,7 +7,7 @@ import Colours from '../../../constants/Colours';
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
 import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
 import { Alert } from 'react-native';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

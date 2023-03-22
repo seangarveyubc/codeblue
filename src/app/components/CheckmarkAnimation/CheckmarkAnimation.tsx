@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Lottie from 'lottie-react-native';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 export const CheckmarkAnimation = () => {
     return (

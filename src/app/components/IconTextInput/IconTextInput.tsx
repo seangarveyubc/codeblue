@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import Colours from '../../constants/Colours';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     text: string;

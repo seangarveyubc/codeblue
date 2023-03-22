@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Colours from '../../constants/Colours';
 import DropdownOptions from '../../constants/DropdownOptions';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 import { UnderlineDropdownSelect } from '../UnderlineDropdownSelect/UnderlineDropdownSelect';
 import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 

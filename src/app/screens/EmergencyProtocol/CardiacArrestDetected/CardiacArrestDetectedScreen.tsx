@@ -9,7 +9,7 @@ import {
     ModalType
 } from '../../../components/AlertModal/AlertModal';
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
 
 interface Props {

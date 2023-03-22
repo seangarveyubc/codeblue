@@ -5,7 +5,7 @@ import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/S
 import { UserAccountInfo } from '../../../components/UserAccountInfo/UserAccountInfo';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

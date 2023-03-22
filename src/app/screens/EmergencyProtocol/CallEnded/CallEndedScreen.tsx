@@ -4,7 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/WideButton/WideButton';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
 
 interface Props {

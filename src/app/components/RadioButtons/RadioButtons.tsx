@@ -4,7 +4,7 @@ import { RadioButton, Text } from 'react-native-paper';
 
 import Colours from '../../constants/Colours';
 import { HeartProblemOptions } from '../../constants/HeartProblemOptions';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     selectedValue: string;

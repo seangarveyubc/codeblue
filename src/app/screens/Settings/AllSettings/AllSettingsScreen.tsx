@@ -13,7 +13,7 @@ import {
     SettingsOption
 } from '../../../components/SettingsOption/SettingsOption';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

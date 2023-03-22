@@ -2,7 +2,7 @@ import { AuthorizationStatus } from '@notifee/react-native';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     heartRate: number;

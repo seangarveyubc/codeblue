@@ -13,7 +13,7 @@ import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys'
 import { DropdownSelect } from '../../../components/DropdownSelect/DropdownSelect';
 import DropdownOptions from '../../../constants/DropdownOptions';
 import { SCREEN_WIDTH } from '../../../constants/constants';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

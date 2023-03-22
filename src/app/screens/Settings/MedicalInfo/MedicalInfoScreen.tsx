@@ -6,7 +6,7 @@ import { UserMedicalInfo } from '../../../components/UserMedicalInfo/UserMedical
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 import { HeartProblemOptions } from '../../../constants/HeartProblemOptions';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

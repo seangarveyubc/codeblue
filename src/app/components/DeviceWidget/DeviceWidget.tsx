@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colours from '../../constants/Colours';
 import { SCREEN_WIDTH } from '../../constants/constants';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     name: string;

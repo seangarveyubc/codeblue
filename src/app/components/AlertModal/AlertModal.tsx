@@ -7,7 +7,7 @@ import Colours from '../../constants/Colours';
 import { CentredContent } from '../CentredContent/CentredContent';
 import { RoundButton } from '../RoundButton/RoundButton';
 import { CancelButton } from '../CancelButton/CancelButton';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/constants';
 
 export enum ModalType {

@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 import Colours from '../../constants/Colours';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     data: { label: string; value: number }[];

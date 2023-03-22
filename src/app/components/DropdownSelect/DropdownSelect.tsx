@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     type: string;

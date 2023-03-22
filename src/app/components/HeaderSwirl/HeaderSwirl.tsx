@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 import { Logo } from '../Logo/Logo';
 import { Swirl } from '../Swirl/Swirl';
 

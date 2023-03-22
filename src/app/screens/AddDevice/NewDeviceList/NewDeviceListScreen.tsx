@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { AddDeviceWidget } from '../../../components/AddDeviceWidget/AddDeviceWidget';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

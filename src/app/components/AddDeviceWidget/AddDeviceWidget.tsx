@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Colours from '../../constants/Colours';
 import { SCREEN_WIDTH } from '../../constants/constants';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {

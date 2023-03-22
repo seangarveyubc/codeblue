@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Button, Text, View } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import Colours from '../../constants/Colours';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     title: string;

@@ -4,7 +4,7 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import Colours from '../../../constants/Colours';
 import { CentredContent } from '../../../components/CentredContent/CentredContent';
 import Video from 'react-native-video';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/constants';
 
 interface Props {

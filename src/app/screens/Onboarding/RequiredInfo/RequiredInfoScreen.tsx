@@ -15,7 +15,7 @@ import { WideButton } from '../../../components/WideButton/WideButton';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/constants';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

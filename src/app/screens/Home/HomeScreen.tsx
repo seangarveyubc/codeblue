@@ -14,7 +14,7 @@ import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
 import { useIsFocused } from '@react-navigation/native';
 import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

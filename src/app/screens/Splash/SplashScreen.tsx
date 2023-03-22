@@ -18,7 +18,7 @@ import {
     SCREEN_HEIGHT
 } from '../../constants/constants';
 import { useIsFocused } from '@react-navigation/native';
-import { normalize } from '../../normalizer/normalizer';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { CheckmarkAnimation } from '../../../components/CheckmarkAnimation/CheckmarkAnimation';
 import { SCREEN_NAV_DELAY_TIME } from '../../../constants/constants';
-import { normalize } from '../../../normalizer/normalizer';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
