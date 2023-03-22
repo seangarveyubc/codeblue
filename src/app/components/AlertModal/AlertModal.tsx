@@ -13,7 +13,8 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/constants';
 export enum ModalType {
     CallAlert,
     CancelAlert,
-    ResetAlert
+    ResetAlert,
+    PermissionAlert
 }
 
 const MODAL_TYPE = [
@@ -56,6 +57,14 @@ const MODAL_TYPE = [
         description:
             'Are you sure you want to clear all data? This action cannot be undone.',
         confirmText: 'Yes, clear data'
+    },
+    // PermissionAlert
+    {
+        icon: <Ionicons name="alert-circle" size={100} color={Colours.BLUE} />,
+        title: 'Allow Permissions',
+        description:
+            'In order to use CodeBlue, please allow all following permissions',
+        confirmText: 'Allow'
     }
 ];
 

@@ -6,9 +6,7 @@ import { UserMedicalInfo } from '../../../components/UserMedicalInfo/UserMedical
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 import { HeartProblemOptions } from '../../../constants/HeartProblemOptions';
-<<<<<<< HEAD
 import { normalize } from '../../../utils/normalizer/normalizer';
-=======
 import { DropdownMultiSelect } from '../../../components/DropdownMultiSelect/DropdownMultiSelect';
 import DropdownOptions from '../../../constants/DropdownOptions';
 import { SCREEN_WIDTH } from '../../../constants/constants';
@@ -16,7 +14,6 @@ import {
     deserializeMedicationList,
     serializeLocalStorageObject
 } from '../../../localStorage/models/mappers';
->>>>>>> main
 
 interface Props {
     navigation: any;
