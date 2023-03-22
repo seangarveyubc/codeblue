@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Colours from '../../constants/Colours';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     text: string;
@@ -33,14 +34,14 @@ export const RoundButton = ({ text, textColour, colour, onPress }: Props) => {
 const styles = StyleSheet.create({
     container: {
         width: '85%',
-        height: 48,
+        height: normalize(48),
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 48,
-        margin: 12
+        borderRadius: normalize(48),
+        margin: normalize(12)
     },
     text: {
-        fontSize: 18,
+        fontSize: normalize(18),
         fontFamily: 'DMSans-Bold'
     }
 });

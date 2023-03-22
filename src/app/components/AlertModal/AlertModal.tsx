@@ -7,6 +7,8 @@ import Colours from '../../constants/Colours';
 import { CentredContent } from '../CentredContent/CentredContent';
 import { RoundButton } from '../RoundButton/RoundButton';
 import { CancelButton } from '../CancelButton/CancelButton';
+import { normalize } from '../../utils/normalizer/normalizer';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/constants';
 
 export enum ModalType {
     CallAlert,
@@ -18,21 +20,39 @@ export enum ModalType {
 const MODAL_TYPE = [
     // CallAlert
     {
-        icon: <MaterialIcons name="call" size={100} color={Colours.BLUE} />,
+        icon: (
+            <MaterialIcons
+                name="call"
+                size={normalize(100)}
+                color={Colours.BLUE}
+            />
+        ),
         title: 'Call 911 now',
         description: 'Are you sure you want to call 911?',
         confirmText: 'Yes, call now'
     },
     // CancelAlert
     {
-        icon: <MaterialIcons name="call-end" size={100} color={Colours.RED} />,
+        icon: (
+            <MaterialIcons
+                name="call-end"
+                size={normalize(100)}
+                color={Colours.RED}
+            />
+        ),
         title: 'Cancel 911 call',
         description: 'Are you not experiencing cardiac symptoms?',
         confirmText: 'I feel fine, cancel call'
     },
     // ResetAlert
     {
-        icon: <Ionicons name="alert-circle" size={100} color={Colours.RED} />,
+        icon: (
+            <Ionicons
+                name="alert-circle"
+                size={normalize(100)}
+                color={Colours.RED}
+            />
+        ),
         title: 'Reset App',
         description:
             'Are you sure you want to clear all data? This action cannot be undone.',
@@ -54,9 +74,6 @@ interface Props {
     setModalVisible: any;
     confirmAction: any;
 }
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 export const AlertModal = ({
     modalType,
@@ -103,38 +120,38 @@ export const AlertModal = ({
 
 const styles = StyleSheet.create({
     modalView: {
-        width: windowWidth * 0.8,
-        height: windowHeight * 0.6,
-        margin: 48,
+        width: SCREEN_WIDTH * 0.8,
+        height: SCREEN_HEIGHT * 0.6,
+        margin: normalize(48),
         backgroundColor: Colours.WHITE,
-        borderRadius: 16,
-        padding: 22,
+        borderRadius: normalize(16),
+        padding: normalize(22),
         alignItems: 'center',
         shadowColor: Colours.BLACK,
         shadowOffset: {
-            width: 0,
-            height: 2
+            width: normalize(0),
+            height: normalize(2)
         },
         shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
+        shadowRadius: normalize(4),
+        elevation: normalize(5)
     },
     icon: {
-        padding: 24
+        padding: normalize(24)
     },
     titleText: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontSize: 24
+        fontSize: normalize(24)
     },
     descriptionText: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Regular',
         fontWeight: '400',
-        fontSize: 16
+        fontSize: normalize(16)
     }
 });

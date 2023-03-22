@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Colours from '../../constants/Colours';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     value: boolean | undefined;
@@ -17,20 +18,22 @@ export const CheckBox = ({ value, onValueChange }: Props) => {
             }}
             onPress={onValueChange}
         >
-            {value && <Icon name="check" size={20} color={Colours.WHITE} />}
+            {value && (
+                <Icon name="check" size={normalize(20)} color={Colours.WHITE} />
+            )}
         </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        height: 30,
-        width: 30,
+        height: normalize(30),
+        width: normalize(30),
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: Colours.BLUE,
-        borderWidth: 1,
-        borderRadius: 8
+        borderWidth: normalize(1),
+        borderRadius: normalize(8)
     },
     notSelected: {
         backgroundColor: Colours.LIGHTGREY

@@ -5,6 +5,7 @@ import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/S
 import { UserAccountInfo } from '../../../components/UserAccountInfo/UserAccountInfo';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -114,7 +115,7 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     container: { height: '100%', backgroundColor: Colours.WHITE },
     title: {
-        fontSize: 28,
+        fontSize: normalize(28),
         fontFamily: 'DMSans-Bold',
         alignSelf: 'center',
         color: Colours.WHITE
@@ -127,12 +128,12 @@ const styles = StyleSheet.create({
         marginHorizontal: '3%'
     },
     subHeadingText: {
-        fontSize: 20,
+        fontSize: normalize(20),
         fontFamily: 'DMSans-Bold',
         color: Colours.BLACK
     },
     edit: {
-        fontSize: 20,
+        fontSize: normalize(20),
         fontFamily: 'DMSans-Bold',
         color: Colours.BLUE
     }

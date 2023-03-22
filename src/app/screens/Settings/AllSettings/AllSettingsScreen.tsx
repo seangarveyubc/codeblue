@@ -13,6 +13,7 @@ import {
     SettingsOption
 } from '../../../components/SettingsOption/SettingsOption';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -37,44 +38,42 @@ export const AllSettingsScreen = ({ navigation }: Props) => {
             <View style={styles.header}>
                 <HeaderSwirl title={'Settings'} />
             </View>
-            <ScrollView style={styles.scroll}>
-                <SettingsOptionHeading title={'My Account'} />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('AccountInfo');
-                    }}
-                    optionType={OptionType.AccountInfo}
-                />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('MedicalInfo');
-                    }}
-                    optionType={OptionType.MedicalInfo}
-                />
-                <SettingsOptionHeading title={'Help'} />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('Tutorial');
-                    }}
-                    optionType={OptionType.Tutorial}
-                />
-                <SettingsOptionHeading title={''} />
-                <SettingsOption
-                    onPress={() => {
-                        navigation.navigate('Legal');
-                    }}
-                    optionType={OptionType.Legal}
-                />
-                <AlertModal
-                    modalVisible={modalVisible}
-                    setModalVisible={setModalVisible}
-                    modalType={ModalType.ResetAlert}
-                    confirmAction={deleteAllAppData}
-                />
-                <Text style={styles.resetText} onPress={onPressResetApp}>
-                    {'Reset App'}
-                </Text>
-            </ScrollView>
+            <SettingsOptionHeading title={'My Account'} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('AccountInfo');
+                }}
+                optionType={OptionType.AccountInfo}
+            />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('MedicalInfo');
+                }}
+                optionType={OptionType.MedicalInfo}
+            />
+            <SettingsOptionHeading title={'Help'} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Tutorial');
+                }}
+                optionType={OptionType.Tutorial}
+            />
+            <SettingsOptionHeading title={''} />
+            <SettingsOption
+                onPress={() => {
+                    navigation.navigate('Legal');
+                }}
+                optionType={OptionType.Legal}
+            />
+            <AlertModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                modalType={ModalType.ResetAlert}
+                confirmAction={deleteAllAppData}
+            />
+            <Text style={styles.resetText} onPress={onPressResetApp}>
+                {'Reset App'}
+            </Text>
         </View>
     );
 };
@@ -84,11 +83,10 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: Colours.WHITE
     },
-    scroll: { marginTop: 10 },
-    header: { marginBottom: 10 },
+    header: { marginBottom: normalize(20) },
     resetText: {
-        margin: 20,
-        fontSize: 20,
+        margin: normalize(20),
+        fontSize: normalize(20),
         color: Colours.RED,
         alignSelf: 'center',
         fontFamily: 'DMSans-Bold'

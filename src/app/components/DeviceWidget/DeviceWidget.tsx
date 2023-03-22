@@ -2,19 +2,19 @@ import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colours from '../../constants/Colours';
+import { SCREEN_WIDTH } from '../../constants/constants';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     name: string;
     isConnected: boolean;
 }
 
-const windowWidth = Dimensions.get('window').width;
-
 export const DeviceWidget = ({ name, isConnected }: Props) => {
     const statusIcon = isConnected ? (
-        <Icon name="broadcast" size={25} color={Colours.BLACK} />
+        <Icon name="broadcast" size={normalize(25)} color={Colours.BLACK} />
     ) : (
-        <Icon name="broadcast-off" size={25} color={Colours.GREY} />
+        <Icon name="broadcast-off" size={normalize(25)} color={Colours.GREY} />
     );
 
     return (
@@ -66,13 +66,13 @@ export const DeviceWidget = ({ name, isConnected }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 60,
-        width: windowWidth * 0.88,
+        height: normalize(60),
+        width: SCREEN_WIDTH * 0.88,
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        padding: 14,
-        borderRadius: 12,
+        padding: normalize(14),
+        borderRadius: normalize(12),
         backgroundColor: Colours.LIGHTGREY
     },
     rightContent: {
@@ -86,18 +86,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     deviceName: {
-        marginLeft: 10,
-        fontSize: 16
+        marginLeft: normalize(10),
+        fontSize: normalize(16)
     },
     statusBar: {
         width: '100%',
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 8
+        borderRadius: normalize(8)
     },
     statusText: {
-        fontSize: 15,
+        fontSize: normalize(15),
         fontFamily: 'DMSans-Regular'
     }
 });

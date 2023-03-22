@@ -9,12 +9,13 @@ import {
     ModalType
 } from '../../../components/AlertModal/AlertModal';
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
+import { normalize } from '../../../utils/normalizer/normalizer';
+import { SCREEN_HEIGHT } from '../../../constants/constants';
 
 interface Props {
     navigation: any;
 }
 
-const windowHeight = Dimensions.get('window').height;
 var timerId: any = null;
 
 export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
@@ -52,7 +53,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 <Ionicons
                     style={styles.icon}
                     name="alert-circle"
-                    size={40}
+                    size={normalize(40)}
                     color={Colours.RED}
                 />
                 <Text style={styles.title}>
@@ -68,8 +69,8 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                     style={{
                         ...styles.title,
                         ...{
-                            fontSize: 64,
-                            marginBottom: 0
+                            fontSize: normalize(64),
+                            marginBottom: normalize(0)
                         }
                     }}
                 >
@@ -120,43 +121,43 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Colours.WHITE,
-        padding: 12,
+        padding: normalize(12),
         margin: 'auto',
         justifyContent: 'space-around',
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column',
-        height: windowHeight
+        height: SCREEN_HEIGHT
     },
     icon: {
-        padding: 24,
+        padding: normalize(24),
         alignSelf: 'center'
     },
     head: {
         width: '72%'
     },
     title: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Bold',
-        fontSize: 36
+        fontSize: normalize(36)
     },
     description: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Regular',
         fontWeight: '400',
-        fontSize: 24
+        fontSize: normalize(24)
     },
     cancelDescription: {
-        marginBottom: 15,
+        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Regular',
         fontWeight: '400',
-        fontSize: 18
+        fontSize: normalize(18)
     },
     red: {
         color: Colours.RED
