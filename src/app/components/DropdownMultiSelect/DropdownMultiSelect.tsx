@@ -44,12 +44,9 @@ export const DropdownMultiSelect = ({
 };
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
     container: {
         padding: normalize(16)
     },
-=======
->>>>>>> main
     dropdown: {
         height: normalize(56),
         borderColor: Colours.BLUE,
@@ -77,13 +74,8 @@ const styles = StyleSheet.create({
         color: Colours.BLUE
     },
     selectedStyle: {
-<<<<<<< HEAD
         borderRadius: normalize(8),
-        backgroundColor: Colours.LIGHTGREY,
-=======
-        borderRadius: 8,
         backgroundColor: Colours.WHITE,
->>>>>>> main
         borderColor: Colours.BLUE
     },
     inputSearchStyle: {
