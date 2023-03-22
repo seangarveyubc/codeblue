@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 import Colours from '../../constants/Colours';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     data: { label: string; value: number }[];
@@ -45,23 +46,23 @@ export const DropdownSingleSelect = ({
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16
+        padding: normalize(16)
     },
     dropdown: {
-        height: 56,
+        height: normalize(56),
         backgroundColor: Colours.LIGHTGREY,
         borderColor: Colours.BLUE,
-        borderWidth: 1,
-        borderRadius: 8,
-        padding: 10
+        borderWidth: normalize(1),
+        borderRadius: normalize(8),
+        padding: normalize(10)
     },
     placeholderStyle: {
-        fontSize: 16,
+        fontSize: normalize(16),
         color: Colours.BLUE,
         fontFamily: 'DMSans-Regular'
     },
     selectedTextStyle: {
-        fontSize: 16,
+        fontSize: normalize(16),
         fontFamily: 'DMSans-Regular',
         color: Colours.BLUE
     }

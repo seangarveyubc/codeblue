@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Colours from '../../constants/Colours';
 import DropdownOptions from '../../constants/DropdownOptions';
+import { normalize } from '../../utils/normalizer/normalizer';
 import { UnderlineDropdownSelect } from '../UnderlineDropdownSelect/UnderlineDropdownSelect';
 import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
@@ -162,24 +163,24 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        marginVertical: 10
+        marginVertical: normalize(10)
     },
     item: {
         width: '50%',
         paddingHorizontal: '3%'
     },
     input: {
-        paddingLeft: 4,
+        paddingLeft: normalize(4),
         fontFamily: 'DMSans-Regular',
         color: Colours.BLACK,
-        fontSize: 18,
+        fontSize: normalize(18),
         width: '100%',
-        paddingTop: 4
+        paddingTop: normalize(4)
     },
     title: {
         fontFamily: 'DMSans-Regular',
-        paddingLeft: 4,
+        paddingLeft: normalize(4),
         color: Colours.BLUE,
-        fontSize: 15
+        fontSize: normalize(15)
     }
 });

@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import Colours from '../../constants/Colours';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     placeholder: string;
@@ -41,13 +42,13 @@ const InputText = ({
 
 const styles = StyleSheet.create({
     input: {
-        height: 56,
-        borderWidth: 1,
-        padding: 10,
-        marginVertical: 6,
+        height: normalize(56),
+        borderWidth: normalize(1),
+        padding: normalize(10),
+        marginVertical: normalize(6),
         borderColor: Colours.BLUE,
         backgroundColor: Colours.LIGHTGREY,
-        borderRadius: 8,
+        borderRadius: normalize(8),
         color: Colours.BLUE,
         fontFamily: 'DMSans-Regular'
     }

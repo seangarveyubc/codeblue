@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { AddDeviceWidget } from '../../../components/AddDeviceWidget/AddDeviceWidget';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -31,10 +32,10 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'DMSans-Bold',
-        marginLeft: 20,
-        marginTop: 30,
-        marginBottom: 30,
+        marginLeft: normalize(20),
+        marginTop: normalize(30),
+        marginBottom: normalize(30),
         color: Colours.BLACK,
-        fontSize: 24
+        fontSize: normalize(24)
     }
 });

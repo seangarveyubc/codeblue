@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Colours from '../../constants/Colours';
 import Icons from 'react-native-vector-icons/AntDesign';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     selectedIndex: number;
@@ -40,7 +41,7 @@ export const SingleDropdownSelect = ({
                         <Icons
                             name={isOpened ? 'up' : 'down'}
                             color={Colours.BLUE}
-                            size={25}
+                            size={normalize(25)}
                         />
                     );
                 }}
@@ -60,14 +61,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        margin: 10
+        margin: normalize(10)
     },
     dropdown2BtnStyle: {
         width: '40%',
-        height: 50,
+        height: normalize(50),
         backgroundColor: Colours.LIGHTGREY,
-        borderRadius: 8,
-        borderWidth: 1,
+        borderRadius: normalize(8),
+        borderWidth: normalize(1),
         borderColor: Colours.BLUE
     },
     dropdown2BtnTxtStyle: {
@@ -75,27 +76,27 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontWeight: '300',
         fontFamily: 'DMSans-Regular',
-        fontSize: 16
+        fontSize: normalize(16)
     },
     dropdown2DropdownStyle: {
         backgroundColor: Colours.LIGHTGREY,
-        borderBottomLeftRadius: 8,
-        borderBottomRightRadius: 8,
-        borderTopLeftRadius: 8,
-        borderTopRightRadius: 8,
+        borderBottomLeftRadius: normalize(8),
+        borderBottomRightRadius: normalize(8),
+        borderTopLeftRadius: normalize(8),
+        borderTopRightRadius: normalize(8),
         borderColor: Colours.GREY
     },
     dropdown2RowStyle: {
         backgroundColor: Colours.LIGHTGREY,
         borderColor: Colours.BLUE,
-        borderWidth: 1
+        borderWidth: normalize(1)
     },
     dropdown2RowTxtStyle: {
         color: Colours.BLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
         fontWeight: '300',
-        marginLeft: 20,
-        marginRight: 20
+        marginLeft: normalize(20),
+        marginRight: normalize(20)
     }
 });
