@@ -42,8 +42,13 @@ export const DropdownSelect = ({
                     return (
                         <Icons
                             name={isOpened ? 'up' : 'down'}
+<<<<<<< HEAD
                             color={Colours.DARKBLUE}
                             size={normalize(25)}
+=======
+                            color={Colours.BLUE}
+                            size={25}
+>>>>>>> main
                         />
                     );
                 }}
@@ -68,18 +73,25 @@ const styles = StyleSheet.create({
     dropdown2BtnStyle: {
         height: normalize(50),
         backgroundColor: Colours.LIGHTGREY,
+<<<<<<< HEAD
         borderRadius: normalize(8),
         borderWidth: normalize(1),
         borderColor: Colours.DARKBLUE
+=======
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: Colours.BLUE
+>>>>>>> main
     },
     dropdown2BtnTxtStyle: {
-        color: Colours.DARKBLUE,
+        color: Colours.BLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
         fontSize: normalize(14)
     },
     dropdown2DropdownStyle: {
         backgroundColor: Colours.LIGHTGREY,
+<<<<<<< HEAD
         borderBottomLeftRadius: normalize(8),
         borderBottomRightRadius: normalize(8),
         borderTopLeftRadius: normalize(8),
@@ -90,9 +102,21 @@ const styles = StyleSheet.create({
         backgroundColor: Colours.LIGHTGREY,
         borderColor: Colours.DARKBLUE,
         borderWidth: normalize(1)
+=======
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+        borderColor: Colours.BLUE
+    },
+    dropdown2RowStyle: {
+        backgroundColor: Colours.LIGHTGREY,
+        borderColor: Colours.BLUE,
+        borderWidth: 1
+>>>>>>> main
     },
     dropdown2RowTxtStyle: {
-        color: Colours.DARKBLUE,
+        color: Colours.BLUE,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
         padding: normalize(10)

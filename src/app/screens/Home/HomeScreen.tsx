@@ -74,7 +74,8 @@ export const HomeScreen = ({ navigation }: Props) => {
                                 rate.
                                 <Text
                                     style={{
-                                        color: Colours.BLUE
+                                        color: Colours.BLUE,
+                                        fontFamily: 'DMSans-Regular'
                                     }}
                                 >
                                     Turn on Bluetooth.
@@ -170,6 +171,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: normalize(8),
         width: SCREEN_WIDTH * 0.9,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'DMSans-Regular'
     }
 });

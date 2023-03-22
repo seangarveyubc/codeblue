@@ -16,7 +16,7 @@ const mockCardiacData: CardiacData = {
 };
 
 const mockMedicationList: MedicationList = {
-    medications: ['Atorvastatin', 'Levothyroxine', 'Metformin']
+    medications: [1, 2, 3]
 };
 
 const mockDeviceList: DeviceList = {
@@ -27,8 +27,7 @@ const mockDeviceList: DeviceList = {
 };
 
 const mockDateInMillis = 1672473600000;
-const mockMedicationListString =
-    '{"medications":["Atorvastatin","Levothyroxine","Metformin"]}';
+const mockMedicationListString = '{"medications":[1,2,3]}';
 const mockDeviceListString =
     '{"devices":[{"name":"PPG1","location":"Right hand"},{"name":"PPG2","location":"Left hand"}]}';
 

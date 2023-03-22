@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
 import { UserAccountInfo } from '../../../components/UserAccountInfo/UserAccountInfo';
@@ -49,14 +49,33 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
             // save any updates
             saveUserName(PersonalDataKeys.FIRST_NAME, firstName);
             saveUserName(PersonalDataKeys.LAST_NAME, lastName);
-            saveUserBirthday(birthday);
-            saveUserWeightHeight(PersonalDataKeys.HEIGHT, height);
-            saveUserWeightHeight(PersonalDataKeys.WEIGHT, weight);
+            const birthdayResult = saveUserBirthday(birthday);
+            const heightResult = saveUserWeightHeight(
+                PersonalDataKeys.HEIGHT,
+                height
+            );
+            const weightResult = saveUserWeightHeight(
+                PersonalDataKeys.WEIGHT,
+                weight
+            );
             saveUserBloodType(bloodType);
             saveUserSex(sex);
-        }
 
-        setEdit(!edit);
+            const errors = [birthdayResult, heightResult, weightResult]
+                .filter((item) => item !== undefined)
+                .map((item) => item?.message);
+
+            if (errors.length > 0) {
+                const errorMessage = errors
+                    .map((err) => '-  ' + err)
+                    .join('\n');
+                Alert.alert('Please fix form errors', errorMessage);
+            } else {
+                setEdit(!edit);
+            }
+        } else {
+            setEdit(!edit);
+        }
     };
 
     return (

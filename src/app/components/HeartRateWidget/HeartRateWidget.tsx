@@ -26,6 +26,7 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                     style={{
                         flex: 0.4,
                         fontSize: normalize(16),
+                        fontFamily: 'DMSans-Regular',
                         color: active ? Colours.BLACK : Colours.GREY
                     }}
                 >
@@ -35,6 +36,7 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                     <Text
                         style={{
                             fontSize: normalize(50),
+                            fontFamily: 'DMSans-Medium',
                             color: active ? Colours.BLACK : Colours.GREY
                         }}
                     >
@@ -44,6 +46,7 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                         style={{
                             marginBottom: normalize(10),
                             fontSize: normalize(20),
+                            fontFamily: 'DMSans-Regular',
                             color: active ? Colours.BLACK : Colours.GREY
                         }}
                     >

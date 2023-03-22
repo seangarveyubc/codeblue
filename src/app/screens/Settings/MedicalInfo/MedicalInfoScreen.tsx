@@ -1,12 +1,22 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
 import { UserMedicalInfo } from '../../../components/UserMedicalInfo/UserMedicalInfo';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
 import { HeartProblemOptions } from '../../../constants/HeartProblemOptions';
+<<<<<<< HEAD
 import { normalize } from '../../../utils/normalizer/normalizer';
+=======
+import { DropdownMultiSelect } from '../../../components/DropdownMultiSelect/DropdownMultiSelect';
+import DropdownOptions from '../../../constants/DropdownOptions';
+import { SCREEN_WIDTH } from '../../../constants/constants';
+import {
+    deserializeMedicationList,
+    serializeLocalStorageObject
+} from '../../../localStorage/models/mappers';
+>>>>>>> main
 
 interface Props {
     navigation: any;
@@ -49,6 +59,18 @@ export const MedicalInfoScreen = ({ navigation }: Props) => {
         )
     );
 
+    const getSavedMedications = () => {
+        const medicationListString =
+            appDataStorage.getString(PersonalDataKeys.MEDICATION_LIST) ?? '';
+        const medicationList = deserializeMedicationList(medicationListString);
+        if (medicationList) {
+            return medicationList.medications;
+        }
+
+        return [];
+    };
+    const [medications, setMedications] = React.useState(getSavedMedications());
+
     const updateViewOption = () => {
         if (edit) {
             // delete previous selection if user does not provide info
@@ -76,8 +98,25 @@ export const MedicalInfoScreen = ({ navigation }: Props) => {
         setEdit(!edit);
     };
 
+    const displayMedicationList = () => {
+        // save medications to local storage
+        appDataStorage.add(
+            PersonalDataKeys.MEDICATION_LIST,
+            serializeLocalStorageObject({ medications: medications })
+        );
+
+        console.log('displayMedicationList', medications);
+        return medications?.map((index: number) => {
+            return (
+                <Text style={styles.medication}>
+                    {DropdownOptions.Medications[index]}
+                </Text>
+            );
+        });
+    };
+
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <SettingsScreenHeader
                 navigation={navigation}
                 title="Medical Information"
@@ -98,9 +137,26 @@ export const MedicalInfoScreen = ({ navigation }: Props) => {
             />
 
             <View style={styles.subHeading}>
-                <Text style={styles.subHeadingText}>{'Medication'}</Text>
+                <Text style={styles.subHeadingText}>{'Medications'}</Text>
             </View>
-        </View>
+            <View style={styles.medicationWrapper}>
+                {edit ? (
+                    <DropdownMultiSelect
+                        placeholder="Select Medications"
+                        selected={medications as any}
+                        setSelected={setMedications}
+                        data={DropdownOptions.Medications.map(
+                            (item: string, index: number) => {
+                                return { label: item, value: index };
+                            }
+                        )}
+                        width={SCREEN_WIDTH * 0.85}
+                    />
+                ) : (
+                    displayMedicationList()
+                )}
+            </View>
+        </ScrollView>
     );
 };
 
@@ -128,5 +184,15 @@ const styles = StyleSheet.create({
         fontSize: normalize(20),
         fontFamily: 'DMSans-Bold',
         color: Colours.BLUE
+    },
+    medicationWrapper: {
+        paddingVertical: '3%',
+        paddingHorizontal: '8%'
+    },
+    medication: {
+        fontSize: 18,
+        fontFamily: 'DMSans-Regular',
+        color: Colours.BLACK,
+        paddingVertical: '1%'
     }
 });

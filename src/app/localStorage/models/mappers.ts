@@ -15,17 +15,19 @@ export const serializeLocalStorageObject = (
 export const deserializeMedicationList = (
     data: string
 ): MedicationList | undefined => {
-    const medData = JSON.parse(data);
-    if (medData.hasOwnProperty('medications')) {
-        return {
-            medications: medData.medications
-        };
+    try {
+        const medData = JSON.parse(data);
+        if (medData.hasOwnProperty('medications')) {
+            return {
+                medications: medData.medications
+            };
+        }
+    } catch (e: any) {
+        console.log(
+            'Could not deserialize MedicationList from JSON string',
+            data
+        );
     }
-
-    console.error(
-        'Could not deserialize MedicationList from JSON string',
-        data
-    );
 };
 
 export const deserializeDeviceList = (data: string): DeviceList | undefined => {
@@ -36,5 +38,5 @@ export const deserializeDeviceList = (data: string): DeviceList | undefined => {
         };
     }
 
-    console.error('Could not deserialize DeviceList from JSON string', data);
+    console.log('Could not deserialize DeviceList from JSON string', data);
 };
