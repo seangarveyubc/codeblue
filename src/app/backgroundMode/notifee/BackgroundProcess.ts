@@ -8,6 +8,7 @@ import {
     HOST_DEVICE_ID
 } from '../../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../models/BackgroundMode';
+import * as utils from '../../../../src/app/utils/AppUtils';
 
 export class BackgroundProcess {
     mode: BackgroundMode;
