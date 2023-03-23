@@ -21,7 +21,6 @@ interface Props {
     item: any;
     connectToPeripheral: (device: Device) => void;
     connectedDevice: Device | null;
-    closeModal: () => void;
 }
 
 const windowWidth = Dimensions.get('window').width;
@@ -30,70 +29,34 @@ export const AddDeviceWidget = ({
     name,
     item,
     connectToPeripheral,
-    connectedDevice,
-    closeModal
+    connectedDevice
 }: Props) => {
     const [text, onChangetext] = React.useState(name);
-    const [connected, onChangeConnected] = React.useState(true);
+    const [connected, onChangeConnected] = React.useState(false);
     const [isEditing, onChangeEditing] = React.useState(false);
     const [isSaved, onChangeSaved] = React.useState(false);
     const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
     const { appDataStorage, saveDevice } = useLocalStorage();
-    const hideModal = () => {
-        setIsModalVisible(false);
-        onChangeConnected(true);
-    };
 
-    const openModal = () => {
-        setIsModalVisible(true);
-        onChangeEditing((isEditing) => !isEditing);
-        // setIsModalVisible(true);
-        // !isEditing && !isSaved
-        //     ? onChangeEditing((isEditing) => !isEditing)
-        //     : isEditing && !isSaved && connected
-        //     ? onChangeSaved((isSaved) => !isSaved)
-        //     : onChangeConnected((connected) => !connected);
-    };
+    // Not handling the edit name, save name feature right now
 
     const handleClick = async () => {
-        if (connected) {
-            setIsModalVisible(true);
+        connectToPeripheral(item.item);
+        saveDevice(item.item.id);
+        // if (connected) {
+        //     setIsModalVisible(true);
 
-            onChangeEditing((isEditing) => !isEditing);
-        } else {
-            !isEditing && !isSaved
-                ? onChangeEditing((isEditing) => !isEditing)
-                : isEditing && !isSaved
-                ? onChangeSaved((isSaved) => !isSaved)
-                : onChangeSaved((isSaved) => isSaved);
-        }
+        //     onChangeEditing((isEditing) => !isEditing);
+        // } else {
+        //     !isEditing && !isSaved
+        //         ? onChangeEditing((isEditing) => !isEditing)
+        //         : isEditing && !isSaved
+        //         ? onChangeSaved((isSaved) => !isSaved)
+        //         : onChangeSaved((isSaved) => isSaved);
+        // }
     };
     return (
         <View style={styles.container}>
-            <Modal
-                style={modalStyle.modalContainer}
-                animationType="slide"
-                transparent={false}
-                visible={isModalVisible}
-            >
-                {connectedDevice ? (
-                    <Text>Coonceted</Text>
-                ) : (
-                    <View>
-                        <TouchableOpacity onPress={hideModal}>
-                            <Text>Close</Text>
-                        </TouchableOpacity>
-                        <Button onPress={() => connectToPeripheral(item.item)}>
-                            {/* connectToPeripheral(item.item) */}
-                            Connect
-                        </Button>
-                        <Button onPress={() => saveDevice(item.item.id)}>
-                            {/* connectToPeripheral(item.item) */}
-                            Add To Saved Devices
-                        </Button>
-                    </View>
-                )}
-            </Modal>
             <View style={styles.leftContent}>
                 {!isEditing || isSaved ? (
                     <Text>{text}</Text>
@@ -108,20 +71,7 @@ export const AddDeviceWidget = ({
             </View>
 
             <View style={styles.rightContent}>
-                <TouchableOpacity
-                    onPress={
-                        handleClick
-                        // () =>
-                        //     connected
-                        //         ? openModal
-                        //         : !isEditing && !isSaved
-                        //         ? onChangeEditing((isEditing) => !isEditing)
-                        //         : isEditing && !isSaved && connected
-                        //         ? onChangeSaved((isSaved) => !isSaved)
-                        //         : onChangeConnected((connected) => !connected)
-                        // : openModal
-                    }
-                >
+                <TouchableOpacity onPress={handleClick}>
                     <View
                         style={{
                             ...styles.statusBar,
