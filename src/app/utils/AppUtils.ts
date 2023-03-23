@@ -43,7 +43,10 @@ export const displayCANotification = async (title: string, body: string) => {
     const channelId = await notifee.createChannel({
         id: 'codeblue',
         name: 'CodeBlue Channel',
-        importance: AndroidImportance.HIGH
+        importance: AndroidImportance.HIGH,
+        sound: 'sos',
+        vibration: true,
+        vibrationPattern: [300, 500],
     });
 
     // Display a notification
@@ -70,10 +73,13 @@ export const displayCANotification = async (title: string, body: string) => {
             ],
             autoCancel: true,
             loopSound: true,
+            sound: 'sos',
+            vibrationPattern: [300, 500],
             ongoing: true,
             showChronometer: true,
             chronometerDirection: 'down',
-            timestamp: Date.now() + 60000 // 5 minutes
+            timestamp: Date.now() + 60000, // 5 minutes
+            showTimestamp: true,
         }
     });
 };
