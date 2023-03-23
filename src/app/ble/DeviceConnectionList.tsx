@@ -2,13 +2,7 @@ import React, { FC, useCallback, useState } from 'react';
 import {
     FlatList,
     ListRenderItemInfo,
-    Modal,
-    SafeAreaView,
-    Text,
     StyleSheet,
-    TouchableOpacity,
-    Button,
-    View,
     ScrollView
 } from 'react-native';
 import { Device } from 'react-native-ble-plx';
@@ -16,32 +10,26 @@ import { AddDeviceWidget } from '../components/AddDeviceWidget/AddDeviceWidget';
 import { CancelButton } from '../components/CancelButton/CancelButton';
 import Colours from '../constants/Colours';
 
-type DeviceModalListItemProps = {
-    item: ListRenderItemInfo<Device>;
-    connectToPeripheral: (device: Device) => void;
-    closeModal: () => void;
-};
-
-type DeviceModalProps = {
+type DeviceListProps = {
     devices: Device[];
-    visible: boolean;
+
     connectToPeripheral: (device: Device) => void;
     connectedDevice: Device | null;
-    closeModal: () => void;
+
     navigation: any;
 };
 
-const DeviceModal: FC<DeviceModalProps> = (props) => {
+const DeviceList: FC<DeviceListProps> = (props) => {
     const {
         devices,
-        visible,
+
         connectToPeripheral,
-        closeModal,
+
         navigation,
         connectedDevice
     } = props;
 
-    const renderDeviceModalListItem = useCallback(
+    const renderDeviceListItem = useCallback(
         (item: ListRenderItemInfo<Device>) => {
             return (
                 <ScrollView>
@@ -50,19 +38,18 @@ const DeviceModal: FC<DeviceModalProps> = (props) => {
                         item={item}
                         connectToPeripheral={connectToPeripheral}
                         connectedDevice={connectedDevice}
-                        closeModal={closeModal}
                     />
                 </ScrollView>
             );
         },
-        [closeModal, connectToPeripheral]
+        [connectToPeripheral]
     );
 
     return (
         <FlatList
             contentContainerStyle={modalStyle.modalFlatlistContiner}
             data={devices}
-            renderItem={renderDeviceModalListItem}
+            renderItem={renderDeviceListItem}
         />
     );
 };
@@ -110,4 +97,4 @@ const modalStyle = StyleSheet.create({
     }
 });
 
-export default DeviceModal;
+export default DeviceList;

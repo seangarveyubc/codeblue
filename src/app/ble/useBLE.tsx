@@ -10,6 +10,7 @@ import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 
 import { atob } from 'react-native-quick-base64';
+import { useLocalStorage } from '../localStorage/hooks/useLocalStorage';
 
 const HEART_RATE_UUID = '180D';
 const HEART_RATE_CHARACTERISTIC = '2A37';
@@ -31,8 +32,7 @@ interface BluetoothLowEnergyApi {
 function useBLE(): BluetoothLowEnergyApi {
     const [allDevices, setAllDevices] = useState<Device[]>([]);
     const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
-    const [heartRate, setHeartRate] = useState<number>(0);
-
+    const [heartRate, setHeartRate] = useState<number>(1);
     const requestPermissions = async (cb: VoidCallback) => {
         if (Platform.OS === 'android') {
             const apiLevel = await DeviceInfo.getApiLevel();
@@ -81,7 +81,7 @@ function useBLE(): BluetoothLowEnergyApi {
             if (error) {
                 console.log(error);
             }
-            if (device) {
+            if (device?.name) {
                 devicecounter += 1;
                 setAllDevices((prevState: Device[]) => {
                     if (!isDuplicteDevice(prevState, device)) {
@@ -104,7 +104,7 @@ function useBLE(): BluetoothLowEnergyApi {
             await device.discoverAllServicesAndCharacteristics();
             console.log(device);
             bleManager.stopDeviceScan();
-
+            // setHeartRate(10);
             startStreamingData(device);
         } catch (e) {
             console.log('FAILED TO CONNECT', e);
@@ -115,78 +115,101 @@ function useBLE(): BluetoothLowEnergyApi {
         if (connectedDevice) {
             bleManager.cancelDeviceConnection(connectedDevice.id);
             setConnectedDevice(null);
-            setHeartRate(0);
+            // setHeartRate(0);
         }
     };
 
-    const onHeartRateUpdate = (
-        error: BleError | null,
-        characteristic: Characteristic | null
-    ) => {
-        console.log('error in update');
-        console.log(error);
-        console.log('charac in update');
-        console.log(characteristic);
-        if (error) {
-            console.log(error);
-            return -1;
-        } else if (!characteristic?.value) {
-            console.log('No Data was recieved');
-            return -1;
-        }
+    // const onHeartRateUpdate = (
+    //     error: BleError | null,
+    //     characteristic: Characteristic | null
+    // ) => {
+    //     console.log('error in update');
+    //     console.log(error);
+    //     console.log('charac in update');
+    //     console.log(characteristic);
+    //     if (error) {
+    //         console.log(error);
+    //         return -1;
+    //     } else if (!characteristic?.value) {
+    //         console.log('No Data was recieved');
+    //         return -1;
+    //     }
 
-        const rawData = atob(characteristic.value);
-        console.log(rawData);
-        console.log(rawData[1].charCodeAt(0));
-        let innerHeartRate: number = -1;
+    //     const rawData = atob(characteristic.value);
+    //     console.log(rawData);
+    //     console.log(rawData[1].charCodeAt(0));
+    //     let innerHeartRate: number = -1;
 
-        const firstBitValue: number = Number(rawData) & 0x01;
+    //     const firstBitValue: number = Number(rawData) & 0x01;
 
-        if (firstBitValue === 0) {
-            innerHeartRate = rawData[1].charCodeAt(0);
-        } else {
-            innerHeartRate =
-                Number(rawData[1].charCodeAt(0) << 8) +
-                Number(rawData[2].charCodeAt(2));
-        }
-        console.log(rawData);
-        setHeartRate(Number(rawData));
-    };
+    //     if (firstBitValue === 0) {
+    //         innerHeartRate = rawData[1].charCodeAt(0);
+    //     } else {
+    //         innerHeartRate =
+    //             Number(rawData[1].charCodeAt(0) << 8) +
+    //             Number(rawData[2].charCodeAt(2));
+    //     }
+    //     console.log(rawData);
+    //     // setHeartRate(Number(rawData));
+    // };
 
     const startStreamingData = async (device: Device) => {
         const services = await device.services();
+        let monitoringChar: Characteristic | null;
         console.log(services);
-        const char = await services[11].characteristics();
-        console.log(char);
+        services.forEach(async (service) => {
+            if (service) {
+                console.log(service.id);
+                console.log(service.uuid);
+                let chars = await service.characteristics();
+                chars.forEach((char) => {
+                    if (char.isNotifiable) {
+                        console.log('111111');
+                        monitoringChar = char;
+                        // console.log(char);
+                        device!.monitorCharacteristicForService(
+                            char.serviceUUID,
+                            char.uuid,
+                            (error, characteristic) => {
+                                console.log(characteristic?.value);
+                                console.log(atob(characteristic?.value!));
+                                const temp = atob(characteristic?.value!);
+                                // console.log(Number(characteristic?.value));
+                                console.log(Number(temp));
+                                if (temp) {
+                                    setHeartRate(Number(temp));
+                                }
+                                // saveHeartRate(Number(temp));
+                                console.log('444');
+                                console.log(heartRate);
+                            }
+                        );
+                    }
+                });
+            }
+        });
+        // const char = await services[11].characteristics();
+        // console.log(char);
 
-        console.log('111111');
+        // console.log('111111');
         // console.log(temp1.value!);
-        console.log(char[0].serviceUUID);
-        // const temp = await device.readCharacteristicForService(
-        //     char[0].serviceUUID,
-        //     char[0].uuid
-        // );
-        // console.log(temp.value);
-        // console.log('here');
-        // temp.monitor((error, characteristic) => {
-        //     console.log(error);
-        //     console.log(characteristic);
-        //     setHeartRate(heartRate + 1);
-        //     // onHeartRateUpdate(error, characteristic);
-        // });
+        // console.log(char[0].serviceUUID);
 
-        // if (device) {
-        //     device.monitorCharacteristicForService(
-        //         char[0].serviceUUID,
-        //         char[0].uuid,
-        //         (error, characteristic) => {
-        //             console.log(characteristic);
-        //             onHeartRateUpdate(error, characteristic);
-        //         }
-        //     );
-        // } else {
-        //     console.log('No Device Connected');
-        // }
+        // device!.monitorCharacteristicForService(
+        //     monitoringChar!.serviceUUID,
+        //     monitoringChar!.uuid,
+        //     (error, characteristic) => {
+        //         console.log(characteristic?.value);
+        //         console.log(atob(characteristic?.value!));
+        //         const temp = atob(characteristic?.value!);
+        //         // console.log(Number(characteristic?.value));
+        //         console.log(Number(temp));
+        //         setHeartRate(Number(temp));
+        //         saveHeartRate(Number(temp));
+        //         console.log('444');
+        //         console.log(heartRate);
+        //     }
+        // );
     };
 
     return {

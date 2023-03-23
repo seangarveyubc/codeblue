@@ -52,6 +52,8 @@ export const HomeScreen = ({ navigation }: Props) => {
     }, [isFocused]);
 
     // const bleManager = new BleManager();
+    const [rate, setRate] = useState<number>(1);
+
     useEffect(() => {
         changeFirstName(
             appDataStorage.getString(PersonalDataKeys.FIRST_NAME) ?? ''
@@ -60,13 +62,6 @@ export const HomeScreen = ({ navigation }: Props) => {
             appDataStorage.getString(PersonalDataKeys.LAST_NAME) ?? ''
         );
         setDeviceList(appDataStorage.getList(DeviceKeys.DEVICE_LIST) ?? []);
-        // bleManager.onStateChange((state) => {
-        //     if (state === 'PoweredOn') {
-        //         setBluetoothState(true);
-        //         setBluetoothState(false);
-        //     }
-        // }, true);
-        // changeDeviceName1(appDataStorage.getList(DeviceKeys.DEVICE_LIST) ?? '');
     }, [isFocused]);
 
     const toggleChecked = () => setDeviceListState((value) => !value);
@@ -143,18 +138,6 @@ export const HomeScreen = ({ navigation }: Props) => {
                             data={deviceList}
                             renderItem={renderDeviceWidget}
                         />
-                        {/* <View style={{ paddingBottom: 15 }}>
-                                <DeviceWidget
-                                    name={deviceName1}
-                                    isConnected={true}
-                                />
-                            </View>
-                            <View style={{ paddingBottom: normalize(15) }}>
-                                <DeviceWidget
-                                    name={deviceName2}
-                                    isConnected={false}
-                                />
-                            </View> */}
                     </CentredContent>
                 </View>
             ) : (
@@ -169,20 +152,6 @@ export const HomeScreen = ({ navigation }: Props) => {
                             data={deviceList}
                             renderItem={renderIconTextInput}
                         />
-                        {/* <View style={{ width: '88%' }}>
-                                <IconTextInput
-                                    text={deviceName1}
-                                    isConnected={true}
-                                    onChangeText={changeDeviceName1}
-                                />
-                            </View>
-                            <View style={{ width: '88%' }}>
-                                <IconTextInput
-                                    text={deviceName2}
-                                    isConnected={false}
-                                    onChangeText={changeDeviceName2}
-                                />
-                            </View> */}
                     </CentredContent>
                 </View>
             )}
@@ -196,7 +165,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         backgroundColor: Colours.WHITE,
         alignItems: 'center',
-        height: '100%'
+        height: '100%',
+        width: '100%'
     },
     header: {
         height: '15%'

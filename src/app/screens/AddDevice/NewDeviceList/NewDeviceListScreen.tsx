@@ -3,17 +3,15 @@ import {
     Text,
     View,
     StyleSheet,
-    SafeAreaView,
-    TouchableOpacity,
     ActivityIndicator,
-    Button,
-    ScrollView
+    Button
 } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { AddDeviceWidget } from '../../../components/AddDeviceWidget/AddDeviceWidget';
 import { normalize } from '../../../utils/normalizer/normalizer';
 import useBLE from '../../../ble/useBLE';
-import DeviceModal from '../../../ble/DeviceConnectionModal';
+import { HeartRateWidget } from '../../../components/HeartRateWidget/HeartRateWidget';
+import DeviceList from '../../../ble/DeviceConnectionList';
 
 interface Props {
     navigation: any;
@@ -34,45 +32,19 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
     const [showLoading, setShowLoading] = React.useState<boolean>(true);
     const [temp, setTemp] = React.useState<string>('');
     const scanForDevices = () => {
-        requestPermissions((isGranted) => {
+        requestPermissions((isGranted: any) => {
             if (isGranted) {
                 scanForPeripherals();
             }
         });
     };
 
-    const hideModal = () => {
-        setIsModalVisible(false);
-        setShowLoading(false);
-    };
-
-    const openModal = async () => {
-        scanForDevices();
-        setIsModalVisible(true);
-        setShowLoading(false);
-    };
-    const connect = async () => {
-        const services = await connectedDevice!.services();
-        const char = await services[11].characteristics();
-
-        console.log(char[0].serviceUUID);
-
-        connectedDevice!.monitorCharacteristicForService(
-            char[0].serviceUUID,
-            char[0].uuid,
-            (error, characteristic) => {
-                console.log(characteristic);
-                setTemp(characteristic?.value || '');
-            }
-        );
-    };
-
     React.useEffect(() => {
         setTimeout(() => {
-            openModal();
+            scanForDevices();
+            setShowLoading(false);
         }, 1000);
     }, []);
-    let devicescount = allDevices.length;
 
     return (
         <View style={styles.page}>
@@ -91,14 +63,11 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
             )}
             {connectedDevice ? (
                 <>
-                    <Text>{temp}</Text>
+                    <HeartRateWidget heartRate={heartRate} />
                     <Button onPress={disconnectFromDevice} title="Close" />
-                    <Button onPress={connect} title="Read Update" />
                 </>
             ) : (
-                <DeviceModal
-                    closeModal={hideModal}
-                    visible={isModalVisible}
+                <DeviceList
                     connectToPeripheral={connectToDevice}
                     connectedDevice={connectedDevice}
                     devices={allDevices}
@@ -112,7 +81,6 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     page: {
         height: '100%',
-        // flexDirection: 'column',
         backgroundColor: Colours.WHITE
     },
     devicelist: {
