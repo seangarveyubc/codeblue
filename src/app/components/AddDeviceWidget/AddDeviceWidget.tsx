@@ -42,7 +42,7 @@ export const AddDeviceWidget = ({
 
     const handleClick = async () => {
         connectToPeripheral(item.item);
-        saveDevice(item.item.id);
+        saveDevice(item.item.name);
         // if (connected) {
         //     setIsModalVisible(true);
 
