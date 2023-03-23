@@ -13,6 +13,10 @@ import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
 import { AppContext } from '../../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
+import { backgroundModeStorage } from '../../../localStorage/hooks/useLocalStorage';
+import { useContext, useEffect, useState } from 'react';
+import { BACKGROUND_MODE } from '../../../localStorage/models/LocalStorageKeys';
+import { getLocalStorageBackgroundMode } from '../../../backgroundMode/notifee/BackgroundProcess';
 
 interface Props {
     navigation: any;
@@ -21,11 +25,36 @@ interface Props {
 var timerId: any = null;
 
 export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
-    const { dispatch } = React.useContext(AppContext);
+    const { initialBackgroundState, dispatch } = useContext(AppContext);
     const [callModalVisible, setCallModalVisible] = React.useState(false);
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
 
-    // TODO: initialize timer current value in local storage
+    const [cancelCall, setCancelCall] = useState(
+        initialBackgroundState === BackgroundMode.CALL_ENDED
+    );
+    let listener: any;
+
+    // subsribe to background mode value changes in local storage
+    useEffect(() => {
+        listener = backgroundModeStorage.storage.addOnValueChangedListener(
+            (changedKey) => {
+                if (changedKey === BACKGROUND_MODE) {
+                    const newMode: BackgroundMode =
+                        getLocalStorageBackgroundMode();
+                    console.log(
+                        `[AppNavigator] background mode changed to ${newMode}`
+                    );
+
+                    if (newMode === BackgroundMode.CALL_NOW) {
+                        TriggerCall();
+                        clearInterval(timerId);
+                        dispatch({ type: BackgroundMode.CALL_ENDED });
+                    }
+                }
+            }
+        );
+    }, [listener]);
+
     const [time, setTime] = React.useState(30);
     const timerRef = React.useRef(time);
 
