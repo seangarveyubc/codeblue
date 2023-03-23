@@ -1,19 +1,13 @@
 import * as React from 'react';
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Colours from '../../constants/Colours';
+import { SCREEN_WIDTH } from '../../constants/constants';
+import { normalize } from '../../utils/normalizer/normalizer';
 import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {
     name: string;
 }
-
-const windowWidth = Dimensions.get('window').width;
 
 export const AddDeviceWidget = ({ name }: Props) => {
     const [text, onChangetext] = React.useState(name);
@@ -86,12 +80,12 @@ export const AddDeviceWidget = ({ name }: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 60,
-        width: windowWidth * 0.88,
+        height: normalize(60),
+        width: SCREEN_WIDTH * 0.88,
         alignItems: 'center',
         justifyContent: 'space-between',
         flexDirection: 'row',
-        padding: 14
+        padding: normalize(14)
     },
     rightContent: {
         alignItems: 'flex-end',
@@ -104,8 +98,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     deviceName: {
-        marginLeft: 10,
-        fontSize: 18,
+        marginLeft: normalize(10),
+        fontSize: normalize(18),
         fontFamily: 'DMSans-Regular',
         color: Colours.BLACK
     },
@@ -114,11 +108,11 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 8,
-        paddingHorizontal: 10
+        borderRadius: normalize(8),
+        paddingHorizontal: normalize(10)
     },
     statusText: {
-        fontSize: 15,
+        fontSize: normalize(15),
         fontFamily: 'DMSans-Regular'
     }
 });

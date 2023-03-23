@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { SettingsScreenHeader } from '../../../components/SettingsScreenHeader/SettingsScreenHeader';
 import { UserAccountInfo } from '../../../components/UserAccountInfo/UserAccountInfo';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -48,14 +49,33 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
             // save any updates
             saveUserName(PersonalDataKeys.FIRST_NAME, firstName);
             saveUserName(PersonalDataKeys.LAST_NAME, lastName);
-            saveUserBirthday(birthday);
-            saveUserWeightHeight(PersonalDataKeys.HEIGHT, height);
-            saveUserWeightHeight(PersonalDataKeys.WEIGHT, weight);
+            const birthdayResult = saveUserBirthday(birthday);
+            const heightResult = saveUserWeightHeight(
+                PersonalDataKeys.HEIGHT,
+                height
+            );
+            const weightResult = saveUserWeightHeight(
+                PersonalDataKeys.WEIGHT,
+                weight
+            );
             saveUserBloodType(bloodType);
             saveUserSex(sex);
-        }
 
-        setEdit(!edit);
+            const errors = [birthdayResult, heightResult, weightResult]
+                .filter((item) => item !== undefined)
+                .map((item) => item?.message);
+
+            if (errors.length > 0) {
+                const errorMessage = errors
+                    .map((err) => '-  ' + err)
+                    .join('\n');
+                Alert.alert('Please fix form errors', errorMessage);
+            } else {
+                setEdit(!edit);
+            }
+        } else {
+            setEdit(!edit);
+        }
     };
 
     return (
@@ -95,7 +115,7 @@ export const AccountInfoScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     container: { height: '100%', backgroundColor: Colours.WHITE },
     title: {
-        fontSize: 28,
+        fontSize: normalize(28),
         fontFamily: 'DMSans-Bold',
         alignSelf: 'center',
         color: Colours.WHITE
@@ -108,12 +128,12 @@ const styles = StyleSheet.create({
         marginHorizontal: '3%'
     },
     subHeadingText: {
-        fontSize: 20,
+        fontSize: normalize(20),
         fontFamily: 'DMSans-Bold',
         color: Colours.BLACK
     },
     edit: {
-        fontSize: 20,
+        fontSize: normalize(20),
         fontFamily: 'DMSans-Bold',
         color: Colours.BLUE
     }

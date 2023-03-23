@@ -4,6 +4,7 @@ import { RadioButton, Text } from 'react-native-paper';
 
 import Colours from '../../constants/Colours';
 import { HeartProblemOptions } from '../../constants/HeartProblemOptions';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     selectedValue: string;
@@ -59,8 +60,8 @@ const styles = StyleSheet.create({
 
     text: {
         fontFamily: 'DMSans-Regular',
-        fontweight: 500,
-        fontSize: 18,
+        fontweight: normalize(500),
+        fontSize: normalize(18),
         color: Colours.BLACK
     }
 });

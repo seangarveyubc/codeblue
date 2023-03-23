@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import Colours from '../../constants/Colours';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     text: string;
@@ -15,7 +16,7 @@ export const IconTextInput = ({ text, onChangeText, isConnected }: Props) => {
             <Icon
                 style={styles.icon}
                 name={isConnected ? 'broadcast' : 'broadcast-off'}
-                size={25}
+                size={normalize(25)}
                 color={Colours.BLACK}
             />
             <TextInput
@@ -35,10 +36,10 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignContent: 'center',
         alignItems: 'center',
-        margin: 10,
-        height: 60,
-        borderWidth: 2,
-        borderRadius: 10,
+        margin: normalize(10),
+        height: normalize(60),
+        borderWidth: normalize(2),
+        borderRadius: normalize(10),
         borderColor: Colours.BLUE
     },
     input: {
@@ -46,6 +47,6 @@ const styles = StyleSheet.create({
         fontFamily: 'DMSans-Regular'
     },
     icon: {
-        margin: 5
+        margin: normalize(5)
     }
 });

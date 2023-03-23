@@ -14,6 +14,7 @@ import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
 import { useIsFocused } from '@react-navigation/native';
 import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -50,12 +51,9 @@ export const HomeScreen = ({ navigation }: Props) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView>
+            <>
                 <View style={styles.header}>
-                    <HeaderSwirl
-                        title={firstName + ' ' + lastName}
-                        height={250}
-                    />
+                    <HeaderSwirl title={firstName + ' ' + lastName} />
                 </View>
                 <View style={styles.heartContainer}>
                     <HeartRateWidget heartRate={56} />
@@ -76,7 +74,8 @@ export const HomeScreen = ({ navigation }: Props) => {
                                 rate.
                                 <Text
                                     style={{
-                                        color: Colours.BLUE
+                                        color: Colours.BLUE,
+                                        fontFamily: 'DMSans-Regular'
                                     }}
                                 >
                                     Turn on Bluetooth.
@@ -88,18 +87,18 @@ export const HomeScreen = ({ navigation }: Props) => {
                 {deviceListState ? (
                     <View
                         style={{
-                            flex: bluetoothState ? 7 : 6,
-                            marginTop: 10
+                            flex: bluetoothState ? normalize(7) : normalize(6),
+                            marginTop: normalize(10)
                         }}
                     >
                         <CentredContent>
-                            <View style={{ paddingBottom: 15 }}>
+                            <View style={{ paddingBottom: normalize(15) }}>
                                 <DeviceWidget
                                     name={deviceName1}
                                     isConnected={true}
                                 />
                             </View>
-                            <View style={{ paddingBottom: 15 }}>
+                            <View style={{ paddingBottom: normalize(15) }}>
                                 <DeviceWidget
                                     name={deviceName2}
                                     isConnected={false}
@@ -110,8 +109,8 @@ export const HomeScreen = ({ navigation }: Props) => {
                 ) : (
                     <View
                         style={{
-                            flex: bluetoothState ? 7 : 6,
-                            marginTop: 10
+                            flex: bluetoothState ? normalize(7) : normalize(6),
+                            marginTop: normalize(10)
                         }}
                     >
                         <CentredContent>
@@ -132,7 +131,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         </CentredContent>
                     </View>
                 )}
-            </ScrollView>
+            </>
         </View>
     );
 };
@@ -142,22 +141,24 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-end',
         backgroundColor: Colours.WHITE,
-        alignItems: 'center'
+        alignItems: 'center',
+        height: '100%'
     },
     header: {
         height: '15%'
     },
     heartContainer: {
-        paddingTop: 20
+        paddingTop: normalize(20),
+        width: '100%'
     },
     yourDevices: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 24,
+        fontSize: normalize(24),
         color: Colours.BLACK
     },
     edit: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 18,
+        fontSize: normalize(18),
         color: Colours.BLUE
     },
     deviceHeader: {
@@ -168,8 +169,9 @@ const styles = StyleSheet.create({
     },
     bluetoothPrompt: {
         textAlign: 'center',
-        marginVertical: 8,
+        marginVertical: normalize(8),
         width: SCREEN_WIDTH * 0.9,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        fontFamily: 'DMSans-Regular'
     }
 });

@@ -1,6 +1,8 @@
+import { AuthorizationStatus } from '@notifee/react-native';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     heartRate: number;
@@ -23,7 +25,8 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                 <Text
                     style={{
                         flex: 0.4,
-                        fontSize: 16,
+                        fontSize: normalize(16),
+                        fontFamily: 'DMSans-Regular',
                         color: active ? Colours.BLACK : Colours.GREY
                     }}
                 >
@@ -32,7 +35,8 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                 <View style={styles.bpm}>
                     <Text
                         style={{
-                            fontSize: 50,
+                            fontSize: normalize(50),
+                            fontFamily: 'DMSans-Medium',
                             color: active ? Colours.BLACK : Colours.GREY
                         }}
                     >
@@ -40,8 +44,9 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                     </Text>
                     <Text
                         style={{
-                            marginBottom: 10,
-                            fontSize: 20,
+                            marginBottom: normalize(10),
+                            fontSize: normalize(20),
+                            fontFamily: 'DMSans-Regular',
                             color: active ? Colours.BLACK : Colours.GREY
                         }}
                     >
@@ -49,10 +54,16 @@ export const HeartRateWidget = ({ heartRate }: Props) => {
                     </Text>
                 </View>
             </View>
-            <Image
-                source={require('../../assets/heartRate.png')} //Change your icon image here
-                style={styles.ImageStyle}
-            />
+            <View style={styles.ImageStyle}>
+                <Image
+                    source={require('../../assets/heartRate.png')} //Change your icon image here
+                    style={{
+                        resizeMode: 'contain',
+                        height: '100%',
+                        width: '100%'
+                    }}
+                />
+            </View>
         </View>
     );
 };
@@ -62,9 +73,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        margin: 20,
-        height: 170,
-        borderRadius: 20,
+        margin: normalize(20),
+        height: normalize(170),
+        borderRadius: normalize(20),
         backgroundColor: Colours.LIGHTBLUE,
         fontFamily: 'DMSans-Regular'
     },
@@ -78,5 +89,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
-    ImageStyle: {}
+    ImageStyle: {
+        height: '60%',
+        width: '40%'
+    }
 });

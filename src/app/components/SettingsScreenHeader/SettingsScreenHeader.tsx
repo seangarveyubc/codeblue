@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Colours from '../../constants/Colours';
+import { SCREEN_WIDTH } from '../../constants/constants';
+import { normalize } from '../../utils/normalizer/normalizer';
 import { BackArrow } from '../BackArrow/BackArrow';
 
 interface Props {
@@ -24,36 +26,36 @@ export const SettingsScreenHeader = ({ navigation, title }: Props) => {
         </View>
     );
 };
-const window = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container: {
-        width: window.width,
+        width: SCREEN_WIDTH,
         overflow: 'hidden',
-        height: window.width / 3
+        height: SCREEN_WIDTH / 3
     },
     semicircle: {
-        borderRadius: window.width,
-        width: window.width * 2.2,
-        height: window.width * 2,
-        marginLeft: -(window.width / 1.66),
+        borderRadius: SCREEN_WIDTH,
+        width: SCREEN_WIDTH * 2.2,
+        height: SCREEN_WIDTH * 2,
+        marginLeft: -(SCREEN_WIDTH / 1.66),
         position: 'absolute',
-        bottom: 0,
+        bottom: normalize(0),
         backgroundColor: Colours.DARKBLUE
     },
     header: {
         alignSelf: 'center',
         alignItems: 'flex-start',
         justifyContent: 'space-between',
-        height: window.width / 3,
-        width: window.width / 1.1,
+        height: SCREEN_WIDTH / 3,
+        width: SCREEN_WIDTH / 1.1,
         position: 'absolute',
-        bottom: 0,
+        bottom: normalize(0),
         paddingTop: '5%',
         paddingBottom: '10%',
         flexDirection: 'column'
     },
     text: {
-        fontSize: 28,
+        fontSize: normalize(28),
         fontFamily: 'DMSans-Bold',
         alignSelf: 'center',
         color: Colours.WHITE

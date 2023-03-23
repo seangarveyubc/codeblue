@@ -14,13 +14,12 @@ import { Logo } from '../../../components/Logo/Logo';
 import { WideButton } from '../../../components/WideButton/WideButton';
 import { useLocalStorage } from '../../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../../localStorage/models/LocalStorageKeys';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/constants';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
 }
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 export const RequiredInfoScreen = ({ navigation }: Props) => {
     const { appDataStorage, saveUserName } = useLocalStorage();
@@ -47,8 +46,8 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
             <CentredContent>
                 <View style={styles.logoGroup}>
                     <Logo
-                        width={windowWidth * 0.3}
-                        height={windowWidth * 0.3}
+                        width={SCREEN_WIDTH * 0.3}
+                        height={SCREEN_WIDTH * 0.3}
                     />
                     <Text style={styles.titleText}>Let's get started</Text>
                 </View>
@@ -60,13 +59,13 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
                         placeholder="First Name"
                         text={firstName}
                         onChangeText={setFirstName}
-                        width={windowWidth * 0.9}
+                        width={SCREEN_WIDTH * 0.9}
                     />
                     <InputText
                         placeholder="Last Name"
                         text={lastName}
                         onChangeText={setLastName}
-                        width={windowWidth * 0.9}
+                        width={SCREEN_WIDTH * 0.9}
                     />
                 </KeyboardAvoidingView>
                 <WideButton text="Next" onPress={handleNavigate} />
@@ -78,20 +77,20 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
     screenContainer: {
         backgroundColor: Colours.WHITE,
-        height: '100%'
+        height: '100%',
+        justifyContent: 'center'
     },
     logoGroup: {
-        marginTop: windowHeight * 0.15,
         alignItems: 'center'
     },
     titleText: {
         fontFamily: 'DMSans-Bold',
-        fontSize: 24,
+        fontSize: normalize(24),
         color: Colours.BLUE,
-        marginTop: 8
+        marginTop: normalize(8)
     },
     inputTextGroup: {
-        marginTop: windowHeight * 0.05,
-        marginBottom: windowHeight * 0.1
+        marginTop: SCREEN_HEIGHT * 0.05,
+        marginBottom: SCREEN_HEIGHT * 0.1
     }
 });

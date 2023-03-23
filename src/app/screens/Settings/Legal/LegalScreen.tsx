@@ -7,6 +7,7 @@ import Colours from '../../../constants/Colours';
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
 import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
 import { Alert } from 'react-native';
+import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
     navigation: any;
@@ -477,67 +478,67 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'DMSans-Bold',
-        marginLeft: 20,
-        marginTop: 30,
-        marginBottom: 10,
+        marginLeft: normalize(20),
+        marginTop: normalize(30),
+        marginBottom: normalize(10),
         color: Colours.BLACK,
-        fontSize: 24
+        fontSize: normalize(24)
     },
     subtitle: {
         fontFamily: 'DMSans-Bold',
-        marginLeft: 20,
-        marginBottom: 10,
+        marginLeft: normalize(20),
+        marginBottom: normalize(10),
         color: Colours.BLACK,
-        fontSize: 20
+        fontSize: normalize(20)
     },
     lasttitle: {
         fontFamily: 'DMSans-Bold',
-        marginLeft: 20,
-        marginTop: 30,
+        marginLeft: normalize(20),
+        marginTop: normalize(30),
         color: Colours.BLACK,
-        fontSize: 24
+        fontSize: normalize(24)
     },
     subsubtitle: {
         fontFamily: 'DMSans-Bold',
-        marginLeft: 20,
-        marginTop: 5,
-        marginBottom: 5,
+        marginLeft: normalize(20),
+        marginTop: normalize(5),
+        marginBottom: normalize(5),
         color: Colours.BLACK,
-        fontSize: 16
+        fontSize: normalize(16)
     },
     paragraph: {
         fontFamily: 'DMSans-Regular',
         color: Colours.BLACK,
-        fontSize: 12,
-        marginHorizontal: 20,
-        marginBottom: 10,
+        fontSize: normalize(12),
+        marginHorizontal: normalize(20),
+        marginBottom: normalize(10),
         textAlign: 'left'
     },
     bullet: {
         fontFamily: 'DMSans-Regular',
         color: Colours.BLACK,
-        fontSize: 12,
-        marginHorizontal: 20,
-        marginLeft: 30,
-        marginBottom: 10,
+        fontSize: normalize(12),
+        marginHorizontal: normalize(20),
+        marginLeft: normalize(30),
+        marginBottom: normalize(10),
         textAlign: 'left'
     },
     subbullet: {
         fontFamily: 'DMSans-Regular',
         color: Colours.BLACK,
-        fontSize: 12,
-        marginHorizontal: 20,
-        marginLeft: 50,
-        marginBottom: 10,
+        fontSize: normalize(12),
+        marginHorizontal: normalize(20),
+        marginLeft: normalize(50),
+        marginBottom: normalize(10),
         textAlign: 'left'
     },
     lastbullet: {
         fontFamily: 'DMSans-Regular',
         color: Colours.BLACK,
-        fontSize: 12,
-        marginHorizontal: 20,
-        marginLeft: 30,
-        marginBottom: 60,
+        fontSize: normalize(12),
+        marginHorizontal: normalize(20),
+        marginLeft: normalize(30),
+        marginBottom: normalize(60),
         textAlign: 'left'
     }
 });
