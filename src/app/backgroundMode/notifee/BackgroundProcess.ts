@@ -1,8 +1,14 @@
-import { TriggerCall } from '../../EMSCall/TriggerCall';
-import { backgroundModeStorage } from '../../localStorage/hooks/useLocalStorage';
-import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
-import { clearExistingIntervals } from './notifeeService';
+import {
+    backgroundModeStorage,
+    useLocalStorage
+} from '../../localStorage/hooks/useLocalStorage';
+import {
+    BACKGROUND_MODE,
+    EP_TIMER,
+    HOST_DEVICE_ID
+} from '../../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../models/BackgroundMode';
+import * as utils from '../../../../src/app/utils/AppUtils';
 
 export class BackgroundProcess {
     mode: BackgroundMode;
@@ -10,15 +16,10 @@ export class BackgroundProcess {
     heartFn: any;
     idleFn: any;
     callFn: any;
-    wasCallTriggered: boolean;
 
     constructor() {
         console.log('[BackgroundProcess] created a background process');
-        this.mode =
-            (backgroundModeStorage.getString(
-                BACKGROUND_MODE
-            ) as BackgroundMode) ?? BackgroundMode.IDLE;
-        this.wasCallTriggered = false;
+        this.mode = getLocalStorageBackgroundMode() ?? BackgroundMode.IDLE;
         this.startBackgroundTaskListener();
         this.executeBackgroundTask(this.mode);
     }
@@ -27,34 +28,47 @@ export class BackgroundProcess {
         switch (mode) {
             case BackgroundMode.MONITOR_HEART: {
                 // send data to algorithm
-                this.wasCallTriggered = false;
                 this.heartFn = setInterval(async () => {
                     console.log('reading heart rate');
-                    // TODO: update fetch to send data to algo
-                    /*const response = await fetch(
-                        `http://34.209.158.8:3000/`,
-                        {
-                            method: 'GET'
-                        }
+                    const { appDataStorage } = useLocalStorage();
+                    const deviceId =
+                        appDataStorage.getString(HOST_DEVICE_ID) ?? '';
+                    utils.fetchDetectCA(
+                        utils.local_healthy_address,
+                        [1, 2, 3],
+                        'forehead',
+                        deviceId
                     );
-                    console.log(response);*/
                 }, 10000);
                 break;
             }
-            case BackgroundMode.PHONE_CALL:
-            case BackgroundMode.TEXT_TO_SPEECH: {
-                if (!this.wasCallTriggered) {
-                    this.wasCallTriggered = true;
-                    TriggerCall();
-                }
+            case BackgroundMode.CA_DETECTED: {
+                // TODO: handle CA detected while in background mode
+                /*if (AppState.currentState === 'background') {
+                    // handle countdown in the background
+                    for (let i = 1; i <= 30; i++) {
+                        setTimeout(() => {
+                            // update local storage with time left
+                            backgroundModeStorage.add(EP_TIMER, 30 - i);
+                            if (i === 30) {
+                                this.handleBackgroundCADetected();
+                            }
+                        }, i * 1000);
+                    }
+                }*/
                 this.callFn = setInterval(() => {
-                    console.log('calling');
+                    console.log('ca detected');
+                }, 5000);
+                break;
+            }
+            case BackgroundMode.CALL_ENDED: {
+                this.callFn = setInterval(() => {
+                    console.log('call ended');
                 }, 5000);
                 break;
             }
             default: {
                 // idle - do nothing
-                this.wasCallTriggered = false;
                 this.idleFn = setInterval(() => {
                     console.log('idle');
                 }, 5000);
@@ -63,21 +77,30 @@ export class BackgroundProcess {
         }
     }
 
+    // TODO: handle CA detected while in background mode
+    /*handleBackgroundCADetected() {
+        TriggerCall();
+        // (short circuit dispatch) open to call ended screen after call placed
+        backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CALL_ENDED);
+    }*/
+
     startBackgroundTaskListener() {
         this.listener = backgroundModeStorage.storage.addOnValueChangedListener(
             (changedKey) => {
                 if (changedKey === BACKGROUND_MODE) {
-                    const newValue =
-                        backgroundModeStorage.getString(changedKey);
+                    const newMode: BackgroundMode =
+                        getLocalStorageBackgroundMode();
                     console.log(
-                        `[notifeeService listener] "${changedKey}" new value: ${newValue}`
+                        `[notifeeService listener] "${changedKey}" new value: ${newMode}`
                     );
-                    clearExistingIntervals(
+                    // set EP timer back to 30s
+                    backgroundModeStorage.add(EP_TIMER, 30);
+                    this.clearExistingIntervals(
                         this.heartFn,
                         this.callFn,
                         this.idleFn
                     );
-                    this.executeBackgroundTask(newValue as BackgroundMode);
+                    this.executeBackgroundTask(newMode);
                 }
             }
         );
@@ -86,4 +109,30 @@ export class BackgroundProcess {
     removeBackgroundTaskListener() {
         this.listener.remove();
     }
+
+    // TODO: delete once real tasks are implemented
+    private clearExistingIntervals = (
+        heartFn: any,
+        callFn: any,
+        idleFn: any
+    ) => {
+        if (heartFn) {
+            clearInterval(heartFn);
+            heartFn = undefined;
+        }
+
+        if (callFn) {
+            clearInterval(callFn);
+            callFn = undefined;
+        }
+
+        if (idleFn) {
+            clearInterval(idleFn);
+            idleFn = undefined;
+        }
+    };
 }
+
+export const getLocalStorageBackgroundMode = (): BackgroundMode => {
+    return backgroundModeStorage.getString(BACKGROUND_MODE) as BackgroundMode;
+};

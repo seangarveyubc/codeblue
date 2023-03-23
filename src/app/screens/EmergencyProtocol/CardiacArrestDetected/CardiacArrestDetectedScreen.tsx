@@ -11,6 +11,8 @@ import {
 import { TriggerCall } from '../../../EMSCall/TriggerCall';
 import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 
 interface Props {
     navigation: any;
@@ -19,8 +21,11 @@ interface Props {
 var timerId: any = null;
 
 export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
+    const { dispatch } = React.useContext(AppContext);
     const [callModalVisible, setCallModalVisible] = React.useState(false);
     const [cancelModalVisible, setCancelModalVisible] = React.useState(false);
+
+    // TODO: initialize timer current value in local storage
     const [time, setTime] = React.useState(30);
     const timerRef = React.useRef(time);
 
@@ -45,6 +50,13 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
     };
     const showCancelModal = () => {
         setCancelModalVisible(true);
+    };
+
+    const placeEMSCall = () => {
+        TriggerCall();
+        setCallModalVisible(false);
+        clearInterval(timerId);
+        navigation.navigate('CallEnded');
     };
 
     return (
@@ -98,12 +110,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 modalVisible={callModalVisible}
                 setModalVisible={setCallModalVisible}
                 modalType={ModalType.CallAlert}
-                confirmAction={() => {
-                    TriggerCall();
-                    setCallModalVisible(false);
-                    clearInterval(timerId);
-                    navigation.navigate('CallEnded');
-                }}
+                confirmAction={placeEMSCall}
             />
             {/* Cancel alert modal */}
             <AlertModal
@@ -111,7 +118,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 setModalVisible={setCancelModalVisible}
                 modalType={ModalType.CancelAlert}
                 confirmAction={() => {
-                    navigation.navigate('MainNavigator');
+                    dispatch({ type: BackgroundMode.MONITOR_HEART });
                 }}
             />
         </View>

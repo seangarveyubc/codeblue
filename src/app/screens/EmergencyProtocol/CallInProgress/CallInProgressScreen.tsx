@@ -6,12 +6,16 @@ import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/WideButton/WideButton';
 import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 
 interface Props {
     navigation: any;
 }
 
 export const CallInProgressScreen = ({ navigation }: Props) => {
+    const { dispatch } = React.useContext(AppContext);
+
     return (
         <View style={styles.container}>
             <View>
@@ -30,6 +34,7 @@ export const CallInProgressScreen = ({ navigation }: Props) => {
             <WideButton
                 text={'Go to call ended screen'}
                 onPress={() => {
+                    dispatch({ type: BackgroundMode.CALL_ENDED });
                     navigation.navigate('CallEnded');
                 }}
             />
