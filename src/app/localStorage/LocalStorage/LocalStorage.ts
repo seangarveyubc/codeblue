@@ -12,4 +12,4 @@ export interface LocalAppStorage {
     isEmpty: () => boolean;
 }
 
-export class LocalStorage extends LocalStorageImpl { }
+export class LocalStorage extends LocalStorageImpl {}
