@@ -38,9 +38,9 @@ export class LocalStorageImpl implements LocalAppStorage {
 
     getList(key: string): string[] | undefined {
         let listString = this.storage.getString(DeviceKeys.DEVICE_LIST);
-        var listDevices = listString?.split(',')
+        var listDevices = listString?.split(',');
         console.log(listDevices);
-        return listDevices
+        return listDevices;
     }
 
     // possible improvement: throw error if key does not exist
