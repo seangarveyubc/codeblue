@@ -56,6 +56,14 @@ describe('LocalStorageImpl', () => {
         });
     });
 
+    describe('addDevice', () => {
+        it('todo');
+    });
+
+    describe('addDeviceList', () => {
+        it('todo');
+    });
+
     describe('getString', () => {
         it('should call getString on the MMKV instance with the correct key and return the value', () => {
             const key = 'key';
@@ -84,6 +92,14 @@ describe('LocalStorageImpl', () => {
             expect(storage.getBoolean(key)).toEqual(value);
             expect(mmkv.getBoolean).toHaveBeenCalledWith(key);
         });
+    });
+
+    describe('getDeviceList', () => {
+        it('todo');
+    });
+
+    describe('deleteDevice', () => {
+        it('todo');
     });
 
     describe('delete', () => {

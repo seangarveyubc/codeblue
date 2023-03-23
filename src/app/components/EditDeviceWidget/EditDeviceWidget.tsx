@@ -7,35 +7,45 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import SelectDropdown from 'react-native-select-dropdown';
 import { SensorLocations } from '../../constants/SensorLocations';
+import { useState } from 'react';
+import { DeviceData } from '../../localStorage/models/DeviceList';
 
 interface Props {
-    name: string;
-    onUpdateName: () => void;
-    location?: number;
-    onUpdateLocationIndex: (index: number) => void;
-    deleteDevice: () => void;
+    initialDeviceData: DeviceData;
+    updateDeviceInfo: (
+        deviceData: DeviceData,
+        updateType: 'location' | 'name',
+        newName: string,
+        newLocationIndex: number
+    ) => void;
+    deleteDevice: any;
     isConnected: boolean;
 }
 
 export const EditDeviceWidget = ({
-    name,
-    onUpdateName,
-    location,
-    onUpdateLocationIndex,
+    initialDeviceData,
+    updateDeviceInfo,
     deleteDevice,
     isConnected
 }: Props) => {
+    const [deviceName, setDeviceName] = useState(initialDeviceData.name);
+
     const statusIcon = isConnected ? (
         <CommunityIcon name="broadcast" size={25} color={Colours.BLACK} />
     ) : (
         <CommunityIcon name="broadcast-off" size={25} color={Colours.GREY} />
     );
 
+    const updateDeviceName = (newName: string) => {
+        setDeviceName(newName);
+        updateDeviceInfo(initialDeviceData, 'name', newName, 0);
+    };
+
     const nameInput = (
         <TextInput
             style={styles.nameInput}
-            value={name}
-            onChangeText={onUpdateName}
+            value={deviceName}
+            onChangeText={(text: string) => updateDeviceName(text)}
             placeholder={'Device Name'}
             placeholderTextColor={Colours.BLACK}
             autoCorrect={false}
@@ -44,10 +54,10 @@ export const EditDeviceWidget = ({
 
     const locationDropdownSelect = (
         <SelectDropdown
-            defaultButtonText={SensorLocations[location ?? 0]}
+            defaultButtonText={initialDeviceData.location}
             data={SensorLocations}
             onSelect={(selectedItem, index) => {
-                onUpdateLocationIndex(index);
+                updateDeviceInfo(initialDeviceData, 'location', '', index);
             }}
             buttonTextAfterSelection={(selectedItem, index) => {
                 // text represented after item is selected
@@ -93,7 +103,7 @@ export const EditDeviceWidget = ({
                     name="trash"
                     size={25}
                     color={Colours.RED}
-                    onPress={deleteDevice}
+                    onPress={deleteDevice(initialDeviceData.id)}
                 />
             </View>
         </View>

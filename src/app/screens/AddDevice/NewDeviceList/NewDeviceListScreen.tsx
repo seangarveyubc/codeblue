@@ -7,6 +7,7 @@ interface Props {
     navigation: any;
 }
 
+// todo: save device name, id, and location to local storage
 export const NewDeviceListScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.page}>

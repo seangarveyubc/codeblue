@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     },
     deviceInfo: {
         marginLeft: 10,
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        width: '80%'
     },
     location: {
         fontSize: 15,

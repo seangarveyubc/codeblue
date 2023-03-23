@@ -4,7 +4,7 @@ export const SensorLocations = [
     'Right Ear Canal',
     'Left Ear Canal',
     'Right Ear Lobe',
-    'Left Eat Lobe',
+    'Left Ear Lobe',
     'Neck',
     'Right Wrist',
     'Left Wrist',

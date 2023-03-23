@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { HeaderSwirl } from '../../components/HeaderSwirl/HeaderSwirl';
 import { HeartRateWidget } from '../../components/HeartRateWidget/HeartRateWidget';
 import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
-import { IconTextInput } from '../../components/IconTextInput/IconTextInput';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
@@ -15,6 +14,7 @@ import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
 import { useIsFocused } from '@react-navigation/native';
 import { isBackgroundModeDefined } from '../../backgroundMode/notifee/notifeeService';
 import { EditDeviceWidget } from '../../components/EditDeviceWidget/EditDeviceWidget';
+import { DeviceData } from '../../localStorage/models/DeviceList';
 import { SensorLocations } from '../../constants/SensorLocations';
 
 interface Props {
@@ -31,9 +31,21 @@ export const HomeScreen = ({ navigation }: Props) => {
     const { appDataStorage } = useLocalStorage();
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
+    const deviceList = useRef(appDataStorage.getDeviceList());
 
     // initialize the background state to idle for a first time user
     useEffect(() => {
+        /*appDataStorage.addDevice({
+            id: '1',
+            name: 'PPG2',
+            location: 'Left Tip of Finger'
+        });
+        appDataStorage.addDevice({
+            id: '2',
+            name: 'PPG3',
+            location: 'Right Wrist'
+        });*/
+        console.log('Homescreen device list', deviceList.current?.devices);
         if (!isBackgroundModeDefined) {
             dispatch({ type: BackgroundMode.IDLE });
         }
@@ -48,7 +60,61 @@ export const HomeScreen = ({ navigation }: Props) => {
         );
     }, [isFocused]);
 
-    const toggleChecked = () => setDeviceListState((value) => !value);
+    const toggleChecked = () => {
+        // exiting from edit mode
+        if (!deviceListState && deviceList.current) {
+            appDataStorage.addDeviceList(deviceList.current);
+        }
+        setDeviceListState((value) => !value);
+    };
+
+    // update local deviceList with information to be saved in local storage
+    const handleUpdateDeviceInfo = (
+        deviceData: DeviceData,
+        updateType: 'location' | 'name',
+        newName: string = '',
+        newLocationIndex: number = 0
+    ) => {
+        let deviceListTemp = deviceList.current?.devices;
+        const deviceIndex = deviceListTemp?.findIndex(
+            (device: DeviceData) => device.id === deviceData.id
+        );
+
+        console.log('updateDevice deviceIndex', deviceIndex);
+        console.log('deviceListTemp', deviceListTemp);
+
+        if (deviceListTemp && deviceIndex !== undefined && deviceIndex > -1) {
+            deviceListTemp[deviceIndex] = {
+                id: deviceData.id,
+                name: updateType === 'name' ? newName : deviceData.name,
+                location:
+                    updateType === 'location'
+                        ? SensorLocations[newLocationIndex]
+                        : deviceData.location
+            };
+            deviceList.current = { devices: deviceListTemp };
+        } else {
+            console.log(
+                `Unable to update ${updateType} for device with id: ${deviceData.id}`
+            );
+        }
+    };
+
+    // TODO: fix UI not updating after delete
+    const deleteSensor = (id: string) => {
+        appDataStorage.deleteDevice(id);
+
+        let deviceListTemp: DeviceData[] | undefined =
+            deviceList.current?.devices;
+        const deviceIndex = deviceListTemp?.findIndex(
+            (device: DeviceData) => device.id === id
+        );
+
+        if (deviceListTemp && deviceIndex && deviceIndex > -1) {
+            deviceListTemp.splice(deviceIndex, 1);
+            deviceList.current = { devices: deviceListTemp };
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -110,6 +176,19 @@ export const HomeScreen = ({ navigation }: Props) => {
                                     isConnected={false}
                                 />
                             </View>
+                            {deviceList.current?.devices.map(
+                                (device: DeviceData) => {
+                                    return (
+                                        <View style={{ paddingBottom: 15 }}>
+                                            <DeviceWidget
+                                                name={device.name}
+                                                location={device.location}
+                                                isConnected={false}
+                                            />
+                                        </View>
+                                    );
+                                }
+                            )}
                         </CentredContent>
                     </View>
                 ) : (
@@ -120,14 +199,22 @@ export const HomeScreen = ({ navigation }: Props) => {
                         }}
                     >
                         <CentredContent>
-                            <EditDeviceWidget
-                                name={deviceName1}
-                                onUpdateName={() => {}}
-                                location={2}
-                                onUpdateLocationIndex={() => {}}
-                                deleteDevice={() => {}}
-                                isConnected={true}
-                            />
+                            {deviceList.current?.devices.map(
+                                (device: DeviceData) => {
+                                    return (
+                                        <View style={{ paddingBottom: 15 }}>
+                                            <EditDeviceWidget
+                                                initialDeviceData={device}
+                                                updateDeviceInfo={
+                                                    handleUpdateDeviceInfo
+                                                }
+                                                deleteDevice={deleteSensor}
+                                                isConnected={true}
+                                            />
+                                        </View>
+                                    );
+                                }
+                            )}
                         </CentredContent>
                     </View>
                 )}
