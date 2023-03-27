@@ -75,7 +75,7 @@ function useBLE(): BluetoothLowEnergyApi {
         devices.findIndex((device) => nextDevice.id === device.id) > -1;
 
     let devicecounter = 0;
-    const scanForPeripherals = () =>
+    const scanForPeripherals = () => {
         bleManager.startDeviceScan(null, null, (error, device) => {
             // console.log(device);
             if (error) {
@@ -90,10 +90,8 @@ function useBLE(): BluetoothLowEnergyApi {
                     return prevState;
                 });
             }
-            if (devicecounter >= 10) {
-                bleManager.stopDeviceScan();
-            }
         });
+    };
 
     const connectToDevice = async (device: Device) => {
         try {
@@ -154,40 +152,64 @@ function useBLE(): BluetoothLowEnergyApi {
     // };
 
     const startStreamingData = async (device: Device) => {
-        const services = await device.services();
-        let monitoringChar: Characteristic | null;
-        console.log(services);
-        services.forEach(async (service) => {
-            if (service) {
-                console.log(service.id);
-                console.log(service.uuid);
-                let chars = await service.characteristics();
+        const serviceUUIDs = device.serviceUUIDs;
+        serviceUUIDs?.forEach((sUUID) => {
+            device.characteristicsForService(sUUID).then((chars) => {
                 chars.forEach((char) => {
-                    if (char.isNotifiable) {
-                        console.log('111111');
-                        monitoringChar = char;
-                        // console.log(char);
-                        device!.monitorCharacteristicForService(
-                            char.serviceUUID,
-                            char.uuid,
-                            (error, characteristic) => {
-                                console.log(characteristic?.value);
-                                console.log(atob(characteristic?.value!));
-                                const temp = atob(characteristic?.value!);
-                                // console.log(Number(characteristic?.value));
-                                console.log(Number(temp));
-                                if (temp) {
-                                    setHeartRate(Number(temp));
-                                }
-                                // saveHeartRate(Number(temp));
-                                console.log('444');
-                                console.log(heartRate);
-                            }
-                        );
+                    console.log('services');
+
+                    console.log(sUUID);
+                    console.log('chars');
+                    console.log(char.uuid);
+                    if (char.isReadable) {
+                        console.log('CAN REAF');
+                        console.log(char.uuid);
+                        monitorCharacteristic(device, char);
                     }
                 });
-            }
+            });
         });
+        // device.services().then((services) => {
+        //     services.forEach(async (service) => {
+        //         {
+        //             console.log('services');
+        //             console.log(service.uuid);
+
+        //             let chars = await service.characteristics();
+        //             setTimeout(() => {}, 500);
+        //             // service.characteristics().then((chars) => {
+
+        //             chars.forEach((char) => {
+        //                 if (char.isReadable) {
+        //                     console.log('chars');
+        //                     console.log(char.uuid);
+        //                 }
+        //             });
+        //             // });
+        //         }
+        //     });
+        // });
+
+        let monitoringChar: Characteristic | null;
+        // console.log(services);
+        // services.forEach((service) => {
+        //     if (service) {
+        //         console.log(service.id);
+        //         console.log(service.uuid);
+        //         let chars = await service.characteristics();
+        //         chars.forEach((char) => {
+        //             if (char.isReadable == true) {
+        //                 // console.log(chars[0]);
+        //                 // console.log(chars[0].isNotifying);
+        //                 console.log('111111');
+        //                 monitoringChar = char;
+        //                 monitorCharacteristic(device, char);
+        //                 return;
+        //                 // console.log(char);
+        //             }
+        //         });
+        //     }
+        // });
         // const char = await services[11].characteristics();
         // console.log(char);
 
@@ -210,6 +232,27 @@ function useBLE(): BluetoothLowEnergyApi {
         //         console.log(heartRate);
         //     }
         // );
+    };
+
+    const monitorCharacteristic = (device: Device, charac: Characteristic) => {
+        device!.monitorCharacteristicForService(
+            charac.serviceUUID,
+            charac.uuid,
+            (error, characteristic) => {
+                // console.log(characteristic?.value);
+                // console.log(atob(characteristic?.value!));
+                const temp = atob(characteristic?.value!);
+                // console.log(temp);
+                console.log(111);
+                console.log(Number(temp));
+                if (Number(temp)) {
+                    setHeartRate(Number(temp));
+                }
+                // saveHeartRate(Number(temp));
+                console.log('444');
+                console.log(heartRate);
+            }
+        );
     };
 
     return {
