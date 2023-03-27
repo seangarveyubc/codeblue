@@ -83,11 +83,11 @@ export const useLocalStorage = () => {
     const saveDevice = (name: string) => {
         const devices = appDataStorage.getList(DeviceKeys.DEVICE_LIST);
         if (devices?.includes(name)) {
-            console.log('Already Added')
+            console.log('Already Added');
         } else {
             appDataStorage.addDevice(DeviceKeys.DEVICE_LIST, name);
         }
-    }
+    };
 
     return {
         isLocalStorageEmpty,
