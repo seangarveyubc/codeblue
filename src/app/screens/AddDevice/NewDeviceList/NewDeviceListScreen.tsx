@@ -49,8 +49,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.page}>
             <Text style={styles.title}>Add New Devices</Text>
-
-            {showLoading ? (
+            {showLoading && (
                 <ActivityIndicator
                     style={styles.loader}
                     size={100}
@@ -58,22 +57,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
                     hidesWhenStopped={true}
                     animating={showLoading}
                 />
-            ) : (
-                <></>
             )}
-            {/* {connectedDevice ? (
-                <>
-                    <HeartRateWidget heartRate={heartRate} />
-                    <Button onPress={disconnectFromDevice} title="Close" />
-                </>
-            ) : (
-                <DeviceList
-                    connectToPeripheral={connectToDevice}
-                    connectedDevice={connectedDevice}
-                    devices={allDevices}
-                    navigation={navigation}
-                />
-            )} */}
             <DeviceList
                 connectToPeripheral={connectToDevice}
                 disconnectDevice={disconnectFromDevice}

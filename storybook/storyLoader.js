@@ -14,6 +14,7 @@ function loadStories() {
     require('../src/app/components/DropdownMultiSelect/DropdownMultiSelect.stories');
     require('../src/app/components/DropdownSelect/DropdownSelect.stories');
     require('../src/app/components/DropdownSingleSelect/DropdownSingleSelect.stories');
+    require('../src/app/components/EditDeviceWidget/EditDeviceWidget.stories');
     require('../src/app/components/ForwardArrow/ForwardArrow.stories');
     require('../src/app/components/HeaderSwirl/HeaderSwirl.stories');
     require('../src/app/components/HeartRateWidget/HeartRateWidget.stories');
@@ -31,7 +32,6 @@ function loadStories() {
     require('../src/app/components/UserAccountInfo/UserAccountInfo.stories');
     require('../src/app/components/UserMedicalInfo/UserMedicalInfo.stories');
     require('../src/app/components/WideButton/WideButton.stories');
-    require('../src/app/screens/AddDevice/AddDeviceScreen.stories');
     require('../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories');
     require('../src/app/screens/EmergencyProtocol/CallEnded/CallEndedScreen.stories');
     require('../src/app/screens/EmergencyProtocol/CallInProgress/CallInProgressScreen.stories');
@@ -59,6 +59,7 @@ const stories = [
     '../src/app/components/DropdownMultiSelect/DropdownMultiSelect.stories',
     '../src/app/components/DropdownSelect/DropdownSelect.stories',
     '../src/app/components/DropdownSingleSelect/DropdownSingleSelect.stories',
+    '../src/app/components/EditDeviceWidget/EditDeviceWidget.stories',
     '../src/app/components/ForwardArrow/ForwardArrow.stories',
     '../src/app/components/HeaderSwirl/HeaderSwirl.stories',
     '../src/app/components/HeartRateWidget/HeartRateWidget.stories',
@@ -76,7 +77,6 @@ const stories = [
     '../src/app/components/UserAccountInfo/UserAccountInfo.stories',
     '../src/app/components/UserMedicalInfo/UserMedicalInfo.stories',
     '../src/app/components/WideButton/WideButton.stories',
-    '../src/app/screens/AddDevice/AddDeviceScreen.stories',
     '../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories',
     '../src/app/screens/EmergencyProtocol/CallEnded/CallEndedScreen.stories',
     '../src/app/screens/EmergencyProtocol/CallInProgress/CallInProgressScreen.stories',

@@ -1,19 +1,10 @@
 import * as React from 'react';
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    Modal
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Device } from 'react-native-ble-plx';
-import { Button } from 'react-native-paper';
 import Colours from '../../constants/Colours';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { normalize } from '../../utils/normalizer/normalizer';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
-import { DeviceKeys } from '../../localStorage/models/LocalStorageKeys';
 import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {
@@ -24,8 +15,6 @@ interface Props {
     connectedDevice: Device | null;
 }
 
-const windowWidth = Dimensions.get('window').width;
-
 export const AddDeviceWidget = ({
     name,
     item,
@@ -34,18 +23,18 @@ export const AddDeviceWidget = ({
     connectedDevice
 }: Props) => {
     const [text, onChangetext] = React.useState(name);
-    const [connected, onChangeConnected] = React.useState(false);
     const [isEditing, onChangeEditing] = React.useState(false);
     const [isSaved, onChangeSaved] = React.useState(false);
-    const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
-    const { appDataStorage, saveDevice } = useLocalStorage();
-
-    // Not handling the edit name, save name feature right now
+    const { appDataStorage } = useLocalStorage();
 
     const handleClick = async () => {
         if (!isEditing && !isSaved) {
             connectToPeripheral(item.item);
-            saveDevice(item.item.name);
+            appDataStorage.addDevice({
+                id: item.item.id,
+                name: item.item.name,
+                location: 'N/A'
+            });
         }
         if (connectedDevice && isSaved) {
             console.log('dis');
@@ -59,6 +48,7 @@ export const AddDeviceWidget = ({
             ? onChangeSaved((isSaved) => !isSaved)
             : onChangeSaved((isSaved) => isSaved);
     };
+
     return (
         <View style={styles.container}>
             <View style={styles.leftContent}>
@@ -105,7 +95,7 @@ export const AddDeviceWidget = ({
                             {isEditing && !isSaved
                                 ? 'Save Device'
                                 : isEditing && isSaved
-                                ? 'Disconnect'
+                                ? 'Saved'
                                 : 'Add Device'}
                         </Text>
                     </View>
@@ -114,50 +104,6 @@ export const AddDeviceWidget = ({
         </View>
     );
 };
-
-const modalStyle = StyleSheet.create({
-    modalContainer: {
-        flex: 1,
-        backgroundColor: '#f2f2f2'
-    },
-    modalFlatlistContiner: {
-        flex: 1,
-        justifyContent: 'center'
-    },
-    modalCellOutline: {
-        borderWidth: 1,
-        borderColor: 'black',
-        alignItems: 'center',
-        marginHorizontal: 20,
-        paddingVertical: 15,
-        borderRadius: 8
-    },
-    modalTitle: {
-        flex: 1,
-        backgroundColor: '#f2f2f2'
-    },
-    modalTitleText: {
-        marginTop: 40,
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginHorizontal: 20,
-        textAlign: 'center'
-    },
-    ctaButton: {
-        backgroundColor: 'purple',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 50,
-        marginHorizontal: 20,
-        marginBottom: 5,
-        borderRadius: 8
-    },
-    ctaButtonText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: 'white'
-    }
-});
 
 const styles = StyleSheet.create({
     container: {

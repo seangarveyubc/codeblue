@@ -1,6 +1,10 @@
 import { MMKV } from 'react-native-mmkv';
-import { DeviceList } from '../models/DeviceList';
+import { DeviceData, DeviceList } from '../models/DeviceList';
 import { DeviceKeys } from '../models/LocalStorageKeys';
+import {
+    deserializeDeviceList,
+    serializeLocalStorageObject
+} from '../models/mappers';
 import { LocalAppStorage } from './LocalStorage';
 
 export class LocalStorageImpl implements LocalAppStorage {
@@ -19,9 +23,12 @@ export class LocalStorageImpl implements LocalAppStorage {
         this.storage.set(key, value);
     }
 
-    addDevice(key: string, value: string) {
-        let devices = this.storage.getString(DeviceKeys.DEVICE_LIST);
-        this.storage.set(DeviceKeys.DEVICE_LIST, devices + ',' + value);
+    // bulk save device list action
+    addDeviceList(value: DeviceList) {
+        this.storage.set(
+            DeviceKeys.DEVICE_LIST,
+            serializeLocalStorageObject(value)
+        );
     }
 
     getString(key: string): string | undefined {
@@ -36,11 +43,10 @@ export class LocalStorageImpl implements LocalAppStorage {
         return this.storage.getBoolean(key);
     }
 
-    getList(key: string): string[] | undefined {
-        let listString = this.storage.getString(DeviceKeys.DEVICE_LIST);
-        var listDevices = listString?.split(',');
-        console.log(listDevices);
-        return listDevices;
+    getDeviceList() {
+        return deserializeDeviceList(
+            this.storage.getString(DeviceKeys.DEVICE_LIST) ?? ''
+        );
     }
 
     // possible improvement: throw error if key does not exist
@@ -50,6 +56,47 @@ export class LocalStorageImpl implements LocalAppStorage {
         }
 
         this.storage.delete(key);
+    }
+
+    addDevice(value: DeviceData) {
+        let deviceList = this.getDeviceList();
+
+        if (!deviceList) {
+            // adding a device for the first time
+            this.add(
+                DeviceKeys.DEVICE_LIST,
+                serializeLocalStorageObject({ devices: [value] })
+            );
+        } else {
+            let devices = deviceList.devices;
+            devices.push(value);
+            this.add(
+                DeviceKeys.DEVICE_LIST,
+                serializeLocalStorageObject({ devices: devices })
+            );
+        }
+    }
+
+    deleteDevice(id: string) {
+        const deviceList = this.getDeviceList();
+
+        if (!deviceList) {
+            console.log(`Could not delete device with id ${id}`);
+        } else {
+            let devices = deviceList.devices;
+            const deleteIndex = devices.findIndex(
+                (device: DeviceData) => device.id === id
+            );
+
+            if (deleteIndex > -1) {
+                devices.splice(deleteIndex, 1);
+            }
+
+            this.add(
+                DeviceKeys.DEVICE_LIST,
+                serializeLocalStorageObject({ devices: devices })
+            );
+        }
     }
 
     clearStorage() {

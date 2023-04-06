@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import {
     FlatList,
     ListRenderItemInfo,
@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import { Device } from 'react-native-ble-plx';
 import { AddDeviceWidget } from '../components/AddDeviceWidget/AddDeviceWidget';
-import { CancelButton } from '../components/CancelButton/CancelButton';
 import Colours from '../constants/Colours';
 
 type DeviceListProps = {
@@ -23,7 +22,6 @@ type DeviceListProps = {
 const DeviceList: FC<DeviceListProps> = (props) => {
     const {
         devices,
-
         connectToPeripheral,
         disconnectDevice,
         navigation,

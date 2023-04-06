@@ -1,17 +1,9 @@
 import { useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
-import {
-    BleError,
-    BleManager,
-    Characteristic,
-    Device
-} from 'react-native-ble-plx';
+import { BleManager, Characteristic, Device } from 'react-native-ble-plx';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
-
 import { atob } from 'react-native-quick-base64';
-import { useLocalStorage } from '../localStorage/hooks/useLocalStorage';
-import { number } from '@storybook/addon-knobs';
 
 const HEART_RATE_UUID = '180D';
 const HEART_RATE_CHARACTERISTIC = '2A37';

@@ -21,15 +21,15 @@ const mockMedicationList: MedicationList = {
 
 const mockDeviceList: DeviceList = {
     devices: [
-        { name: 'PPG1', location: 'Right hand' },
-        { name: 'PPG2', location: 'Left hand' }
+        { name: 'PPG1', id: '1', location: 'Right hand' },
+        { name: 'PPG2', id: '2', location: 'Left hand' }
     ]
 };
 
 const mockDateInMillis = 1672473600000;
 const mockMedicationListString = '{"medications":[1,2,3]}';
 const mockDeviceListString =
-    '{"devices":[{"name":"PPG1","location":"Right hand"},{"name":"PPG2","location":"Left hand"}]}';
+    '{"devices":[{"name":"PPG1","id":"1","location":"Right hand"},{"name":"PPG2","id":"2","location":"Left hand"}]}';
 
 describe('generateCardiacDataKey', () => {
     it('maps CardiacData to a key', () => {
