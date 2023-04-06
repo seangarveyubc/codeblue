@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: normalize(12),
-        height: SCREEN_HEIGHT * 0.9
+        padding: normalize(24),
+        height: SCREEN_HEIGHT * 0.8
     },
     icon: {
         padding: normalize(24),
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     head: {
         width: '72%',
-        marginBottom: normalize(36)
+        paddingBottom: normalize(36)
     },
     title: {
         textAlign: 'center',
@@ -79,18 +79,17 @@ const styles = StyleSheet.create({
     },
     description: {
         flex: 1,
-        marginBottom: normalize(15),
         textAlign: 'center',
         color: Colours.BLACK,
         fontFamily: 'DMSans-Regular',
         fontWeight: '400',
         fontSize: normalize(24),
-        padding: normalize(48),
         letterSpacing: normalize(1)
     },
     button: {
-        alignSelf: 'flex-end',
-        marginBottom: normalize(15)
+        flex: 2,
+        alignSelf: 'center',
+        marginBottom: normalize(24)
     },
     red: {
         color: Colours.RED

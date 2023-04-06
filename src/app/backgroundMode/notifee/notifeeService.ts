@@ -30,9 +30,9 @@ export const setNotificationForegroundService = () => {
                     'User pressed a foreground action with the id: ',
                     detail.pressAction?.id
                 );
+                handleNotificationPress(type, detail);
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
-                // handleNotificationPress(type, detail);
             });
 
             notifee.onBackgroundEvent(async ({ type, detail }) => {
@@ -40,9 +40,9 @@ export const setNotificationForegroundService = () => {
                     'User pressed a background action with the id: ',
                     detail.pressAction?.id
                 );
+                handleNotificationPress(type, detail);
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
-                // handleNotificationPress(type, detail);
             });
         });
     });
@@ -70,11 +70,14 @@ const handleNotificationPress = async (
 ) => {
     if (type === EventType.ACTION_PRESS) {
         if (detail?.pressAction?.id === 'call') {
-            //TODO
             console.log('call immediately');
+            backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CALL_NOW);
         } else if (detail?.pressAction?.id === 'cancel') {
-            //TODO
-            console.log('cancel timer immediately');
+            console.log('cancel call immediately');
+            backgroundModeStorage.add(
+                BACKGROUND_MODE,
+                BackgroundMode.MONITOR_HEART
+            );
         }
     }
 };

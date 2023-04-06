@@ -10,4 +10,6 @@ const scaleWidth = width / baseWidth;
 const scaleHeight = height / baseHeight;
 const scale = Math.min(scaleWidth, scaleHeight);
 
-export const normalize = (size: number) => Math.ceil(size * scale);
+export const normalize = (size: number) => {
+    return Math.ceil(size * scale);
+};

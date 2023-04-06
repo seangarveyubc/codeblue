@@ -34,7 +34,6 @@ function loadStories() {
     require('../src/app/screens/AddDevice/AddDeviceScreen.stories');
     require('../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories');
     require('../src/app/screens/EmergencyProtocol/CallEnded/CallEndedScreen.stories');
-    require('../src/app/screens/EmergencyProtocol/CallInProgress/CallInProgressScreen.stories');
     require('../src/app/screens/EmergencyProtocol/CardiacArrestDetected/CardiacArrestDetectedScreen.stories');
     require('../src/app/screens/Home/HomeScreen.stories');
     require('../src/app/screens/Onboarding/Success/OnboardingSuccessScreen.stories');
@@ -79,7 +78,6 @@ const stories = [
     '../src/app/screens/AddDevice/AddDeviceScreen.stories',
     '../src/app/screens/AddDevice/NewDeviceList/NewDeviceListScreen.stories',
     '../src/app/screens/EmergencyProtocol/CallEnded/CallEndedScreen.stories',
-    '../src/app/screens/EmergencyProtocol/CallInProgress/CallInProgressScreen.stories',
     '../src/app/screens/EmergencyProtocol/CardiacArrestDetected/CardiacArrestDetectedScreen.stories',
     '../src/app/screens/Home/HomeScreen.stories',
     '../src/app/screens/Onboarding/OnboardingSuccessScreen.stories',

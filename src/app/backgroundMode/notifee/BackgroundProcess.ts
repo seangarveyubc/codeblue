@@ -67,6 +67,12 @@ export class BackgroundProcess {
                 }, 5000);
                 break;
             }
+            case BackgroundMode.CALL_NOW: {
+                this.callFn = setInterval(() => {
+                    console.log('call immediately');
+                }, 5000);
+                break;
+            }
             default: {
                 // idle - do nothing
                 this.idleFn = setInterval(() => {

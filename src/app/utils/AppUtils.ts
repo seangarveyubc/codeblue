@@ -17,7 +17,6 @@ import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
 export const handleBackgroundNotification = async (remoteMessage: any) => {
     // navigate to EP CA detected screen in the background
     backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CA_DETECTED);
-    console.log(remoteMessage);
 
     let message_body = remoteMessage.notification.body;
     let message_title = remoteMessage.notification.title;
@@ -29,8 +28,6 @@ export const handleBackgroundNotification = async (remoteMessage: any) => {
  * Leads directly to EP CA detected page
  */
 export const handleForegroundNotification = async (remoteMessage: any) => {
-    console.log(remoteMessage);
-
     // navigate to EP CA detected screen
     backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CA_DETECTED);
 };
@@ -59,13 +56,11 @@ export const displayCANotification = async (title: string, body: string) => {
             actions: [
                 {
                     title: '<b>Call</b> &#9989;',
-                    pressAction: {
-                        id: 'call'
-                    }
+                    pressAction: { id: 'call', launchActivity: 'default' }
                 },
                 {
                     title: '<p style="color: #f44336;"><b>Cancel</b> &#10060;</p>',
-                    pressAction: { id: 'cancel' }
+                    pressAction: { id: 'cancel', launchActivity: 'default' }
                 }
             ],
             autoCancel: true,

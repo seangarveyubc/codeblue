@@ -6,10 +6,7 @@ import messaging from '@react-native-firebase/messaging';
 import { SplashScreen } from '../screens/Splash/SplashScreen';
 import { OnboardingStack } from './OnboardingStack';
 import { MainNavigator } from './MainNavigator';
-import {
-    EmergencyProtocolScreen,
-    EmergencyProtocolStack
-} from './EmergencyProtocolStack';
+import { EmergencyProtocolStack } from './EmergencyProtocolStack';
 import {
     AppContext,
     AppContextProvider
@@ -23,10 +20,12 @@ import * as utils from '../utils/AppUtils';
 const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => {
-    const { initialBackgroundState, dispatch } = useContext(AppContext);
+    const { initialBackgroundState } = useContext(AppContext);
     const [isEP, setIsEP] = useState(
-        initialBackgroundState === BackgroundMode.CA_DETECTED ||
-            initialBackgroundState === BackgroundMode.CALL_ENDED
+        initialBackgroundState === BackgroundMode.CA_DETECTED
+    );
+    const [callEnded, setCallEnded] = useState(
+        initialBackgroundState === BackgroundMode.CALL_ENDED
     );
     let listener: any;
 
@@ -51,29 +50,12 @@ export const AppNavigator = () => {
                         `[AppNavigator] background mode changed to ${newMode}`
                     );
 
-                    const isEPState =
-                        newMode === BackgroundMode.CA_DETECTED ||
-                        newMode === BackgroundMode.CALL_ENDED;
-
-                    setIsEP(isEPState);
-                    console.log(`isEP is ${isEP}`);
+                    setIsEP(newMode === BackgroundMode.CA_DETECTED);
+                    setCallEnded(newMode === BackgroundMode.CALL_ENDED);
                 }
             }
         );
     }, [listener]);
-
-    // TODO: case where app is opened when call is in progress, CA detected while in background mode
-    /*const initialEPScreen = useMemo((): EmergencyProtocolScreen => {
-        const backgroundState = getLocalStorageBackgroundMode();
-
-        if (backgroundState === BackgroundMode.CA_DETECTED) {
-            return 'CardiacArrestDetected';
-        } else if (backgroundState === BackgroundMode.CALL_ENDED) {
-            return 'CallEnded';
-        }
-
-        return 'CallInProgress';
-    }, [backgroundModeStorage]);*/
 
     return (
         <AppContextProvider>
@@ -82,6 +64,8 @@ export const AppNavigator = () => {
                     <EmergencyProtocolStack
                         initialRouteName={'CardiacArrestDetected'}
                     />
+                ) : callEnded ? (
+                    <EmergencyProtocolStack initialRouteName={'CallEnded'} />
                 ) : (
                     <Stack.Navigator
                         initialRouteName="SplashScreen"
