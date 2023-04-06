@@ -14,6 +14,7 @@ type DeviceListProps = {
     devices: Device[];
 
     connectToPeripheral: (device: Device) => void;
+    disconnectDevice: () => void;
     connectedDevice: Device | null;
 
     navigation: any;
@@ -24,7 +25,7 @@ const DeviceList: FC<DeviceListProps> = (props) => {
         devices,
 
         connectToPeripheral,
-
+        disconnectDevice,
         navigation,
         connectedDevice
     } = props;
@@ -37,6 +38,7 @@ const DeviceList: FC<DeviceListProps> = (props) => {
                         name={item.item.name ?? item.item.id}
                         item={item}
                         connectToPeripheral={connectToPeripheral}
+                        disconnectDevice={disconnectDevice}
                         connectedDevice={connectedDevice}
                     />
                 </ScrollView>

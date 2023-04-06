@@ -94,7 +94,7 @@ export const HomeScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <HeaderSwirl title={firstName + ' ' + lastName} height={250} />
+                <HeaderSwirl title={firstName + ' ' + lastName} />
             </View>
 
             <View style={styles.heartContainer}>

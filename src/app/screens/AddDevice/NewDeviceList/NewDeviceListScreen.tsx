@@ -61,7 +61,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
             ) : (
                 <></>
             )}
-            {connectedDevice ? (
+            {/* {connectedDevice ? (
                 <>
                     <HeartRateWidget heartRate={heartRate} />
                     <Button onPress={disconnectFromDevice} title="Close" />
@@ -73,7 +73,14 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
                     devices={allDevices}
                     navigation={navigation}
                 />
-            )}
+            )} */}
+            <DeviceList
+                connectToPeripheral={connectToDevice}
+                disconnectDevice={disconnectFromDevice}
+                connectedDevice={connectedDevice}
+                devices={allDevices}
+                navigation={navigation}
+            />
         </View>
     );
 };

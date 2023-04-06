@@ -11,6 +11,7 @@ import DeviceInfo from 'react-native-device-info';
 
 import { atob } from 'react-native-quick-base64';
 import { useLocalStorage } from '../localStorage/hooks/useLocalStorage';
+import { number } from '@storybook/addon-knobs';
 
 const HEART_RATE_UUID = '180D';
 const HEART_RATE_CHARACTERISTIC = '2A37';
@@ -98,161 +99,95 @@ function useBLE(): BluetoothLowEnergyApi {
             await device.connect();
             console.log('Trying to conncet');
             setConnectedDevice(device);
-
+        } catch (e) {
+            console.log('FAILED TO CONNECT', e);
+        }
+        try {
             await device.discoverAllServicesAndCharacteristics();
             console.log(device);
             bleManager.stopDeviceScan();
             // setHeartRate(10);
-            startStreamingData(device);
         } catch (e) {
-            console.log('FAILED TO CONNECT', e);
+            console.log('FAILED TO DISCOVER SERVICES');
         }
+        startStreamingData(device);
     };
 
     const disconnectFromDevice = () => {
+        console.log('disconnecting');
         if (connectedDevice) {
             bleManager.cancelDeviceConnection(connectedDevice.id);
+            console.log('11');
             setConnectedDevice(null);
             // setHeartRate(0);
         }
     };
 
-    // const onHeartRateUpdate = (
-    //     error: BleError | null,
-    //     characteristic: Characteristic | null
-    // ) => {
-    //     console.log('error in update');
-    //     console.log(error);
-    //     console.log('charac in update');
-    //     console.log(characteristic);
-    //     if (error) {
-    //         console.log(error);
-    //         return -1;
-    //     } else if (!characteristic?.value) {
-    //         console.log('No Data was recieved');
-    //         return -1;
-    //     }
-
-    //     const rawData = atob(characteristic.value);
-    //     console.log(rawData);
-    //     console.log(rawData[1].charCodeAt(0));
-    //     let innerHeartRate: number = -1;
-
-    //     const firstBitValue: number = Number(rawData) & 0x01;
-
-    //     if (firstBitValue === 0) {
-    //         innerHeartRate = rawData[1].charCodeAt(0);
-    //     } else {
-    //         innerHeartRate =
-    //             Number(rawData[1].charCodeAt(0) << 8) +
-    //             Number(rawData[2].charCodeAt(2));
-    //     }
-    //     console.log(rawData);
-    //     // setHeartRate(Number(rawData));
-    // };
-
     const startStreamingData = async (device: Device) => {
         const serviceUUIDs = device.serviceUUIDs;
-        serviceUUIDs?.forEach((sUUID) => {
-            device.characteristicsForService(sUUID).then((chars) => {
-                chars.forEach((char) => {
-                    console.log('services');
+        try {
+            serviceUUIDs?.forEach((sUUID) => {
+                console.log(device);
+                try {
+                    device.characteristicsForService(sUUID).then((chars) => {
+                        console.log(chars);
+                        try {
+                            chars.forEach((char) => {
+                                console.log('services');
 
-                    console.log(sUUID);
-                    console.log('chars');
-                    console.log(char.uuid);
-                    if (char.isReadable) {
-                        console.log('CAN REAF');
-                        console.log(char.uuid);
-                        monitorCharacteristic(device, char);
-                    }
-                });
+                                console.log(sUUID);
+                                console.log('chars');
+                                console.log(char.uuid);
+                                if (char.isNotifiable) {
+                                    console.log('CAN notify');
+                                    console.log(char.uuid);
+                                    monitorCharacteristic(device, char);
+                                }
+                            });
+                        } catch (e) {
+                            console.log('here2');
+                        }
+                    });
+                } catch (e) {
+                    console.log('hreere');
+                }
             });
-        });
-        // device.services().then((services) => {
-        //     services.forEach(async (service) => {
-        //         {
-        //             console.log('services');
-        //             console.log(service.uuid);
-
-        //             let chars = await service.characteristics();
-        //             setTimeout(() => {}, 500);
-        //             // service.characteristics().then((chars) => {
-
-        //             chars.forEach((char) => {
-        //                 if (char.isReadable) {
-        //                     console.log('chars');
-        //                     console.log(char.uuid);
-        //                 }
-        //             });
-        //             // });
-        //         }
-        //     });
-        // });
-
-        let monitoringChar: Characteristic | null;
-        // console.log(services);
-        // services.forEach((service) => {
-        //     if (service) {
-        //         console.log(service.id);
-        //         console.log(service.uuid);
-        //         let chars = await service.characteristics();
-        //         chars.forEach((char) => {
-        //             if (char.isReadable == true) {
-        //                 // console.log(chars[0]);
-        //                 // console.log(chars[0].isNotifying);
-        //                 console.log('111111');
-        //                 monitoringChar = char;
-        //                 monitorCharacteristic(device, char);
-        //                 return;
-        //                 // console.log(char);
-        //             }
-        //         });
-        //     }
-        // });
-        // const char = await services[11].characteristics();
-        // console.log(char);
-
-        // console.log('111111');
-        // console.log(temp1.value!);
-        // console.log(char[0].serviceUUID);
-
-        // device!.monitorCharacteristicForService(
-        //     monitoringChar!.serviceUUID,
-        //     monitoringChar!.uuid,
-        //     (error, characteristic) => {
-        //         console.log(characteristic?.value);
-        //         console.log(atob(characteristic?.value!));
-        //         const temp = atob(characteristic?.value!);
-        //         // console.log(Number(characteristic?.value));
-        //         console.log(Number(temp));
-        //         setHeartRate(Number(temp));
-        //         saveHeartRate(Number(temp));
-        //         console.log('444');
-        //         console.log(heartRate);
-        //     }
-        // );
+        } catch (e) {
+            console.log('FAILED TO FIND CHARACTERISTICS FOR SERVICES');
+        }
     };
 
     const monitorCharacteristic = (device: Device, charac: Characteristic) => {
-        device!.monitorCharacteristicForService(
-            charac.serviceUUID,
-            charac.uuid,
-            (error, characteristic) => {
-                // console.log(characteristic?.value);
-                // console.log(atob(characteristic?.value!));
-                const temp = atob(characteristic?.value!);
-                // console.log(temp);
-                console.log(111);
-                console.log(Number(temp));
-                if (Number(temp)) {
-                    setHeartRate(Number(temp));
+        try {
+            let count = 0;
+            let heartRateArray: Array<number> = [];
+            device!.monitorCharacteristicForService(
+                charac.serviceUUID,
+                charac.uuid,
+                (error, characteristic) => {
+                    // console.log(characteristic?.value);
+                    // console.log(atob(characteristic?.value!));
+                    const temp = atob(characteristic?.value!);
+                    // console.log(temp);
+                    // console.log(111);
+
+                    if (Number(temp)) {
+                        console.log(Number(temp));
+                        if (count < 5) {
+                            setHeartRate(Number(temp));
+                            heartRateArray.push(Number(temp));
+                            count += 1;
+                        }
+                    }
+                    if (count >= 5) {
+                        console.log(heartRateArray);
+                        count = 0;
+                    }
                 }
-                // saveHeartRate(Number(temp));
-                console.log('444');
-                console.log(heartRate);
-            }
-        );
+            );
+        } catch (e) {
+            console.log('FAILED TO READ MONITOR CHARACTERISTICS');
+        }
     };
 
     return {

@@ -20,6 +20,7 @@ interface Props {
     name: string;
     item: any;
     connectToPeripheral: (device: Device) => void;
+    disconnectDevice: () => void;
     connectedDevice: Device | null;
 }
 
@@ -29,6 +30,7 @@ export const AddDeviceWidget = ({
     name,
     item,
     connectToPeripheral,
+    disconnectDevice,
     connectedDevice
 }: Props) => {
     const [text, onChangetext] = React.useState(name);
@@ -41,19 +43,21 @@ export const AddDeviceWidget = ({
     // Not handling the edit name, save name feature right now
 
     const handleClick = async () => {
-        connectToPeripheral(item.item);
-        saveDevice(item.item.name);
-        // if (connected) {
-        //     setIsModalVisible(true);
-
-        //     onChangeEditing((isEditing) => !isEditing);
-        // } else {
-        //     !isEditing && !isSaved
-        //         ? onChangeEditing((isEditing) => !isEditing)
-        //         : isEditing && !isSaved
-        //         ? onChangeSaved((isSaved) => !isSaved)
-        //         : onChangeSaved((isSaved) => isSaved);
-        // }
+        if (!isEditing && !isSaved) {
+            connectToPeripheral(item.item);
+            saveDevice(item.item.name);
+        }
+        if (connectedDevice && isSaved) {
+            console.log('dis');
+            disconnectDevice();
+            onChangeSaved(false);
+            onChangeEditing(false);
+        }
+        !isEditing && !isSaved
+            ? onChangeEditing((isEditing) => !isEditing)
+            : isEditing && !isSaved
+            ? onChangeSaved((isSaved) => !isSaved)
+            : onChangeSaved((isSaved) => isSaved);
     };
     return (
         <View style={styles.container}>
@@ -101,7 +105,7 @@ export const AddDeviceWidget = ({
                             {isEditing && !isSaved
                                 ? 'Save Device'
                                 : isEditing && isSaved
-                                ? 'Saved'
+                                ? 'Disconnect'
                                 : 'Add Device'}
                         </Text>
                     </View>
