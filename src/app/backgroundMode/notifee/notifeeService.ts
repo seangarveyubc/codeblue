@@ -5,6 +5,7 @@ import {
     cardiacStorage
 } from '../../localStorage/hooks/useLocalStorage';
 import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
+import { BackgroundMode } from '../models/BackgroundMode';
 import { BackgroundProcess } from './BackgroundProcess';
 
 export const FOREGROUND_NOTIF_CHANNEL_ID = 'codeblue.foreground.notification';
@@ -25,40 +26,28 @@ export const setNotificationForegroundService = () => {
             }, DAY_IN_MILLIS);
 
             notifee.onForegroundEvent(async ({ type, detail }) => {
+                console.log(
+                    'User pressed a foreground action with the id: ',
+                    detail.pressAction?.id
+                );
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
+                // handleNotificationPress(type, detail);
             });
 
             notifee.onBackgroundEvent(async ({ type, detail }) => {
+                console.log(
+                    'User pressed a background action with the id: ',
+                    detail.pressAction?.id
+                );
                 cancelBackgroundTask(type, detail);
                 process.removeBackgroundTaskListener();
+                // handleNotificationPress(type, detail);
             });
         });
     });
 
     displayNotification();
-};
-
-// TODO: delete once real tasks are implemented
-export const clearExistingIntervals = (
-    heartFn: any,
-    callFn: any,
-    idleFn: any
-) => {
-    if (heartFn) {
-        clearInterval(heartFn);
-        heartFn = undefined;
-    }
-
-    if (callFn) {
-        clearInterval(callFn);
-        callFn = undefined;
-    }
-
-    if (idleFn) {
-        clearInterval(idleFn);
-        idleFn = undefined;
-    }
 };
 
 const createChannelId = async () => {
@@ -72,6 +61,21 @@ const cancelBackgroundTask = async (type: EventType, detail: EventDetail) => {
     if (type === EventType.ACTION_PRESS && detail?.pressAction?.id === 'stop') {
         await notifee.stopForegroundService();
         notifee.cancelNotification(FOREGROUND_NOTIF_CHANNEL_ID);
+    }
+};
+
+const handleNotificationPress = async (
+    type: EventType,
+    detail: EventDetail
+) => {
+    if (type === EventType.ACTION_PRESS) {
+        if (detail?.pressAction?.id === 'call') {
+            //TODO
+            console.log('call immediately');
+        } else if (detail?.pressAction?.id === 'cancel') {
+            //TODO
+            console.log('cancel timer immediately');
+        }
     }
 };
 

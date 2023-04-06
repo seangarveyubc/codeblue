@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, Dimensions, Vibration } from 'react-native';
+import { useContext } from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Colours from '../../../constants/Colours';
 import { WideButton } from '../../../components/WideButton/WideButton';
 import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
+import { AppContext } from '../../../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 
 interface Props {
     navigation: any;
@@ -13,6 +16,7 @@ interface Props {
 
 export const CallEndedScreen = ({ navigation }: Props) => {
     Vibration.cancel();
+    const { dispatch } = useContext(AppContext);
 
     return (
         <View>
@@ -33,14 +37,19 @@ export const CallEndedScreen = ({ navigation }: Props) => {
                     <Text style={styles.bold}>cardiac arrest</Text> and placed a
                     911 call
                 </Text>
-                <View style={styles.button}>
-                    <WideButton
-                        text={'Go back Home'}
-                        onPress={() => {
-                            navigation.navigate('MainNavigator');
-                        }}
-                    />
-                </View>
+            </View>
+            <Text style={styles.description}>
+                <Text style={styles.blue}>CodeBlue</Text> detected a{' '}
+                <Text style={styles.bold}>cardiac arrest</Text> and placed a 911
+                call
+            </Text>
+            <View style={styles.button}>
+                <WideButton
+                    text={'Go back Home'}
+                    onPress={() => {
+                        dispatch({ type: BackgroundMode.MONITOR_HEART });
+                    }}
+                />
             </View>
         </View>
     );

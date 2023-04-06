@@ -1,12 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import messaging from '@react-native-firebase/messaging';
 import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { AppContext } from '../../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 import Colours from '../../../constants/Colours';
-import { TriggerCall } from '../../../EMSCall/TriggerCall';
-import { EmergencyProtocolStack } from '../../../navigation/EmergencyProtocolStack';
-import { Alert } from 'react-native';
 import { normalize } from '../../../utils/normalizer/normalizer';
 
 interface Props {
@@ -14,75 +10,11 @@ interface Props {
 }
 
 export const LegalScreen = ({ navigation }: Props) => {
-    useEffect(() => {
-        messaging().setBackgroundMessageHandler(async (remoteMessage: any) => {
-            console.log(remoteMessage);
-
-            let message_body = remoteMessage.notification.body;
-            let message_title = remoteMessage.notification.title;
-
-            Alert.alert(message_title, message_body);
-            navigation.navigate('EmergencyProtocol');
-            // TriggerCall();
-        });
-    }, []);
-
-    useEffect(() => {
-        const subscribe = messaging().onMessage(async (remoteMessage: any) => {
-            console.log(remoteMessage);
-
-            let message_body = remoteMessage.notification.body;
-            let message_title = remoteMessage.notification.title;
-
-            Alert.alert(message_title, message_body);
-            navigation.navigate('EmergencyProtocol');
-            // TriggerCall();
-        });
-
-        return subscribe;
-    }, []);
     const { dispatch } = useContext(AppContext);
 
     return (
         <View style={styles.page}>
             <ScrollView>
-                <Button
-                    title="Detect"
-                    onPress={() => {
-                        navigation.navigate('EmergencyProtocol');
-                    }}
-                />
-                <Button
-                    title="Healthy/Monitor Heart"
-                    onPress={() => {
-                        dispatch({ type: BackgroundMode.MONITOR_HEART });
-                        fetch('http://54.190.226.175:3000/healthy')
-                            .then((response) => response.json())
-                            .then((json) => {
-                                console.log(json);
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                            });
-                    }}
-                />
-                <Button
-                    title="CA"
-                    onPress={() => {
-                        fetch('http://54.190.226.175:3000/ca')
-                            .then((response) => response.json())
-                            .then((json) => {
-                                console.log(json);
-                            })
-                            .catch((error) => {
-                                console.error(error);
-                            });
-                    }}
-                />
-                <Button
-                    title="idle"
-                    onPress={() => dispatch({ type: BackgroundMode.IDLE })}
-                />
                 <Text style={styles.title}>Privacy Policy</Text>
                 <Text style={styles.paragraph}>
                     This Privacy Policy describes Our policies and procedures on

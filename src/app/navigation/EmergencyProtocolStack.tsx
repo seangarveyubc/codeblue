@@ -6,10 +6,20 @@ import { CallEndedScreen } from '../screens/EmergencyProtocol/CallEnded/CallEnde
 
 const Stack = createNativeStackNavigator();
 
-export const EmergencyProtocolStack = () => {
+export type EmergencyProtocolScreen =
+    | 'CardiacArrestDetected'
+    | 'CallInProgress'
+    | 'CallEnded';
+
+interface Props {
+    initialRouteName: EmergencyProtocolScreen;
+}
+
+// todo: pass initial route name as a prop
+export const EmergencyProtocolStack = ({ initialRouteName }: Props) => {
     return (
         <Stack.Navigator
-            initialRouteName="CardiacArrestDetected"
+            initialRouteName={initialRouteName}
             screenOptions={{ headerShown: false }}
         >
             <Stack.Screen

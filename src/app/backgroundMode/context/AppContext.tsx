@@ -5,10 +5,13 @@ import {
     BackgroundMode,
     BackgroundModeUpdatePayload
 } from '../models/BackgroundMode';
+import { getLocalStorageBackgroundMode } from '../notifee/BackgroundProcess';
 
 export const AppContext = createContext<{
+    initialBackgroundState: BackgroundMode;
     dispatch: React.Dispatch<BackgroundModeUpdatePayload>;
 }>({
+    initialBackgroundState: BackgroundMode.IDLE,
     dispatch: () => undefined
 });
 
@@ -18,8 +21,7 @@ interface Props {
 
 export const AppContextProvider = ({ children }: Props) => {
     const initialBackgroundState: BackgroundMode =
-        (backgroundModeStorage.getString(BACKGROUND_MODE) as BackgroundMode) ??
-        BackgroundMode.IDLE;
+        getLocalStorageBackgroundMode() ?? BackgroundMode.IDLE;
 
     const backgroundModeReducer = (
         state: BackgroundMode,
@@ -42,6 +44,7 @@ export const AppContextProvider = ({ children }: Props) => {
     return (
         <AppContext.Provider
             value={{
+                initialBackgroundState: initialBackgroundState,
                 dispatch: dispatch
             }}
         >
