@@ -5,9 +5,7 @@ import { CallEndedScreen } from '../screens/EmergencyProtocol/CallEnded/CallEnde
 
 const Stack = createNativeStackNavigator();
 
-export type EmergencyProtocolScreen =
-    | 'CardiacArrestDetected'
-    | 'CallEnded';
+export type EmergencyProtocolScreen = 'CardiacArrestDetected' | 'CallEnded';
 
 interface Props {
     initialRouteName: EmergencyProtocolScreen;
