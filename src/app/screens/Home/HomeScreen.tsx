@@ -1,10 +1,4 @@
-import React, {
-    useContext,
-    useState,
-    useCallback,
-    useEffect,
-    useRef
-} from 'react';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
 import {
     Text,
     View,
@@ -34,28 +28,16 @@ interface Props {
 }
 
 export const HomeScreen = ({ navigation }: Props) => {
-    const [deviceListState, setDeviceListState] = useState(true);
+    const [isEditDevicesMode, setIsEditDevicesMode] = useState(false);
     const [bluetoothState, setBluetoothState] = useState(false);
     const [firstName, changeFirstName] = useState('');
     const [lastName, changeLastName] = useState('');
     const { appDataStorage } = useLocalStorage();
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
-    const deviceList = useRef(appDataStorage.getDeviceList());
 
     // initialize the background state to idle for a first time user
     useEffect(() => {
-        /*appDataStorage.addDevice({
-            id: Math.random().toString(),
-            name: 'PPG2',
-            location: 'Left Tip of Finger'
-        });
-        appDataStorage.addDevice({
-            id: Math.random().toString(),
-            name: 'PPG3',
-            location: 'Right Wrist'
-        });*/
-        console.log('Homescreen device list', deviceList.current?.devices);
         if (!isBackgroundModeDefined) {
             dispatch({ type: BackgroundMode.IDLE });
         }
@@ -71,11 +53,7 @@ export const HomeScreen = ({ navigation }: Props) => {
     }, [isFocused]);
 
     const toggleChecked = () => {
-        // exiting from edit mode
-        if (!deviceListState && deviceList.current) {
-            appDataStorage.addDeviceList(deviceList.current);
-        }
-        setDeviceListState((value) => !value);
+        setIsEditDevicesMode((value) => !value);
     };
 
     // update local deviceList with information to be saved in local storage
@@ -85,11 +63,13 @@ export const HomeScreen = ({ navigation }: Props) => {
         newName: string = '',
         newLocationIndex: number = 0
     ) => {
-        let deviceListTemp = deviceList.current?.devices;
+        let deviceListTemp = appDataStorage.getDeviceList()?.devices;
+        // find index of device being edited
         const deviceIndex = deviceListTemp?.findIndex(
             (device: DeviceData) => device.id === deviceData.id
         );
 
+        // if device is found, edit device
         if (deviceListTemp && deviceIndex !== undefined && deviceIndex > -1) {
             deviceListTemp[deviceIndex] = {
                 id: deviceData.id,
@@ -99,7 +79,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                         ? SensorLocations[newLocationIndex]
                         : deviceData.location
             };
-            deviceList.current = { devices: deviceListTemp };
+            appDataStorage.addDeviceList({ devices: deviceListTemp });
         } else {
             console.log(
                 `Unable to update ${updateType} for device with id: ${deviceData.id}`
@@ -112,14 +92,14 @@ export const HomeScreen = ({ navigation }: Props) => {
         appDataStorage.deleteDevice(id);
 
         let deviceListTemp: DeviceData[] | undefined =
-            deviceList.current?.devices;
+            appDataStorage.getDeviceList()?.devices;
         const deviceIndex = deviceListTemp?.findIndex(
             (device: DeviceData) => device.id === id
         );
 
         if (deviceListTemp && deviceIndex && deviceIndex > -1) {
             deviceListTemp.splice(deviceIndex, 1);
-            deviceList.current = { devices: deviceListTemp };
+            appDataStorage.addDeviceList({ devices: deviceListTemp });
         }
     };
 
@@ -166,7 +146,7 @@ export const HomeScreen = ({ navigation }: Props) => {
                 <View style={styles.deviceHeader}>
                     <Text style={styles.yourDevices}>Your Devices</Text>
                     <Text style={styles.edit} onPress={toggleChecked}>
-                        {deviceListState ? 'Edit' : 'Save'}
+                        {isEditDevicesMode ? 'Save' : 'Edit'}
                     </Text>
                 </View>
             </CentredContent>
@@ -184,37 +164,24 @@ export const HomeScreen = ({ navigation }: Props) => {
                     </Text>
                 </View>
             )}
-            {deviceListState ? (
-                <View
-                    style={{
-                        flex: bluetoothState ? 7 : 6,
-                        marginTop: 10
-                    }}
-                >
-                    <CentredContent>
-                        <FlatList
-                            data={deviceList.current?.devices}
-                            keyExtractor={(item) => item.id}
-                            renderItem={renderDeviceWidget}
-                        />
-                    </CentredContent>
-                </View>
-            ) : (
-                <View
-                    style={{
-                        flex: bluetoothState ? 7 : 6,
-                        marginTop: 10
-                    }}
-                >
-                    <CentredContent>
-                        <FlatList
-                            data={deviceList.current?.devices}
-                            keyExtractor={(item) => item.id}
-                            renderItem={renderEditDeviceWidget}
-                        />
-                    </CentredContent>
-                </View>
-            )}
+            <View
+                style={{
+                    flex: bluetoothState ? 7 : 6,
+                    marginTop: 10
+                }}
+            >
+                <CentredContent>
+                    <FlatList
+                        data={appDataStorage.getDeviceList()?.devices}
+                        keyExtractor={(item) => item.id}
+                        renderItem={
+                            isEditDevicesMode
+                                ? renderEditDeviceWidget
+                                : renderDeviceWidget
+                        }
+                    />
+                </CentredContent>
+            </View>
         </View>
     );
 };

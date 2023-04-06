@@ -103,7 +103,9 @@ export const EditDeviceWidget = ({
                     name="trash"
                     size={25}
                     color={Colours.RED}
-                    onPress={deleteDevice(initialDeviceData.id)}
+                    onPress={() => {
+                        deleteDevice(initialDeviceData.id);
+                    }}
                 />
             </View>
         </View>
