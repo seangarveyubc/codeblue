@@ -9,6 +9,7 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { SensorLocations } from '../../constants/SensorLocations';
 import { useState } from 'react';
 import { DeviceData } from '../../localStorage/models/DeviceList';
+import { normalize } from '../../utils/normalizer/normalizer';
 
 interface Props {
     initialDeviceData: DeviceData;
@@ -94,7 +95,7 @@ export const EditDeviceWidget = ({
                     {nameInput}
                     <View style={styles.bottomRow}>
                         <Text style={{ fontFamily: 'DMSans-Bold' }}>
-                            Location:{' '}
+                            Placement:{' '}
                         </Text>
                         {locationDropdownSelect}
                     </View>
@@ -114,15 +115,15 @@ export const EditDeviceWidget = ({
 
 const styles = StyleSheet.create({
     container: {
-        height: 105,
+        height: normalize(105),
         width: SCREEN_WIDTH * 0.88,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 12,
+        borderRadius: normalize(12),
         borderWidth: 1,
         borderColor: Colours.DARKBLUE,
         backgroundColor: Colours.WHITE,
-        padding: 14
+        padding: normalize(14)
     },
     topRow: {
         flexDirection: 'row',
@@ -141,36 +142,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: SCREEN_WIDTH * 0.65,
-        marginTop: 5
+        marginTop: normalize(5)
     },
     nameInput: {
-        height: 40,
+        height: normalize(40),
         width: '100%',
         backgroundColor: Colours.LIGHTGREY,
-        borderRadius: 8,
-        padding: 8,
+        borderRadius: normalize(8),
+        padding: normalize(8),
         fontFamily: 'DMSans-Regular',
-        fontSize: 15,
+        fontSize: normalize(15),
         color: Colours.BLACK
     },
     dropdownContainer: {
         backgroundColor: Colours.LIGHTGREY,
-        borderRadius: 8,
-        height: 25,
-        width: '72%'
+        borderRadius: normalize(8),
+        height: normalize(25),
+        width: '69%'
     },
     dropdownOptions: {
         backgroundColor: Colours.LIGHTGREY,
-        borderRadius: 8
+        borderRadius: normalize(8)
     },
     dropdownBtnTxtStyle: {
         color: Colours.GREY,
         textAlign: 'left',
         fontFamily: 'DMSans-Regular',
-        fontSize: 15
+        fontSize: normalize(15)
     },
     dropdownRowTxtStyle: {
         fontFamily: 'DMSans-Regular',
-        fontSize: 15
+        fontSize: normalize(15)
     }
 });

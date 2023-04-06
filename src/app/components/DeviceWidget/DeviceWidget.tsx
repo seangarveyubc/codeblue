@@ -39,7 +39,7 @@ export const DeviceWidget = ({ name, location, isConnected }: Props) => {
                     </Text>
                     <Text style={styles.location}>
                         <Text style={{ fontFamily: 'DMSans-Bold' }}>
-                            Location:
+                            Placement:
                         </Text>{' '}
                         {location ?? ''}
                     </Text>
@@ -100,12 +100,12 @@ const styles = StyleSheet.create({
         fontSize: normalize(16)
     },
     deviceInfo: {
-        marginLeft: 10,
+        marginLeft: normalize(10),
         alignItems: 'flex-start',
         width: '80%'
     },
     location: {
-        fontSize: 15,
+        fontSize: normalize(14),
         fontFamily: 'DMSans-Regular',
         color: Colours.GREY
     },
