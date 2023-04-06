@@ -11,7 +11,7 @@ interface Props {
     navigation: any;
 }
 
-const video = require('../../../assets/video.mov');
+const video = require('../../../assets/JY041_CanSAVE_Video_V1.mp4');
 const VERTICAL_SPACE = normalize(40);
 
 export const TutorialScreen = ({ navigation }: Props) => {
