@@ -68,7 +68,7 @@ export const displayCANotification = async (title: string, body: string) => {
             showChronometer: true,
             chronometerDirection: 'down',
             timestamp: Date.now() + 60000, // 5 minutes
-            showTimestamp: true,
+            showTimestamp: true
         }
     });
 };
