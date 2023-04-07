@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Vibration } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import messaging from '@react-native-firebase/messaging';
@@ -52,6 +52,13 @@ export const AppNavigator = () => {
 
                     setIsEP(newMode === BackgroundMode.CA_DETECTED);
                     setCallEnded(newMode === BackgroundMode.CALL_ENDED);
+
+                    if (newMode === BackgroundMode.CA_DETECTED) {
+                        const pattern = [200, 1000];
+                        Vibration.vibrate(pattern, true);
+                    } else if (newMode === BackgroundMode.CALL_ENDED) {
+                        Vibration.cancel();
+                    }
                 }
             }
         );
