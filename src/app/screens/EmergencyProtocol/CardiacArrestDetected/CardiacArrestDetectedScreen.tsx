@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Vibration } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Colours from '../../../constants/Colours';
@@ -147,6 +147,7 @@ export const CardiacArrestDetectedScreen = ({ navigation }: Props) => {
                 setModalVisible={setCancelModalVisible}
                 modalType={ModalType.CancelAlert}
                 confirmAction={() => {
+                    Vibration.cancel();
                     dispatch({ type: BackgroundMode.MONITOR_HEART });
                 }}
             />

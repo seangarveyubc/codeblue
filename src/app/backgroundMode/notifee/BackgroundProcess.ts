@@ -9,6 +9,7 @@ import {
 } from '../../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../models/BackgroundMode';
 import * as utils from '../../../../src/app/utils/AppUtils';
+import { Vibration } from 'react-native';
 
 export class BackgroundProcess {
     mode: BackgroundMode;
@@ -62,6 +63,7 @@ export class BackgroundProcess {
                 break;
             }
             case BackgroundMode.CALL_ENDED: {
+                Vibration.cancel();
                 this.callFn = setInterval(() => {
                     console.log('call ended');
                 }, 5000);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, Vibration, View } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Colours from '../../../constants/Colours';
@@ -16,6 +16,8 @@ interface Props {
 
 export const CallEndedScreen = ({ navigation }: Props) => {
     const { dispatch } = useContext(AppContext);
+
+    Vibration.cancel();
 
     return (
         <View>

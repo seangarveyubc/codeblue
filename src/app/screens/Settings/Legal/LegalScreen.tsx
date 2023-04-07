@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
 import { AppContext } from '../../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';

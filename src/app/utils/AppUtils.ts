@@ -64,11 +64,11 @@ export const displayCANotification = async (title: string, body: string) => {
                 }
             ],
             autoCancel: true,
-            loopSound: true,
             ongoing: true,
             showChronometer: true,
             chronometerDirection: 'down',
-            timestamp: Date.now() + 60000 // 5 minutes
+            timestamp: Date.now() + 60000, // 5 minutes
+            showTimestamp: true,
         }
     });
 };
