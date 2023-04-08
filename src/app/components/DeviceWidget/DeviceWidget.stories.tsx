@@ -5,5 +5,9 @@ import { DeviceWidget } from './DeviceWidget';
 storiesOf('Components', module)
     .addDecorator((getStory) => <CentredContent>{getStory()}</CentredContent>)
     .add('DeviceWidget', () => (
-        <DeviceWidget name={'device name'} isConnected={true} />
+        <DeviceWidget
+            name={'device name'}
+            location={'location'}
+            isConnected={true}
+        />
     ));

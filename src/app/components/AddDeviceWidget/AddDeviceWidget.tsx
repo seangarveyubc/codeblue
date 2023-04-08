@@ -1,18 +1,53 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Device } from 'react-native-ble-plx';
 import Colours from '../../constants/Colours';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { normalize } from '../../utils/normalizer/normalizer';
+import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
 import { UnderlineTextInput } from '../UnderlineTextInput/UnderlineTextInput';
 
 interface Props {
     name: string;
+    item: any;
+    connectToPeripheral: (device: Device) => void;
+    disconnectDevice: () => void;
+    connectedDevice: Device | null;
 }
 
-export const AddDeviceWidget = ({ name }: Props) => {
+export const AddDeviceWidget = ({
+    name,
+    item,
+    connectToPeripheral,
+    disconnectDevice,
+    connectedDevice
+}: Props) => {
     const [text, onChangetext] = React.useState(name);
     const [isEditing, onChangeEditing] = React.useState(false);
     const [isSaved, onChangeSaved] = React.useState(false);
+    const { appDataStorage } = useLocalStorage();
+    // TODO: Change handleClick to use connected device to determine state of connection
+    const handleClick = async () => {
+        if (!isEditing && !isSaved) {
+            connectToPeripheral(item.item);
+            appDataStorage.addDevice({
+                id: item.item.id,
+                name: item.item.name,
+                location: 'N/A'
+            });
+        }
+        if (connectedDevice && isSaved) {
+            console.log('dis');
+            disconnectDevice();
+            onChangeSaved(false);
+            onChangeEditing(false);
+        }
+        !isEditing && !isSaved
+            ? onChangeEditing((isEditing) => !isEditing)
+            : isEditing && !isSaved
+            ? onChangeSaved((isSaved) => !isSaved)
+            : onChangeSaved((isSaved) => isSaved);
+    };
 
     return (
         <View style={styles.container}>
@@ -30,15 +65,7 @@ export const AddDeviceWidget = ({ name }: Props) => {
             </View>
 
             <View style={styles.rightContent}>
-                <TouchableOpacity
-                    onPress={() =>
-                        !isEditing && !isSaved
-                            ? onChangeEditing((isEditing) => !isEditing)
-                            : isEditing && !isSaved
-                            ? onChangeSaved((isSaved) => !isSaved)
-                            : onChangeSaved((isSaved) => isSaved)
-                    }
-                >
+                <TouchableOpacity onPress={handleClick}>
                     <View
                         style={{
                             ...styles.statusBar,

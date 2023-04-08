@@ -1,5 +1,6 @@
 export interface DeviceData {
     name: string;
+    id: string;
     location: string;
 }
 
