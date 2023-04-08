@@ -13,5 +13,5 @@ utils.saveDeviceFCMToken();
 
 console.log('[index.js] registered foreground service in index.js');
 setNotificationForegroundService();
-console.disableYellowBox = true;
+
 AppRegistry.registerComponent(appName, () => App);

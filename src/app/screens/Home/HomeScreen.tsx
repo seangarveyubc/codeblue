@@ -22,6 +22,7 @@ import { normalize } from '../../utils/normalizer/normalizer';
 import { EditDeviceWidget } from '../../components/EditDeviceWidget/EditDeviceWidget';
 import { DeviceData } from '../../localStorage/models/DeviceList';
 import { SensorLocations } from '../../constants/SensorLocations';
+import useBLE from '../../ble/useBLE';
 
 interface Props {
     navigation: any;
@@ -35,6 +36,7 @@ export const HomeScreen = ({ navigation }: Props) => {
     const { appDataStorage } = useLocalStorage();
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
+    const { heartRate } = useBLE();
 
     // initialize the background state to MONITOR_HEART for a first time user
     useEffect(() => {
@@ -140,7 +142,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             </View>
 
             <View style={styles.heartContainer}>
-                <HeartRateWidget heartRate={56} />
+                <HeartRateWidget heartRate={heartRate} />
             </View>
             <CentredContent>
                 <View style={styles.deviceHeader}>
