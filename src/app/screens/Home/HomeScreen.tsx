@@ -36,10 +36,10 @@ export const HomeScreen = ({ navigation }: Props) => {
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
 
-    // initialize the background state to idle for a first time user
+    // initialize the background state to MONITOR_HEART for a first time user
     useEffect(() => {
         if (!isBackgroundModeDefined) {
-            dispatch({ type: BackgroundMode.IDLE });
+            dispatch({ type: BackgroundMode.MONITOR_HEART });
         }
     }, [isFocused]);
 

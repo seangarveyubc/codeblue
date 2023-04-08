@@ -11,7 +11,7 @@ export const AppContext = createContext<{
     initialBackgroundState: BackgroundMode;
     dispatch: React.Dispatch<BackgroundModeUpdatePayload>;
 }>({
-    initialBackgroundState: BackgroundMode.IDLE,
+    initialBackgroundState: BackgroundMode.MONITOR_HEART,
     dispatch: () => undefined
 });
 
@@ -21,7 +21,7 @@ interface Props {
 
 export const AppContextProvider = ({ children }: Props) => {
     const initialBackgroundState: BackgroundMode =
-        getLocalStorageBackgroundMode() ?? BackgroundMode.IDLE;
+        getLocalStorageBackgroundMode() ?? BackgroundMode.MONITOR_HEART;
 
     const backgroundModeReducer = (
         state: BackgroundMode,

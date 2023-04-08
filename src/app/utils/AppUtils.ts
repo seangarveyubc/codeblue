@@ -94,35 +94,22 @@ export async function saveDeviceFCMToken() {
     }
 }
 
-// TODO remove these addressses for testing
-export const local_healthy_address = 'http://10.0.2.2:3000/';
-export const local_ca_address = 'http://10.0.2.2:3000/ca';
-export const ec2_healthy_address = 'http://54.190.226.175:3000/healthy';
-export const ec2_ca_address = 'http://54.190.226.175:3000/ca';
+
+const ec2_address = 'http://34.209.155.128:3000';
 
 /**
  * Constructs and sends a post request to specified address. Reqeust body type should match the format specified in `codeblue-server` repo's README
  */
-export const fetchDetectCA = (
-    address: string,
-    data: number[],
-    location: string,
-    device_id: string
-) => {
-    fetch(address, {
+export const fetchDetectDemo = (device_id: string) => {
+    console.log("fetching...")
+    fetch(ec2_address + '/heartrate', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            sensors: [
-                {
-                    data: data,
-                    location: location
-                }
-            ],
-            // "pastFrames": [v(-1), v(-2), v(-3)],
+            heartrate: 60,
             device_id: device_id
         })
     })
