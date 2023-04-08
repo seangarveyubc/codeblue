@@ -8,7 +8,7 @@ import { atob } from 'react-native-quick-base64';
 const HEART_RATE_UUID = '180D';
 const HEART_RATE_CHARACTERISTIC = '2A37';
 
-const bleManager = new BleManager();
+export const bleManager = new BleManager();
 
 type VoidCallback = (result: boolean) => void;
 
@@ -98,7 +98,6 @@ function useBLE(): BluetoothLowEnergyApi {
             await device.discoverAllServicesAndCharacteristics();
             console.log(device);
             bleManager.stopDeviceScan();
-            // setHeartRate(10);
         } catch (e) {
             console.log('FAILED TO DISCOVER SERVICES');
         }
@@ -111,7 +110,6 @@ function useBLE(): BluetoothLowEnergyApi {
             bleManager.cancelDeviceConnection(connectedDevice.id);
             console.log('11');
             setConnectedDevice(null);
-            // setHeartRate(0);
         }
     };
 
@@ -120,29 +118,28 @@ function useBLE(): BluetoothLowEnergyApi {
         try {
             serviceUUIDs?.forEach((sUUID) => {
                 console.log(device);
-                try {
-                    device.characteristicsForService(sUUID).then((chars) => {
-                        console.log(chars);
-                        try {
-                            chars.forEach((char) => {
-                                console.log('services');
 
-                                console.log(sUUID);
-                                console.log('chars');
+                device.characteristicsForService(sUUID).then((chars) => {
+                    console.log(chars);
+                    try {
+                        chars.forEach((char) => {
+                            console.log('services UUID:');
+
+                            console.log(sUUID);
+                            console.log('chars UUID:');
+                            console.log(char.uuid);
+                            if (char.isNotifiable) {
+                                console.log('CAN notify, UUID OF notify');
                                 console.log(char.uuid);
-                                if (char.isNotifiable) {
-                                    console.log('CAN notify');
-                                    console.log(char.uuid);
-                                    monitorCharacteristic(device, char);
-                                }
-                            });
-                        } catch (e) {
-                            console.log('here2');
-                        }
-                    });
-                } catch (e) {
-                    console.log('hreere');
-                }
+                                monitorCharacteristic(device, char);
+                            }
+                        });
+                    } catch (e) {
+                        console.log(
+                            'ERROR IN GOING THROUGH EACH CHARACTERISTIC'
+                        );
+                    }
+                });
             });
         } catch (e) {
             console.log('FAILED TO FIND CHARACTERISTICS FOR SERVICES');
@@ -157,22 +154,19 @@ function useBLE(): BluetoothLowEnergyApi {
                 charac.serviceUUID,
                 charac.uuid,
                 (error, characteristic) => {
-                    // console.log(characteristic?.value);
-                    // console.log(atob(characteristic?.value!));
-                    const temp = atob(characteristic?.value!);
-                    // console.log(temp);
-                    // console.log(111);
+                    const data = atob(characteristic?.value!);
 
-                    if (Number(temp)) {
-                        console.log(Number(temp));
+                    if (Number(data)) {
+                        console.log(Number(data));
                         if (count < 5) {
-                            setHeartRate(Number(temp));
-                            heartRateArray.push(Number(temp));
+                            setHeartRate(Number(data));
+                            heartRateArray.push(Number(data));
                             count += 1;
                         }
                     }
                     if (count >= 5) {
                         console.log(heartRateArray);
+                        heartRateArray = [];
                         count = 0;
                     }
                 }

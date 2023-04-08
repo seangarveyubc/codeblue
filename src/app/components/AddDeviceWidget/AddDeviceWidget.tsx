@@ -26,7 +26,7 @@ export const AddDeviceWidget = ({
     const [isEditing, onChangeEditing] = React.useState(false);
     const [isSaved, onChangeSaved] = React.useState(false);
     const { appDataStorage } = useLocalStorage();
-
+    // TODO: Change handleClick to use connected device to determine state of connection
     const handleClick = async () => {
         if (!isEditing && !isSaved) {
             connectToPeripheral(item.item);
