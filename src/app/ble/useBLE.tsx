@@ -11,6 +11,7 @@ import { AppContext } from '../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
 import { getLocalStorageBackgroundMode } from '../backgroundMode/notifee/BackgroundProcess';
 
+const HEARTRATES_COUNT_THRESHOLD = 5;
 export const bleManager = new BleManager();
 
 type VoidCallback = (result: boolean) => void;
@@ -188,7 +189,7 @@ function useBLE(): BluetoothLowEnergyApi {
                         setHeartRate(Number(data));
                         heartRateArray.push(Number(data));
 
-                        if (heartRateArray.length > 3) {
+                        if (heartRateArray.length > HEARTRATES_COUNT_THRESHOLD) {
                             console.log(heartRateArray);
 
                             // send heart rate data to server and clear array
