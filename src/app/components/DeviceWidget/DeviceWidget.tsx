@@ -3,16 +3,24 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colours from '../../constants/Colours';
 import { normalize } from '../../utils/normalizer/normalizer';
+import { bleManager } from '../../ble/useBLE';
 
 interface Props {
     name: string;
     location?: string;
-    isConnected: boolean;
+    id: string;
 }
 
 const windowWidth = Dimensions.get('window').width;
 
-export const DeviceWidget = ({ name, location, isConnected }: Props) => {
+export const DeviceWidget = ({ name, location, id }: Props) => {
+    const [isConnected, setConnected] = React.useState<boolean>(false);
+
+    bleManager.isDeviceConnected(id).then((connection) => {
+        setConnected(connection);
+        // console.log('Connection:', connection);
+    });
+
     const statusIcon = isConnected ? (
         <Icon name="broadcast" size={normalize(25)} color={Colours.BLACK} />
     ) : (
