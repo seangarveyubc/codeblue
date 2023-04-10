@@ -4,9 +4,15 @@ import { BleManager, Characteristic, Device } from 'react-native-ble-plx';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 import { atob } from 'react-native-quick-base64';
-import { backgroundModeStorage, useLocalStorage } from '../localStorage/hooks/useLocalStorage';
+import {
+    backgroundModeStorage,
+    useLocalStorage
+} from '../localStorage/hooks/useLocalStorage';
 import * as utils from '../utils/AppUtils';
-import { BACKGROUND_MODE, HOST_DEVICE_ID } from '../localStorage/models/LocalStorageKeys';
+import {
+    BACKGROUND_MODE,
+    HOST_DEVICE_ID
+} from '../localStorage/models/LocalStorageKeys';
 import { AppContext } from '../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
 import { getLocalStorageBackgroundMode } from '../backgroundMode/notifee/BackgroundProcess';
@@ -30,7 +36,7 @@ function useBLE(): BluetoothLowEnergyApi {
     const [allDevices, setAllDevices] = useState<Device[]>([]);
     const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
     const [heartRate, setHeartRate] = useState<number>(1); // TODO make array
-    
+
     const { initialBackgroundState } = useContext(AppContext);
     const [isMonitoring, setIsMonitoring] = useState(
         initialBackgroundState === BackgroundMode.MONITOR_HEART
@@ -189,7 +195,9 @@ function useBLE(): BluetoothLowEnergyApi {
                         setHeartRate(Number(data));
                         heartRateArray.push(Number(data));
 
-                        if (heartRateArray.length > HEARTRATES_COUNT_THRESHOLD) {
+                        if (
+                            heartRateArray.length > HEARTRATES_COUNT_THRESHOLD
+                        ) {
                             console.log(heartRateArray);
 
                             // send heart rate data to server and clear array
@@ -197,9 +205,10 @@ function useBLE(): BluetoothLowEnergyApi {
                                 console.log('sending request to server');
                                 const { appDataStorage } = useLocalStorage();
                                 const deviceId =
-                                    appDataStorage.getString(HOST_DEVICE_ID) ?? '';
+                                    appDataStorage.getString(HOST_DEVICE_ID) ??
+                                    '';
                                 utils.fetchDetectDemo(deviceId, heartRateArray);
-    
+
                                 heartRateArray = [];
                             }
                         }
