@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { BleManager, Characteristic, Device } from 'react-native-ble-plx';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 import { atob } from 'react-native-quick-base64';
-import { useLocalStorage } from '../localStorage/hooks/useLocalStorage';
+import { backgroundModeStorage, useLocalStorage } from '../localStorage/hooks/useLocalStorage';
 import * as utils from '../utils/AppUtils';
-import { HOST_DEVICE_ID } from '../localStorage/models/LocalStorageKeys';
-
-const HEART_RATE_UUID = '180D';
-const HEART_RATE_CHARACTERISTIC = '2A37';
+import { BACKGROUND_MODE, HOST_DEVICE_ID } from '../localStorage/models/LocalStorageKeys';
+import { AppContext } from '../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
+import { getLocalStorageBackgroundMode } from '../backgroundMode/notifee/BackgroundProcess';
 
 export const bleManager = new BleManager();
 
@@ -28,11 +28,30 @@ interface BluetoothLowEnergyApi {
 function useBLE(): BluetoothLowEnergyApi {
     const [allDevices, setAllDevices] = useState<Device[]>([]);
     const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
-    const [heartRate, setHeartRate] = useState<number>(1);
+    const [heartRate, setHeartRate] = useState<number>(1); // TODO make array
+    
+    const { initialBackgroundState } = useContext(AppContext);
+    const [isMonitoring, setIsMonitoring] = useState(
+        initialBackgroundState === BackgroundMode.MONITOR_HEART
+    );
+    let listener: any;
 
+    // subsribe to background mode value changes in local storage
     useEffect(() => {
-        console.log('useEffect heartRate: ' + heartRate);
-    }, [heartRate]);
+        listener = backgroundModeStorage.storage.addOnValueChangedListener(
+            (changedKey) => {
+                if (changedKey === BACKGROUND_MODE) {
+                    const newMode: BackgroundMode =
+                        getLocalStorageBackgroundMode();
+                    console.log(
+                        `[AppNavigator] background mode changed to ${newMode}`
+                    );
+
+                    setIsMonitoring(newMode === BackgroundMode.MONITOR_HEART);
+                }
+            }
+        );
+    }, [listener]);
 
     const requestPermissions = async (cb: VoidCallback) => {
         if (Platform.OS === 'android') {
@@ -163,7 +182,6 @@ function useBLE(): BluetoothLowEnergyApi {
                 charac.uuid,
                 (error, characteristic) => {
                     const data = atob(characteristic?.value!);
-                    console.log(data);
 
                     if (!isNaN(Number(data))) {
                         console.log(Number(data));
@@ -173,13 +191,16 @@ function useBLE(): BluetoothLowEnergyApi {
                         if (heartRateArray.length > 3) {
                             console.log(heartRateArray);
 
-                            console.log('sending to server');
-                            const { appDataStorage } = useLocalStorage();
-                            const deviceId =
-                                appDataStorage.getString(HOST_DEVICE_ID) ?? '';
-                            utils.fetchDetectDemo(deviceId, heartRateArray);
-
-                            heartRateArray = [];
+                            // send heart rate data to server and clear array
+                            if (isMonitoring) {
+                                console.log('sending request to server');
+                                const { appDataStorage } = useLocalStorage();
+                                const deviceId =
+                                    appDataStorage.getString(HOST_DEVICE_ID) ?? '';
+                                utils.fetchDetectDemo(deviceId, heartRateArray);
+    
+                                heartRateArray = [];
+                            }
                         }
                     }
                 }

@@ -35,7 +35,7 @@ export const HomeScreen = ({ navigation }: Props) => {
     const { appDataStorage } = useLocalStorage();
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
-    const { heartRate } = useBLE();
+    const { heartrates } = useBLE();
 
     // initialize the background state to MONITOR_HEART for a first time user
     useEffect(() => {
@@ -45,8 +45,8 @@ export const HomeScreen = ({ navigation }: Props) => {
     }, [isFocused]);
 
     useEffect(() => {
-        console.log('HomeScreen heartRate: ' + heartRate);
-    }, [heartRate]);
+        console.log('HomeScreen heartRate: ' + heartrates);
+    }, [heartrates]);
 
     useEffect(() => {
         changeFirstName(
@@ -145,8 +145,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             </View>
 
             <View style={styles.heartContainer}>
-                <HeartRateWidget heartRate={heartRate} />
-                <Text>{heartRate} bpm</Text>
+                <HeartRateWidget heartRate={60} />
             </View>
             <CentredContent>
                 <View style={styles.deviceHeader}>
