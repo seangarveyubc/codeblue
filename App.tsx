@@ -3,7 +3,6 @@ import { AppNavigator } from './src/app/navigation/AppNavigator';
 import StorybookUI from './storybook';
 import { LogBox } from 'react-native';
 
-
 LogBox.ignoreAllLogs();
 
 const App = () => {

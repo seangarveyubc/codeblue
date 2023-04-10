@@ -30,7 +30,6 @@ interface Props {
 
 export const HomeScreen = ({ navigation }: Props) => {
     const [isEditDevicesMode, setIsEditDevicesMode] = useState(false);
-    const [bluetoothState, setBluetoothState] = useState(false);
     const [firstName, changeFirstName] = useState('');
     const [lastName, changeLastName] = useState('');
     const { appDataStorage } = useLocalStorage();
@@ -44,6 +43,10 @@ export const HomeScreen = ({ navigation }: Props) => {
             dispatch({ type: BackgroundMode.MONITOR_HEART });
         }
     }, [isFocused]);
+
+    useEffect(() => {
+        console.log('HomeScreen heartRate: ' + heartRate);
+    }, [heartRate]);
 
     useEffect(() => {
         changeFirstName(
@@ -143,6 +146,7 @@ export const HomeScreen = ({ navigation }: Props) => {
 
             <View style={styles.heartContainer}>
                 <HeartRateWidget heartRate={heartRate} />
+                <Text>{heartRate} bpm</Text>
             </View>
             <CentredContent>
                 <View style={styles.deviceHeader}>
@@ -152,23 +156,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                     </Text>
                 </View>
             </CentredContent>
-            {!bluetoothState && (
-                <View style={styles.bluetoothPrompt}>
-                    <Text style={{ fontFamily: 'DMSans-Regular' }}>
-                        CodeBlue requires Bluetooth to monitor heart rate.{' '}
-                        <Text
-                            style={{
-                                color: Colours.BLUE
-                            }}
-                        >
-                            Turn on Bluetooth.
-                        </Text>
-                    </Text>
-                </View>
-            )}
             <View
                 style={{
-                    flex: bluetoothState ? 7 : 6,
+                    flex: 6,
                     marginTop: 10
                 }}
             >

@@ -19,7 +19,8 @@ export class BackgroundProcess {
 
     constructor() {
         console.log('[BackgroundProcess] created a background process');
-        this.mode = getLocalStorageBackgroundMode() ?? BackgroundMode.MONITOR_HEART;
+        this.mode =
+            getLocalStorageBackgroundMode() ?? BackgroundMode.MONITOR_HEART;
         this.startBackgroundTaskListener();
         this.executeBackgroundTask(this.mode);
     }
@@ -58,15 +59,15 @@ export class BackgroundProcess {
                 }, 5000);
                 break;
             }
-            case BackgroundMode.MONITOR_HEART: 
+            case BackgroundMode.MONITOR_HEART:
             default: {
                 // send data to algorithm
                 this.heartFn = setInterval(async () => {
                     console.log('reading heart rate');
-                    const { appDataStorage } = useLocalStorage();
-                    const deviceId =
-                        appDataStorage.getString(HOST_DEVICE_ID) ?? '';
-                    utils.fetchDetectDemo(deviceId);
+                    // const { appDataStorage } = useLocalStorage();
+                    // const deviceId =
+                    //     appDataStorage.getString(HOST_DEVICE_ID) ?? '';
+                    // utils.fetchDetectDemo(deviceId);
                 }, 10000);
                 break;
             }
@@ -91,10 +92,7 @@ export class BackgroundProcess {
                     );
                     // set EP timer back to 30s
                     backgroundModeStorage.add(EP_TIMER, 30);
-                    this.clearExistingIntervals(
-                        this.heartFn,
-                        this.callFn
-                    );
+                    this.clearExistingIntervals(this.heartFn, this.callFn);
                     this.executeBackgroundTask(newMode);
                 }
             }
@@ -106,10 +104,7 @@ export class BackgroundProcess {
     }
 
     // TODO: delete once real tasks are implemented
-    private clearExistingIntervals = (
-        heartFn: any,
-        callFn: any
-    ) => {
+    private clearExistingIntervals = (heartFn: any, callFn: any) => {
         if (heartFn) {
             clearInterval(heartFn);
             heartFn = undefined;

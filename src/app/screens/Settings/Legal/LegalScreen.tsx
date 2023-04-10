@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet, ScrollView, Button } from 'react-native';
-import { AppContext } from '../../../backgroundMode/context/AppContext';
-import { BackgroundMode } from '../../../backgroundMode/models/BackgroundMode';
 import Colours from '../../../constants/Colours';
 import { normalize } from '../../../utils/normalizer/normalizer';
 
@@ -10,8 +8,6 @@ interface Props {
 }
 
 export const LegalScreen = ({ navigation }: Props) => {
-    const { dispatch } = useContext(AppContext);
-
     return (
         <View style={styles.page}>
             <ScrollView>

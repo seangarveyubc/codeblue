@@ -94,13 +94,15 @@ export async function saveDeviceFCMToken() {
     }
 }
 
-
 const ec2_address = 'http://34.209.155.128:3000';
 
 /**
  * Constructs and sends a post request to specified address. Reqeust body type should match the format specified in `codeblue-server` repo's README
  */
-export const fetchDetectDemo = (device_id: string) => {
+export const fetchDetectDemo = (
+    device_id: string,
+    heartRateArray: number[]
+) => {
     fetch(ec2_address + '/heartrate', {
         method: 'POST',
         headers: {
@@ -108,7 +110,7 @@ export const fetchDetectDemo = (device_id: string) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            heartrate: 60,
+            heartrates: heartRateArray,
             device_id: device_id
         })
     })

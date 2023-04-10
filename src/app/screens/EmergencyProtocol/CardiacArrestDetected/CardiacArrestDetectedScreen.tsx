@@ -8,7 +8,7 @@ import {
     AlertModal,
     ModalType
 } from '../../../components/AlertModal/AlertModal';
-import { TriggerCall } from '../../../EMSCall/TriggerCall';
+import { TriggerCall } from '../../../emsCall/TriggerCall';
 import { normalize } from '../../../utils/normalizer/normalizer';
 import { SCREEN_HEIGHT } from '../../../constants/constants';
 import { AppContext } from '../../../backgroundMode/context/AppContext';

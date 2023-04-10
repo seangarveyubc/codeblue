@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { BleManager, Characteristic, Device } from 'react-native-ble-plx';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 import { atob } from 'react-native-quick-base64';
+import { useLocalStorage } from '../localStorage/hooks/useLocalStorage';
+import * as utils from '../utils/AppUtils';
+import { HOST_DEVICE_ID } from '../localStorage/models/LocalStorageKeys';
 
 const HEART_RATE_UUID = '180D';
 const HEART_RATE_CHARACTERISTIC = '2A37';
@@ -26,6 +29,11 @@ function useBLE(): BluetoothLowEnergyApi {
     const [allDevices, setAllDevices] = useState<Device[]>([]);
     const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
     const [heartRate, setHeartRate] = useState<number>(1);
+
+    useEffect(() => {
+        console.log('useEffect heartRate: ' + heartRate);
+    }, [heartRate]);
+
     const requestPermissions = async (cb: VoidCallback) => {
         if (Platform.OS === 'android') {
             const apiLevel = await DeviceInfo.getApiLevel();
@@ -96,7 +104,7 @@ function useBLE(): BluetoothLowEnergyApi {
         }
         try {
             await device.discoverAllServicesAndCharacteristics();
-            console.log(device);
+            // console.log(device);
             bleManager.stopDeviceScan();
         } catch (e) {
             console.log('FAILED TO DISCOVER SERVICES');
@@ -117,20 +125,20 @@ function useBLE(): BluetoothLowEnergyApi {
         const serviceUUIDs = device.serviceUUIDs;
         try {
             serviceUUIDs?.forEach((sUUID) => {
-                console.log(device);
+                // console.log(device);
 
                 device.characteristicsForService(sUUID).then((chars) => {
-                    console.log(chars);
+                    // console.log(chars);
                     try {
                         chars.forEach((char) => {
-                            console.log('services UUID:');
+                            // console.log('services UUID:');
 
-                            console.log(sUUID);
-                            console.log('chars UUID:');
-                            console.log(char.uuid);
+                            // console.log(sUUID);
+                            // console.log('chars UUID:');
+                            // console.log(char.uuid);
                             if (char.isNotifiable) {
                                 console.log('CAN notify, UUID OF notify');
-                                console.log(char.uuid);
+                                // console.log(char.uuid);
                                 monitorCharacteristic(device, char);
                             }
                         });
@@ -148,26 +156,31 @@ function useBLE(): BluetoothLowEnergyApi {
 
     const monitorCharacteristic = (device: Device, charac: Characteristic) => {
         try {
-            let count = 0;
+            console.log('monitoring');
             let heartRateArray: Array<number> = [];
             device!.monitorCharacteristicForService(
                 charac.serviceUUID,
                 charac.uuid,
                 (error, characteristic) => {
                     const data = atob(characteristic?.value!);
+                    console.log(data);
 
-                    if (Number(data)) {
+                    if (!isNaN(Number(data))) {
                         console.log(Number(data));
-                        if (count < 5) {
-                            setHeartRate(Number(data));
-                            heartRateArray.push(Number(data));
-                            count += 1;
+                        setHeartRate(Number(data));
+                        heartRateArray.push(Number(data));
+
+                        if (heartRateArray.length > 3) {
+                            console.log(heartRateArray);
+
+                            console.log('sending to server');
+                            const { appDataStorage } = useLocalStorage();
+                            const deviceId =
+                                appDataStorage.getString(HOST_DEVICE_ID) ?? '';
+                            utils.fetchDetectDemo(deviceId, heartRateArray);
+
+                            heartRateArray = [];
                         }
-                    }
-                    if (count >= 5) {
-                        console.log(heartRateArray);
-                        heartRateArray = [];
-                        count = 0;
                     }
                 }
             );
