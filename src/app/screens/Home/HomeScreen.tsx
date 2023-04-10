@@ -22,6 +22,7 @@ import { normalize } from '../../utils/normalizer/normalizer';
 import { EditDeviceWidget } from '../../components/EditDeviceWidget/EditDeviceWidget';
 import { DeviceData } from '../../localStorage/models/DeviceList';
 import { SensorLocations } from '../../constants/SensorLocations';
+import { bleManager } from '../../ble/useBLE';
 
 interface Props {
     navigation: any;
@@ -111,7 +112,6 @@ export const HomeScreen = ({ navigation }: Props) => {
                         initialDeviceData={device.item}
                         updateDeviceInfo={handleUpdateDeviceInfo}
                         deleteDevice={deleteSensor}
-                        isConnected={true}
                     />
                 </View>
             );
@@ -125,13 +125,21 @@ export const HomeScreen = ({ navigation }: Props) => {
                     <DeviceWidget
                         name={device.item.name}
                         location={device.item.location}
-                        isConnected={false}
+                        id={device.item.id}
                     />
                 </View>
             );
         },
         []
     );
+
+    const subscription = bleManager.onStateChange((state) => {
+        if (state === 'PoweredOn') {
+            setBluetoothState(true);
+        } else {
+            setBluetoothState(false);
+        }
+    }, true);
 
     return (
         <View style={styles.container}>

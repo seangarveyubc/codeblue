@@ -10,6 +10,7 @@ import { SensorLocations } from '../../constants/SensorLocations';
 import { useState } from 'react';
 import { DeviceData } from '../../localStorage/models/DeviceList';
 import { normalize } from '../../utils/normalizer/normalizer';
+import { bleManager } from '../../ble/useBLE';
 
 interface Props {
     initialDeviceData: DeviceData;
@@ -20,16 +21,20 @@ interface Props {
         newLocationIndex: number
     ) => void;
     deleteDevice: any;
-    isConnected: boolean;
 }
 
 export const EditDeviceWidget = ({
     initialDeviceData,
     updateDeviceInfo,
-    deleteDevice,
-    isConnected
+    deleteDevice
 }: Props) => {
     const [deviceName, setDeviceName] = useState(initialDeviceData.name);
+    const [isConnected, setConnected] = React.useState<boolean>(false);
+
+    bleManager.isDeviceConnected(initialDeviceData.id).then((connection) => {
+        setConnected(connection);
+        // console.log('Connection:', connection);
+    });
 
     const statusIcon = isConnected ? (
         <CommunityIcon name="broadcast" size={25} color={Colours.BLACK} />

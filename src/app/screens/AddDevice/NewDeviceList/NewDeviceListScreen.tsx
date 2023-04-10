@@ -1,11 +1,5 @@
 import * as React from 'react';
-import {
-    Text,
-    View,
-    StyleSheet,
-    ActivityIndicator,
-    Button
-} from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
 import Colours from '../../../constants/Colours';
 import { AddDeviceWidget } from '../../../components/AddDeviceWidget/AddDeviceWidget';
 import { normalize } from '../../../utils/normalizer/normalizer';
@@ -31,6 +25,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
     const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false);
     const [showLoading, setShowLoading] = React.useState<boolean>(true);
     const [temp, setTemp] = React.useState<string>('');
+
     const scanForDevices = () => {
         requestPermissions((isGranted: any) => {
             if (isGranted) {
@@ -52,7 +47,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
             {showLoading && (
                 <ActivityIndicator
                     style={styles.loader}
-                    size={100}
+                    size={normalize(100)}
                     color={Colours.BLUE}
                     hidesWhenStopped={true}
                     animating={showLoading}
@@ -87,6 +82,6 @@ const styles = StyleSheet.create({
     },
     loader: {
         alignSelf: 'center',
-        marginTop: 40
+        marginTop: normalize(40)
     }
 });
