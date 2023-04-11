@@ -43,7 +43,7 @@ export const NewDeviceListScreen = ({ navigation }: Props) => {
         setTimeout(() => {
             scanForDevices();
             setShowLoading(false);
-        }, 1000);
+        }, 2000);
     }, []);
 
     return (

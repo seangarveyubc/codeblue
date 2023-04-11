@@ -22,6 +22,7 @@ import { normalize } from '../../utils/normalizer/normalizer';
 import { EditDeviceWidget } from '../../components/EditDeviceWidget/EditDeviceWidget';
 import { DeviceData } from '../../localStorage/models/DeviceList';
 import { SensorLocations } from '../../constants/SensorLocations';
+import useBLE from '../../ble/useBLE';
 
 interface Props {
     navigation: any;
@@ -29,19 +30,23 @@ interface Props {
 
 export const HomeScreen = ({ navigation }: Props) => {
     const [isEditDevicesMode, setIsEditDevicesMode] = useState(false);
-    const [bluetoothState, setBluetoothState] = useState(false);
     const [firstName, changeFirstName] = useState('');
     const [lastName, changeLastName] = useState('');
     const { appDataStorage } = useLocalStorage();
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
+    const { heartRate } = useBLE();
 
-    // initialize the background state to idle for a first time user
+    // initialize the background state to MONITOR_HEART for a first time user
     useEffect(() => {
         if (!isBackgroundModeDefined) {
-            dispatch({ type: BackgroundMode.IDLE });
+            dispatch({ type: BackgroundMode.MONITOR_HEART });
         }
     }, [isFocused]);
+
+    useEffect(() => {
+        console.log('HomeScreen heartRate: ' + heartRate);
+    }, [heartRate]);
 
     useEffect(() => {
         changeFirstName(
@@ -140,7 +145,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             </View>
 
             <View style={styles.heartContainer}>
-                <HeartRateWidget heartRate={56} />
+                <HeartRateWidget heartRate={60} />
             </View>
             <CentredContent>
                 <View style={styles.deviceHeader}>
@@ -150,23 +155,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                     </Text>
                 </View>
             </CentredContent>
-            {!bluetoothState && (
-                <View style={styles.bluetoothPrompt}>
-                    <Text style={{ fontFamily: 'DMSans-Regular' }}>
-                        CodeBlue requires Bluetooth to monitor heart rate.{' '}
-                        <Text
-                            style={{
-                                color: Colours.BLUE
-                            }}
-                        >
-                            Turn on Bluetooth.
-                        </Text>
-                    </Text>
-                </View>
-            )}
             <View
                 style={{
-                    flex: bluetoothState ? 7 : 6,
+                    flex: 6,
                     marginTop: 10
                 }}
             >

@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import { BleManager, Characteristic, Device } from 'react-native-ble-plx';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 import { atob } from 'react-native-quick-base64';
+import {
+    backgroundModeStorage,
+    useLocalStorage
+} from '../localStorage/hooks/useLocalStorage';
+import * as utils from '../utils/AppUtils';
+import {
+    BACKGROUND_MODE,
+    HOST_DEVICE_ID
+} from '../localStorage/models/LocalStorageKeys';
+import { AppContext } from '../backgroundMode/context/AppContext';
+import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
+import { getLocalStorageBackgroundMode } from '../backgroundMode/notifee/BackgroundProcess';
 
-const HEART_RATE_UUID = '180D';
-const HEART_RATE_CHARACTERISTIC = '2A37';
-
+const HEARTRATES_COUNT_THRESHOLD = 5;
 export const bleManager = new BleManager();
 
 type VoidCallback = (result: boolean) => void;
@@ -25,7 +35,31 @@ interface BluetoothLowEnergyApi {
 function useBLE(): BluetoothLowEnergyApi {
     const [allDevices, setAllDevices] = useState<Device[]>([]);
     const [connectedDevice, setConnectedDevice] = useState<Device | null>(null);
-    const [heartRate, setHeartRate] = useState<number>(1);
+    const [heartRate, setHeartRate] = useState<number>(1); // TODO make array
+
+    const { initialBackgroundState } = useContext(AppContext);
+    const [isMonitoring, setIsMonitoring] = useState(
+        initialBackgroundState === BackgroundMode.MONITOR_HEART
+    );
+    let listener: any;
+
+    // subsribe to background mode value changes in local storage
+    useEffect(() => {
+        listener = backgroundModeStorage.storage.addOnValueChangedListener(
+            (changedKey) => {
+                if (changedKey === BACKGROUND_MODE) {
+                    const newMode: BackgroundMode =
+                        getLocalStorageBackgroundMode();
+                    console.log(
+                        `[AppNavigator] background mode changed to ${newMode}`
+                    );
+
+                    setIsMonitoring(newMode === BackgroundMode.MONITOR_HEART);
+                }
+            }
+        );
+    }, [listener]);
+
     const requestPermissions = async (cb: VoidCallback) => {
         if (Platform.OS === 'android') {
             const apiLevel = await DeviceInfo.getApiLevel();
@@ -70,7 +104,6 @@ function useBLE(): BluetoothLowEnergyApi {
     let devicecounter = 0;
     const scanForPeripherals = () => {
         bleManager.startDeviceScan(null, null, (error, device) => {
-            // console.log(device);
             if (error) {
                 console.log(error);
             }
@@ -96,7 +129,6 @@ function useBLE(): BluetoothLowEnergyApi {
         }
         try {
             await device.discoverAllServicesAndCharacteristics();
-            console.log(device);
             bleManager.stopDeviceScan();
         } catch (e) {
             console.log('FAILED TO DISCOVER SERVICES');
@@ -117,20 +149,11 @@ function useBLE(): BluetoothLowEnergyApi {
         const serviceUUIDs = device.serviceUUIDs;
         try {
             serviceUUIDs?.forEach((sUUID) => {
-                console.log(device);
-
                 device.characteristicsForService(sUUID).then((chars) => {
-                    console.log(chars);
                     try {
                         chars.forEach((char) => {
-                            console.log('services UUID:');
-
-                            console.log(sUUID);
-                            console.log('chars UUID:');
-                            console.log(char.uuid);
                             if (char.isNotifiable) {
                                 console.log('CAN notify, UUID OF notify');
-                                console.log(char.uuid);
                                 monitorCharacteristic(device, char);
                             }
                         });
@@ -148,7 +171,6 @@ function useBLE(): BluetoothLowEnergyApi {
 
     const monitorCharacteristic = (device: Device, charac: Characteristic) => {
         try {
-            let count = 0;
             let heartRateArray: Array<number> = [];
             device!.monitorCharacteristicForService(
                 charac.serviceUUID,
@@ -156,18 +178,28 @@ function useBLE(): BluetoothLowEnergyApi {
                 (error, characteristic) => {
                     const data = atob(characteristic?.value!);
 
-                    if (Number(data)) {
+                    if (!isNaN(Number(data))) {
                         console.log(Number(data));
-                        if (count < 5) {
-                            setHeartRate(Number(data));
-                            heartRateArray.push(Number(data));
-                            count += 1;
+                        setHeartRate(Number(data));
+                        heartRateArray.push(Number(data));
+
+                        if (
+                            heartRateArray.length > HEARTRATES_COUNT_THRESHOLD
+                        ) {
+                            if (isMonitoring) {
+                                console.log(
+                                    'sending request to server ' +
+                                        heartRateArray
+                                );
+                                const { appDataStorage } = useLocalStorage();
+                                const deviceId =
+                                    appDataStorage.getString(HOST_DEVICE_ID) ??
+                                    '';
+                                utils.fetchDetectDemo(deviceId, heartRateArray);
+
+                                heartRateArray = [];
+                            }
                         }
-                    }
-                    if (count >= 5) {
-                        console.log(heartRateArray);
-                        heartRateArray = [];
-                        count = 0;
                     }
                 }
             );

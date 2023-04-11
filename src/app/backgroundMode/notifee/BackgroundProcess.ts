@@ -15,34 +15,18 @@ export class BackgroundProcess {
     mode: BackgroundMode;
     listener: any;
     heartFn: any;
-    idleFn: any;
     callFn: any;
 
     constructor() {
         console.log('[BackgroundProcess] created a background process');
-        this.mode = getLocalStorageBackgroundMode() ?? BackgroundMode.IDLE;
+        this.mode =
+            getLocalStorageBackgroundMode() ?? BackgroundMode.MONITOR_HEART;
         this.startBackgroundTaskListener();
         this.executeBackgroundTask(this.mode);
     }
 
     executeBackgroundTask(mode: BackgroundMode) {
         switch (mode) {
-            case BackgroundMode.MONITOR_HEART: {
-                // send data to algorithm
-                this.heartFn = setInterval(async () => {
-                    console.log('reading heart rate');
-                    const { appDataStorage } = useLocalStorage();
-                    const deviceId =
-                        appDataStorage.getString(HOST_DEVICE_ID) ?? '';
-                    utils.fetchDetectCA(
-                        utils.local_healthy_address,
-                        [1, 2, 3],
-                        'forehead',
-                        deviceId
-                    );
-                }, 10000);
-                break;
-            }
             case BackgroundMode.CA_DETECTED: {
                 // TODO: handle CA detected while in background mode
                 /*if (AppState.currentState === 'background') {
@@ -75,11 +59,16 @@ export class BackgroundProcess {
                 }, 5000);
                 break;
             }
+            case BackgroundMode.MONITOR_HEART:
             default: {
-                // idle - do nothing
-                this.idleFn = setInterval(() => {
-                    console.log('idle');
-                }, 5000);
+                // send data to algorithm
+                this.heartFn = setInterval(async () => {
+                    console.log('reading heart rate');
+                    // const { appDataStorage } = useLocalStorage();
+                    // const deviceId =
+                    //     appDataStorage.getString(HOST_DEVICE_ID) ?? '';
+                    // utils.fetchDetectDemo(deviceId);
+                }, 10000);
                 break;
             }
         }
@@ -103,11 +92,7 @@ export class BackgroundProcess {
                     );
                     // set EP timer back to 30s
                     backgroundModeStorage.add(EP_TIMER, 30);
-                    this.clearExistingIntervals(
-                        this.heartFn,
-                        this.callFn,
-                        this.idleFn
-                    );
+                    this.clearExistingIntervals(this.heartFn, this.callFn);
                     this.executeBackgroundTask(newMode);
                 }
             }
@@ -119,11 +104,7 @@ export class BackgroundProcess {
     }
 
     // TODO: delete once real tasks are implemented
-    private clearExistingIntervals = (
-        heartFn: any,
-        callFn: any,
-        idleFn: any
-    ) => {
+    private clearExistingIntervals = (heartFn: any, callFn: any) => {
         if (heartFn) {
             clearInterval(heartFn);
             heartFn = undefined;
@@ -132,11 +113,6 @@ export class BackgroundProcess {
         if (callFn) {
             clearInterval(callFn);
             callFn = undefined;
-        }
-
-        if (idleFn) {
-            clearInterval(idleFn);
-            idleFn = undefined;
         }
     };
 }
