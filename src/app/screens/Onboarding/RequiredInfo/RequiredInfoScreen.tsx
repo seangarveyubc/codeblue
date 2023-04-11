@@ -50,6 +50,7 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
                         height={SCREEN_WIDTH * 0.3}
                     />
                     <Text style={styles.titleText}>Let's get started</Text>
+                    <Text style={styles.subtitleText}>Enter your name <Text style={{fontWeight: "bold"}}> (Optional)</Text></Text>
                 </View>
                 <KeyboardAvoidingView
                     behavior="position"
@@ -88,6 +89,12 @@ const styles = StyleSheet.create({
         fontSize: normalize(24),
         color: Colours.BLUE,
         marginTop: normalize(8)
+    },
+    subtitleText: {
+        fontFamily: 'DMSans-Regular',
+        fontSize: normalize(18),
+        color: Colours.BLUE,
+        marginTop: normalize(4)
     },
     inputTextGroup: {
         marginTop: SCREEN_HEIGHT * 0.05,
