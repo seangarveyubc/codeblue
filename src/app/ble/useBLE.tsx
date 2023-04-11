@@ -98,7 +98,6 @@ function useBLE(): BluetoothLowEnergyApi {
     let devicecounter = 0;
     const scanForPeripherals = () => {
         bleManager.startDeviceScan(null, null, (error, device) => {
-            // console.log(device);
             if (error) {
                 console.log(error);
             }
@@ -124,7 +123,6 @@ function useBLE(): BluetoothLowEnergyApi {
         }
         try {
             await device.discoverAllServicesAndCharacteristics();
-            // console.log(device);
             bleManager.stopDeviceScan();
         } catch (e) {
             console.log('FAILED TO DISCOVER SERVICES');
@@ -145,20 +143,12 @@ function useBLE(): BluetoothLowEnergyApi {
         const serviceUUIDs = device.serviceUUIDs;
         try {
             serviceUUIDs?.forEach((sUUID) => {
-                // console.log(device);
 
                 device.characteristicsForService(sUUID).then((chars) => {
-                    // console.log(chars);
                     try {
                         chars.forEach((char) => {
-                            // console.log('services UUID:');
-
-                            // console.log(sUUID);
-                            // console.log('chars UUID:');
-                            // console.log(char.uuid);
                             if (char.isNotifiable) {
                                 console.log('CAN notify, UUID OF notify');
-                                // console.log(char.uuid);
                                 monitorCharacteristic(device, char);
                             }
                         });
@@ -176,7 +166,6 @@ function useBLE(): BluetoothLowEnergyApi {
 
     const monitorCharacteristic = (device: Device, charac: Characteristic) => {
         try {
-            console.log('monitoring');
             let heartRateArray: Array<number> = [];
             device!.monitorCharacteristicForService(
                 charac.serviceUUID,
@@ -190,11 +179,8 @@ function useBLE(): BluetoothLowEnergyApi {
                         heartRateArray.push(Number(data));
 
                         if (heartRateArray.length > HEARTRATES_COUNT_THRESHOLD) {
-                            console.log(heartRateArray);
-
-                            // send heart rate data to server and clear array
                             if (isMonitoring) {
-                                console.log('sending request to server');
+                                console.log('sending request to server ' + heartRateArray);
                                 const { appDataStorage } = useLocalStorage();
                                 const deviceId =
                                     appDataStorage.getString(HOST_DEVICE_ID) ?? '';
