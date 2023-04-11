@@ -5,12 +5,14 @@ import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
 import { atob } from 'react-native-quick-base64';
 import {
+    APP_DATA_STORAGE,
     backgroundModeStorage,
     useLocalStorage
 } from '../localStorage/hooks/useLocalStorage';
 import * as utils from '../utils/AppUtils';
 import {
     BACKGROUND_MODE,
+    HEARTRATE,
     HOST_DEVICE_ID
 } from '../localStorage/models/LocalStorageKeys';
 import { AppContext } from '../backgroundMode/context/AppContext';
@@ -172,6 +174,8 @@ function useBLE(): BluetoothLowEnergyApi {
     const monitorCharacteristic = (device: Device, charac: Characteristic) => {
         try {
             let heartRateArray: Array<number> = [];
+            const { appDataStorage } = useLocalStorage();
+            
             device!.monitorCharacteristicForService(
                 charac.serviceUUID,
                 charac.uuid,
@@ -180,7 +184,8 @@ function useBLE(): BluetoothLowEnergyApi {
 
                     if (!isNaN(Number(data))) {
                         console.log(Number(data));
-                        setHeartRate(Number(data));
+                        // setHeartRate(Number(data));
+                        appDataStorage.add(HEARTRATE, Number(data));
                         heartRateArray.push(Number(data));
 
                         if (
@@ -191,7 +196,6 @@ function useBLE(): BluetoothLowEnergyApi {
                                     'sending request to server ' +
                                         heartRateArray
                                 );
-                                const { appDataStorage } = useLocalStorage();
                                 const deviceId =
                                     appDataStorage.getString(HOST_DEVICE_ID) ??
                                     '';

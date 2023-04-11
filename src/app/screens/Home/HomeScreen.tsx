@@ -12,7 +12,7 @@ import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
-import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
+import { HEARTRATE, PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
@@ -22,7 +22,6 @@ import { normalize } from '../../utils/normalizer/normalizer';
 import { EditDeviceWidget } from '../../components/EditDeviceWidget/EditDeviceWidget';
 import { DeviceData } from '../../localStorage/models/DeviceList';
 import { SensorLocations } from '../../constants/SensorLocations';
-import useBLE from '../../ble/useBLE';
 import { bleManager } from '../../ble/useBLE';
 
 interface Props {
@@ -30,13 +29,15 @@ interface Props {
 }
 
 export const HomeScreen = ({ navigation }: Props) => {
-    const [isEditDevicesMode, setIsEditDevicesMode] = useState(false);
-    const [firstName, changeFirstName] = useState('');
-    const [lastName, changeLastName] = useState('');
     const { appDataStorage } = useLocalStorage();
     const { dispatch } = useContext(AppContext);
     const isFocused = useIsFocused();
-    const { heartRate } = useBLE();
+    const [isEditDevicesMode, setIsEditDevicesMode] = useState(false);
+    const [bluetoothState, setBluetoothState] = useState(false);
+    const [firstName, changeFirstName] = useState('');
+    const [lastName, changeLastName] = useState('');
+    const [heartrate, changeHeartrate] = useState(appDataStorage.getNumber(HEARTRATE) ?? 60);
+    let listener: any;
 
     // initialize the background state to MONITOR_HEART for a first time user
     useEffect(() => {
@@ -45,9 +46,17 @@ export const HomeScreen = ({ navigation }: Props) => {
         }
     }, [isFocused]);
 
+    // subsribe to heartrate changes in local storage
     useEffect(() => {
-        console.log('HomeScreen heartRate: ' + heartRate);
-    }, [heartRate]);
+        listener = appDataStorage.storage.addOnValueChangedListener(
+            (changedKey) => {
+                if (changedKey === HEARTRATE) {
+                    const newHeartrate = appDataStorage.getNumber(HEARTRATE) ?? heartrate;
+                    changeHeartrate(newHeartrate);
+                }
+            }
+        );
+    }, [listener]);
 
     useEffect(() => {
         changeFirstName(
@@ -153,7 +162,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             </View>
 
             <View style={styles.heartContainer}>
-                <HeartRateWidget heartRate={60} />
+                <HeartRateWidget heartRate={heartrate} />
             </View>
             <CentredContent>
                 <View style={styles.deviceHeader}>
