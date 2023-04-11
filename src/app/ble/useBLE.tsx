@@ -149,7 +149,6 @@ function useBLE(): BluetoothLowEnergyApi {
         const serviceUUIDs = device.serviceUUIDs;
         try {
             serviceUUIDs?.forEach((sUUID) => {
-
                 device.characteristicsForService(sUUID).then((chars) => {
                     try {
                         chars.forEach((char) => {
@@ -184,9 +183,14 @@ function useBLE(): BluetoothLowEnergyApi {
                         setHeartRate(Number(data));
                         heartRateArray.push(Number(data));
 
-                        if (heartRateArray.length > HEARTRATES_COUNT_THRESHOLD) {
+                        if (
+                            heartRateArray.length > HEARTRATES_COUNT_THRESHOLD
+                        ) {
                             if (isMonitoring) {
-                                console.log('sending request to server ' + heartRateArray);
+                                console.log(
+                                    'sending request to server ' +
+                                        heartRateArray
+                                );
                                 const { appDataStorage } = useLocalStorage();
                                 const deviceId =
                                     appDataStorage.getString(HOST_DEVICE_ID) ??

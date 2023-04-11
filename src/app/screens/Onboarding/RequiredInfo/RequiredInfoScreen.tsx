@@ -50,7 +50,10 @@ export const RequiredInfoScreen = ({ navigation }: Props) => {
                         height={SCREEN_WIDTH * 0.3}
                     />
                     <Text style={styles.titleText}>Let's get started</Text>
-                    <Text style={styles.subtitleText}>Enter your name <Text style={{fontWeight: "bold"}}> (Optional)</Text></Text>
+                    <Text style={styles.subtitleText}>
+                        Enter your name{' '}
+                        <Text style={{ fontWeight: 'bold' }}> (Optional)</Text>
+                    </Text>
                 </View>
                 <KeyboardAvoidingView
                     behavior="position"
