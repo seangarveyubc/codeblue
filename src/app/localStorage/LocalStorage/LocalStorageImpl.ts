@@ -74,7 +74,7 @@ export class LocalStorageImpl implements LocalAppStorage {
             );
 
             if (deviceIndex != -1) {
-                console.log("already added");
+                console.log('already added');
             } else {
                 devices.push(value);
                 this.add(
