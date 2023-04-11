@@ -69,11 +69,19 @@ export class LocalStorageImpl implements LocalAppStorage {
             );
         } else {
             let devices = deviceList.devices;
-            devices.push(value);
-            this.add(
-                DeviceKeys.DEVICE_LIST,
-                serializeLocalStorageObject({ devices: devices })
+            const deviceIndex = devices?.findIndex(
+                (device: DeviceData) => device.id === value.id
             );
+
+            if (deviceIndex != -1) {
+                console.log('already added');
+            } else {
+                devices.push(value);
+                this.add(
+                    DeviceKeys.DEVICE_LIST,
+                    serializeLocalStorageObject({ devices: devices })
+                );
+            }
         }
     }
 

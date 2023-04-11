@@ -18,3 +18,4 @@ export enum DeviceKeys {
 export const BACKGROUND_MODE = 'backgroundMode';
 export const EP_TIMER = 'epTimer';
 export const HOST_DEVICE_ID = 'hostDeviceId';
+export const HEARTRATE = 'heartrate';
