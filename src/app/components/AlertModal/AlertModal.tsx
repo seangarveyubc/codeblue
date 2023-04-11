@@ -14,7 +14,8 @@ export enum ModalType {
     CallAlert,
     CancelAlert,
     ResetAlert,
-    PermissionAlert
+    PermissionAlert,
+    DeviceLostConnection
 }
 
 const MODAL_TYPE = [
@@ -65,6 +66,14 @@ const MODAL_TYPE = [
         description:
             'In order to use CodeBlue, please allow all following permissions',
         confirmText: 'Allow'
+    },
+    // DeviceLostConnection
+    {
+        icon: <Ionicons name="alert-circle" size={100} color={Colours.BLUE} />,
+        title: 'Connection Lost',
+        description:
+            'Bluetooth Connection to wearable device is lost, please check the device and reconnect.',
+        confirmText: 'Go to Add Device'
     }
 ];
 

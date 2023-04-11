@@ -117,7 +117,7 @@ export const AddDeviceWidget = ({
                                     }
                                 }}
                             >
-                                {isConnected ? 'Disconnect' : 'Add Device'}
+                                {isConnected ? 'Saved' : 'Add Device'}
                             </Text>
                         </View>
                     </TouchableOpacity>
