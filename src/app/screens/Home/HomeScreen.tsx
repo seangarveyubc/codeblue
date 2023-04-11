@@ -12,7 +12,10 @@ import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
-import { HEARTRATE, PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
+import {
+    HEARTRATE,
+    PersonalDataKeys
+} from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
@@ -36,7 +39,9 @@ export const HomeScreen = ({ navigation }: Props) => {
     const [bluetoothState, setBluetoothState] = useState(false);
     const [firstName, changeFirstName] = useState('');
     const [lastName, changeLastName] = useState('');
-    const [heartrate, changeHeartrate] = useState(appDataStorage.getNumber(HEARTRATE) ?? 60);
+    const [heartrate, changeHeartrate] = useState(
+        appDataStorage.getNumber(HEARTRATE) ?? 60
+    );
     let listener: any;
 
     // initialize the background state to MONITOR_HEART for a first time user
@@ -51,7 +56,8 @@ export const HomeScreen = ({ navigation }: Props) => {
         listener = appDataStorage.storage.addOnValueChangedListener(
             (changedKey) => {
                 if (changedKey === HEARTRATE) {
-                    const newHeartrate = appDataStorage.getNumber(HEARTRATE) ?? heartrate;
+                    const newHeartrate =
+                        appDataStorage.getNumber(HEARTRATE) ?? heartrate;
                     changeHeartrate(newHeartrate);
                 }
             }

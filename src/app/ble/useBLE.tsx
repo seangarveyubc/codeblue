@@ -175,7 +175,7 @@ function useBLE(): BluetoothLowEnergyApi {
         try {
             let heartRateArray: Array<number> = [];
             const { appDataStorage } = useLocalStorage();
-            
+
             device!.monitorCharacteristicForService(
                 charac.serviceUUID,
                 charac.uuid,
