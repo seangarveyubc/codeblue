@@ -35,7 +35,11 @@ export const TutorialScreen = ({ navigation }: Props) => {
                         Tutorial
                     </Text>
                 </View>
-                <Video source={video} style={styles.video} resizeMode="contain" />
+                <Video
+                    source={video}
+                    style={styles.video}
+                    resizeMode="contain"
+                />
                 <Text style={styles.videoDescription}>
                     Access this video any time in the app{' '}
                     <Text style={{ color: Colours.BLUE }}>Settings</Text>
