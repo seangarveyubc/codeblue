@@ -7,6 +7,7 @@ import {
 import { BACKGROUND_MODE } from '../../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../models/BackgroundMode';
 import { BackgroundProcess } from './BackgroundProcess';
+import { Vibration } from 'react-native';
 
 export const FOREGROUND_NOTIF_CHANNEL_ID = 'codeblue.foreground.notification';
 
@@ -74,6 +75,7 @@ const handleNotificationPress = async (
             backgroundModeStorage.add(BACKGROUND_MODE, BackgroundMode.CALL_NOW);
         } else if (detail?.pressAction?.id === 'cancel') {
             console.log('cancel call immediately');
+            Vibration.cancel();
             backgroundModeStorage.add(
                 BACKGROUND_MODE,
                 BackgroundMode.MONITOR_HEART

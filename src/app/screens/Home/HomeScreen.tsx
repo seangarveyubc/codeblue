@@ -12,7 +12,10 @@ import { CentredContent } from '../../components/CentredContent/CentredContent';
 import { DeviceWidget } from '../../components/DeviceWidget/DeviceWidget';
 import Colours from '../../constants/Colours';
 import { useLocalStorage } from '../../localStorage/hooks/useLocalStorage';
-import { PersonalDataKeys } from '../../localStorage/models/LocalStorageKeys';
+import {
+    HEARTRATE,
+    PersonalDataKeys
+} from '../../localStorage/models/LocalStorageKeys';
 import { SCREEN_WIDTH } from '../../constants/constants';
 import { AppContext } from '../../backgroundMode/context/AppContext';
 import { BackgroundMode } from '../../backgroundMode/models/BackgroundMode';
@@ -29,20 +32,37 @@ interface Props {
 }
 
 export const HomeScreen = ({ navigation }: Props) => {
+    const { appDataStorage } = useLocalStorage();
+    const { dispatch } = useContext(AppContext);
+    const isFocused = useIsFocused();
     const [isEditDevicesMode, setIsEditDevicesMode] = useState(false);
     const [bluetoothState, setBluetoothState] = useState(false);
     const [firstName, changeFirstName] = useState('');
     const [lastName, changeLastName] = useState('');
-    const { appDataStorage } = useLocalStorage();
-    const { dispatch } = useContext(AppContext);
-    const isFocused = useIsFocused();
+    const [heartrate, changeHeartrate] = useState(
+        appDataStorage.getNumber(HEARTRATE) ?? 60
+    );
+    let listener: any;
 
-    // initialize the background state to idle for a first time user
+    // initialize the background state to MONITOR_HEART for a first time user
     useEffect(() => {
         if (!isBackgroundModeDefined) {
-            dispatch({ type: BackgroundMode.IDLE });
+            dispatch({ type: BackgroundMode.MONITOR_HEART });
         }
     }, [isFocused]);
+
+    // subsribe to heartrate changes in local storage
+    useEffect(() => {
+        listener = appDataStorage.storage.addOnValueChangedListener(
+            (changedKey) => {
+                if (changedKey === HEARTRATE) {
+                    const newHeartrate =
+                        appDataStorage.getNumber(HEARTRATE) ?? heartrate;
+                    changeHeartrate(newHeartrate);
+                }
+            }
+        );
+    }, [listener]);
 
     useEffect(() => {
         changeFirstName(
@@ -148,7 +168,7 @@ export const HomeScreen = ({ navigation }: Props) => {
             </View>
 
             <View style={styles.heartContainer}>
-                <HeartRateWidget heartRate={56} />
+                <HeartRateWidget heartRate={heartrate} />
             </View>
             <CentredContent>
                 <View style={styles.deviceHeader}>
@@ -158,23 +178,9 @@ export const HomeScreen = ({ navigation }: Props) => {
                     </Text>
                 </View>
             </CentredContent>
-            {!bluetoothState && (
-                <View style={styles.bluetoothPrompt}>
-                    <Text style={{ fontFamily: 'DMSans-Regular' }}>
-                        CodeBlue requires Bluetooth to monitor heart rate.{' '}
-                        <Text
-                            style={{
-                                color: Colours.BLUE
-                            }}
-                        >
-                            Turn on Bluetooth.
-                        </Text>
-                    </Text>
-                </View>
-            )}
             <View
                 style={{
-                    flex: bluetoothState ? 7 : 6,
+                    flex: 6,
                     marginTop: 10
                 }}
             >
