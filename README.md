@@ -6,6 +6,7 @@ CPEN 491 JY-41 Modular Phone App for Cardiac Arrest Detection
 Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
 
 ## Repository Structure
+```
 CodeBlue
     ├── android/
     ├── assets/
@@ -25,8 +26,10 @@ CodeBlue
     ├── storybook/
     ├── App.tsx
     ├── index.js
+    ├── env_vars.tsx
     ├── README.md
     └── ...
+```
 
 ## Testing
 ### UI Component Storybook
