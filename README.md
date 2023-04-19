@@ -6,18 +6,30 @@ CPEN 491 JY-41 Modular Phone App for Cardiac Arrest Detection
 Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
 
 ## Repository Structure
-    CodeBlue
-    ├── algorithm/
+```
+CodeBlue
     ├── android/
+    ├── assets/
+    ├── codeblue-server/
+    ├── docs/
     ├── src/app/
     |   ├── assets/
+    |   ├── backgroundMode/
+    |   ├── ble/
     |   ├── components/
     |   ├── constants/
+    |   ├── emsCall/
     |   ├── localStorage/
     |   ├── navigation/
-    │   └── screens/
+    |   ├── screens/
+    │   └── utils/
     ├── storybook/
+    ├── App.tsx
+    ├── index.js
+    ├── env_vars.tsx
+    ├── README.md
     └── ...
+```
 
 ## Testing
 ### UI Component Storybook
@@ -45,3 +57,13 @@ npm run prestorybook # Add any newly written stories
 
 ### E2E Testing
 - manual
+
+
+## Documentation
+See `/docs/` for Requirements Document, Design Document, Verification & Validation document, List of Deliverables, and poster pdf. 
+
+## Design
+See `/docs/design/` for a pdf of CodeBlue's design or view the Figma here: [link](https://www.figma.com/file/7OU2D8eeyulnAefY1gSlYP/Capstone?node-id=157%3A5068&t=BwlZVMN370W3oOyi-1)
+
+## Video
+See `/src/app/assets/CodeBlue_V3.mp4` for product video. 

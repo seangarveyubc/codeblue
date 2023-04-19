@@ -9,6 +9,7 @@ import {
     HOST_DEVICE_ID
 } from '../localStorage/models/LocalStorageKeys';
 import { BackgroundMode } from '../backgroundMode/models/BackgroundMode';
+import { EC2_IP_ADDRESS } from '../../../env_vars';
 
 /**
  * Handler for remote push notifications from FCM when app is in the background
@@ -94,8 +95,6 @@ export async function saveDeviceFCMToken() {
     }
 }
 
-const ec2_address = 'http://34.209.155.128:3000';
-
 /**
  * Constructs and sends a post request to specified address. Reqeust body type should match the format specified in `codeblue-server` repo's README
  */
@@ -103,7 +102,7 @@ export const fetchDetectDemo = (
     device_id: string,
     heartRateArray: number[]
 ) => {
-    fetch(ec2_address + '/heartrate', {
+    fetch(EC2_IP_ADDRESS + '/heartrate', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
