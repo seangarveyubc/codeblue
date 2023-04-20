@@ -1,7 +1,8 @@
 # CodeBlue
+Modular Phone App for Cardiac Arrest Detection built using TypeScript and React Native for Android. 
 
 ## Authors
-CPEN 491 JY-41 Modular Phone App for Cardiac Arrest Detection
+CPEN 491 Team JY-41
 
 Akash Randhawa, Emily Lukas, Gurman Toor, Sean Garvey, Stella Wang
 
@@ -30,6 +31,18 @@ CodeBlue
     ├── README.md
     └── ...
 ```
+
+## Setup
+1. Start an AWS EC2 instance and clone the `codeblue-server` submodule repository onto the instance. 
+2. Follow instructions in `codeblue-server/README.md` to setup and run the server. 
+3. Follow the [React Native development environment setup tutorial](https://reactnative.dev/docs/environment-setup) for React Native CLI, your development OS, and Android Target OS. 
+
+## Build and run the app
+```bash
+npm i # install app dependencies
+npx react-native run-android # builds and runs android app on simulator or connected physical device
+```
+
 
 ## Testing
 ### UI Component Storybook
@@ -67,3 +80,4 @@ See `/docs/design/` for a pdf of CodeBlue's design or view the Figma here: [link
 
 ## Video
 See `/src/app/assets/CodeBlue_V3.mp4` for product video. 
+[![video-thumbnail](docs/video-thumbnail.png)](https://youtu.be/0Tl8QhQZRU4)
