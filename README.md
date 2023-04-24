@@ -78,6 +78,10 @@ See `/docs/` for Requirements Document, Design Document, Verification & Validati
 ## Design
 See `/docs/design/` for a pdf of CodeBlue's design or view the Figma here: [link](https://www.figma.com/file/7OU2D8eeyulnAefY1gSlYP/Capstone?node-id=157%3A5068&t=BwlZVMN370W3oOyi-1)
 
-## Video
-See `/src/app/assets/CodeBlue_V3.mp4` for product video. 
-[![video-thumbnail](docs/video-thumbnail.png)](https://youtu.be/0Tl8QhQZRU4)
+## Product Video
+See `/src/app/assets/CodeBlue_V3.mp4` for product video or visit [link](https://youtu.be/0Tl8QhQZRU4)
+
+## Demo Video
+[link](https://youtu.be/Bf_ENak2-Rc)
+
+
